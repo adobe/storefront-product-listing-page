@@ -1,0 +1,33 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { PreviewHeader } from '../../../components';
+import { mockPriceFilter } from '../mocks.tsx';
+
+<Meta
+  title="PLP widget/PreviewHeader"
+  component={PreviewHeader}
+  parameters={{
+    layout: 'centered', // centered | fullscreen
+  }}
+  decorators={[]}
+/>
+
+export const Template = (args) => <PreviewHeader {...args} />;
+
+# PreviewHeader
+
+WIP
+
+```
+import { PreviewHeader } from './Facets'
+```
+
+<Canvas>
+  <Story
+    name="PreviewHeader"
+    args={{
+      filterData: mockPriceFilter,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

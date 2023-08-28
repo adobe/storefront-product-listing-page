@@ -1,0 +1,48 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { SearchBar } from "@adobe/ds-widget-sdk/ui-kit";
+
+<Meta
+    title="Core - UIKit/SearchBar"
+    component={SearchBar}
+    parameters={{
+        layout: "centered", // centered | fullscreen
+    }}
+/>
+
+export const Template = args => <SearchBar {...args} />;
+
+# SearchBar
+
+WIP
+
+```
+import { SearchBar } from '@adobe/ds-widget-sdk/ui-kit'
+```
+
+<Canvas>
+    <Story
+        name="SearchBar"
+        args={{ phrase: "", onKeyPress: e => console.log({ e }) }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="SearchBar with custom placeholder"
+        args={{
+            phrase: "",
+            onKeyPress: e => console.log({ e }),
+            placeholder: "Custom placeholder",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="SearchBar with phrase"
+        args={{
+            phrase: "yoga pants",
+            onKeyPress: e => console.log({ e }),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

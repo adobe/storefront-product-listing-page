@@ -1,0 +1,48 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+// import { action } from '@storybook/addon-actions';
+import { LabelledInput } from "@adobe/ds-widget-sdk/ui-kit";
+
+<Meta
+    title="Core - UIKit/LabelledInput"
+    component={LabelledInput}
+    parameters={{
+        layout: "centered", // centered | fullscreen
+    }}
+/>
+
+export const Template = args => <LabelledInput {...args} />;
+
+# LabelledInput
+
+WIP
+
+```
+import { LabelledInput } from '@adobe/ds-widget-sdk/ui-kit'
+```
+
+<Canvas>
+    <Story
+        name="Radio"
+        args={{
+            name: "Homer",
+            type: "radio",
+            checked: true,
+            onChange: e => console.log(e),
+            label: "Homer",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Checkbox"
+        args={{
+            name: "Bender",
+            type: "checkbox",
+            checked: false,
+            onChange: e => console.log(e),
+            label: "Bender",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

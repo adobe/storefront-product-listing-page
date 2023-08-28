@@ -1,0 +1,41 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+// import { action } from '@storybook/addon-actions';
+import { InputButtonGroup } from "@adobe/ds-widget-sdk/ui-kit";
+
+<Meta
+    title="Core - UIKit/InputButtonGroup"
+    component={InputButtonGroup}
+    parameters={{
+        layout: "centered", // centered | fullscreen
+    }}
+/>
+
+export const Template = args => <InputButtonGroup {...args} />;
+
+# Filter
+
+WIP
+
+```
+import { InputButtonGroup } from '@adobe/ds-widget-sdk/ui-kit'
+```
+
+<Canvas>
+    <Story
+        name="InputButtonGroup"
+        args={{
+            title: "Milo",
+            attribute: "milo",
+            buckets: [
+                { title: "Beta Hydri" },
+                { title: "Omicron Eridani" },
+                { title: "Alpha Centauri Proxima Centauri" },
+            ],
+            isSelected: () => Math.floor(Math.random() * 10) % 2 === 0,
+            onChange: () => {},
+            type: "checkbox",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

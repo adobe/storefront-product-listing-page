@@ -1,0 +1,58 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+// import { action } from '@storybook/addon-actions';
+import { Pill } from "@adobe/ds-widget-sdk/ui-kit";
+
+<Meta
+    title="Core - UIKit/Pill"
+    component={Pill}
+    parameters={{
+        layout: "centered", // centered | fullscreen
+    }}
+/>
+
+export const Template = args => <Pill {...args} />;
+
+# Pill
+
+WIP
+
+```
+import { Pill } from '@adobe/ds-widget-sdk/ui-kit'
+```
+
+<Canvas>
+    <Story
+        name="Pill"
+        args={{
+            onClick: () => console.log("Clicked one me!"),
+            label: "Plus!",
+            classes: "",
+            CTA: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-md w-md inline-block ml-sm cursor-pointer mb-0.5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fillRule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clipRule="evenodd"
+                    />
+                </svg>
+            ),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Pill with custom CTA"
+        args={{
+            onClick: () => console.log("Clicked!"),
+            label: "Howdy!",
+            classes: "",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

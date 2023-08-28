@@ -1,0 +1,67 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+// import { action } from '@storybook/addon-actions';
+import { Alert } from "@adobe/ds-widget-sdk/ui-kit";
+
+<Meta
+    title="Core - UIKit/Alert"
+    component={Alert}
+    parameters={{
+        layout: "padded", // centered | fullscreen | padded
+    }}
+/>
+
+export const Template = args => <Alert {...args} />;
+
+# Alert
+
+WIP
+
+```
+import { Alert } from '@adobe/ds-widget-sdk/ui-kit'
+```
+
+<Canvas>
+    <Story
+        name="Error Alert"
+        args={{
+            title: "There were 2 errors with your submission!",
+            type: "error",
+            description:
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Warning Alert"
+        args={{
+            title: "Attention needed!",
+            type: "warning",
+            description: "Minimum Search query length is 3.",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Info Alert"
+        args={{
+            title: "Updates available!",
+            type: "info",
+            description:
+                "A new software update is available. See what’s new in version 2.0.4.",
+            url: "https://www.adobe.com/",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Success Alert"
+        args={{
+            title: "Successfully uploaded!",
+            type: "success",
+            description: "What you submitted has been successfully uploaded.",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

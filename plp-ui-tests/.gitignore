@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+.idea
+cypress/results/*
+cypress/screenshots/*
+cypress-test-results.json
+cypress-test-results.html
