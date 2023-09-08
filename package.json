@@ -84,7 +84,7 @@
   "devDependencies": {
     "@adobe/magento-storefront-events-sdk": "^1.4.0",
     "@babel/core": "^7.19.6",
-    "@babel/plugin-transform-zssx": "^7.19.0",
+    "@babel/plugin-transform-react-jsx": "^7.19.0",
     "@cypress/code-coverage": "^3.10.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.9",
     "@sentry/types": "^7.52.1",
