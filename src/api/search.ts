@@ -98,8 +98,10 @@ const getProductSearch = async ({
     currentPage,
     sort
   );
+  const magentoStorefrontEvtPublish = window.magentoStorefrontEvents?.publish;
 
-  window.magentoStorefrontEvents?.publish.searchRequestSent(SEARCH_UNIT_ID);
+  magentoStorefrontEvtPublish?.searchRequestSent &&
+    magentoStorefrontEvtPublish.searchRequestSent(SEARCH_UNIT_ID);
   // ======  end of data collection =====
 
   const response = await fetch(apiUrl, {
@@ -112,6 +114,7 @@ const getProductSearch = async ({
   });
 
   const results = await response.json();
+
   // ======  initialize data collection =====
   updateSearchResultsCtx(
     SEARCH_UNIT_ID,
@@ -119,14 +122,15 @@ const getProductSearch = async ({
     results?.data?.productSearch
   );
 
-  window.magentoStorefrontEvents?.publish.searchResponseReceived(
-    SEARCH_UNIT_ID
-  );
+  magentoStorefrontEvtPublish?.searchResponseReceived &&
+    magentoStorefrontEvtPublish.searchResponseReceived(SEARCH_UNIT_ID);
 
   if (categorySearch) {
-    window.magentoStorefrontEvents?.publish.categoryResultsView(SEARCH_UNIT_ID);
+    magentoStorefrontEvtPublish?.categoryResultsView &&
+      magentoStorefrontEvtPublish.categoryResultsView(SEARCH_UNIT_ID);
   } else {
-    window.magentoStorefrontEvents?.publish.searchResultsView(SEARCH_UNIT_ID);
+    magentoStorefrontEvtPublish?.searchResultsView &&
+      magentoStorefrontEvtPublish.searchResultsView(SEARCH_UNIT_ID);
   }
   // ======  end of data collection =====
 
