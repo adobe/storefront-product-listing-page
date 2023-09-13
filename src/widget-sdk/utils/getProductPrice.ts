@@ -9,7 +9,8 @@ const getProductPrice = (
   useMaximum = false,
   useFinal = false
 ): string => {
-  let priceType = product?.productView?.priceRange?.minimum;
+  let priceType =
+    product?.productView?.priceRange?.minimum ?? product?.productView?.price;
   if (useMaximum) {
     priceType = product?.productView?.priceRange?.maximum;
   }

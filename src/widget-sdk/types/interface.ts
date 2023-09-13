@@ -39,7 +39,13 @@ export interface Product {
     media_gallery: null | Media;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
-    options: null | Media[];
+    options:
+      | null
+      | {
+          id: null | string;
+          title: null | string;
+          values: null | SwatchValues[];
+        }[];
   };
   highlights: Array<Highlights>;
 }
@@ -47,14 +53,6 @@ export interface Product {
 export interface ComplexTextValue {
   html: string;
 }
-
-// export interface Price {
-//   fixed_product_taxes: null | { amount: Money; label: string };
-//   regular_price: Money;
-//   final_price: Money;
-//   discount: null | { percent_off: number; amount_off: number };
-
-// }
 
 export interface Price {
   adjustments: null | { amount: number; code: string };
@@ -66,6 +64,12 @@ export interface Media {
   label: null | string;
   position: null | number;
   disabled: null | boolean;
+}
+
+export interface SwatchValues {
+  title: null | string;
+  type: null | string;
+  value: null | string;
 }
 
 export interface Money {

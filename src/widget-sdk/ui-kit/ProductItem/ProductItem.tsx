@@ -31,6 +31,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   //   !!product?.price_range?.minimum_price?.discount?.percent_off ||
   //   product?.price_range?.minimum_price?.regular_price?.value >
   //     product?.price_range?.minimum_price?.final_price?.value;
+
+  // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean =
     productView?.priceRange?.minimum?.regular?.amount?.value >
     productView?.priceRange?.minimum?.final?.amount?.value;
@@ -38,6 +40,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGrouped = productView?.__typename === 'GroupedProduct';
   const isGiftCard = productView?.__typename === 'GiftCardProduct';
   const isConfigurable = productView?.__typename === 'ConfigurableProduct';
+  console.log(productView.options?.values);
 
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
@@ -91,41 +94,29 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
         </div>
       </a>
-      {/* <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
-        <div className="ds-sdk-product-item__product-price text-sm text-primary">
-          <SwatchButton
-            key={`${product.name}-1`}
-            value="yellow"
-            type="color"
-            checked={true}
-            // eslint-disable-next-line no-console
-            onClick={() => {
-              // eslint-disable-next-line no-console
-              console.log('here');
-            }}
-          />
-        </div>
-        <div className="ds-sdk-product-item__product-price ml-sm text-sm text-primary">
-          <SwatchButton
-            key={`${product.name}-2`}
-            value="blue"
-            type="color"
-            checked={false}
-            // eslint-disable-next-line no-console
-            onClick={() => {}}
-          />
-        </div>
-        <div className="ds-sdk-product-item__product-price ml-sm text-sm text-primary">
-          <SwatchButton
-            key={`${product.name}-3`}
-            value="red"
-            type="color"
-            checked={false}
-            // eslint-disable-next-line no-console
-            onClick={() => {}}
-          />
-        </div>
-      </div> */}
+      <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
+        {productView.options?.map((swatches) =>
+          swatches.values?.map(
+            (swatch) =>
+              swatch.type == 'COLOR_HEX' && (
+                <div className="ds-sdk-product-item__product-price text-sm text-primary mr-sm">
+                  <SwatchButton
+                    key={productView.name}
+                    value={swatch.value ?? ''}
+                    type={swatch.type}
+                    checked={true}
+                    // eslint-disable-next-line no-console
+                    onClick={() => {
+                      // eslint-disable-next-line no-console
+                      console.log('here');
+                      console.log(productView.options ?? '');
+                    }}
+                  />
+                </div>
+              )
+          )
+        )}
+      </div>
     </div>
   );
 };
