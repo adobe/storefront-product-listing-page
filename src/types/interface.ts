@@ -44,6 +44,7 @@ export interface MagentoHeaders {
   storeViewCode: string;
   apiKey: string;
   xRequestId: string;
+  customerGroup: string;
 }
 
 export interface ProductSearchQuery {
@@ -140,22 +141,35 @@ export interface Product {
     meta_title: null | string;
     meta_keyword: null | string;
     meta_description: null | string;
-    image: null | Media;
-    small_image: null | Media;
-    thumbnail: null | Media;
+    images: null | Media[];
+    // image: null | Media;
+    // small_image: null | Media;
+    // thumbnail: null | Media;
     new_from_date: null | string;
     new_to_date: null | string;
     created_at: null | string;
     updated_at: null | string;
-    price_range: {
-      minimum_price: Price;
-      maximum_price: Price;
+    price: {
+      final: Price;
+      regular: Price;
+    };
+    priceRange: {
+      minimum: {
+        final: Price;
+        regular: Price;
+      };
+      maximum: {
+        final: Price;
+        regular: Price;
+      };
     };
     gift_message_available: null | string;
-    canonical_url: null | string;
+    // canonical_url: null | string;
+    url: null | string;
     media_gallery: null | Media;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
+    options: null | Media[];
   };
   highlights: Array<Highlights>;
 }
@@ -168,11 +182,16 @@ export interface Money {
   currency: string;
 }
 
+// export interface Price {
+//   fixed_product_taxes: null | { amount: Money; label: string };
+//   regular_price: Money;
+//   final_price: Money;
+//   discount: null | { percent_off: number; amount_off: number };
+// }
+
 export interface Price {
-  fixed_product_taxes: null | { amount: Money; label: string };
-  regular_price: Money;
-  final_price: Money;
-  discount: null | { percent_off: number; amount_off: number };
+  adjustments: null | { amount: number; code: string };
+  amount: Money;
 }
 
 export interface Media {

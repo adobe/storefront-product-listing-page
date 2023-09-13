@@ -23,6 +23,7 @@ const getHeaders = (headers: MagentoHeaders) => {
     'X-Api-Key': headers.apiKey,
     'X-Request-Id': headers.xRequestId,
     'Content-Type': 'application/json',
+    'Magento-Customer-Group': headers.customerGroup,
   };
 };
 
@@ -84,6 +85,7 @@ const getProductSearch = async ({
     storeViewCode,
     apiKey,
     xRequestId,
+    customerGroup: context?.customerGroup ?? '',
   });
 
   // ======  initialize data collection =====
@@ -98,10 +100,8 @@ const getProductSearch = async ({
     currentPage,
     sort
   );
-  const magentoStorefrontEvtPublish = window.magentoStorefrontEvents?.publish;
 
-  magentoStorefrontEvtPublish?.searchRequestSent &&
-    magentoStorefrontEvtPublish.searchRequestSent(SEARCH_UNIT_ID);
+  window.magentoStorefrontEvents?.publish.searchRequestSent(SEARCH_UNIT_ID);
   // ======  end of data collection =====
 
   const response = await fetch(apiUrl, {
@@ -114,7 +114,7 @@ const getProductSearch = async ({
   });
 
   const results = await response.json();
-
+  console.log(results);
   // ======  initialize data collection =====
   updateSearchResultsCtx(
     SEARCH_UNIT_ID,
@@ -122,18 +122,18 @@ const getProductSearch = async ({
     results?.data?.productSearch
   );
 
-  magentoStorefrontEvtPublish?.searchResponseReceived &&
-    magentoStorefrontEvtPublish.searchResponseReceived(SEARCH_UNIT_ID);
+  window.magentoStorefrontEvents?.publish.searchResponseReceived(
+    SEARCH_UNIT_ID
+  );
 
   if (categorySearch) {
-    magentoStorefrontEvtPublish?.categoryResultsView &&
-      magentoStorefrontEvtPublish.categoryResultsView(SEARCH_UNIT_ID);
+    window.magentoStorefrontEvents?.publish.categoryResultsView(SEARCH_UNIT_ID);
   } else {
-    magentoStorefrontEvtPublish?.searchResultsView &&
-      magentoStorefrontEvtPublish.searchResultsView(SEARCH_UNIT_ID);
+    window.magentoStorefrontEvents?.publish.searchResultsView(SEARCH_UNIT_ID);
   }
   // ======  end of data collection =====
 
+  console.log('data', results?.data);
   return results?.data;
 };
 
@@ -153,6 +153,7 @@ const getAttributeMetadata = async ({
     storeViewCode,
     apiKey,
     xRequestId,
+    customerGroup: '',
   });
 
   const response = await fetch(apiUrl, {

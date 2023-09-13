@@ -1,42 +1,42 @@
-import getSymbolFromCurrency from "currency-symbol-map";
+import getSymbolFromCurrency from 'currency-symbol-map';
 
-import { Product } from "../types/interface";
+import { Product } from '../types/interface';
 
 const getProductPrice = (
-    product: Product,
-    currencySymbol: string,
-    currencyRate: string | undefined,
-    useMaximum = false,
-    useFinal = false,
+  product: Product,
+  currencySymbol: string,
+  currencyRate: string | undefined,
+  useMaximum = false,
+  useFinal = false
 ): string => {
-    let priceType = product?.product?.price_range?.minimum_price;
-    if (useMaximum) {
-        priceType = product?.product?.price_range?.maximum_price;
-    }
+  let priceType = product?.product?.priceRange?.minimum;
+  if (useMaximum) {
+    priceType = product?.product?.priceRange?.maximum;
+  }
 
-    let price = priceType?.regular_price;
-    if (useFinal) {
-        price = priceType?.final_price;
-    }
+  let price = priceType?.regular;
+  if (useFinal) {
+    price = priceType?.final;
+  }
 
-    // if currency symbol is configurable within Magento, that symbol is used
-    let currency = price?.currency;
+  // if currency symbol is configurable within Magento, that symbol is used
+  let currency = price?.amount?.currency;
 
-    if (currencySymbol) {
-        currency = currencySymbol;
-    } else {
-        currency = getSymbolFromCurrency(currency) ?? "$";
-    }
+  if (currencySymbol) {
+    currency = currencySymbol;
+  } else {
+    currency = getSymbolFromCurrency(currency) ?? '$';
+  }
 
-    if (price?.value === null) {
-        return `${currency}0`;
-    }
+  if (price?.amount?.value === null) {
+    return `${currency}0`;
+  }
 
-    const convertedPrice = currencyRate
-        ? price?.value * parseFloat(currencyRate)
-        : price?.value;
+  const convertedPrice = currencyRate
+    ? price?.amount?.value * parseFloat(currencyRate)
+    : price?.amount?.value;
 
-    return `${currency}${convertedPrice.toFixed(2)}`;
+  return `${currency}${convertedPrice.toFixed(2)}`;
 };
 
 export { getProductPrice };
