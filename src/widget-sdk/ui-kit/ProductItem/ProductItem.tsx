@@ -21,9 +21,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductProps) => {
-  const { product } = item;
+  const { productView } = item;
 
   const productImage = getProductImageURL(item, 'small'); // get "small" image for PLP
+  console.log('product', productView);
 
   // const discount: boolean =
   //   !!product?.price_range?.minimum_price?.discount?.amount_off ||
@@ -31,24 +32,24 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   //   product?.price_range?.minimum_price?.regular_price?.value >
   //     product?.price_range?.minimum_price?.final_price?.value;
   const discount: boolean =
-    product?.priceRange?.minimum?.regular?.amount?.value >
-    product?.priceRange?.minimum?.final?.amount?.value;
-  const isBundle = product?.__typename === 'BundleProduct';
-  const isGrouped = product?.__typename === 'GroupedProduct';
-  const isGiftCard = product?.__typename === 'GiftCardProduct';
-  const isConfigurable = product?.__typename === 'ConfigurableProduct';
+    productView?.priceRange?.minimum?.regular?.amount?.value >
+    productView?.priceRange?.minimum?.final?.amount?.value;
+  const isBundle = productView?.__typename === 'BundleProduct';
+  const isGrouped = productView?.__typename === 'GroupedProduct';
+  const isGiftCard = productView?.__typename === 'GiftCardProduct';
+  const isConfigurable = productView?.__typename === 'ConfigurableProduct';
 
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
       SEARCH_UNIT_ID,
-      product.sku
+      productView.sku
     );
   };
 
   return (
     <div className="ds-sdk-product-item group relative flex flex-col justify-between h-full">
       <a
-        href={product?.url as string}
+        href={productView?.url as string}
         onClick={onProductClick}
         className="!text-primary hover:no-underline hover:text-primary"
       >
@@ -64,7 +65,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-96">
                 <img
                   src={productImage}
-                  alt={product.name}
+                  alt={productView.name}
                   loading="eager"
                   className="max-h-[30rem] h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
@@ -75,7 +76,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
           <div className="flex flex-col">
             <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
-              {htmlStringDecode(product.name)}
+              {htmlStringDecode(productView.name)}
             </div>
             <ProductPrice
               item={item}

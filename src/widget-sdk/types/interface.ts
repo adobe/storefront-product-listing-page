@@ -1,5 +1,5 @@
 export interface Product {
-  product: {
+  productView: {
     __typename: string;
     id: number;
     uid: string;

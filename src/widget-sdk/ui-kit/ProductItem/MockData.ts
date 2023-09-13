@@ -1,7 +1,7 @@
 import { Product } from '../../types/interface';
 
 export const sampleProductNoImage: Product = {
-  product: {
+  productView: {
     __typename: 'SimpleProduct',
     id: 21,
     uid: '21',
@@ -107,7 +107,7 @@ export const sampleProductNoImage: Product = {
 };
 
 export const sampleProductDiscounted: Product = {
-  product: {
+  productView: {
     __typename: 'SimpleProduct',
     id: 21,
     uid: '21',
@@ -232,7 +232,7 @@ export const sampleProductDiscounted: Product = {
 };
 
 export const sampleProductNotDiscounted: Product = {
-  product: {
+  productView: {
     __typename: 'SimpleProduct',
     id: 21,
     uid: '21',

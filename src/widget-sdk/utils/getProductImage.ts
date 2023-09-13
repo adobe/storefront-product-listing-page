@@ -3,7 +3,7 @@ import { Product } from '../../types/interface';
 type imageType = 'thumbnail' | 'small' | 'base';
 
 const getProductImageURL = (product: Product, imageType: imageType): string => {
-  const item = product.product;
+  const item = product.productView;
 
   let url = null;
 

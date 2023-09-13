@@ -1,7 +1,7 @@
 import { Product } from '../types/interface';
 
 const getProductImageURL = (product: Product): string => {
-  const item = product.product;
+  const item = product.productView;
 
   let url = null;
 
