@@ -17,10 +17,10 @@ pipeline {
         TMPDIR = "$WORKSPACE"
         GH_TOKEN = credentials("dsuser-jenkins-token")
         SEARCH_ARTIFACTORY = credentials("SEARCH_ARTIFACTORY")
-        PROJECT = 'ds-search-plp'
-        DIST_PACKAGE_FILE = '~/packages/ds-search-plp/dist'
+        PROJECT = 'storefront-product-listing-page'
+        DIST_PACKAGE_FILE = '~/packages/dist'
 
-        PACKAGE_JSON = readJSON file: './packages/ds-search-plp/package.json'
+        PACKAGE_JSON = readJSON file: './package.json'
         MAJOR_VERSION = sh(returnStdout: true, script: "echo v${PACKAGE_JSON.version} | cut -f1 -d'.'").trim()
         tag = sh(returnStdout: true, script: 'git tag --contains').trim()
         // Match pattern like v1.0.1-rc.1 or v1.0.1 for a release
@@ -35,11 +35,10 @@ pipeline {
     stages {
         stage('Lint') {
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
                         sh 'yarn install'
-                        sh "yarn ds-search-plp lint"
-                        sh "yarn ds-widget-sdk lint"
+                        sh "yarn lint"
                     }
                 }
             }
@@ -47,9 +46,9 @@ pipeline {
 
         stage('Unit Test & Coverage') {
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn ds-search-plp test"
+                        sh "yarn test"
                     }
                 }
             }  
@@ -60,11 +59,11 @@ pipeline {
                 changeRequest target: 'develop' 
             }
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                            sh 'yarn ds-search-plp dev:coverage & echo $! > $WORKSPACE/DEV_SERVER_PID.pid; sleep 15'
-                            sh 'yarn ds-search-plp coverage:e2e:headless'
-                            sh 'yarn ds-search-plp cover:report'
+                            sh 'yarn dev:coverage & echo $! > $WORKSPACE/DEV_SERVER_PID.pid; sleep 15'
+                            sh 'yarn coverage:e2e:headless'
+                            sh 'yarn cover:report'
                             sh 'kill -9 $(cat $WORKSPACE/DEV_SERVER_PID.pid)'
                     }
                 }
@@ -79,9 +78,9 @@ pipeline {
             }
 
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn ds-search-plp build:qa"
+                        sh "yarn build:qa"
                     }
                 }
             }
@@ -98,7 +97,7 @@ pipeline {
             }
 
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
                         klam("klam-data-solutions-qa-api")
                         sh "aws s3 sync ${DIST_PACKAGE_FILE} s3://${QA_BUCKET_URL} --delete && aws cloudfront create-invalidation --distribution-id E2936K1R0FNG2P --paths \"/*\""
@@ -117,9 +116,9 @@ pipeline {
             }
 
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn ds-search-plp build:stage"
+                        sh "yarn build:stage"
                     }
                 }
             }
@@ -140,7 +139,7 @@ pipeline {
             }
 
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
                         klam("klam-data-solutions-prod-api")
                         sh "aws s3 sync ${DIST_PACKAGE_FILE} s3://${STAGE_BUCKET_URL} --delete && aws cloudfront create-invalidation --distribution-id E13LGX9TL8FGP3 --paths \"/*\""
@@ -188,9 +187,9 @@ pipeline {
             }
 
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn ds-search-plp build"
+                        sh "yarn build"
                     }
                 }
             }
@@ -211,7 +210,7 @@ pipeline {
             }
 
             steps {
-                dir("${env.WORKSPACE}/Data-Solutions-Storefront-Widgets"){    
+                dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
                         klam("klam-data-solutions-prod-api")
                         sh "aws s3 sync ${DIST_PACKAGE_FILE} s3://${PROD_BUCKET_URL} --delete && aws cloudfront create-invalidation --distribution-id E13LGX9TL8FGP3 --paths \"/*\""
