@@ -30,9 +30,9 @@ SwatchButtonProps) => {
     // eslint-disable-next-line no-console
     console.log('here', key);
     const color = value.toLowerCase();
-    const className = `min-w-[32px] ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
+    const className = `${value} min-w-[32px] ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
     return (
-      <div className="ds-sdk-swatch-button">
+      <div className={`ds-sdk-swatch-button_${value}`}>
         <button
           key={key}
           className={className}
@@ -42,7 +42,7 @@ SwatchButtonProps) => {
           // onClick={() => setSelected(!selected)}
           // checked={selected}
           onClick={onClick}
-          checked={!checked}
+          checked={checked}
         />
       </div>
     );
@@ -50,9 +50,9 @@ SwatchButtonProps) => {
 
   if (type === 'image_url') {
     // const color = value.toLowerCase();
-    const className = `min-w-[32px] bg-gray-100 ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
+    const className = `${value} min-w-[32px] bg-gray-100 ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
     return (
-      <div className="ds-sdk-swatch-button">
+      <div className={`ds-sdk-swatch-button_${value}`}>
         <button
           key={key}
           className={className}
@@ -63,9 +63,9 @@ SwatchButtonProps) => {
       </div>
     );
   }
-  const className = `flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-full p-sm  outline ${outlineColor} h-[32px]`;
+  const className = `${value} flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-full p-sm  outline ${outlineColor} h-[32px]`;
   return (
-    <div className="ds-sdk-swatch-button">
+    <div className={`ds-sdk-swatch-button_${value}`}>
       <button
         key={key}
         className={className}

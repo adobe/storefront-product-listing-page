@@ -3,16 +3,20 @@ import getSymbolFromCurrency from 'currency-symbol-map';
 import { Product } from '../types/interface';
 
 const getProductPrice = (
-  product: Product,
+  product: any,
   currencySymbol: string,
   currencyRate: string | undefined,
   useMaximum = false,
   useFinal = false
 ): string => {
   let priceType =
-    product?.productView?.priceRange?.minimum ?? product?.productView?.price;
+    product?.productView?.priceRange?.minimum ??
+    product?.productView?.price ??
+    product?.refineProduct?.priceRange?.minimum;
   if (useMaximum) {
-    priceType = product?.productView?.priceRange?.maximum;
+    priceType =
+      product?.productView?.priceRange?.maximum ??
+      product?.refineProduct?.priceRange?.maximum;
   }
 
   let price = priceType?.regular;

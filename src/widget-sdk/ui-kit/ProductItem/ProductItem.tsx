@@ -1,8 +1,11 @@
 import { SwatchButton } from '../../ui-kit';
 import { FunctionComponent } from 'preact';
+import { useState } from 'preact/hooks';
+import { refineProductSearch } from '../../../api/search';
+import { useStore } from '../../../context/store';
 
 import NoImage from '../../icons/NoImage.svg';
-import { Product } from '../../types/interface';
+import { Product, RefinedProduct } from '../../types/interface';
 import {
   getProductImageURL,
   htmlStringDecode,
@@ -22,20 +25,36 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   currencyRate,
 }: ProductProps) => {
   const { productView } = item;
+  const [selected, setSelected] = useState(false);
+  const [productImages, setImages] = useState(item.productView.images);
+  const [product, setProduct] = useState<RefinedProduct>();
+  const storeCtx = useStore();
+  const handleSelection = async (
+    val: boolean,
+    optionIds: string[],
+    sku: string
+  ) => {
+    const data = await refineProductSearch({
+      ...storeCtx,
+      optionIds: optionIds,
+      sku: sku,
+    });
+    console.log('refined data', data);
+    setImages(data.refineProduct.images);
+    setProduct(data);
+    console.log(productImages);
+    setSelected(val);
+  };
 
-  const productImage = getProductImageURL(item, 'small'); // get "small" image for PLP
+  const productImage = getProductImageURL(productImages ?? [], 'small'); // get "small" image for PLP
   console.log('product', productView);
 
-  // const discount: boolean =
-  //   !!product?.price_range?.minimum_price?.discount?.amount_off ||
-  //   !!product?.price_range?.minimum_price?.discount?.percent_off ||
-  //   product?.price_range?.minimum_price?.regular_price?.value >
-  //     product?.price_range?.minimum_price?.final_price?.value;
-
   // will have to figure out discount logic for amount_off and percent_off still
-  const discount: boolean =
-    productView?.priceRange?.minimum?.regular?.amount?.value >
-    productView?.priceRange?.minimum?.final?.amount?.value;
+  const discount: boolean = product
+    ? product.refineProduct?.priceRange?.minimum?.regular?.amount?.value >
+      product.refineProduct?.priceRange?.minimum?.final?.amount?.value
+    : productView?.priceRange?.minimum?.regular?.amount?.value >
+      productView?.priceRange?.minimum?.final?.amount?.value;
   const isBundle = productView?.__typename === 'BundleProduct';
   const isGrouped = productView?.__typename === 'GroupedProduct';
   const isGiftCard = productView?.__typename === 'GiftCardProduct';
@@ -82,7 +101,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               {htmlStringDecode(productView.name)}
             </div>
             <ProductPrice
-              item={item}
+              item={product ?? item}
               isBundle={isBundle}
               isGrouped={isGrouped}
               isGiftCard={isGiftCard}
@@ -99,18 +118,21 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           swatches.values?.map(
             (swatch) =>
               swatch.type == 'COLOR_HEX' && (
-                <div className="ds-sdk-product-item__product-price text-sm text-primary mr-sm">
+                <div
+                  className={`ds-sdk-product-item__product-swatch-${swatch.title} text-sm text-primary mr-sm`}
+                >
                   <SwatchButton
-                    key={productView.name}
+                    key={swatch.title ?? ''}
                     value={swatch.value ?? ''}
                     type={swatch.type}
-                    checked={true}
-                    // eslint-disable-next-line no-console
-                    onClick={() => {
-                      // eslint-disable-next-line no-console
-                      console.log('here');
-                      console.log(productView.options ?? '');
-                    }}
+                    checked={selected}
+                    onClick={() =>
+                      handleSelection(
+                        selected,
+                        [swatch.id ?? ''],
+                        productView.sku
+                      )
+                    }
                   />
                 </div>
               )

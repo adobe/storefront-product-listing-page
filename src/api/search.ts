@@ -1,6 +1,7 @@
 import {
   ATTRIBUTE_METADATA_QUERY,
   PRODUCT_SEARCH_QUERY,
+  REFINE_PRODUCT_QUERY,
 } from '../widget-sdk/gql/queries';
 import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,6 +12,8 @@ import {
   ClientProps,
   MagentoHeaders,
   ProductSearchQuery,
+  RefineProductQuery,
+  RefinedProduct,
   ProductSearchResponse,
 } from '../types/interface';
 
@@ -167,4 +170,45 @@ const getAttributeMetadata = async ({
   return results?.data;
 };
 
-export { getProductSearch, getAttributeMetadata };
+const refineProductSearch = async ({
+  environmentId,
+  websiteCode,
+  storeCode,
+  storeViewCode,
+  apiKey,
+  apiUrl,
+  xRequestId = uuidv4(),
+  context,
+  optionIds,
+  sku,
+}: RefineProductQuery & ClientProps): Promise<RefinedProduct> => {
+  const variables = {
+    optionIds,
+    sku,
+  };
+
+  const headers = getHeaders({
+    environmentId,
+    websiteCode,
+    storeCode,
+    storeViewCode,
+    apiKey,
+    xRequestId,
+    customerGroup: context?.customerGroup ?? '',
+  });
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: REFINE_PRODUCT_QUERY,
+      variables: { ...variables },
+    }),
+  });
+  const results = await response.json();
+
+  console.log('refined product', results?.data);
+  return results?.data;
+};
+
+export { getProductSearch, getAttributeMetadata, refineProductSearch };

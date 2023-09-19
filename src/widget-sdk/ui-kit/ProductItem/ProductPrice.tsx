@@ -1,14 +1,14 @@
 import { getProductPrice } from '../../utils';
 import { FunctionComponent } from 'preact';
 
-import { Product } from '../../types/interface';
+import { Product, RefinedProduct } from '../../types/interface';
 
 export interface ProductPriceProps {
   isBundle: boolean;
   isGrouped: boolean;
   isGiftCard: boolean;
   isConfigurable: boolean;
-  item: Product;
+  item: Product | RefinedProduct;
   discount: boolean | undefined;
   currencySymbol: string;
   currencyRate?: string;

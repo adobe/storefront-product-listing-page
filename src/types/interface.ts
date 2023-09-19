@@ -60,6 +60,12 @@ export interface ProductSearchQuery {
   categorySearch?: boolean;
 }
 
+export interface RefineProductQuery {
+  optionIds: string[];
+  sku: string;
+  context?: QueryContextInput;
+}
+
 export type QueryResponse<T> = Promise<T>;
 
 export interface SearchClauseInput {
@@ -180,6 +186,58 @@ export interface Product {
   highlights: Array<Highlights>;
 }
 
+export interface RefinedProduct {
+  refineProduct: {
+    __typename: string;
+    id: number;
+    uid: string;
+    name: string;
+    sku: string;
+    description: null | ComplexTextValue;
+    short_description: null | ComplexTextValue;
+    attribute_set_id: null | number;
+    meta_title: null | string;
+    meta_keyword: null | string;
+    meta_description: null | string;
+    images: null | Media[];
+    // image: null | Media;
+    // small_image: null | Media;
+    // thumbnail: null | Media;
+    new_from_date: null | string;
+    new_to_date: null | string;
+    created_at: null | string;
+    updated_at: null | string;
+    price: {
+      final: Price;
+      regular: Price;
+    };
+    priceRange: {
+      minimum: {
+        final: Price;
+        regular: Price;
+      };
+      maximum: {
+        final: Price;
+        regular: Price;
+      };
+    };
+    gift_message_available: null | string;
+    // canonical_url: null | string;
+    url: null | string;
+    media_gallery: null | Media;
+    custom_attributes: null | CustomAttribute;
+    add_to_cart_allowed: null | boolean;
+    options:
+      | null
+      | {
+          id: null | string;
+          title: null | string;
+          values: null | SwatchValues[];
+        }[];
+  };
+  highlights: Array<Highlights>;
+}
+
 export interface ComplexTextValue {
   html: string;
 }
@@ -202,6 +260,7 @@ export interface Media {
 
 export interface SwatchValues {
   title: null | string;
+  id: null | string;
   type: null | string;
   value: null | string;
 }
