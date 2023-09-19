@@ -29,25 +29,18 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const [productImages, setImages] = useState(item.productView.images);
   const [product, setProduct] = useState<RefinedProduct>();
   const storeCtx = useStore();
-  const handleSelection = async (
-    val: boolean,
-    optionIds: string[],
-    sku: string
-  ) => {
+  const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProductSearch({
       ...storeCtx,
       optionIds: optionIds,
       sku: sku,
     });
-    console.log('refined data', data);
     setImages(data.refineProduct.images);
     setProduct(data);
-    console.log(productImages);
-    setSelected(val);
+    setSelected(true);
   };
 
   const productImage = getProductImageURL(productImages ?? [], 'small'); // get "small" image for PLP
-  console.log('product', productView);
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = product
@@ -59,7 +52,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGrouped = productView?.__typename === 'GroupedProduct';
   const isGiftCard = productView?.__typename === 'GiftCardProduct';
   const isConfigurable = productView?.__typename === 'ConfigurableProduct';
-  console.log(productView.options?.values);
 
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
@@ -122,16 +114,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   className={`ds-sdk-product-item__product-swatch-${swatch.title} text-sm text-primary mr-sm`}
                 >
                   <SwatchButton
-                    key={swatch.title ?? ''}
+                    id={swatch.id ?? 'pants'}
                     value={swatch.value ?? ''}
                     type={swatch.type}
                     checked={selected}
                     onClick={() =>
-                      handleSelection(
-                        selected,
-                        [swatch.id ?? ''],
-                        productView.sku
-                      )
+                      handleSelection([swatch.id ?? ''], productView.sku)
                     }
                   />
                 </div>

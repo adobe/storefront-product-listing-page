@@ -106,8 +106,6 @@ const createProducts = (
     return [];
   }
 
-  console.log('items', items);
-
   const products: SearchResultProduct[] = items.map((item, index) => ({
     name: item?.productView?.name,
     sku: item?.productView?.sku,
@@ -115,14 +113,12 @@ const createProducts = (
     imageUrl: item?.productView?.images?.length
       ? item?.productView?.images[0].url ?? ''
       : '',
-    // price: item?.product?.price_range?.minimum_price?.final_price?.value,
     price:
       item?.productView?.price?.final?.amount?.value ??
       item?.productView?.priceRange?.minimum?.final?.amount?.value,
     rank: index,
   }));
 
-  console.log('products', products);
   return products;
 };
 

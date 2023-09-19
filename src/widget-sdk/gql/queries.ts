@@ -130,7 +130,6 @@ const REFINE_PRODUCT_QUERY = `
                     values {
                         id
                         title
-    
                     }
                 }
                 priceRange {

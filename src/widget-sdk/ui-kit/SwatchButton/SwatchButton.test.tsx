@@ -7,7 +7,7 @@ describe('WidgetSDK - UIKit/PerPagePicker', () => {
     const handleChange = jest.fn();
     const { container } = render(
       <SwatchButton
-        key="test"
+        id="test"
         value="test"
         type="text"
         checked={true}

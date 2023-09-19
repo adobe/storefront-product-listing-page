@@ -117,7 +117,6 @@ const getProductSearch = async ({
   });
 
   const results = await response.json();
-  console.log(results);
   // ======  initialize data collection =====
   updateSearchResultsCtx(
     SEARCH_UNIT_ID,
@@ -136,7 +135,6 @@ const getProductSearch = async ({
   }
   // ======  end of data collection =====
 
-  console.log('data', results?.data);
   return results?.data;
 };
 
@@ -206,8 +204,6 @@ const refineProductSearch = async ({
     }),
   });
   const results = await response.json();
-
-  console.log('refined product', results?.data);
   return results?.data;
 };
 

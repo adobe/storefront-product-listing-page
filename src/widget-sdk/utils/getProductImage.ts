@@ -3,8 +3,6 @@ import { Product, Media } from '../../types/interface';
 type imageType = 'thumbnail' | 'small' | 'base';
 
 const getProductImageURL = (images: Media[], imageType: imageType): string => {
-  // const item = product.productView;
-
   let url = null;
 
   if (imageType === 'thumbnail' && images?.length) {
