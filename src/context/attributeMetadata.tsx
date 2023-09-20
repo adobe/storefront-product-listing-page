@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'preact/hooks';
 
 import { getAttributeMetadata } from '../api/search';
 import { AttributeMetadata } from '../types/interface';
-import { useFloodgateFlags } from '../utils/Floodgate';
 import { useStore } from './store';
 
 interface WithChildrenProps {

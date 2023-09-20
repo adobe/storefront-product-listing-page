@@ -1,9 +1,3 @@
-import { FilterButton, SearchBar, SortDropdown } from '../../widget-sdk/ui-kit';
-import {
-  defaultSortOptions,
-  generateGQLSortInput,
-  getSortOptionsfromMetadata,
-} from '../../widget-sdk/utils/sort';
 import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
 import { getAttributeMetadata } from '../../api/search';
@@ -12,6 +6,12 @@ import { Facet } from '../../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../../utils/handleUrlFilters';
 
 import { TranslationContext } from '../../context/translation';
+import { FilterButton, SearchBar, SortDropdown } from '../../widget-sdk/ui-kit';
+import {
+  defaultSortOptions,
+  generateGQLSortInput,
+  getSortOptionsfromMetadata,
+} from '../../widget-sdk/utils/sort';
 import Facets from '../Facets';
 
 interface Props {

@@ -1,4 +1,3 @@
-import { PageSizeOption } from '../widget-sdk/utils/types';
 import { createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
@@ -21,6 +20,7 @@ import {
   getValueFromUrl,
   handleUrlPagination,
 } from '../utils/handleUrlFilters';
+import { PageSizeOption } from '../widget-sdk/utils/types';
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';

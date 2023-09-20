@@ -5,11 +5,11 @@ import './styles/global.css';
 import { getUserViewHistory } from '../src/widget-sdk/utils';
 import App from './containers/App';
 import {
-  AttributeMetadataProvider,
-  ProductsContextProvider,
-  SearchProvider,
-  StoreContextProvider,
-  StoreDetailsProps,
+    AttributeMetadataProvider,
+    ProductsContextProvider,
+    SearchProvider,
+    StoreContextProvider,
+    StoreDetailsProps,
 } from './context/';
 import Resize from './context/displayChange';
 import { SentryProvider } from './context/sentry';
@@ -61,6 +61,4 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   );
 };
 
-if (typeof window !== 'undefined' && !window.LiveSearchPLP) {
-  window.LiveSearchPLP = LiveSearchPLP;
-}
+export default LiveSearchPLP;
