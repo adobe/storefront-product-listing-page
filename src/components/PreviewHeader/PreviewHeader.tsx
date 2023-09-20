@@ -6,10 +6,10 @@ import {
 } from '../../widget-sdk/utils/sort';
 import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
-import { getAttributeMetadata } from 'src/api/search';
-import { useProducts, useSearch, useSensor, useStore } from 'src/context';
-import { Facet } from 'src/types/interface';
-import { getValueFromUrl, handleUrlSort } from 'src/utils/handleUrlFilters';
+import { getAttributeMetadata } from '../../api/search';
+import { useProducts, useSearch, useSensor, useStore } from '../../context';
+import { Facet } from '../../types/interface';
+import { getValueFromUrl, handleUrlSort } from '../../utils/handleUrlFilters';
 
 import { TranslationContext } from '../../context/translation';
 import Facets from '../Facets';

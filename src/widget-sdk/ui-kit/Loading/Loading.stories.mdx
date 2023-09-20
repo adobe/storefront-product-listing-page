@@ -1,12 +1,11 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
-// import { action } from '@storybook/addon-actions';
-import { Loading } from "@adobe/ds-widget-sdk/ui-kit";
+import { Loading } from "../Loading";
 
 <Meta
     title="Core - UIKit/Loading"
     component={Loading}
     parameters={{
-        layout: "centered", // centered | fullscreen
+        layout: "centered"
     }}
 />
 
@@ -17,7 +16,7 @@ export const Template = args => <Loading {...args} />;
 WIP
 
 ```
-import { Loading } from '@adobe/ds-widget-sdk/ui-kit'
+import { Loading } from '../Loading'
 ```
 
 <Canvas>
