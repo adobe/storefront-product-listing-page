@@ -1,4 +1,4 @@
-import { SwatchButton } from '../../ui-kit';
+import { SwatchButton, SwatchButtonGroup } from '../../ui-kit';
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { refineProductSearch } from '../../../api/search';
@@ -26,18 +26,26 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 }: ProductProps) => {
   const { productView } = item;
   const [selected, setSelected] = useState(false);
+  const [selectedSwatch, setSelectedSwatch] = useState('');
   const [productImages, setImages] = useState(item.productView.images);
   const [product, setProduct] = useState<RefinedProduct>();
   const storeCtx = useStore();
+
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProductSearch({
       ...storeCtx,
       optionIds: optionIds,
       sku: sku,
     });
+    setSelectedSwatch(optionIds[0]);
     setImages(data.refineProduct.images);
     setProduct(data);
     setSelected(true);
+  };
+
+  const isSelected = (id: string) => {
+    const selected = selectedSwatch ? selectedSwatch === id : false;
+    return selected;
   };
 
   const productImage = getProductImageURL(productImages ?? [], 'small'); // get "small" image for PLP
@@ -106,25 +114,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         </div>
       </a>
       <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
-        {productView.options?.map((swatches) =>
-          swatches.values?.map(
-            (swatch) =>
-              swatch.type == 'COLOR_HEX' && (
-                <div
-                  className={`ds-sdk-product-item__product-swatch-${swatch.title} text-sm text-primary mr-sm`}
-                >
-                  <SwatchButton
-                    id={swatch.id ?? 'pants'}
-                    value={swatch.value ?? ''}
-                    type={swatch.type}
-                    checked={selected}
-                    onClick={() =>
-                      handleSelection([swatch.id ?? ''], productView.sku)
-                    }
-                  />
-                </div>
-              )
-          )
+        {productView.options?.map(
+          (swatches) =>
+            swatches.id == 'color' && (
+              <SwatchButtonGroup
+                isSelected={isSelected}
+                swatches={swatches.values ?? []}
+                showMore={false}
+                onClick={handleSelection}
+                sku={productView.sku}
+              />
+            )
         )}
       </div>
     </div>

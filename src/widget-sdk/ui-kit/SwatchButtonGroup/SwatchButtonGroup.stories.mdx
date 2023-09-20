@@ -1,0 +1,55 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+// import { action } from '@storybook/addon-actions';
+import { SwatchButtonGroup } from '@adobe/ds-widget-sdk/ui-kit';
+
+<Meta
+  title="Core - UIKit/SwatchButtonGroup"
+  component={SwatchButtonGroup}
+  parameters={{
+    layout: 'centered', // centered | fullscreen
+  }}
+/>
+
+export const Template = (args) => <SwatchButtonGroup {...args} />;
+
+# Filter
+
+WIP
+
+```
+import { SwatchButtonGroup } from '@adobe/ds-widget-sdk/ui-kit'
+```
+
+<Canvas>
+  <Story
+    name="SwatchButtonGroup"
+    args={{
+      isSelected: () => Math.floor(Math.random() * 10) % 2 === 0,
+      swatches: [
+        {
+          title: 'Black',
+          id: 'test1',
+          type: 'COLOR_HEX',
+          value: '#000000',
+        },
+        {
+          title: 'Orange',
+          id: 'test2',
+          type: 'COLOR_HEX',
+          value: '#eb6703',
+        },
+        {
+          title: 'White',
+          id: 'test3',
+          type: 'COLOR_HEX',
+          value: '#ffffff',
+        },
+      ],
+      showMore: 'false',
+      onClick: () => {},
+      skue: 'test',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

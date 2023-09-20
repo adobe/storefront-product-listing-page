@@ -9,6 +9,7 @@ export * from './SearchBar';
 export * from './Loading';
 export * from './SortDropdown';
 export * from './SwatchButton';
+export * from './SwatchButtonGroup';
 export * from './PerPagePicker';
 export * from './FilterButton';
 export * from './Alert';

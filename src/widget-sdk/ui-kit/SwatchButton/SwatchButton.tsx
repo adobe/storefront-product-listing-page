@@ -15,12 +15,10 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   checked,
   onClick,
 }: SwatchButtonProps) => {
-  const outlineColor = checked ? 'outline-gray-800' : 'outline-gray-200';
+  const outlineColor = checked ? 'outline-black' : 'outline-transparent';
   if (type === 'COLOR_HEX') {
-    // eslint-disable-next-line no-console
-    console.log('swatch key', id);
     const color = value.toLowerCase();
-    const className = `${id} min-w-[32px] ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
+    const className = `${id} min-w-[28px] rounded-full p-sm focus:ring-2 focus:ring-black h-[28px]`;
     return (
       <div className={`ds-sdk-swatch-button_${id}`}>
         <button

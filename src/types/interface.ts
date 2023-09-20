@@ -148,9 +148,6 @@ export interface Product {
     meta_keyword: null | string;
     meta_description: null | string;
     images: null | Media[];
-    // image: null | Media;
-    // small_image: null | Media;
-    // thumbnail: null | Media;
     new_from_date: null | string;
     new_to_date: null | string;
     created_at: null | string;
@@ -170,7 +167,6 @@ export interface Product {
       };
     };
     gift_message_available: null | string;
-    // canonical_url: null | string;
     url: null | string;
     media_gallery: null | Media;
     custom_attributes: null | CustomAttribute;
@@ -200,9 +196,6 @@ export interface RefinedProduct {
     meta_keyword: null | string;
     meta_description: null | string;
     images: null | Media[];
-    // image: null | Media;
-    // small_image: null | Media;
-    // thumbnail: null | Media;
     new_from_date: null | string;
     new_to_date: null | string;
     created_at: null | string;
@@ -222,7 +215,6 @@ export interface RefinedProduct {
       };
     };
     gift_message_available: null | string;
-    // canonical_url: null | string;
     url: null | string;
     media_gallery: null | Media;
     custom_attributes: null | CustomAttribute;
@@ -259,10 +251,10 @@ export interface Media {
 }
 
 export interface SwatchValues {
-  title: null | string;
-  id: null | string;
-  type: null | string;
-  value: null | string;
+  title: string;
+  id: string;
+  type: string;
+  value: string;
 }
 
 export interface CustomAttribute {
