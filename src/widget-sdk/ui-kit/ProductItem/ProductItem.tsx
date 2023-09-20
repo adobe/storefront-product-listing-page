@@ -93,7 +93,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 />
               </div>
             ) : (
-              <NoImage className="max-h-[30rem] h-full w-full object-cover object-center lg:h-full lg:w-full" />
+              <NoImage className="max-h-[30rem] h-96 w-full object-cover object-center lg:h-96 lg:w-full" />
             )}
           </div>
           <div className="flex flex-col">
