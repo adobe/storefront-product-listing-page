@@ -1,1 +1,1 @@
-export * from "@testing-library/preact";
+export * from '@testing-library/preact';

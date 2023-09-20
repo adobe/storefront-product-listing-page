@@ -1,2 +1,2 @@
-export * from "./LabelledInput";
-export { LabelledInput as default } from "./LabelledInput";
+export * from './LabelledInput';
+export { LabelledInput as default } from './LabelledInput';

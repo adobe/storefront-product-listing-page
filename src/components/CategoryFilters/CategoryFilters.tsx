@@ -24,7 +24,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   let title = categoryName || '';
   if (phrase) {
     const text = translation.CategoryFilters.results;
-    title = text.replace('{phrase}', `"${  phrase  }"`);
+    title = text.replace('{phrase}', `"${phrase}"`);
   }
 
   return (

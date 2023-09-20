@@ -1,2 +1,2 @@
-export * from "./SortDropdown";
-export { SortDropdown as default } from "./SortDropdown";
+export * from './SortDropdown';
+export { SortDropdown as default } from './SortDropdown';
