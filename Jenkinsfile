@@ -62,6 +62,7 @@ pipeline {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
                             sh 'yarn cover:integration & echo $! > $WORKSPACE/DEV_SERVER_PID.pid; sleep 15'
+                            sh 'yarn cy:run:chrome'
                             sh 'yarn cover:report'
                             sh 'kill -9 $(cat $WORKSPACE/DEV_SERVER_PID.pid)'
                     }

@@ -18,7 +18,7 @@
     "coverage:e2e": "nyc --reporter=text-summary cross-env NODE_ENV=test yarn test:e2e",
     "cover": "yarn cover:unit && yarn cover:integration && yarn cover:report",
     "cover:unit": "npm run test -- --coverage --watchAll=false",
-    "cover:integration": "nyc --reporter=text-summary cross-env NODE_ENV=test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start:coverage https-get://localhost:8080 cy:run:chrome",
+    "cover:integration": "nyc --reporter=text-summary cross-env NODE_ENV=test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start:coverage https-get://localhost:8080",
     "cy:run:chrome": "NO_COLOR=1 cypress run --headless --browser chrome",
     "start:coverage": "webpack-dev-server --config webpack.coverage.js",
     "cover:report": "nyc report --reporter=lcov --reporter=text",
