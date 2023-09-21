@@ -145,9 +145,8 @@ module.exports = {
     },
     open: [publicPaths.DEV],
     allowedHosts: ['all'],
-    watchFiles: ['src/**/*', 'public/**/*', 'dist/**/*'],
-    hot: true,
-    liveReload: false,
+    hot: false,
+    inline: false,
     host: '0.0.0.0',
     client: {
       webSocketURL: `ws://localhost:${PORT}/ws`,
