@@ -68,9 +68,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productImage = getProductImageURL(
-    productImages ? productImages ?? [] : initialImages ?? [],
-    'small'
-  ); // get "small" image for PLP
+    productImages ? productImages ?? [] : initialImages ?? []
+  ); // get image for PLP
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = product
