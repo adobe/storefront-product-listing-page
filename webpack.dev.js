@@ -7,7 +7,11 @@ const { commonConfig, publicPaths } = require('./webpack.common.js');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  watch: false,
+  watchOptions: {
+    ignored: [
+      '/node_modules/'
+    ],
+  },
   output: {
     publicPath: publicPaths.DEV,
   },
