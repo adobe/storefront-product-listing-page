@@ -18,7 +18,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   const outlineColor = checked ? 'outline-black' : 'outline-transparent';
   if (type === 'COLOR_HEX') {
     const color = value.toLowerCase();
-    const className = `${id} min-w-[28px] rounded-full p-sm focus:ring-2 focus:ring-black h-[28px]`;
+    const className = `min-w-[28px] rounded-full p-sm outline ${outlineColor} h-[28px]`;
     return (
       <div className={`ds-sdk-swatch-button_${id}`}>
         <button

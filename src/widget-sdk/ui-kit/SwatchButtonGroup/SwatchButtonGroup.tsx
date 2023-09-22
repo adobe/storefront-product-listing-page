@@ -27,7 +27,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
         const checked = isSelected(swatch.id);
         return (
           swatch.type == 'COLOR_HEX' && (
-            <div className="ds-sdk-product-item__product-swatch-group text-sm text-primary">
+            <div className="ds-sdk-product-item__product-swatch-item text-sm text-primary">
               <SwatchButton
                 id={swatch.id}
                 value={swatch.value}

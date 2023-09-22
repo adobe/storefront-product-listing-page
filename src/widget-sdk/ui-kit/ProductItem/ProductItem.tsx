@@ -12,6 +12,7 @@ import {
   SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
+import { SwatchValues, Media } from 'src/types/interface';
 
 export interface ProductProps {
   item: Product;
@@ -27,9 +28,27 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { productView } = item;
   const [selected, setSelected] = useState(false);
   const [selectedSwatch, setSelectedSwatch] = useState('');
-  const [productImages, setImages] = useState(item.productView.images);
+  const [initialImages, setInitialImages] = useState<Media[] | null>();
+  const [productImages, setImages] = useState<Media[] | null>();
   const [product, setProduct] = useState<RefinedProduct>();
   const storeCtx = useStore();
+  const colorSwatches =
+    item.productView.options?.filter((option) => option.id == 'color')[0]
+      ?.values ?? [];
+  const getInitialImages = async () => {
+    const images = await refineProductSearch({
+      ...storeCtx,
+      optionIds: [colorSwatches[0].id],
+      sku: item.productView.sku,
+    });
+    return images.refineProduct.images ?? productView.images;
+  };
+
+  if (!initialImages?.length) {
+    getInitialImages().then((data) => {
+      setInitialImages(data);
+    });
+  }
 
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProductSearch({
@@ -48,7 +67,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     return selected;
   };
 
-  const productImage = getProductImageURL(productImages ?? [], 'small'); // get "small" image for PLP
+  const productImage = getProductImageURL(
+    productImages ? productImages ?? [] : initialImages ?? [],
+    'small'
+  ); // get "small" image for PLP
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = product
