@@ -54,7 +54,6 @@ const plugins = [
 
 module.exports = {
   mode: 'development',
-  watch: false,
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: {
     crossOriginLoading: 'anonymous', // add 'anonymous' to script tag for CORS
@@ -127,7 +126,6 @@ module.exports = {
       fs: false,
     },
   },
-  watch: false,
   watchOptions: {
     aggregateTimeout: 100, // delay before reloading
     ignored: ['src/.DS_Store', '**/.DS_Store', '**/node_modules', '/node_modules/'],
@@ -145,7 +143,6 @@ module.exports = {
       'Access-Control-Allow-Headers':
         'X-Requested-With, content-type, Authorization',
     },
-    open: [publicPaths.DEV],
     allowedHosts: ['all'],
     hot: false,
     liveReload: false,
