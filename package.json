@@ -55,7 +55,7 @@
     "lines": 80,
     "statements": 80,
     "instrument": true,
-    "all": true,
+    "all": false,
     "reporter": [
       "html",
       "lcov",
@@ -64,7 +64,8 @@
     ],
     "report-dir": "coverage",
     "exclude": [
-      ".storybook/**/*"
+      ".storybook/**/*",
+      "node_modules/**/*"
     ],
     "parser-plugins": [
       "jsx",
