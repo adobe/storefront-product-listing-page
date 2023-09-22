@@ -145,7 +145,6 @@ module.exports = {
     },
     open: [publicPaths.DEV],
     allowedHosts: ['all'],
-    watchFiles: ['src/**/*', 'public/**/*', 'dist/**/*'],
     hot: false,
     liveReload: false,
     host: '0.0.0.0',
