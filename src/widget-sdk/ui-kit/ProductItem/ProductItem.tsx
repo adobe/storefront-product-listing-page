@@ -12,7 +12,7 @@ import {
   SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
-import { SwatchValues, Media } from 'src/types/interface';
+import { Media } from 'src/types/interface';
 
 export interface ProductProps {
   item: Product;
@@ -85,7 +85,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
       SEARCH_UNIT_ID,
-      productView.sku
+      productView?.sku
     );
   };
 
@@ -135,7 +135,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         </div>
       </a>
       <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
-        {productView.options?.map(
+        {productView?.options?.map(
           (swatches) =>
             swatches.id == 'color' && (
               <SwatchButtonGroup
@@ -143,7 +143,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 swatches={swatches.values ?? []}
                 showMore={false}
                 onClick={handleSelection}
-                sku={productView.sku}
+                sku={productView?.sku}
               />
             )
         )}
