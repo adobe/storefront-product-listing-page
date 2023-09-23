@@ -128,7 +128,7 @@ module.exports = {
   },
   watchOptions: {
     aggregateTimeout: 100, // delay before reloading
-    ignored: ['src/.DS_Store', '**/.DS_Store', '**/node_modules', '/node_modules/'],
+    ignored: ['src/.DS_Store', '**/.DS_Store', '**/node_modules'],
   },
   target: 'web',
   devServer: {
@@ -143,7 +143,9 @@ module.exports = {
       'Access-Control-Allow-Headers':
         'X-Requested-With, content-type, Authorization',
     },
+    open: [publicPaths.DEV],
     allowedHosts: ['all'],
+    // watchFiles: ['src/**/*', 'public/**/*', 'dist/**/*'],
     hot: false,
     liveReload: false,
     host: '0.0.0.0',
