@@ -1,11 +1,11 @@
 import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
+
 import { getAttributeMetadata } from '../../api/search';
 import { useProducts, useSearch, useSensor, useStore } from '../../context';
+import { TranslationContext } from '../../context/translation';
 import { Facet } from '../../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../../utils/handleUrlFilters';
-
-import { TranslationContext } from '../../context/translation';
 import { FilterButton, SearchBar, SortDropdown } from '../../widget-sdk/ui-kit';
 import {
   defaultSortOptions,
