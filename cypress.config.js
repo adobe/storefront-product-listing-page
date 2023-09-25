@@ -26,4 +26,5 @@ module.exports = defineConfig({
     supportFile: 'plp-ui-tests/src/support/index.js',
     specPattern: 'plp-ui-tests/src/tests/**/*.spec.js',
   },
+  watchForFileChanges: false,
 });

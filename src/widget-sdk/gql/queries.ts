@@ -1,4 +1,4 @@
-import { Facet, Product } from "./fragments";
+import { Facet, Product } from './fragments';
 
 const ATTRIBUTE_METADATA_QUERY = `
     query attributeMetadata {

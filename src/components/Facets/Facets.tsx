@@ -1,4 +1,3 @@
-import { Pill } from '../../widget-sdk/ui-kit';
 import { FunctionComponent } from 'preact';
 
 import { useProducts, useSearch } from '../../context';
@@ -7,6 +6,7 @@ import {
   FacetFilter,
   PriceFacet,
 } from '../../types/interface';
+import { Pill } from '../../widget-sdk/ui-kit';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 

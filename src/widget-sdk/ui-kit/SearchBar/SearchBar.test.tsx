@@ -1,5 +1,6 @@
-import { SearchBar } from './SearchBar';
 import { render } from '@testing-library/preact';
+
+import { SearchBar } from './SearchBar';
 
 describe('WidgetSDK - UIKit/SearchBar', () => {
   test('renders', () => {

@@ -24,6 +24,7 @@ module.exports = {
     'no-console': ['error'],
     'react/prop-types': 0,
     '@typescript-eslint/default-param-last': ['error'],
+    '@typescript-eslint/no-explicit-any': ['off'],
     'simple-import-sort/imports': [
       'error',
       {
