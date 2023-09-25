@@ -1,12 +1,11 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
-// import { action } from '@storybook/addon-actions';
-import { Alert } from "@adobe/ds-widget-sdk/ui-kit";
+import { Alert } from "../Alert";
 
 <Meta
-    title="Core - UIKit/Alert"
+    title="UIKit/Alert"
     component={Alert}
     parameters={{
-        layout: "padded", // centered | fullscreen | padded
+        layout: "padded"
     }}
 />
 
@@ -17,7 +16,7 @@ export const Template = args => <Alert {...args} />;
 WIP
 
 ```
-import { Alert } from '@adobe/ds-widget-sdk/ui-kit'
+import { Alert } from '../Alert'
 ```
 
 <Canvas>

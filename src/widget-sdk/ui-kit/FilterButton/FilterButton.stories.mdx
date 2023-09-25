@@ -1,12 +1,11 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
-// import { action } from '@storybook/addon-actions';
-import { FilterButton } from "@adobe/ds-widget-sdk/ui-kit";
+import { FilterButton } from "../FilterButton";
 
 <Meta
-    title="Core - UIKit/FilterButton"
+    title="UIKit/FilterButton"
     component={FilterButton}
     parameters={{
-        layout: "centered", // centered | fullscreen
+        layout: "centered"
     }}
 />
 
@@ -17,7 +16,7 @@ export const Template = args => <FilterButton {...args} />;
 WIP
 
 ```
-import { FilterButton } from '@adobe/ds-widget-sdk/ui-kit'
+import { FilterButton } from '../FilterButton'
 ```
 
 <Canvas>
