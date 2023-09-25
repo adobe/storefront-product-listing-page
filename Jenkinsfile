@@ -61,6 +61,7 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
+                        sh 'yarn build:dev'
                         sh 'yarn cover:integration'
                         sh 'yarn cover:report'
                     }
