@@ -18,18 +18,13 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'preact',
-    'prettier',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:@typescript-eslint/eslint-recommended', 'preact', 'prettier', 'plugin:storybook/recommended'],
   plugins: ['jest', 'prettier', 'simple-import-sort', '@typescript-eslint'],
   rules: {
     'no-console': ['error'],
     'react/prop-types': 0,
     '@typescript-eslint/default-param-last': ['error'],
+    '@typescript-eslint/no-explicit-any': ['off'],
     'simple-import-sort/imports': [
       'error',
       {

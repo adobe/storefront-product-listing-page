@@ -1,4 +1,3 @@
-import { Loading } from '../widget-sdk/ui-kit';
 import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 import { CategoryFilters } from 'src/components/CategoryFilters';
@@ -6,6 +5,7 @@ import { PreviewHeader } from 'src/components/PreviewHeader';
 import { TranslationContext } from 'src/context/translation';
 
 import { useProducts, useStore } from '../context';
+import { Loading } from '../widget-sdk/ui-kit';
 import { ProductsContainer } from './ProductsContainer';
 
 export const App: FunctionComponent = () => {

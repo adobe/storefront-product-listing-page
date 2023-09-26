@@ -1,4 +1,3 @@
-import { generateGQLSortInput } from '../widget-sdk/utils/sort';
 import { createContext, FunctionComponent, useContext } from 'preact/compat';
 import { useState } from 'preact/hooks';
 
@@ -14,6 +13,7 @@ import {
   removeAllUrlFilters,
   removeUrlFilter,
 } from '../utils/handleUrlFilters';
+import { generateGQLSortInput } from '../widget-sdk/utils/sort';
 
 interface SearchContextProps {
   phrase: string;

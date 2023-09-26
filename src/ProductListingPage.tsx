@@ -61,6 +61,4 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   );
 };
 
-if (typeof window !== 'undefined' && !window.LiveSearchPLP) {
-  window.LiveSearchPLP = LiveSearchPLP;
-}
+export default LiveSearchPLP;

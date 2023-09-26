@@ -1,6 +1,5 @@
-import { PerPagePicker } from './PerPagePicker';
-
 import { render } from '../../lib/tests';
+import { PerPagePicker } from './PerPagePicker';
 
 describe('WidgetSDK - UIKit/PerPagePicker', () => {
   test('renders', () => {

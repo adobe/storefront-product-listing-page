@@ -70,20 +70,6 @@ export const sampleProductNoImage: Product = {
         },
       },
     },
-    // price_range: {
-    //   minimum_price: {
-    //     fixed_product_taxes: null,
-    //     regular_price: { value: 8, currency: 'USD' },
-    //     final_price: { value: 5, currency: 'USD' },
-    //     discount: null,
-    //   },
-    //   maximum_price: {
-    //     fixed_product_taxes: null,
-    //     regular_price: { value: 5, currency: 'USD' },
-    //     final_price: { value: 5, currency: 'USD' },
-    //     discount: null,
-    //   },
-    // },
     gift_message_available: null,
     url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
     media_gallery: null,
@@ -195,20 +181,6 @@ export const sampleProductDiscounted: Product = {
         },
       },
     },
-    // price_range: {
-    //   minimum_price: {
-    //     fixed_product_taxes: null,
-    //     regular_price: { value: 8, currency: 'USD' },
-    //     final_price: { value: 5, currency: 'USD' },
-    //     discount: null,
-    //   },
-    //   maximum_price: {
-    //     fixed_product_taxes: null,
-    //     regular_price: { value: 5, currency: 'USD' },
-    //     final_price: { value: 5, currency: 'USD' },
-    //     discount: null,
-    //   },
-    // },
     gift_message_available: null,
     url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
     media_gallery: null,
@@ -320,20 +292,6 @@ export const sampleProductNotDiscounted: Product = {
         },
       },
     },
-    // price_range: {
-    //   minimum_price: {
-    //     fixed_product_taxes: null,
-    //     regular_price: { value: 5, currency: 'USD' },
-    //     final_price: { value: 5, currency: 'USD' },
-    //     discount: null,
-    //   },
-    //   maximum_price: {
-    //     fixed_product_taxes: null,
-    //     regular_price: { value: 8, currency: 'USD' },
-    //     final_price: { value: 8, currency: 'USD' },
-    //     discount: null,
-    //   },
-    // },
     gift_message_available: null,
     url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
     media_gallery: null,

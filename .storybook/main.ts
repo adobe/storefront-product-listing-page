@@ -1,9 +1,11 @@
-module.exports = {
-  addons: [
-    '@storybook/addon-a11y',
-    '@storybook/addon-essentials',
-    '@adobe/ds-widget-sdk/config/storybook/addon', // core storybook config
-    '@adobe/ds-widget-sdk/storybook-stories', // core stories
-    '../storybook-stories', // this project stories
-  ],
+export const framework = {
+  name: '@storybook/preact-webpack5',
+  options: {},
 };
+
+export const addons = [
+  '@storybook/addon-essentials',
+  '@storybook/addon-a11y',
+  '../config/storybook/addon',
+  '../storybook-stories',
+];

@@ -1,4 +1,3 @@
-import { Alert, PerPagePicker, ProductList } from '../widget-sdk/ui-kit';
 import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 import { useProducts, useSensor } from 'src/context';
@@ -8,6 +7,7 @@ import {
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
 
+import { Alert, PerPagePicker, ProductList } from '../widget-sdk/ui-kit';
 import Pagination from './Pagination';
 
 export const ProductsContainer: FunctionComponent = () => {

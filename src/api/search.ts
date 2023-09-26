@@ -16,6 +16,11 @@ import {
   RefinedProduct,
   ProductSearchResponse,
 } from '../types/interface';
+import {
+  ATTRIBUTE_METADATA_QUERY,
+  PRODUCT_SEARCH_QUERY,
+} from '../widget-sdk/gql/queries';
+import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {

@@ -1,5 +1,3 @@
-import { LabelledInput } from '../LabelledInput';
-import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils';
 import { FunctionComponent } from 'preact';
 import { ChangeEvent, useState } from 'preact/compat';
 import { useContext } from 'preact/hooks';
@@ -7,6 +5,8 @@ import { useContext } from 'preact/hooks';
 import { useProducts } from '../../../context';
 import { TranslationContext } from '../../../context/translation';
 import PlusIcon from '../../icons/plus.svg';
+import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils';
+import { LabelledInput } from '../LabelledInput';
 
 export type InputButtonGroupOnChangeProps = {
   value: string;

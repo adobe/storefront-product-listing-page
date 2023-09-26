@@ -1,4 +1,3 @@
-import { getProductPrice } from '../../utils';
 import { FunctionComponent } from 'preact';
 
 import { Product, RefinedProduct } from '../../types/interface';

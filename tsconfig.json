@@ -28,7 +28,13 @@
       "react/jsx-runtime": ["preact/jsx-runtime"]
     }
   },
-  "include": ["./src/**/*", "./src/types", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "./src/**/*",
+    "./src/types",
+    "**/*.ts",
+    "**/*.tsx",
+    "config/storybook/addon.js"
+  ],
   "lib": ["ES2015", "DOM", "DOM.Iterable", "ESNext"],
   "exclude": ["node_modules", "dist"]
 }
