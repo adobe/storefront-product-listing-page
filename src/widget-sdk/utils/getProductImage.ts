@@ -1,7 +1,5 @@
 import { Product, Media } from '../../types/interface';
 
-type imageType = 'thumbnail' | 'small' | 'base';
-
 const getProductImageURL = (images: Media[]): string => {
   let url = null;
 
