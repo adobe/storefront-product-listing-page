@@ -9,15 +9,12 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "yarn cleanup",
     "build": "webpack --config webpack.prod.js",
     "build:stage": "webpack --config webpack.prod.js",
     "build:qa": "webpack --config webpack.qa.js",
     "build:dev": "webpack --config webpack.dev.js",
     "build:coverage": "webpack --config webpack.coverage.js",
     "coverage:e2e": "nyc --reporter=text-summary cross-env NODE_ENV=test yarn test:e2e",
-    "cover": "yarn cover:unit && yarn cover:integration && yarn cover:report",
-    "cover:unit": "npm run test -- --coverage --watchAll=false",
     "cover:integration": "nyc --reporter=text-summary cross-env NODE_ENV=test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test 'node server-test.js' http://localhost:8080/v1/ cy:run:chrome",
     "cy:run:chrome": "CHOKIDAR_IGNORED='/node_modules/' NO_COLOR=1 NO_COLOR=1 cypress run --headless --browser chrome",
     "start:coverage": "webpack-dev-server --config webpack.coverage.js & wait-on http://localhost:8080/v1 20",
@@ -28,7 +25,6 @@
     "storybook": "npx tailwindcss  -i ./src/widget-sdk/styles/tailwind.css -o ./src/dist/index.css; storybook dev -p 6006",
     "build-storybook": "npx tailwindcss  -i ./src/widget-sdk/styles/tailwind.css -o ./src/dist/index.css; build-storybook",
     "server-test": "node server-test.js",
-    "preserve": "yarn cleanup",
     "lint": "eslint '*/**/*.{ts,tsx}'",
     "lint:fix": "eslint '*/**/*.{ts,tsx}' --fix",
     "prettier:fix": "prettier 'src/**/*.{ts,tsx,json,md}' --write",
