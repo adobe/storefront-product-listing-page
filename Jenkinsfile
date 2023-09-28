@@ -5,7 +5,7 @@ pipeline {
     agent {
         docker {
             label "worker"
-            image "cypress/browsers-all-aws:18.16.0"
+            image "cypress/browsers-all-aws:16.14.2"
             args  "-v /etc/passwd:/etc/passwd"
             registryUrl "http://docker-data-solution-jenkins-node-aws-dev.dr-uw2.adobeitc.com"
             registryCredentialsId "artifactory-datasoln"
@@ -18,7 +18,7 @@ pipeline {
         GH_TOKEN = credentials("dsuser-jenkins-token")
         SEARCH_ARTIFACTORY = credentials("SEARCH_ARTIFACTORY")
         PROJECT = 'storefront-product-listing-page'
-        DIST_PACKAGE_FILE = '~/packages/dist'
+        DIST_PACKAGE_FILE = '~/dist'
 
         PACKAGE_JSON = readJSON file: './package.json'
         MAJOR_VERSION = sh(returnStdout: true, script: "echo v${PACKAGE_JSON.version} | cut -f1 -d'.'").trim()
