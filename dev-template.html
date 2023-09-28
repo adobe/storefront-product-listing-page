@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 
-
 <head>
-
-
   <title>Live Search PLP</title>
 
-
   <!-- reset css -->
-
 
   <link
     rel="stylesheet"
@@ -18,27 +13,19 @@
     referrerpolicy="no-referrer"
   />
 
-
   <script
     type="text/javascript"
     src="https://unpkg.com/@adobe/magento-storefront-events-sdk@qa/dist/index.js"
   ></script>
 
-
   <script
     type="text/javascript"
     src="https://unpkg.com/@adobe/magento-storefront-event-collector@qa/dist/index.js"
   ></script>
-
-
 </head>
 
-
 <body>
-
-
   <div class="search-plp-root"></div>
-
 
   <style>
     body {
@@ -60,9 +47,7 @@
     }
   </style>
 
-
   <script type="text/javascript" src="search.js"></script>
-
 
   <script type="text/javascript">
     const root = document.querySelector('div.search-plp-root');
@@ -89,6 +74,18 @@
       },
       apiKey: '94fed41ce4d947d8b81957353b70b04b',
       environmentType: '',
+      // Example of a route function (Used in AEM/CIF)
+      // route: ({ sku }) => {
+      // const storeConfig = JSON.parse(
+      //     document
+      //         .querySelector("meta[name='store-config']")
+      //         .getAttribute("content"),
+      // );
+      // const { storeRootUrl } = storeConfig;
+      // const redirectUrl = storeRootUrl.split(".html")[0];
+      // return `${redirectUrl}.cifproductredirect.html/${sku}`;
+      // Will result to `http://localhost:4502/content/venia/us/en.cifproductredirect.html/MT11`
+      // },
     };
 
     const mse = window.magentoStorefrontEvents;
@@ -138,8 +135,4 @@
       window.LiveSearchPLP({ storeDetails, root });
     }, 1000);
   </script>
-
-
 </body>
-
-

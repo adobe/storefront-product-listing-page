@@ -6,6 +6,8 @@ interface WithChildrenProps {
   children?: any;
 }
 
+type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
+
 export interface StoreDetailsProps extends WithChildrenProps {
   environmentId: string;
   environmentType: string;
@@ -16,6 +18,7 @@ export interface StoreDetailsProps extends WithChildrenProps {
   context?: QueryContextInput;
   apiUrl: string;
   apiKey: string;
+  route?: RedirectRouteFunc; // optional product redirect func prop (used in AEM/CIF)
 }
 
 const StoreContext = createContext<StoreDetailsProps>({
@@ -28,6 +31,7 @@ const StoreContext = createContext<StoreDetailsProps>({
   apiKey: '',
   config: {},
   context: {},
+  route: undefined,
 });
 
 const StoreContextProvider = ({
@@ -40,6 +44,7 @@ const StoreContextProvider = ({
   config,
   context,
   apiKey,
+  route,
 }: StoreDetailsProps) => {
   const storeProps = useMemo(
     () => ({
@@ -55,6 +60,7 @@ const StoreContextProvider = ({
       },
       apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : API_URL,
       apiKey: environmentType?.toLowerCase() === 'testing' ? API_KEY : apiKey,
+      route,
     }),
     [environmentId, websiteCode, storeCode, storeViewCode]
   );

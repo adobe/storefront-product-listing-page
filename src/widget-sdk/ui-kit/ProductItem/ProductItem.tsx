@@ -8,6 +8,7 @@ import {
   SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
+import { useStore } from '../../../context/store';
 
 export interface ProductProps {
   item: Product;
@@ -20,6 +21,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductProps) => {
+  const storeCtx = useStore();
   const { product } = item;
 
   const productImage = getProductImageURL(item, 'small'); // get "small" image for PLP
@@ -41,9 +43,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     );
   };
 
+  const productUrl = storeCtx.route
+    ? storeCtx.route({ sku: product.sku })
+    : product?.canonical_url;
+
   return (
     <a
-      href={product?.canonical_url as string}
+      href={productUrl as string}
       onClick={onProductClick}
       className="!text-primary hover:no-underline hover:text-primary"
     >
