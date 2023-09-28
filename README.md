@@ -1,11 +1,16 @@
 # storefront-product-listing-page
+
 Product Listing Page for Adobe Commerce Storefronts
 
-[WIP] Repo containing the Live Search PLP
+Repo containing the Live Search PLP
 
 ## Running locally
 
 #### Storybook
+
+```
+yarn storybook
+```
 
 #### Example
 
@@ -13,13 +18,7 @@ Product Listing Page for Adobe Commerce Storefronts
 yarn dev
 ```
 
-And open `localhost:3001` in your favorite browser.
-
-### Generating new components
-
-```
-yarn generate ui-kit [MyComponentName]
-```
+And open `localhost:8080/v1/index.html` in your favorite browser.
 
 ## Design System
 
@@ -27,7 +26,7 @@ Internally we use Tailwind to style our components. Here's a good read up if you
 
 Externally developers will use CSS variables and CSS classes we expose to create a custom brand for their storefront. Developers will target CSS variables to adjust generic values that are used across our widget, like line height, spacing, primary and secondary colors. CSS classes will be used to target specific components or elements of components for a more granular approach. In short, CSS variables can create a general theme and CSS classes can target specific elements in our widget.
 
-With Tailwind we do not write custom CSS. Instead, we use its utility classes that are generated at buildtime using a config we provide and scanning our markup (this way we don't have extra CSS we don't need). This is our [config file](./packages/ds-widget-sdk/tailwind.config.js).
+With Tailwind we do not write custom CSS. Instead, we use its utility classes that are generated at buildtime using a config we provide and scanning our markup (this way we don't have extra CSS we don't need). This is our [config file](./tailwind.config.js).
 
 So how do we use CSS variables to style our components? Great question 😄
 
@@ -58,8 +57,7 @@ Looking at the config file you will notice that the CSS variable is `--color-pri
 
 Some helpful tools when developing in this monorepo:
 
--   [Tailwind CSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
+- [Tailwind CSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 ## Feature flags
 
@@ -119,3 +117,21 @@ Additional documentation on adding new applications and feature flags [here](htt
 ### Unit Testing
 
 A good refresher on how to test: https://xp123.com/articles/3a-arrange-act-assert/
+
+### UI Tests
+
+```
+yarn dev:coverage
+```
+
+Headless:
+
+```
+yarn test:e2e:headless
+```
+
+Interactive:
+
+```
+yarn test:e2e
+```
