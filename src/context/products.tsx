@@ -3,17 +3,18 @@ import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
 import { getProductSearch } from '../api/search';
 import {
-  DEFAULT_MIN_QUERY_LENGTH,
-  DEFAULT_PAGE_SIZE,
-  DEFAULT_PAGE_SIZE_OPTIONS,
-} from '../constants';
-import {
   Facet,
   FacetFilter,
   Product,
   ProductSearchQuery,
 } from '../types/interface';
-import { CATEGORY_SORT_DEFAULT, SEARCH_SORT_DEFAULT } from '../utils/constants';
+import {
+  CATEGORY_SORT_DEFAULT,
+  DEFAULT_MIN_QUERY_LENGTH,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_PAGE_SIZE_OPTIONS,
+  SEARCH_SORT_DEFAULT,
+} from '../utils/constants';
 import { moveToTop } from '../utils/dom';
 import {
   getFiltersFromUrl,

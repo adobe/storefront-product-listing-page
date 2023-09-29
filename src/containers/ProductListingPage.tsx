@@ -2,19 +2,19 @@ import { render } from 'preact';
 
 import './styles/global.css';
 
-import { getUserViewHistory } from '../src/widget-sdk/utils';
-import App from './containers/App';
 import {
   AttributeMetadataProvider,
   ProductsContextProvider,
   SearchProvider,
   StoreContextProvider,
   StoreDetailsProps,
-} from './context/';
-import Resize from './context/displayChange';
-import { SentryProvider } from './context/sentry';
-import Translation from './context/translation';
-import { FloodgateProvider } from './utils/Floodgate';
+} from '../context';
+import Resize from '../context/displayChange';
+import { SentryProvider } from '../context/sentry';
+import Translation from '../context/translation';
+import { FloodgateProvider } from '../utils/Floodgate';
+import { getUserViewHistory } from '../widget-sdk/utils';
+import App from './App';
 
 type MountSearchPlpProps = {
   storeDetails: StoreDetailsProps;
