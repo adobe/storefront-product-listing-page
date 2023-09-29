@@ -140,8 +140,12 @@ const getSearchParams = () => {
 };
 
 export {
-  addUrlFilter, getFiltersFromUrl,
-  getValueFromUrl, handleUrlPageSize,
-  handleUrlPagination, handleUrlSort, removeAllUrlFilters, removeUrlFilter
+  addUrlFilter,
+  getFiltersFromUrl,
+  getValueFromUrl,
+  handleUrlPageSize,
+  handleUrlPagination,
+  handleUrlSort,
+  removeAllUrlFilters,
+  removeUrlFilter,
 };
-

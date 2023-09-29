@@ -75,6 +75,9 @@
       "optionalCatchBinding"
     ]
   },
+  "resolutions": {
+    "wrap-ansi": "7.0.0"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "currency-symbol-map": "^5.1.0",
