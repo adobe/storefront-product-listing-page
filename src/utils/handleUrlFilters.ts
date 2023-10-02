@@ -2,8 +2,8 @@
 
 import { SearchClauseInput } from 'src/types/interface';
 
-import { DEFAULT_PAGE_SIZE } from '../constants';
 import { FacetFilter } from '../types/interface';
+import { DEFAULT_PAGE_SIZE } from '../utils/constants';
 
 const nonFilterKeys = {
   search: 'q',
@@ -141,11 +141,11 @@ const getSearchParams = () => {
 
 export {
   addUrlFilter,
-  removeUrlFilter,
-  removeAllUrlFilters,
-  handleUrlSort,
-  handleUrlPageSize,
-  handleUrlPagination,
   getFiltersFromUrl,
   getValueFromUrl,
+  handleUrlPageSize,
+  handleUrlPagination,
+  handleUrlSort,
+  removeAllUrlFilters,
+  removeUrlFilter,
 };

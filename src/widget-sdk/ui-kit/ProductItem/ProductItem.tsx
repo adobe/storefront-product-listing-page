@@ -13,6 +13,7 @@ import {
 } from '../../utils';
 import ProductPrice from './ProductPrice';
 import { Media } from 'src/types/interface';
+import { useStore } from '../../../context/store';
 
 export interface ProductProps {
   item: Product;
@@ -89,10 +90,14 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     );
   };
 
+  const productUrl = storeCtx.route
+    ? storeCtx.route({ sku: productView?.sku })
+    : productView?.url;
+
   return (
     <div className="ds-sdk-product-item group relative flex flex-col justify-between h-full">
       <a
-        href={productView?.url as string}
+        href={productUrl as string}
         onClick={onProductClick}
         className="!text-primary hover:no-underline hover:text-primary"
       >

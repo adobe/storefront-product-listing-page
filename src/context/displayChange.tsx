@@ -1,7 +1,7 @@
 import { createContext, FunctionComponent, useContext } from 'preact/compat';
 import { useEffect, useState } from 'preact/hooks';
 
-import { PRODUCT_COLUMNS } from '../constants';
+import { PRODUCT_COLUMNS } from '../utils/constants';
 
 interface DisplayChange {
   mobile: boolean;
