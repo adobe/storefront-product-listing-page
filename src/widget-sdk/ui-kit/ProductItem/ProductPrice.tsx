@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'preact';
 
-import { getProductPrice } from '../../utils';
 import { Product, RefinedProduct } from '../../types/interface';
+import { getProductPrice } from '../../utils';
 
 export interface ProductPriceProps {
   isBundle: boolean;

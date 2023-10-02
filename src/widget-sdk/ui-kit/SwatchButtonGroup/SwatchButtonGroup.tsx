@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+
 import { SwatchValues } from '../../types/interface';
 import { SwatchButton } from '../../ui-kit';
 

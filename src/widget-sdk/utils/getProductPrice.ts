@@ -1,7 +1,5 @@
 import getSymbolFromCurrency from 'currency-symbol-map';
 
-import { Product } from '../types/interface';
-
 const getProductPrice = (
   product: any,
   currencySymbol: string,

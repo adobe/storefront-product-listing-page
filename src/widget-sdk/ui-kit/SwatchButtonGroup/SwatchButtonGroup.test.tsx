@@ -1,6 +1,5 @@
-import { SwatchButtonGroup, SwatchButtonGroupProps } from './SwatchButtonGroup';
-
 import { render } from '../../lib/tests';
+import { SwatchButtonGroup, SwatchButtonGroupProps } from './SwatchButtonGroup';
 
 const mockButtonGroup: SwatchButtonGroupProps = {
   swatches: [],
@@ -12,7 +11,6 @@ const mockButtonGroup: SwatchButtonGroupProps = {
 
 describe('WidgetSDK - UIKit/PerPagePicker', () => {
   test('renders', () => {
-    const handleChange = jest.fn();
     const { container } = render(
       <SwatchButtonGroup
         isSelected={mockButtonGroup.isSelected}

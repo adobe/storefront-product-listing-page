@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
 
 export interface SwatchButtonProps {
   id: string;

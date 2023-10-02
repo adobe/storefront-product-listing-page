@@ -1,6 +1,5 @@
-import { SwatchButton } from './SwatchButton';
-
 import { render } from '../../lib/tests';
+import { SwatchButton } from './SwatchButton';
 
 describe('WidgetSDK - UIKit/PerPagePicker', () => {
   test('renders', () => {
