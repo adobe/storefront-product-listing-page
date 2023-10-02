@@ -25,61 +25,72 @@ const Facet = `
 
 const Product = `
     fragment Product on ProductSearchItem {
-        product {
+        productView {
             __typename
             sku
             name
-            canonical_url
-            small_image {
+            url
+            images {
+                label
                 url
             }
-            image {
-                url
-            }
-            thumbnail {
-                url
-            }
-            price_range {
-                minimum_price {
-                    fixed_product_taxes {
-                        amount {
-                            value
-                            currency
+            ... on ComplexProductView {
+                priceRange {
+                    maximum {
+                        final {
+                            amount {
+                                value
+                                currency
+                            }
                         }
-                        label
+                        regular {
+                            amount {
+                                value
+                                currency
+                            }
+                        }
                     }
-                    regular_price {
-                        value
-                        currency
-                    }
-                    final_price {
-                        value
-                        currency
-                    }
-                    discount {
-                        percent_off
-                        amount_off
+                    minimum {
+                        final {
+                            amount {
+                                value
+                                currency
+                            }
+                        }
+                        regular {
+                            amount {
+                                value
+                                currency
+                            }
+                        }
                     }
                 }
-                maximum_price {
-                    fixed_product_taxes {
+                options {
+                    id
+                    title
+                    values {
+                        title
+                        ... on ProductViewOptionValueSwatch {
+                            id
+                            type
+                            value
+                        }
+                    }
+                }
+            }
+            ... on SimpleProductView {
+                price {
+                    final {
                         amount {
                             value
                             currency
                         }
-                        label
                     }
-                    regular_price {
-                        value
-                        currency
-                    }
-                    final_price {
-                        value
-                        currency
-                    }
-                    discount {
-                        percent_off
-                        amount_off
+                    regular {
+                        amount {
+                            value
+                            currency
+                        }
                     }
                 }
             }

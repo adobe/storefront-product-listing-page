@@ -30,7 +30,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
         {products?.map((product) => (
           <ProductItem
             item={product}
-            key={product.product.id}
+            key={product.productView.id}
             currencySymbol={currencySymbol}
             currencyRate={currencyRate}
           />

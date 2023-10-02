@@ -90,4 +90,82 @@ const PRODUCT_SEARCH_QUERY = `
     ${Facet}
 `;
 
-export { ATTRIBUTE_METADATA_QUERY, QUICK_SEARCH_QUERY, PRODUCT_SEARCH_QUERY };
+const REFINE_PRODUCT_QUERY = `
+    query refineProduct(
+        $optionIds: [String!]!
+        $sku: String!
+    ) {
+        refineProduct(
+            optionIds: $optionIds 
+            sku: $sku
+        ) {
+            __typename
+            id
+            sku
+            name
+            url
+            images {
+                label
+                url
+            }
+            ... on SimpleProductView {
+                price {
+                    final {
+                        amount {
+                            value
+                        }
+                    }
+                    regular {
+                        amount {
+                            value
+                        }
+                    }
+                }
+            }
+            ... on ComplexProductView {
+                options {
+                    id
+                    title
+                    required
+                    values {
+                        id
+                        title
+                    }
+                }
+                priceRange {
+                    maximum {
+                        final {
+                            amount {
+                                value
+                            }
+                        }
+                        regular {
+                            amount {
+                                value
+                            }
+                        }
+                    }
+                    minimum {
+                        final {
+                            amount {
+                                value
+                            }
+                        }
+                        regular {
+                            amount {
+                                value
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+export {
+  ATTRIBUTE_METADATA_QUERY,
+  QUICK_SEARCH_QUERY,
+  PRODUCT_SEARCH_QUERY,
+  REFINE_PRODUCT_QUERY,
+};

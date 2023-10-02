@@ -44,6 +44,7 @@ export interface MagentoHeaders {
   storeViewCode: string;
   apiKey: string;
   xRequestId: string;
+  customerGroup: string;
 }
 
 export interface ProductSearchQuery {
@@ -57,6 +58,12 @@ export interface ProductSearchQuery {
   context?: QueryContextInput;
   data?: QueryData;
   categorySearch?: boolean;
+}
+
+export interface RefineProductQuery {
+  optionIds: string[];
+  sku: string;
+  context?: QueryContextInput;
 }
 
 export type QueryResponse<T> = Promise<T>;
@@ -128,7 +135,7 @@ export interface AttributeMetadataResponse {
 }
 
 export interface Product {
-  product: {
+  productView: {
     __typename: string;
     id: number;
     uid: string;
@@ -140,22 +147,85 @@ export interface Product {
     meta_title: null | string;
     meta_keyword: null | string;
     meta_description: null | string;
-    image: null | Media;
-    small_image: null | Media;
-    thumbnail: null | Media;
+    images: null | Media[];
     new_from_date: null | string;
     new_to_date: null | string;
     created_at: null | string;
     updated_at: null | string;
-    price_range: {
-      minimum_price: Price;
-      maximum_price: Price;
+    price: {
+      final: Price;
+      regular: Price;
+    };
+    priceRange: {
+      minimum: {
+        final: Price;
+        regular: Price;
+      };
+      maximum: {
+        final: Price;
+        regular: Price;
+      };
     };
     gift_message_available: null | string;
-    canonical_url: null | string;
+    url: null | string;
     media_gallery: null | Media;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
+    options:
+      | null
+      | {
+          id: null | string;
+          title: null | string;
+          values: null | SwatchValues[];
+        }[];
+  };
+  highlights: Array<Highlights>;
+}
+
+export interface RefinedProduct {
+  refineProduct: {
+    __typename: string;
+    id: number;
+    uid: string;
+    name: string;
+    sku: string;
+    description: null | ComplexTextValue;
+    short_description: null | ComplexTextValue;
+    attribute_set_id: null | number;
+    meta_title: null | string;
+    meta_keyword: null | string;
+    meta_description: null | string;
+    images: null | Media[];
+    new_from_date: null | string;
+    new_to_date: null | string;
+    created_at: null | string;
+    updated_at: null | string;
+    price: {
+      final: Price;
+      regular: Price;
+    };
+    priceRange: {
+      minimum: {
+        final: Price;
+        regular: Price;
+      };
+      maximum: {
+        final: Price;
+        regular: Price;
+      };
+    };
+    gift_message_available: null | string;
+    url: null | string;
+    media_gallery: null | Media;
+    custom_attributes: null | CustomAttribute;
+    add_to_cart_allowed: null | boolean;
+    options:
+      | null
+      | {
+          id: null | string;
+          title: null | string;
+          values: null | SwatchValues[];
+        }[];
   };
   highlights: Array<Highlights>;
 }
@@ -169,10 +239,8 @@ export interface Money {
 }
 
 export interface Price {
-  fixed_product_taxes: null | { amount: Money; label: string };
-  regular_price: Money;
-  final_price: Money;
-  discount: null | { percent_off: number; amount_off: number };
+  adjustments: null | { amount: number; code: string };
+  amount: Money;
 }
 
 export interface Media {
@@ -180,6 +248,13 @@ export interface Media {
   label: null | string;
   position: null | number;
   disabled: null | boolean;
+}
+
+export interface SwatchValues {
+  title: string;
+  id: string;
+  type: string;
+  value: string;
 }
 
 export interface CustomAttribute {
