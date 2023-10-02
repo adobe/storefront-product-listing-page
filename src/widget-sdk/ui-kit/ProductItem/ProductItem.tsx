@@ -13,7 +13,6 @@ import {
 } from '../../utils';
 import ProductPrice from './ProductPrice';
 import { Media } from 'src/types/interface';
-import { useStore } from '../../../context/store';
 
 export interface ProductProps {
   item: Product;
