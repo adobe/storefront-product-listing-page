@@ -24,32 +24,9 @@ import { Pill } from '../Pill'
         name="Pill"
         args={{
             onClick: () => console.log("Clicked one me!"),
-            label: "Plus!",
+            label: "Pink",
             classes: "",
-            CTA: (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-md w-md inline-block ml-sm cursor-pointer mb-0.5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                        clipRule="evenodd"
-                    />
-                </svg>
-            ),
-        }}
-    >
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="Pill with custom CTA"
-        args={{
-            onClick: () => console.log("Clicked!"),
-            label: "Howdy!",
-            classes: "",
+
         }}
     >
         {Template.bind({})}
