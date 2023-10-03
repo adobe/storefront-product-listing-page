@@ -139,8 +139,7 @@ const getSearchParams = () => {
   const search = window.location.search;
   return new URLSearchParams(search);
 };
-removeAllUrlFilters;
-getFiltersFromUrl;
+
 export {
   addUrlFilter,
   getFiltersFromUrl,
