@@ -1,7 +1,7 @@
 import { Product } from '../../types/interface';
 
 export const sampleProductNoImage: Product = {
-  product: {
+  productView: {
     __typename: 'SimpleProduct',
     id: 21,
     uid: '21',
@@ -15,33 +15,67 @@ export const sampleProductNoImage: Product = {
     meta_title: null,
     meta_keyword: null,
     meta_description: null,
-    image: null,
-    small_image: null,
-    thumbnail: null,
+    images: null,
     new_from_date: null,
     new_to_date: null,
     created_at: null,
     updated_at: null,
-    price_range: {
-      minimum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 8, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+    price: {
+      final: {
+        amount: {
+          value: 5,
+          currency: 'USD',
+        },
+        adjustments: null,
       },
-      maximum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 5, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+      regular: {
+        amount: {
+          value: 5,
+          currency: 'USD',
+        },
+        adjustments: null,
+      },
+    },
+    priceRange: {
+      maximum: {
+        final: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+        regular: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+      },
+      minimum: {
+        final: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+        regular: {
+          amount: {
+            value: 8,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
       },
     },
     gift_message_available: null,
-    canonical_url:
-      '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
+    url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
     media_gallery: null,
     custom_attributes: null,
     add_to_cart_allowed: null,
+    options: null,
   },
   highlights: [
     {
@@ -59,7 +93,7 @@ export const sampleProductNoImage: Product = {
 };
 
 export const sampleProductDiscounted: Product = {
-  product: {
+  productView: {
     __typename: 'SimpleProduct',
     id: 21,
     uid: '21',
@@ -73,48 +107,86 @@ export const sampleProductDiscounted: Product = {
     meta_title: null,
     meta_keyword: null,
     meta_description: null,
-    image: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    small_image: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    thumbnail: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
+    images: [
+      {
+        url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        label: null,
+        position: null,
+        disabled: null,
+      },
+      {
+        url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        label: null,
+        position: null,
+        disabled: null,
+      },
+      {
+        url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        label: null,
+        position: null,
+        disabled: null,
+      },
+    ],
     new_from_date: null,
     new_to_date: null,
     created_at: null,
     updated_at: null,
-    price_range: {
-      minimum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 8, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+    price: {
+      final: {
+        amount: {
+          value: 5,
+          currency: 'USD',
+        },
+        adjustments: null,
       },
-      maximum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 5, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+      regular: {
+        amount: {
+          value: 5,
+          currency: 'USD',
+        },
+        adjustments: null,
+      },
+    },
+    priceRange: {
+      maximum: {
+        final: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+        regular: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+      },
+      minimum: {
+        final: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+        regular: {
+          amount: {
+            value: 8,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
       },
     },
     gift_message_available: null,
-    canonical_url:
-      '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
+    url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
     media_gallery: null,
     custom_attributes: null,
     add_to_cart_allowed: null,
+    options: null,
   },
   highlights: [
     {
@@ -132,7 +204,7 @@ export const sampleProductDiscounted: Product = {
 };
 
 export const sampleProductNotDiscounted: Product = {
-  product: {
+  productView: {
     __typename: 'SimpleProduct',
     id: 21,
     uid: '21',
@@ -146,48 +218,86 @@ export const sampleProductNotDiscounted: Product = {
     meta_title: null,
     meta_keyword: null,
     meta_description: null,
-    image: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    small_image: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    thumbnail: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
+    images: [
+      {
+        url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        label: null,
+        position: null,
+        disabled: null,
+      },
+      {
+        url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        label: null,
+        position: null,
+        disabled: null,
+      },
+      {
+        url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        label: null,
+        position: null,
+        disabled: null,
+      },
+    ],
     new_from_date: null,
     new_to_date: null,
     created_at: null,
     updated_at: null,
-    price_range: {
-      minimum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 5, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+    price: {
+      final: {
+        amount: {
+          value: 5,
+          currency: 'USD',
+        },
+        adjustments: null,
       },
-      maximum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 8, currency: 'USD' },
-        final_price: { value: 8, currency: 'USD' },
-        discount: null,
+      regular: {
+        amount: {
+          value: 5,
+          currency: 'USD',
+        },
+        adjustments: null,
+      },
+    },
+    priceRange: {
+      maximum: {
+        final: {
+          amount: {
+            value: 8,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+        regular: {
+          amount: {
+            value: 8,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+      },
+      minimum: {
+        final: {
+          amount: {
+            value: 5,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
+        regular: {
+          amount: {
+            value: 8,
+            currency: 'USD',
+          },
+          adjustments: null,
+        },
       },
     },
     gift_message_available: null,
-    canonical_url:
-      '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
+    url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
     media_gallery: null,
     custom_attributes: null,
     add_to_cart_allowed: null,
+    options: null,
   },
   highlights: [
     {

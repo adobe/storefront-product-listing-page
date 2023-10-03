@@ -3,24 +3,29 @@ import getSymbolFromCurrency from 'currency-symbol-map';
 import { Product } from '../types/interface';
 
 const getProductPrice = (
-  product: Product,
+  product: any,
   currencySymbol: string,
   currencyRate: string | undefined,
   useMaximum = false,
   useFinal = false
 ): string => {
-  let priceType = product?.product?.price_range?.minimum_price;
+  let priceType =
+    product?.productView?.priceRange?.minimum ??
+    product?.productView?.price ??
+    product?.refineProduct?.priceRange?.minimum;
   if (useMaximum) {
-    priceType = product?.product?.price_range?.maximum_price;
+    priceType =
+      product?.productView?.priceRange?.maximum ??
+      product?.refineProduct?.priceRange?.maximum;
   }
 
-  let price = priceType?.regular_price;
+  let price = priceType?.regular;
   if (useFinal) {
-    price = priceType?.final_price;
+    price = priceType?.final;
   }
 
   // if currency symbol is configurable within Magento, that symbol is used
-  let currency = price?.currency;
+  let currency = price?.amount?.currency;
 
   if (currencySymbol) {
     currency = currencySymbol;
@@ -28,13 +33,13 @@ const getProductPrice = (
     currency = getSymbolFromCurrency(currency) ?? '$';
   }
 
-  if (price?.value === null) {
+  if (price?.amount?.value === null) {
     return `${currency}0`;
   }
 
   const convertedPrice = currencyRate
-    ? price?.value * parseFloat(currencyRate)
-    : price?.value;
+    ? price?.amount?.value * parseFloat(currencyRate)
+    : price?.amount?.value;
 
   return `${currency}${convertedPrice.toFixed(2)}`;
 };

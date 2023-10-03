@@ -14,7 +14,7 @@ import {
   SearchSort,
 } from '@adobe/magento-storefront-events-sdk/dist/types/types/schemas';
 
-import { ProductSearchResponse } from '../types/interface';
+import { ProductSearchResponse, Product } from '../types/interface';
 
 const updateSearchInputCtx = (
   searchUnitId: string,
@@ -107,11 +107,15 @@ const createProducts = (
   }
 
   const products: SearchResultProduct[] = items.map((item, index) => ({
-    name: item?.product?.name,
-    sku: item?.product?.sku,
-    url: item?.product?.canonical_url ?? '',
-    imageUrl: item?.product?.image?.url ?? '',
-    price: item?.product?.price_range?.minimum_price?.final_price?.value,
+    name: item?.productView?.name,
+    sku: item?.productView?.sku,
+    url: item?.productView?.url ?? '',
+    imageUrl: item?.productView?.images?.length
+      ? item?.productView?.images[0].url ?? ''
+      : '',
+    price:
+      item?.productView?.price?.final?.amount?.value ??
+      item?.productView?.priceRange?.minimum?.final?.amount?.value,
     rank: index,
   }));
 

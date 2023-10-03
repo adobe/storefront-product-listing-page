@@ -1,26 +1,12 @@
-import { Product } from '../../types/interface';
+import { Product, Media } from '../../types/interface';
 
-type imageType = 'thumbnail' | 'small' | 'base';
-
-const getProductImageURL = (product: Product, imageType: imageType): string => {
-  const item = product.product;
-
+const getProductImageURL = (images: Media[]): string => {
   let url = null;
 
-  if (imageType === 'thumbnail' && item.thumbnail) {
-    //get thumbnail image
-    url = item.thumbnail.url;
-  } else if (
-    (imageType === 'small' || imageType === 'thumbnail') &&
-    item.small_image
-  ) {
-    //default small && thumbnail to small image (if no thumbnail exists)
-    url = item.small_image.url;
-  } else if (item.image) {
-    //use base image if neither small or thumbnail exist
-    url = item.image.url;
+  if (images?.length) {
+    const mainImages = images.filter((image) => image.url?.includes('main'));
+    url = mainImages.length ? mainImages[0].url : images[0].url;
   }
-
   return url ?? '';
 };
 

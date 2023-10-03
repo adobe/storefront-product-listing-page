@@ -1,3 +1,9 @@
+import {
+  ATTRIBUTE_METADATA_QUERY,
+  PRODUCT_SEARCH_QUERY,
+  REFINE_PRODUCT_QUERY,
+} from '../widget-sdk/gql/queries';
+import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { updateSearchInputCtx, updateSearchResultsCtx } from '../context';
@@ -6,13 +12,10 @@ import {
   ClientProps,
   MagentoHeaders,
   ProductSearchQuery,
+  RefineProductQuery,
+  RefinedProduct,
   ProductSearchResponse,
 } from '../types/interface';
-import {
-  ATTRIBUTE_METADATA_QUERY,
-  PRODUCT_SEARCH_QUERY,
-} from '../widget-sdk/gql/queries';
-import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {
@@ -23,6 +26,7 @@ const getHeaders = (headers: MagentoHeaders) => {
     'X-Api-Key': headers.apiKey,
     'X-Request-Id': headers.xRequestId,
     'Content-Type': 'application/json',
+    'Magento-Customer-Group': headers.customerGroup,
   };
 };
 
@@ -84,6 +88,7 @@ const getProductSearch = async ({
     storeViewCode,
     apiKey,
     xRequestId,
+    customerGroup: context?.customerGroup ?? '',
   });
 
   // ======  initialize data collection =====
@@ -98,6 +103,7 @@ const getProductSearch = async ({
     currentPage,
     sort
   );
+
   const magentoStorefrontEvtPublish = window.magentoStorefrontEvents?.publish;
 
   magentoStorefrontEvtPublish?.searchRequestSent &&
@@ -114,7 +120,6 @@ const getProductSearch = async ({
   });
 
   const results = await response.json();
-
   // ======  initialize data collection =====
   updateSearchResultsCtx(
     SEARCH_UNIT_ID,
@@ -153,6 +158,7 @@ const getAttributeMetadata = async ({
     storeViewCode,
     apiKey,
     xRequestId,
+    customerGroup: '',
   });
 
   const response = await fetch(apiUrl, {
@@ -166,4 +172,43 @@ const getAttributeMetadata = async ({
   return results?.data;
 };
 
-export { getProductSearch, getAttributeMetadata };
+const refineProductSearch = async ({
+  environmentId,
+  websiteCode,
+  storeCode,
+  storeViewCode,
+  apiKey,
+  apiUrl,
+  xRequestId = uuidv4(),
+  context,
+  optionIds,
+  sku,
+}: RefineProductQuery & ClientProps): Promise<RefinedProduct> => {
+  const variables = {
+    optionIds,
+    sku,
+  };
+
+  const headers = getHeaders({
+    environmentId,
+    websiteCode,
+    storeCode,
+    storeViewCode,
+    apiKey,
+    xRequestId,
+    customerGroup: context?.customerGroup ?? '',
+  });
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: REFINE_PRODUCT_QUERY,
+      variables: { ...variables },
+    }),
+  });
+  const results = await response.json();
+  return results?.data;
+};
+
+export { getProductSearch, getAttributeMetadata, refineProductSearch };
