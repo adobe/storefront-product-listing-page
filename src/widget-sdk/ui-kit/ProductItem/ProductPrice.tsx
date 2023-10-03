@@ -26,7 +26,6 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
-  console.log(isComplexProductView)
   return (
     <div className="ds-sdk-product-price">
       {!isBundle && !isGrouped && !isConfigurable && !isComplexProductView && discount && (

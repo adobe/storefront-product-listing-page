@@ -8,9 +8,9 @@ import NoImage from '../../icons/NoImage.svg';
 import { Product, RefinedProduct } from '../../types/interface';
 import { SwatchButtonGroup } from '../../ui-kit';
 import {
-  SEARCH_UNIT_ID,
   getProductImageURL,
   htmlStringDecode,
+  SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
 
