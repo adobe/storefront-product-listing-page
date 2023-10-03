@@ -38,7 +38,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const getInitialImages = async () => {
     const images = await refineProductSearch({
       ...storeCtx,
-      optionIds: [colorSwatches[0].id],
+      optionIds: [colorSwatches[0]?.id],
       sku: item.productView.sku,
     });
     return images.refineProduct.images ?? productView.images;
