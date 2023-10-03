@@ -1,8 +1,7 @@
+import { render } from '../../lib/tests';
 import { SwatchButton } from './SwatchButton';
 
-import { render } from '../../lib/tests';
-
-describe('WidgetSDK - UIKit/PerPagePicker', () => {
+describe('WidgetSDK - UIKit/SwatchButton', () => {
   test('renders', () => {
     const handleChange = jest.fn();
     const { container } = render(
@@ -15,7 +14,7 @@ describe('WidgetSDK - UIKit/PerPagePicker', () => {
       />
     );
 
-    const elem = container.querySelector('.ds-sdk-swatch-button');
+    const elem = container.querySelector('.ds-sdk-swatch-button_test');
 
     expect(!!elem).toEqual(true);
   });

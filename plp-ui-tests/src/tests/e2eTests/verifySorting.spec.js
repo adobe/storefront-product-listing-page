@@ -55,7 +55,7 @@ describe('Verify Name Sort', () => {
     cy.visitHomePage();
     cy.get('.ds-sdk-search-bar').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-sort-dropdown').click();
-    cy.get('.ds-sdk-sort-dropdown__items--item').contains('name').click();
+    cy.get('.ds-sdk-sort-dropdown__items--item').contains('Name').click();
     cy.get('.ds-sdk-sort-dropdown')
       .find('button')
       .then(function ($elem) {
