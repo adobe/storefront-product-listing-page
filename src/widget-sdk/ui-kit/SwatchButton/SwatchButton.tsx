@@ -31,7 +31,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
     );
   }
 
-  if (type === 'image_url') {
+  if (type === 'image_url' && value) {
     const className = `${value} min-w-[32px] bg-gray-100 ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
     return (
       <div className={`ds-sdk-swatch-button_${value}`}>
