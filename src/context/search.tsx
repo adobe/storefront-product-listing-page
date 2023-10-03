@@ -14,6 +14,7 @@ import {
   removeUrlFilter,
 } from '../utils/handleUrlFilters';
 import { generateGQLSortInput } from '../widget-sdk/utils/sort';
+import { useStore } from './store';
 
 interface SearchContextProps {
   phrase: string;
@@ -34,7 +35,8 @@ interface SearchContextProps {
 export const SearchContext = createContext({} as SearchContextProps);
 
 const SearchProvider: FunctionComponent = ({ children }) => {
-  const phraseFromUrl = getValueFromUrl('q');
+  const storeCtx = useStore();
+  const phraseFromUrl = getValueFromUrl(storeCtx.searchQuery || 'q');
 
   const sortFromUrl = getValueFromUrl('product_list_order');
 
