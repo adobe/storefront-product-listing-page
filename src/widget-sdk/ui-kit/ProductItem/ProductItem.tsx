@@ -8,9 +8,9 @@ import NoImage from '../../icons/NoImage.svg';
 import { Product, RefinedProduct } from '../../types/interface';
 import { SwatchButtonGroup } from '../../ui-kit';
 import {
+  SEARCH_UNIT_ID,
   getProductImageURL,
   htmlStringDecode,
-  SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
 
@@ -61,6 +61,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGrouped = productView?.__typename === 'GroupedProduct';
   const isGiftCard = productView?.__typename === 'GiftCardProduct';
   const isConfigurable = productView?.__typename === 'ConfigurableProduct';
+  const isComplexProductView = productView?.__typename === 'ComplexProductView';
 
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
@@ -111,6 +112,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               isGrouped={isGrouped}
               isGiftCard={isGiftCard}
               isConfigurable={isConfigurable}
+              isComplexProductView={isComplexProductView}
               discount={discount}
               currencySymbol={currencySymbol}
               currencyRate={currencyRate}
