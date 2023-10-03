@@ -43,6 +43,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
         !isGrouped &&
         !isGiftCard &&
         !isConfigurable &&
+        !isComplexProductView &&
         !discount && (
           <p className="ds-sdk-product-price--no-discount mt-xs text-sm font-medium text-gray-900">
             {getProductPrice(item, currencySymbol, currencyRate, false, true)}
