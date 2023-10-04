@@ -1,18 +1,18 @@
-import { SwatchButton, SwatchButtonGroup } from '../../ui-kit';
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
+import { Media } from 'src/types/interface';
+
 import { refineProductSearch } from '../../../api/search';
 import { useStore } from '../../../context/store';
-
 import NoImage from '../../icons/NoImage.svg';
 import { Product, RefinedProduct } from '../../types/interface';
+import { SwatchButtonGroup } from '../../ui-kit';
 import {
   getProductImageURL,
   htmlStringDecode,
   SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
-import { Media } from 'src/types/interface';
 
 export interface ProductProps {
   item: Product;
@@ -26,9 +26,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   currencyRate,
 }: ProductProps) => {
   const { productView } = item;
-  const [selected, setSelected] = useState(false);
   const [selectedSwatch, setSelectedSwatch] = useState('');
-  const [initialImages, setInitialImages] = useState<Media[] | null>();
   const [productImages, setImages] = useState<Media[] | null>();
   const [product, setProduct] = useState<RefinedProduct>();
   const storeCtx = useStore();
@@ -53,13 +51,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProductSearch({
       ...storeCtx,
-      optionIds: optionIds,
-      sku: sku,
+      optionIds,
+      sku,
     });
     setSelectedSwatch(optionIds[0]);
     setImages(data.refineProduct.images);
     setProduct(data);
-    setSelected(true);
   };
 
   const isSelected = (id: string) => {
@@ -68,7 +65,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productImage = getProductImageURL(
-    productImages ? productImages ?? [] : initialImages ?? []
+    productImages ? productImages ?? [] : productView.images ?? []
   ); // get image for PLP
 
   // will have to figure out discount logic for amount_off and percent_off still
@@ -81,6 +78,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGrouped = productView?.__typename === 'GroupedProduct';
   const isGiftCard = productView?.__typename === 'GiftCardProduct';
   const isConfigurable = productView?.__typename === 'ConfigurableProduct';
+  const isComplexProductView = productView?.__typename === 'ComplexProductView';
 
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
@@ -101,7 +99,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         className="!text-primary hover:no-underline hover:text-primary"
       >
         <div className="ds-sdk-product-item group relative flex flex-col justify-between h-full">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden group-hover:opacity-75">
+          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
             {/*
                   NOTE:
                   we could use <picture> <source...
@@ -109,7 +107,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   in future for better performance
                  */}
             {productImage ? (
-              <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-96">
+              <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-96">
                 <img
                   src={productImage}
                   alt={productView.name}
@@ -131,6 +129,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               isGrouped={isGrouped}
               isGiftCard={isGiftCard}
               isConfigurable={isConfigurable}
+              isComplexProductView={isComplexProductView}
               discount={discount}
               currencySymbol={currencySymbol}
               currencyRate={currencyRate}
@@ -143,6 +142,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           (swatches) =>
             swatches.id == 'color' && (
               <SwatchButtonGroup
+                key={productView?.sku}
                 isSelected={isSelected}
                 swatches={swatches.values ?? []}
                 showMore={false}

@@ -1,9 +1,3 @@
-import {
-  ATTRIBUTE_METADATA_QUERY,
-  PRODUCT_SEARCH_QUERY,
-  REFINE_PRODUCT_QUERY,
-} from '../widget-sdk/gql/queries';
-import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { updateSearchInputCtx, updateSearchResultsCtx } from '../context';
@@ -12,10 +6,16 @@ import {
   ClientProps,
   MagentoHeaders,
   ProductSearchQuery,
-  RefineProductQuery,
-  RefinedProduct,
   ProductSearchResponse,
+  RefinedProduct,
+  RefineProductQuery,
 } from '../types/interface';
+import {
+  ATTRIBUTE_METADATA_QUERY,
+  PRODUCT_SEARCH_QUERY,
+  REFINE_PRODUCT_QUERY,
+} from '../widget-sdk/gql/queries';
+import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {

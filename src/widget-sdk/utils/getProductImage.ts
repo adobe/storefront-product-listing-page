@@ -1,4 +1,4 @@
-import { Product, Media } from '../../types/interface';
+import { Media } from '../../types/interface';
 
 const getProductImageURL = (images: Media[]): string => {
   let url = null;

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+
 import { SwatchValues } from '../../types/interface';
 import { SwatchButton } from '../../ui-kit';
 
@@ -22,10 +22,11 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
 }: SwatchButtonGroupProps) => {
   const numberOfOptions = showMore ? swatches.length : MAX_SWATCHES;
   return (
-    <div className="flex column items-center space-x-4">
+    <div className="ds-sdk-product-item__product-swatch-group flex column items-center space-x-4">
       {swatches.slice(0, numberOfOptions).map((swatch) => {
         const checked = isSelected(swatch.id);
         return (
+          swatch &&
           swatch.type == 'COLOR_HEX' && (
             <div className="ds-sdk-product-item__product-swatch-item text-sm text-primary">
               <SwatchButton

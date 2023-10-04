@@ -14,7 +14,7 @@ import {
   SearchSort,
 } from '@adobe/magento-storefront-events-sdk/dist/types/types/schemas';
 
-import { ProductSearchResponse, Product } from '../types/interface';
+import { ProductSearchResponse } from '../types/interface';
 
 const updateSearchInputCtx = (
   searchUnitId: string,
