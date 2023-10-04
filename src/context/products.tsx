@@ -7,6 +7,7 @@ import {
   FacetFilter,
   Product,
   ProductSearchQuery,
+  RedirectRouteFunc,
 } from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,
@@ -24,7 +25,7 @@ import {
 import { PageSizeOption } from '../widget-sdk/utils/types';
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
-import { RedirectRouteFunc, useStore } from './store';
+import { useStore } from './store';
 import { TranslationContext } from './translation';
 
 interface WithChildrenProps {

@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'preact';
 import { HTMLAttributes } from 'preact/compat';
-import { RedirectRouteFunc } from 'src/context';
 
 import './product-list.css';
 
+import { RedirectRouteFunc } from '../../../types/interface';
 import { Product } from '../../types/interface';
 import ProductItem from '../ProductItem';
 
@@ -25,7 +25,6 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   showFilters,
   setRoute,
   refineProduct,
-
 }) => {
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-5xl mx-auto pb-2xl sm:pb-24 lg:max-w-7xl'
