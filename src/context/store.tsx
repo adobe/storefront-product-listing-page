@@ -1,12 +1,15 @@
 import { createContext } from 'preact';
 import { useContext, useMemo } from 'preact/hooks';
-import { QueryContextInput, StoreDetailsConfig } from 'src/types/interface';
+
+import {
+  QueryContextInput,
+  RedirectRouteFunc,
+  StoreDetailsConfig,
+} from '../types/interface';
 
 interface WithChildrenProps {
   children?: any;
 }
-
-type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
 
 export interface StoreDetailsProps extends WithChildrenProps {
   environmentId: string;

@@ -11,6 +11,8 @@ describe('WidgetSDK - UIKit/ProductList', () => {
         currencySymbol=""
         currencyRate=""
         showFilters={true}
+        setRoute={undefined}
+        refineProduct={() => {}}
       />
     );
 

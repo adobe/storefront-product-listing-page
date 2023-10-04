@@ -37,6 +37,8 @@ export interface StoreDetailsConfig {
 // Types
 export type BucketTypename = 'ScalarBucket' | 'RangeBucket' | 'StatsBucket';
 
+export type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
+
 export interface MagentoHeaders {
   environmentId: string;
   websiteCode: string;
