@@ -30,23 +30,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const [productImages, setImages] = useState<Media[] | null>();
   const [product, setProduct] = useState<RefinedProduct>();
   const storeCtx = useStore();
-  const colorSwatches =
-    item.productView.options?.filter((option) => option.id == 'color')[0]
-      ?.values ?? [];
-  const getInitialImages = async () => {
-    const images = await refineProductSearch({
-      ...storeCtx,
-      optionIds: [colorSwatches[0]?.id],
-      sku: item.productView.sku,
-    });
-    return images.refineProduct.images ?? productView.images;
-  };
-
-  if (!initialImages?.length) {
-    getInitialImages().then((data) => {
-      setInitialImages(data);
-    });
-  }
 
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProductSearch({
