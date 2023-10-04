@@ -68,6 +68,7 @@ export const PreviewHeader: FunctionComponent<Props> = ({ facets }) => {
             ? totalCount > 0 && (
                 <FilterButton
                   displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                  type="mobile"
                 />
               )
             : storeCtx.config.displaySearchBox && (

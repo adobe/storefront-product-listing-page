@@ -1,15 +1,15 @@
-import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
-import { FilterButton } from "../FilterButton";
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { FilterButton } from '../FilterButton';
 
 <Meta
-    title="UIKit/FilterButton"
-    component={FilterButton}
-    parameters={{
-        layout: "centered"
-    }}
+  title="UIKit/FilterButton"
+  component={FilterButton}
+  parameters={{
+    layout: 'centered',
+  }}
 />
 
-export const Template = args => <FilterButton {...args} />;
+export const Template = (args) => <FilterButton {...args} />;
 
 # FilterButton
 
@@ -24,6 +24,7 @@ import { FilterButton } from '../FilterButton'
         name="FilterButton"
         args={{
             onClick: () => {},
+            type="mobile"
         }}
     >
         {Template.bind({})}

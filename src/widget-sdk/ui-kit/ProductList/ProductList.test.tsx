@@ -10,6 +10,7 @@ describe('WidgetSDK - UIKit/ProductList', () => {
         numberOfColumns={0}
         currencySymbol=""
         currencyRate=""
+        showFilters={true}
       />
     );
 

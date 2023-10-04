@@ -10,7 +10,13 @@ import {
 import { Alert, PerPagePicker, ProductList } from '../widget-sdk/ui-kit';
 import Pagination from './Pagination';
 
-export const ProductsContainer: FunctionComponent = () => {
+interface Props {
+  showFilters: boolean;
+}
+
+export const ProductsContainer: FunctionComponent<Props> = ({
+  showFilters,
+}) => {
   const productsCtx = useProducts();
   const { screenSize } = useSensor();
 
@@ -73,8 +79,13 @@ export const ProductsContainer: FunctionComponent = () => {
         numberOfColumns={screenSize.columns}
         currencySymbol={currencySymbol}
         currencyRate={currencyRate}
+        showFilters={showFilters}
       />
-      <div className="flex flex-row justify-between max-w-5xl lg:max-w-7xl mx-auto w-full h-full">
+      <div
+        className={`flex flex-row justify-between max-w-5xl lg:max-w-7xl ${
+          showFilters ? 'mx-auto' : 'mr-auto'
+        } w-full h-full`}
+      >
         <div>
           {translation.ProductContainers.show}{' '}
           <PerPagePicker

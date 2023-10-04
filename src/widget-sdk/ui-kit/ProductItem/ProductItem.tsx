@@ -18,12 +18,14 @@ export interface ProductProps {
   item: Product;
   currencySymbol: string;
   currencyRate?: string;
+  showFilters: boolean;
 }
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
   item,
   currencySymbol,
   currencyRate,
+  showFilters,
 }: ProductProps) => {
   const { productView } = item;
   const [selectedSwatch, setSelectedSwatch] = useState('');
@@ -90,16 +92,20 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   in future for better performance
                  */}
             {productImage ? (
-              <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-96">
+              <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none">
                 <img
                   src={productImage}
                   alt={productView.name}
                   loading="eager"
-                  className="max-h-[30rem] h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  className="max-h-[45rem] h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
               </div>
             ) : (
-              <NoImage className="max-h-[30rem] h-96 w-full object-cover object-center lg:h-96 lg:w-full" />
+              <NoImage
+                className={`max-h-[45rem] ${
+                  showFilters ? 'h-[23rem]' : 'h-[36.5rem]'
+                } w-full object-cover object-center lg:w-full`}
+              />
             )}
           </div>
           <div className="flex flex-col">

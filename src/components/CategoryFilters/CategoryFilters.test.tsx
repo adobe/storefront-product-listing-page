@@ -12,6 +12,7 @@ describe('PLP widget/CategoryFilters', () => {
         facets={[]}
         categoryName=""
         phrase=""
+        setShowFilters={() => true}
       />
     );
 
