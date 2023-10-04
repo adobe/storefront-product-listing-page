@@ -1,12 +1,11 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
-// import { action } from '@storybook/addon-actions';
-import { SwatchButton } from "@adobe/ds-widget-sdk/ui-kit";
+import { SwatchButton } from "../SwatchButton";
 
 <Meta
     title="Core - UIKit/SwatchButton"
     component={SwatchButton}
     parameters={{
-        layout: "centered", // centered | fullscreen
+        layout: "centered",
     }}
 />
 
@@ -17,7 +16,7 @@ export const Template = args => <SwatchButton {...args} />;
 WIP
 
 ```
-import { SwatchButton } from '@adobe/ds-widget-sdk/ui-kit'
+import { SwatchButton } from '../SwatchButton'
 ```
 
 <Canvas>
