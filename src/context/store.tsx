@@ -19,6 +19,7 @@ export interface StoreDetailsProps extends WithChildrenProps {
   apiUrl: string;
   apiKey: string;
   route?: RedirectRouteFunc; // optional product redirect func prop (used in AEM/CIF)
+  searchQuery?: string; // 'q' default search query param if not provided.
 }
 
 const StoreContext = createContext<StoreDetailsProps>({
@@ -32,6 +33,7 @@ const StoreContext = createContext<StoreDetailsProps>({
   config: {},
   context: {},
   route: undefined,
+  searchQuery: 'q',
 });
 
 const StoreContextProvider = ({
@@ -45,6 +47,7 @@ const StoreContextProvider = ({
   context,
   apiKey,
   route,
+  searchQuery,
 }: StoreDetailsProps) => {
   const storeProps = useMemo(
     () => ({
@@ -61,6 +64,7 @@ const StoreContextProvider = ({
       apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : API_URL,
       apiKey: environmentType?.toLowerCase() === 'testing' ? API_KEY : apiKey,
       route,
+      searchQuery,
     }),
     [environmentId, websiteCode, storeCode, storeViewCode]
   );

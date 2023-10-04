@@ -7,6 +7,7 @@ import { DEFAULT_PAGE_SIZE } from '../utils/constants';
 
 const nonFilterKeys = {
   search: 'q',
+  search_query: 'search_query', // AEM/CIF search query
   pagination: 'p',
   sort: 'product_list_order',
   page_size: 'page_size',
