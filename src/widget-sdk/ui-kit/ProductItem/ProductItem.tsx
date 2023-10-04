@@ -2,15 +2,14 @@ import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { Media } from 'src/types/interface';
 
-import { refineProductSearch } from '../../../api/search';
-import { useStore } from '../../../context/store';
+import { RedirectRouteFunc } from 'src/context';
 import NoImage from '../../icons/NoImage.svg';
 import { Product, RefinedProduct } from '../../types/interface';
 import { SwatchButtonGroup } from '../../ui-kit';
 import {
+  SEARCH_UNIT_ID,
   getProductImageURL,
   htmlStringDecode,
-  SEARCH_UNIT_ID,
 } from '../../utils';
 import ProductPrice from './ProductPrice';
 
@@ -19,6 +18,8 @@ export interface ProductProps {
   currencySymbol: string;
   currencyRate?: string;
   showFilters: boolean;
+  setRoute?: RedirectRouteFunc | undefined;
+  refineProduct: (optionIds: string[], sku: string) => any;
 }
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
@@ -26,19 +27,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   currencySymbol,
   currencyRate,
   showFilters,
+  setRoute,
+  refineProduct,
 }: ProductProps) => {
   const { productView } = item;
   const [selectedSwatch, setSelectedSwatch] = useState('');
   const [productImages, setImages] = useState<Media[] | null>();
   const [product, setProduct] = useState<RefinedProduct>();
-  const storeCtx = useStore();
 
   const handleSelection = async (optionIds: string[], sku: string) => {
-    const data = await refineProductSearch({
-      ...storeCtx,
-      optionIds,
-      sku,
-    });
+    const data = await refineProduct(optionIds, sku);
     setSelectedSwatch(optionIds[0]);
     setImages(data.refineProduct.images);
     setProduct(data);
@@ -72,8 +70,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     );
   };
 
-  const productUrl = storeCtx.route
-    ? storeCtx.route({ sku: productView?.sku })
+  const productUrl = setRoute
+    ? setRoute({ sku: productView?.sku })
     : productView?.url;
 
   return (

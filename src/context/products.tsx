@@ -1,7 +1,7 @@
 import { createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
-import { getProductSearch } from '../api/search';
+import { getProductSearch, refineProductSearch } from '../api/search';
 import {
   Facet,
   FacetFilter,
@@ -24,7 +24,7 @@ import {
 import { PageSizeOption } from '../widget-sdk/utils/types';
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
-import { useStore } from './store';
+import { RedirectRouteFunc, useStore } from './store';
 import { TranslationContext } from './translation';
 
 interface WithChildrenProps {
@@ -56,6 +56,8 @@ const ProductsContext = createContext<{
   minQueryLengthReached: boolean;
   setMinQueryLengthReached: (minQueryLengthReached: boolean) => void;
   pageSizeOptions: PageSizeOption[];
+  setRoute: RedirectRouteFunc | undefined;
+  refineProduct: (optionIds: string[], sku: string) => any;
 }>({
   variables: {
     phrase: '',
@@ -83,6 +85,8 @@ const ProductsContext = createContext<{
   minQueryLengthReached: false,
   setMinQueryLengthReached: () => {},
   pageSizeOptions: [],
+  setRoute: undefined,
+  refineProduct: () => {},
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -146,6 +150,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageSize,
   ]);
 
+  const handleRefineProductSearch = async (
+    optionIds: string[],
+    sku: string
+  ) => {
+    const data = await refineProductSearch({ ...storeCtx, optionIds, sku });
+    return data;
+  };
+
   const context = {
     variables,
     loading,
@@ -171,6 +183,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     minQueryLengthReached,
     setMinQueryLengthReached,
     pageSizeOptions,
+    setRoute: storeCtx.route,
+    refineProduct: handleRefineProductSearch,
   };
 
   const searchProducts = async () => {

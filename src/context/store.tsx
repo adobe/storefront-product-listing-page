@@ -6,7 +6,7 @@ interface WithChildrenProps {
   children?: any;
 }
 
-type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
+export type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
 
 export interface StoreDetailsProps extends WithChildrenProps {
   environmentId: string;

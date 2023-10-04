@@ -34,6 +34,8 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     minQueryLength,
     minQueryLengthReached,
     pageSizeOptions,
+    setRoute,
+    refineProduct,
   } = productsCtx;
 
   const goToPage = (page: number | string) => {
@@ -80,6 +82,8 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         currencySymbol={currencySymbol}
         currencyRate={currencyRate}
         showFilters={showFilters}
+        setRoute={setRoute}
+        refineProduct={refineProduct}
       />
       <div
         className={`flex flex-row justify-between max-w-5xl lg:max-w-7xl ${

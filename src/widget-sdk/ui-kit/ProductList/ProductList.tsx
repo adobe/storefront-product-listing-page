@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'preact';
 import { HTMLAttributes } from 'preact/compat';
+import { RedirectRouteFunc } from 'src/context';
 
 import './product-list.css';
 
@@ -12,6 +13,8 @@ export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   currencySymbol: string;
   currencyRate: string;
   showFilters: boolean;
+  setRoute: RedirectRouteFunc | undefined;
+  refineProduct: (optionIds: string[], sku: string) => any;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({
@@ -20,6 +23,9 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   currencySymbol,
   currencyRate,
   showFilters,
+  setRoute,
+  refineProduct,
+
 }) => {
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-5xl mx-auto pb-2xl sm:pb-24 lg:max-w-7xl'
@@ -39,6 +45,8 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
             currencySymbol={currencySymbol}
             currencyRate={currencyRate}
             showFilters={showFilters}
+            setRoute={setRoute}
+            refineProduct={refineProduct}
           />
         ))}
       </div>
