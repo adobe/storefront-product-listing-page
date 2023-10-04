@@ -11,6 +11,7 @@ export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   numberOfColumns: number;
   currencySymbol: string;
   currencyRate: string;
+  showFilters: boolean;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({
@@ -18,9 +19,13 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   numberOfColumns,
   currencySymbol,
   currencyRate,
+  showFilters,
 }) => {
+  const className = showFilters
+    ? 'ds-sdk-product-list bg-body max-w-5xl mx-auto pb-2xl sm:pb-24 lg:max-w-7xl'
+    : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
   return (
-    <div className="ds-sdk-product-list bg-body max-w-5xl mx-auto pb-2xl sm:pb-24 lg:max-w-7xl">
+    <div className={className}>
       <div
         style={{
           gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
@@ -33,6 +38,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
             key={product.productView.id}
             currencySymbol={currencySymbol}
             currencyRate={currencyRate}
+            showFilters={showFilters}
           />
         ))}
       </div>

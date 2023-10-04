@@ -9,6 +9,7 @@ describe('WidgetSDK - UIKit/FilterButton', () => {
         displayFilter={() => {
           return;
         }}
+        type="mobile"
       />
     );
 
