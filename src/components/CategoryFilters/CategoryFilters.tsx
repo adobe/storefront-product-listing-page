@@ -2,7 +2,6 @@ import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 import { Facet } from 'src/types/interface';
 
-import { useSensor } from '../../context';
 import { TranslationContext } from '../../context/translation';
 import { FilterButton } from '../../widget-sdk/ui-kit';
 import { Facets } from '../Facets';
@@ -25,7 +24,6 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   setShowFilters,
 }) => {
   const translation = useContext(TranslationContext);
-  const { screenSize } = useSensor();
   let title = categoryName || '';
   if (phrase) {
     const text = translation.CategoryFilters.results;
