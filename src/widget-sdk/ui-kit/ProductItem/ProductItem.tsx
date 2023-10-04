@@ -132,7 +132,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 key={productView?.sku}
                 isSelected={isSelected}
                 swatches={swatches.values ?? []}
-                showMore={false}
+                showMore={onProductClick}
+                productUrl={productUrl as string}
                 onClick={handleSelection}
                 sku={productView?.sku}
               />

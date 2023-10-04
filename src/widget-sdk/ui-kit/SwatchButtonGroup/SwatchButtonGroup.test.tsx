@@ -23,7 +23,8 @@ const mockButtonGroup: SwatchButtonGroupProps = {
     },
   ],
   isSelected: () => true,
-  showMore: false,
+  showMore: () => {},
+  productUrl: '',
   onClick: () => {},
   sku: 'test',
 };
@@ -35,6 +36,7 @@ describe('WidgetSDK - UIKit/SwatchButtonGroup', () => {
         isSelected={mockButtonGroup.isSelected}
         swatches={mockButtonGroup.swatches}
         showMore={mockButtonGroup.showMore}
+        productUrl={mockButtonGroup.productUrl}
         onClick={mockButtonGroup.onClick}
         sku={mockButtonGroup.sku}
       />
