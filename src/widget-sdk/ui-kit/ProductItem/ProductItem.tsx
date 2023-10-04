@@ -124,7 +124,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
         </div>
       </a>
-      <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
+      <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
         {productView?.options?.map(
           (swatches) =>
             swatches.id == 'color' && (
