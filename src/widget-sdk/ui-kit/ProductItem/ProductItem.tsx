@@ -57,10 +57,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       product.refineProduct?.priceRange?.minimum?.final?.amount?.value
     : productView?.priceRange?.minimum?.regular?.amount?.value >
       productView?.priceRange?.minimum?.final?.amount?.value;
-  const isBundle = productView?.__typename === 'BundleProduct';
-  const isGrouped = productView?.__typename === 'GroupedProduct';
-  const isGiftCard = productView?.__typename === 'GiftCardProduct';
-  const isConfigurable = productView?.__typename === 'ConfigurableProduct';
   const isComplexProductView = productView?.__typename === 'ComplexProductView';
 
   const onProductClick = () => {
@@ -112,10 +108,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             </div>
             <ProductPrice
               item={product ?? item}
-              isBundle={isBundle}
-              isGrouped={isGrouped}
-              isGiftCard={isGiftCard}
-              isConfigurable={isConfigurable}
               isComplexProductView={isComplexProductView}
               discount={discount}
               currencySymbol={currencySymbol}
