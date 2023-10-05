@@ -170,7 +170,7 @@ describe('Verify One Price Filter', () => {
       .find('button')
       .then(function ($elem) {
         const sort_text = $elem.text().trim();
-        expect(sort_text).to.equal('Sort by: Price: High to Low');
+        expect(sort_text).to.equal('Sort by: Custom Price: High to Low');
       });
     cy.get('.ds-sdk-product-list__grid', { delay: 0 })
       .find('a')
@@ -205,7 +205,7 @@ describe('Verify One Price and One Category Filter', () => {
       .find('button')
       .then(function ($elem) {
         const sort_text = $elem.text().trim();
-        expect(sort_text).to.equal('Sort by: Price: High to Low');
+        expect(sort_text).to.equal('Sort by: Custom Price: High to Low');
       });
     cy.get('.ds-sdk-product-list__grid', { delay: 0 })
       .find('a')
