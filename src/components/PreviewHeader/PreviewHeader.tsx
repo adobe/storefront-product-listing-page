@@ -1,8 +1,13 @@
 import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
 
-import { getAttributeMetadata } from '../../api/search';
-import { useProducts, useSearch, useSensor, useStore } from '../../context';
+import {
+  useAttributeMetadata,
+  useProducts,
+  useSearch,
+  useSensor,
+  useStore,
+} from '../../context';
 import { TranslationContext } from '../../context/translation';
 import { Facet } from '../../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../../utils/handleUrlFilters';
@@ -20,6 +25,7 @@ interface Props {
 export const PreviewHeader: FunctionComponent<Props> = ({ facets }) => {
   const searchCtx = useSearch();
   const storeCtx = useStore();
+  const attributeMetadata = useAttributeMetadata();
   const { screenSize } = useSensor();
   const { totalCount } = useProducts();
 
@@ -28,21 +34,16 @@ export const PreviewHeader: FunctionComponent<Props> = ({ facets }) => {
   const [showMobileFacet, setShowMobileFacet] = useState(false);
   const [sortOptions, setSortOptions] = useState(defaultSortOptions());
 
-  const getSortOptions = useCallback(async () => {
-    const data = await getAttributeMetadata({
-      ...storeCtx,
-      apiUrl: storeCtx.apiUrl,
-    });
-
+  const getSortOptions = useCallback(() => {
     setSortOptions(
       getSortOptionsfromMetadata(
         translation,
-        data?.attributeMetadata?.sortable,
-        storeCtx.config.displayOutOfStock,
-        storeCtx.config?.currentCategoryUrlPath
+        attributeMetadata?.sortable,
+        storeCtx?.config?.displayOutOfStock,
+        storeCtx?.config?.currentCategoryUrlPath
       )
     );
-  }, [storeCtx, translation]);
+  }, [storeCtx, translation, attributeMetadata]);
 
   useEffect(() => {
     getSortOptions();

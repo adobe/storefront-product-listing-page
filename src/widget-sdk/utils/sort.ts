@@ -81,4 +81,4 @@ const generateGQLSortInput = (
   ];
 };
 
-export { defaultSortOptions, getSortOptionsfromMetadata, generateGQLSortInput };
+export { defaultSortOptions, generateGQLSortInput, getSortOptionsfromMetadata };

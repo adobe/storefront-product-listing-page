@@ -43,13 +43,11 @@ export const App: FunctionComponent = () => {
                   productsCtx.categoryName ? 'pt-16' : 'pt-28'
                 } w-full h-full`}
               >
+                <PreviewHeader facets={productsCtx.facets} />
                 {productsCtx.loading ? (
                   <Loading label={loadingLabel} />
                 ) : (
-                  <>
-                    <PreviewHeader facets={productsCtx.facets} />
-                    <ProductsContainer showFilters={showFilters} />
-                  </>
+                  <ProductsContainer showFilters={showFilters} />
                 )}
               </div>
             </div>
@@ -73,24 +71,24 @@ export const App: FunctionComponent = () => {
                 </div>
               </div>
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
+                <div className="flex w-full h-full">
+                  {!screenSize.mobile && (
+                    <div className="flex w-full h-full">
+                      <FilterButton
+                        displayFilter={() => setShowFilters(true)}
+                        type="desktop"
+                        title="Show Filters"
+                      />
+                    </div>
+                  )}
+                  <div className="flex w-full h-full">
+                    <PreviewHeader facets={productsCtx.facets} />
+                  </div>
+                </div>
                 {productsCtx.loading ? (
                   <Loading label={loadingLabel} />
                 ) : (
                   <>
-                    <div className="flex w-full h-full">
-                      {!screenSize.mobile && (
-                        <div className="flex w-full h-full">
-                          <FilterButton
-                            displayFilter={() => setShowFilters(true)}
-                            type="desktop"
-                            title="Show Filters"
-                          />
-                        </div>
-                      )}
-                      <div className="flex w-full h-full">
-                        <PreviewHeader facets={productsCtx.facets} />
-                      </div>
-                    </div>
                     <ProductsContainer showFilters={showFilters} />
                   </>
                 )}
