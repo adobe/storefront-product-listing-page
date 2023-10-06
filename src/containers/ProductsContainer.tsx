@@ -7,8 +7,8 @@ import {
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
 
+import Pagination from '../components/Pagination/Pagination';
 import { Alert, PerPagePicker, ProductList } from '../widget-sdk/ui-kit';
-import Pagination from './Pagination';
 
 interface Props {
   showFilters: boolean;

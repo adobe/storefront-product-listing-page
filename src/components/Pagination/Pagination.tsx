@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'preact';
-import { classNames } from 'src/utils/dom';
 
-import { ELLIPSIS, usePagination } from '../hooks/usePagination';
-import Chevron from '../widget-sdk/icons/chevron.svg';
+import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
+import { classNames } from '../../utils/dom';
+import Chevron from '../../widget-sdk/icons/chevron.svg';
 
 interface PaginationProps {
   onPageChange: (page: number | string) => void;
