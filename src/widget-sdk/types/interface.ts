@@ -103,11 +103,14 @@ export interface Price {
   amount: Money;
 }
 
+type ImageRoles = 'image' | 'small_image' | 'thumbnail' | 'swatch_image';
+
 export interface Media {
   url: null | string;
   label: null | string;
   position: null | number;
   disabled: null | boolean;
+  roles: ImageRoles[];
 }
 
 export interface SwatchValues {
