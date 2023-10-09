@@ -10496,7 +10496,7 @@ jest-regex-util@^27.5.1:
 jest-regex-util@^29.0.0, jest-regex-util@^29.6.3:
   version "29.6.3"
   resolved "https://artifactory.corp.adobe.com/artifactory/api/npm/npm-adobe-release/jest-regex-util/-/jest-regex-util-29.6.3.tgz#4a556d9c776af68e1c5f48194f4d0327d24e8a52"
-  integrity sha512-KJJBsRCyyLNWCNBOvZyRDnAIfUiRJ8v+hOBQYGn8gDyF3UegwiP4gwRR3/SDa42g1YbVycTidUF3rKjyLFDWbg==
+  integrity sha512-KJJBsRCyyLNWCNBOvZyRDnAIfUiRJ8v+hOBQYGn8gDyF3Ueg4gwRR3/SDa42g1YbVycTidUF3rKjyLFDWbg==
 
 jest-resolve-dependencies@^27.5.1:
   version "27.5.1"

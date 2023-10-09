@@ -1,80 +1,161 @@
-const sampleProduct = {
-  product: {
-    __typename: 'SimpleProduct',
-    id: 21,
-    uid: '21',
-    name: 'Sprite Foam Yoga Brick',
-    sku: '24-WG084',
-    description: {
-      html: '<p>Our top-selling yoga prop, the 4-inch, high-quality Sprite Foam Yoga Brick is popular among yoga novices and studio professionals alike. An essential yoga accessory, the yoga brick is a critical tool for finding balance and alignment in many common yoga poses. Choose from 5 color options.</p>\n<ul>\n<li>Standard Large Size: 4" x 6" x 9".\n<li>Beveled edges for ideal contour grip.\n<li>Durable and soft, scratch-proof foam.\n<li>Individually wrapped.\n<li>Ten color choices.\n</ul> ',
-    },
-    short_description: null,
-    attribute_set_id: null,
-    meta_title: null,
-    meta_keyword: null,
-    meta_description: null,
-    image: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    small_image: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    thumbnail: {
-      url: '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
-      label: null,
-      position: null,
-      disabled: null,
-    },
-    new_from_date: null,
-    new_to_date: null,
-    created_at: null,
-    updated_at: null,
-    price_range: {
-      minimum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 5, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+const SimpleProduct = {
+  productView: {
+    __typename: 'SimpleProductView',
+    sku: '24-WG088',
+    name: 'Sprite Foam Roller',
+    url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/sprite-foam-roller.html',
+    images: [
+      {
+        label: 'Image',
+        url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/media/catalog/product/l/u/luma-foam-roller.jpg',
       },
-      maximum_price: {
-        fixed_product_taxes: null,
-        regular_price: { value: 5, currency: 'USD' },
-        final_price: { value: 5, currency: 'USD' },
-        discount: null,
+    ],
+    price: {
+      final: {
+        amount: {
+          value: 19.0,
+          currency: 'USD',
+        },
+      },
+      regular: {
+        amount: {
+          value: 19.0,
+          currency: 'USD',
+        },
       },
     },
-    gift_message_available: null,
-    canonical_url:
-      '//master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/sprite-foam-yoga-brick.html',
-    media_gallery: null,
-    custom_attributes: null,
   },
   highlights: [
     {
       attribute: 'name',
-      value: 'Sprite Foam <em>Yoga</em> Brick',
+      value: '<em>Sprite</em> Foam Roller',
       matched_words: [],
     },
+  ],
+};
+
+const ComplexProduct = {
+  productView: {
+    __typename: 'ComplexProductView',
+    sku: 'MSH06',
+    name: 'Lono Yoga Short',
+    url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/lono-yoga-short.html',
+    images: [
+      {
+        label: '',
+        url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/media/catalog/product/m/s/msh06-gray_main_2.jpg',
+      },
+      {
+        label: '',
+        url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/media/catalog/product/m/s/msh06-gray_alt1_2.jpg',
+      },
+      {
+        label: '',
+        url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/media/catalog/product/m/s/msh06-gray_back_2.jpg',
+      },
+    ],
+    priceRange: {
+      maximum: {
+        final: {
+          amount: {
+            value: 32.0,
+            currency: 'USD',
+          },
+        },
+        regular: {
+          amount: {
+            value: 32.0,
+            currency: 'USD',
+          },
+        },
+      },
+      minimum: {
+        final: {
+          amount: {
+            value: 32.0,
+            currency: 'USD',
+          },
+        },
+        regular: {
+          amount: {
+            value: 32.0,
+            currency: 'USD',
+          },
+        },
+      },
+    },
+    options: [
+      {
+        id: 'size',
+        title: 'Size',
+        values: [
+          {
+            title: '32',
+            id: 'Y29uZmlndXJhYmxlLzE4Ni8xODQ=',
+            type: 'TEXT',
+            value: '32',
+          },
+          {
+            title: '33',
+            id: 'Y29uZmlndXJhYmxlLzE4Ni8xODU=',
+            type: 'TEXT',
+            value: '33',
+          },
+          {
+            title: '34',
+            id: 'Y29uZmlndXJhYmxlLzE4Ni8xODY=',
+            type: 'TEXT',
+            value: '34',
+          },
+          {
+            title: '36',
+            id: 'Y29uZmlndXJhYmxlLzE4Ni8xODc=',
+            type: 'TEXT',
+            value: '36',
+          },
+        ],
+      },
+      {
+        id: 'color',
+        title: 'Color',
+        values: [
+          {
+            title: 'Blue',
+            id: 'Y29uZmlndXJhYmxlLzkzLzU5',
+            type: 'COLOR_HEX',
+            value: '#1857f7',
+          },
+          {
+            title: 'Red',
+            id: 'Y29uZmlndXJhYmxlLzkzLzY3',
+            type: 'COLOR_HEX',
+            value: '#ff0000',
+          },
+          {
+            title: 'Gray',
+            id: 'Y29uZmlndXJhYmxlLzkzLzYx',
+            type: 'COLOR_HEX',
+            value: '#8f8f8f',
+          },
+        ],
+      },
+    ],
+  },
+  highlights: [
     {
-      attribute: 'description',
-      value:
-        '<p>Our top-selling <em>yoga</em> prop, the 4-inch, high-quality Sprite Foam <em>Yoga</em> Brick is popular among <em>yoga</em> novices and studio professionals alike. An essential <em>yoga</em> accessory, the <em>yoga</em> brick is a critical tool for finding balance and alignment in many common <em>yoga</em> poses. Choose from 5 color options.</p>\n<ul>\n<li>Standard Large Size: 4" x 6" x 9".\n<li>Beveled edges for ideal contour grip.\n<li>Durable and soft, scratch-proof foam.\n<li>Individually wrapped.\n<li>Ten color choices.\n</ul>',
+      attribute: 'name',
+      value: 'Lono <em>Yoga</em> Short',
       matched_words: [],
     },
   ],
 };
 
 export const products = [
-  sampleProduct,
-  sampleProduct,
-  sampleProduct,
-  sampleProduct,
-  sampleProduct,
-  sampleProduct,
+  SimpleProduct,
+  SimpleProduct,
+  SimpleProduct,
+  SimpleProduct,
+  SimpleProduct,
+  SimpleProduct,
+  ComplexProduct,
 ];

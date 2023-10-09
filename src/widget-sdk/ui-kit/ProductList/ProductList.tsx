@@ -40,10 +40,9 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
         {products?.map((product) => (
           <ProductItem
             item={product}
-            key={product.productView.id}
+            key={product?.productView?.id}
             currencySymbol={currencySymbol}
             currencyRate={currencyRate}
-            showFilters={showFilters}
             setRoute={setRoute}
             refineProduct={refineProduct}
           />
