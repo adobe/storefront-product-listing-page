@@ -1,12 +1,12 @@
 import { FunctionComponent } from 'preact';
 import { useContext, useState } from 'preact/hooks';
-import { CategoryFilters } from 'src/components/CategoryFilters';
-import { PreviewHeader } from 'src/components/PreviewHeader';
-import { TranslationContext } from 'src/context/translation';
 
+import { CategoryFilters } from '../components/CategoryFilters';
 import { useProducts, useSensor, useStore } from '../context';
+import { TranslationContext } from '../context/translation';
 import { FilterButton, Loading } from '../widget-sdk/ui-kit';
 import { ProductsContainer } from './ProductsContainer';
+import { ProductsHeader } from './ProductsHeader';
 
 export const App: FunctionComponent = () => {
   const productsCtx = useProducts();
@@ -43,7 +43,11 @@ export const App: FunctionComponent = () => {
                   productsCtx.categoryName ? 'pt-16' : 'pt-28'
                 } w-full h-full`}
               >
-                <PreviewHeader facets={productsCtx.facets} />
+                <ProductsHeader
+                  facets={productsCtx.facets}
+                  totalCount={productsCtx.totalCount}
+                  screenSize={screenSize}
+                />
                 {productsCtx.loading ? (
                   <Loading label={loadingLabel} />
                 ) : (
@@ -82,7 +86,11 @@ export const App: FunctionComponent = () => {
                     </div>
                   )}
                   <div className="flex w-full h-full">
-                    <PreviewHeader facets={productsCtx.facets} />
+                    <ProductsHeader
+                      facets={productsCtx.facets}
+                      totalCount={productsCtx.totalCount}
+                      screenSize={screenSize}
+                    />
                   </div>
                 </div>
                 {productsCtx.loading ? (

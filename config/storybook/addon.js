@@ -28,6 +28,7 @@ module.exports = {
     const imageRule = config.module.rules.find((rule) =>
       rule.test.test('.svg')
     );
+
     imageRule.exclude = /\.svg$/;
 
     // configure .svg files to be loaded with @svgr/webpack fo ts/tsx files
@@ -36,12 +37,30 @@ module.exports = {
       issuer: /\.tsx?$/,
       use: ['@svgr/webpack'],
     });
+
     // configure .svg files to be loaded as static files for mdx files
     config.module.rules.push({
       test: /\.svg$/,
       issuer: /\.mdx$/,
       type: 'asset/resource',
       generator: { filename: 'static/media/[path][name][ext]' },
+    });
+
+    // Modify the Babel configuration to include a rule for node_modules files
+    // that are not transpiled by default
+    config.module.rules.push({
+      test: /\.(mjs|tsx?|jsx?)$/,
+      loader: 'babel-loader',
+      exclude: {
+        and: [/node_modules/],
+        not: [/@adobe/],
+      },
+      options: {
+        plugins: [
+          ['babel-plugin-tsconfig-paths'],
+          ['@babel/transform-react-jsx', { runtime: 'automatic' }],
+        ],
+      },
     });
 
     // Return the altered config

@@ -7,23 +7,33 @@ import {
 
 const colorBuckets: ScalarBucket[] = [
   {
-    count: 3,
+    count: 5,
     title: 'Green',
     __typename: 'ScalarBucket',
   },
   {
-    count: 2,
+    count: 4,
     title: 'Black',
     __typename: 'ScalarBucket',
   },
   {
-    count: 1,
+    count: 3,
     title: 'Blue',
     __typename: 'ScalarBucket',
   },
   {
-    count: 1,
+    count: 2,
     title: 'Gray',
+    __typename: 'ScalarBucket',
+  },
+  {
+    count: 1,
+    title: 'Pink',
+    __typename: 'ScalarBucket',
+  },
+  {
+    count: 0,
+    title: 'Yellow',
     __typename: 'ScalarBucket',
   },
 ];

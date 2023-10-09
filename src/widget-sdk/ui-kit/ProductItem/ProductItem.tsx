@@ -17,7 +17,6 @@ export interface ProductProps {
   item: Product;
   currencySymbol: string;
   currencyRate?: string;
-  showFilters: boolean;
   setRoute?: RedirectRouteFunc | undefined;
   refineProduct: (optionIds: string[], sku: string) => any;
 }
@@ -26,7 +25,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   item,
   currencySymbol,
   currencyRate,
-  showFilters,
   setRoute,
   refineProduct,
 }: ProductProps) => {
@@ -71,7 +69,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     : productView?.url;
 
   return (
-    <div className="ds-sdk-product-item group relative flex flex-col justify-between h-full">
+    <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">
       <a
         href={productUrl as string}
         onClick={onProductClick}
@@ -96,9 +94,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
             ) : (
               <NoImage
-                className={`max-h-[45rem] ${
-                  showFilters ? 'h-[23rem]' : 'h-[36.5rem]'
-                } w-full object-cover object-center lg:w-full`}
+                className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
               />
             )}
           </div>

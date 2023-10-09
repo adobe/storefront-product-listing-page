@@ -1,8 +1,7 @@
 import { FunctionComponent } from 'preact';
-import { classNames } from 'src/utils/dom';
 
-import { ELLIPSIS, usePagination } from '../hooks/usePagination';
-import Chevron from '../widget-sdk/icons/chevron.svg';
+import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
+import Chevron from '../../widget-sdk/icons/chevron.svg';
 
 interface PaginationProps {
   onPageChange: (page: number | string) => void;
@@ -38,12 +37,11 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   return (
     <ul className="ds-plp-pagination flex justify-center items-center mt-2 mb-6 list-none">
       <Chevron
-        className={classNames(
-          'h-sm w-sm transform rotate-90',
+        className={`h-sm w-sm transform rotate-90 ${
           currentPage === 1
             ? 'stroke-gray-400 cursor-not-allowed'
             : 'stroke-gray-600 cursor-pointer'
-        )}
+        }`}
         onClick={onPrevious}
       />
 
@@ -62,12 +60,11 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
         return (
           <li
             key={page}
-            className={classNames(
-              'ds-plp-pagination__item flex items-center cursor-pointer text-center text-gray-500 my-auto mx-md',
+            className={`ds-plp-pagination__item flex items-center cursor-pointer text-center text-gray-500 my-auto mx-md ${
               currentPage === page
                 ? 'ds-plp-pagination__item--current text-black font-medium underline underline-offset-4 decoration-black'
                 : ''
-            )}
+            }`}
             onClick={() => onPageChange(page)}
           >
             {page}
@@ -76,12 +73,11 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       })}
 
       <Chevron
-        className={classNames(
-          'h-sm w-sm transform -rotate-90',
+        className={`h-sm w-sm transform -rotate-90 ${
           currentPage === totalPages
             ? 'stroke-gray-400 cursor-not-allowed'
             : 'stroke-gray-600 cursor-pointer'
-        )}
+        }`}
         onClick={onNext}
       />
     </ul>

@@ -3,7 +3,7 @@ import { FacetFilter } from '../types/interface';
 
 export const useScalarFacet = (title: string) => {
   const searchCtx = useSearch();
-  const filter = searchCtx.filters.find(
+  const filter = searchCtx?.filters?.find(
     (e: FacetFilter) => e.attribute === title
   );
 

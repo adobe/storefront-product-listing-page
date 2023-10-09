@@ -1,33 +1,36 @@
 import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
 
-import {
-  useAttributeMetadata,
-  useProducts,
-  useSearch,
-  useSensor,
-  useStore,
-} from '../../context';
-import { TranslationContext } from '../../context/translation';
-import { Facet } from '../../types/interface';
-import { getValueFromUrl, handleUrlSort } from '../../utils/handleUrlFilters';
-import { FilterButton, SearchBar, SortDropdown } from '../../widget-sdk/ui-kit';
+import Facets from '../components/Facets';
+import { useAttributeMetadata, useSearch, useStore } from '../context';
+import { TranslationContext } from '../context/translation';
+import { Facet } from '../types/interface';
+import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
+import { FilterButton, SearchBar, SortDropdown } from '../widget-sdk/ui-kit';
 import {
   defaultSortOptions,
   generateGQLSortInput,
   getSortOptionsfromMetadata,
-} from '../../widget-sdk/utils/sort';
-import Facets from '../Facets';
+} from '../widget-sdk/utils/sort';
 
 interface Props {
   facets: Facet[];
+  totalCount: number;
+  screenSize: {
+    mobile: boolean;
+    tablet: boolean;
+    desktop: boolean;
+    columns: number;
+  };
 }
-export const PreviewHeader: FunctionComponent<Props> = ({ facets }) => {
+export const ProductsHeader: FunctionComponent<Props> = ({
+  facets,
+  totalCount,
+  screenSize,
+}) => {
   const searchCtx = useSearch();
   const storeCtx = useStore();
   const attributeMetadata = useAttributeMetadata();
-  const { screenSize } = useSensor();
-  const { totalCount } = useProducts();
 
   const translation = useContext(TranslationContext);
 

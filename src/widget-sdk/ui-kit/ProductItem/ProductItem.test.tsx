@@ -10,7 +10,6 @@ describe('WidgetSDK - UIKit/ProductItem', () => {
         item={sampleProductNotDiscounted}
         currencySymbol="$"
         currencyRate="USD"
-        showFilters={true}
         setRoute={undefined}
         refineProduct={() => {}}
       />
