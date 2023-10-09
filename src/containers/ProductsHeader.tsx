@@ -66,7 +66,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
 
   return (
     <div className="flex flex-col max-w-5xl lg:max-w-7xl mx-auto w-full h-full">
-      <div className="flex justify-between ">
+      <div className="flex justify-between">
         <div>
           {screenSize.mobile
             ? totalCount > 0 && (
