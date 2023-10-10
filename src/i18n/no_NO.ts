@@ -1,6 +1,8 @@
 export const no_NO = {
   Filter: {
     title: 'Filtre',
+    showTitle: 'Vis filtre',
+    hideTitle: 'Skjul filtre',
   },
   InputButtonGroup: {
     title: 'Kategorier',

@@ -81,7 +81,7 @@ export const App: FunctionComponent = () => {
                       <FilterButton
                         displayFilter={() => setShowFilters(true)}
                         type="desktop"
-                        title="Show Filters"
+                        title={translation.Filter.showTitle}
                       />
                     </div>
                   )}

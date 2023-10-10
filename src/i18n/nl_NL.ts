@@ -1,6 +1,8 @@
 export const nl_NL = {
   Filter: {
     title: 'Filters',
+    showTitle: 'Filters weergeven',
+    hideTitle: 'Verberg filters',
   },
   InputButtonGroup: {
     title: 'Categorieën',

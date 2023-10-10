@@ -28,7 +28,7 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   ) : (
     <div className="ds-sdk-filter-button-desktop">
       <button
-        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm h-[32px]"
+        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]"
         onClick={displayFilter}
       >
         {title}
