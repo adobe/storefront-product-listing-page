@@ -1,13 +1,36 @@
 import { Media } from '../../types/interface';
 
+type ImageTypes = {
+  thumbnail?: string | null;
+  small_image?: string | null;
+  image?: string | null;
+  main?: string | null;
+};
+
 const getProductImageURL = (images: Media[]): string => {
-  let url = null;
+  const imageTypes: ImageTypes = {};
 
   if (images?.length) {
-    const mainImages = images.filter((image) => image.url?.includes('main'));
-    url = mainImages.length ? mainImages[0].url : images[0].url;
+    for (const image of images) {
+      if (image.roles.includes('thumbnail')) {
+        imageTypes.thumbnail = image.url;
+      } else if (image.roles.includes('small_image')) {
+        imageTypes.small_image = image.url;
+      } else if (image.roles.includes('image')) {
+        imageTypes.image = image.url;
+      } else if (image.url?.includes('main')) {
+        imageTypes.main = image.url;
+      }
+    }
   }
-  return url ?? '';
+
+  return (
+    imageTypes.thumbnail ??
+    imageTypes.small_image ??
+    imageTypes.image ??
+    imageTypes.main ??
+    ''
+  );
 };
 
 export { getProductImageURL };
