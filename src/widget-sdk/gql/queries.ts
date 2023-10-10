@@ -107,6 +107,7 @@ const REFINE_PRODUCT_QUERY = `
             images {
                 label
                 url
+                roles
             }
             ... on SimpleProductView {
                 price {
@@ -165,7 +166,7 @@ const REFINE_PRODUCT_QUERY = `
 
 export {
   ATTRIBUTE_METADATA_QUERY,
-  QUICK_SEARCH_QUERY,
   PRODUCT_SEARCH_QUERY,
+  QUICK_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 };

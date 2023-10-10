@@ -33,6 +33,7 @@ const Product = `
             images {
                 label
                 url
+                roles
             }
             ... on ComplexProductView {
                 priceRange {
