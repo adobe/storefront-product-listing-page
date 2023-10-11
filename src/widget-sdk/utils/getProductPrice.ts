@@ -23,7 +23,7 @@ const getProductPrice = (
     price = priceType?.final;
   }
 
-  // if currency symbol is configurable within Magento, that symbol is used
+  // if currency symbol is configurable within Commerce, that symbol is used
   let currency = price?.amount?.currency;
 
   if (currencySymbol) {
