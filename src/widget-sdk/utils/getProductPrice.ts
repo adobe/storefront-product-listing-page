@@ -1,3 +1,12 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 const getProductPrice = (
@@ -23,7 +32,7 @@ const getProductPrice = (
     price = priceType?.final;
   }
 
-  // if currency symbol is configurable within Magento, that symbol is used
+  // if currency symbol is configurable within Commerce, that symbol is used
   let currency = price?.amount?.currency;
 
   if (currencySymbol) {
