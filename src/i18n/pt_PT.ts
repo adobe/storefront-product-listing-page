@@ -1,6 +1,8 @@
 export const pt_PT = {
   Filter: {
     title: 'Filtros',
+    showTitle: 'Mostrar filtros',
+    hideTitle: 'Ocultar filtros',
   },
   InputButtonGroup: {
     title: 'Categorias',

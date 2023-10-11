@@ -1,6 +1,8 @@
 export const ja_JA = {
   Filter: {
     title: 'フィルター',
+    showTitle: 'フィルターを表示',
+    hideTitle: 'フィルターを非表示にする',
   },
   InputButtonGroup: {
     title: 'カテゴリー',

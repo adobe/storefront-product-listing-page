@@ -1,6 +1,8 @@
 export const en_US = {
   Filter: {
     title: 'Filters',
+    showTitle: 'Show filters',
+    hideTitle: 'Hide filters',
   },
   InputButtonGroup: {
     title: 'Categories',

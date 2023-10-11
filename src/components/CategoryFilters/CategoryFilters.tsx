@@ -45,7 +45,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
         <FilterButton
           displayFilter={() => setShowFilters(false)}
           type="desktop"
-          title="Hide Filters"
+          title={translation.Filter.hideTitle}
         />
       </div>
       <Facets searchFacets={facets} />
