@@ -75,7 +75,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         onClick={onProductClick}
         className="!text-primary hover:no-underline hover:text-primary"
       >
-        <div className="ds-sdk-product-item group relative flex flex-col justify-between h-full">
+        <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
           <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
             {/*
                   NOTE:
