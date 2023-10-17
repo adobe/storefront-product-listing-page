@@ -41,10 +41,6 @@ const getProductPrice = (
     currency = getSymbolFromCurrency(currency) ?? '$';
   }
 
-  if (price?.amount?.value === null) {
-    return `${currency}0`;
-  }
-
   const convertedPrice = currencyRate
     ? price?.amount?.value * parseFloat(currencyRate)
     : price?.amount?.value;

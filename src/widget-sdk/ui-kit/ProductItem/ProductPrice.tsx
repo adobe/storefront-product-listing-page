@@ -14,7 +14,7 @@ import { getProductPrice } from '../../utils';
 
 export interface ProductPriceProps {
   isComplexProductView: boolean;
-  item: Product | RefinedProduct;
+  item: any;
   discount: boolean | undefined;
   currencySymbol: string;
   currencyRate?: string;
@@ -27,32 +27,17 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
+  const price =
+    item?.productView?.priceRange?.minimum ??
+    item?.productView?.price ??
+    item?.refineProduct?.priceRange?.minimum ??
+    item?.refineProduct?.price;
   return (
-    <div className="ds-sdk-product-price">
-      {!isComplexProductView && discount && (
-        <p className="ds-sdk-product-price--discount mt-xs text-sm font-medium text-gray-900">
-          <span className="line-through pr-2">
-            {getProductPrice(item, currencySymbol, currencyRate, false, false)}
-          </span>
-          <span className="text-secondary">
-            {getProductPrice(item, currencySymbol, currencyRate, false, true)}
-          </span>
-        </p>
-      )}
-
-      {!isComplexProductView && !discount && (
-        <p className="ds-sdk-product-price--no-discount mt-xs text-sm font-medium text-gray-900">
-          {getProductPrice(item, currencySymbol, currencyRate, false, true)}
-        </p>
-      )}
-
-      {isComplexProductView && (
-        <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900">
-          <span className="text-gray-500 text-xs font-normal mr-xs">
-            As low as
-          </span>
-          {discount ? (
-            <>
+    <>
+      {price && (
+        <div className="ds-sdk-product-price">
+          {!isComplexProductView && discount && (
+            <p className="ds-sdk-product-price--discount mt-xs text-sm font-medium text-gray-900">
               <span className="line-through pr-2">
                 {getProductPrice(
                   item,
@@ -71,13 +56,49 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
                   true
                 )}
               </span>
-            </>
-          ) : (
-            getProductPrice(item, currencySymbol, currencyRate, false, true)
+            </p>
           )}
-        </p>
+
+          {!isComplexProductView && !discount && (
+            <p className="ds-sdk-product-price--no-discount mt-xs text-sm font-medium text-gray-900">
+              {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+            </p>
+          )}
+
+          {isComplexProductView && (
+            <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900">
+              <span className="text-gray-500 text-xs font-normal mr-xs">
+                As low as
+              </span>
+              {discount ? (
+                <>
+                  <span className="line-through pr-2">
+                    {getProductPrice(
+                      item,
+                      currencySymbol,
+                      currencyRate,
+                      false,
+                      false
+                    )}
+                  </span>
+                  <span className="text-secondary">
+                    {getProductPrice(
+                      item,
+                      currencySymbol,
+                      currencyRate,
+                      false,
+                      true
+                    )}
+                  </span>
+                </>
+              ) : (
+                getProductPrice(item, currencySymbol, currencyRate, false, true)
+              )}
+            </p>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
