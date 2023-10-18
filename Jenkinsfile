@@ -37,8 +37,8 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh 'yarn install'
-                        sh "yarn lint"
+                        sh 'npm install'
+                        sh "npm run lint"
                     }
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn test"
+                        sh "npm run test"
                     }
                 }
             }  
@@ -61,9 +61,9 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh 'yarn build:dev'
-                        sh 'yarn cover:integration'
-                        sh 'yarn cover:report'
+                        sh 'npm run build:dev'
+                        sh 'npm run cover:integration'
+                        sh 'npm run cover:report'
                     }
                 }
             }
@@ -79,7 +79,7 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn build:qa"
+                        sh "npm run build:qa"
                     }
                 }
             }
@@ -117,7 +117,7 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn build:stage"
+                        sh "npm run build:stage"
                     }
                 }
             }
@@ -188,7 +188,7 @@ pipeline {
             steps {
                 dir("${env.WORKSPACE}/storefront-product-listing-page"){    
                     script {
-                        sh "yarn build"
+                        sh "npm run build"
                     }
                 }
             }

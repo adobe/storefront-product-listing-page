@@ -7,7 +7,8 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '../../lib/tests';
+import { render } from '@testing-library/preact';
+
 import { SwatchButtonGroup, SwatchButtonGroupProps } from './SwatchButtonGroup';
 
 const mockButtonGroup: SwatchButtonGroupProps = {

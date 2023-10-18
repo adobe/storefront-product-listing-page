@@ -1,6 +1,6 @@
 import { DocsContainer, DocsPage } from '@storybook/addon-docs';
 
-import '../../dist/index.css';
+import '../../src/styles/index.css';
 
 export const parameters = {
   docs: {

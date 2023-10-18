@@ -9,11 +9,14 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import { Media } from 'src/types/interface';
 
-import { RedirectRouteFunc } from '../../../types/interface';
+import {
+  Media,
+  Product,
+  RedirectRouteFunc,
+  RefinedProduct,
+} from '../../../types/interface';
 import NoImage from '../../icons/NoImage.svg';
-import { Product, RefinedProduct } from '../../types/interface';
 import { SwatchButtonGroup } from '../../ui-kit';
 import {
   getProductImageURL,
