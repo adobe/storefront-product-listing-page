@@ -8,6 +8,7 @@ it.
 */
 
 import { render } from '@testing-library/preact';
+
 import { SwatchButtonGroup, SwatchButtonGroupProps } from './SwatchButtonGroup';
 
 const mockButtonGroup: SwatchButtonGroupProps = {

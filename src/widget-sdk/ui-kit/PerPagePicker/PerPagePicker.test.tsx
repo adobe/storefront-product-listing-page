@@ -8,6 +8,7 @@ it.
 */
 
 import { render } from '@testing-library/preact';
+
 import { PerPagePicker } from './PerPagePicker';
 
 describe('WidgetSDK - UIKit/PerPagePicker', () => {

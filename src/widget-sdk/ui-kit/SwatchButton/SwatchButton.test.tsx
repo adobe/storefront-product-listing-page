@@ -8,6 +8,7 @@ it.
 */
 
 import { render } from '@testing-library/preact';
+
 import { SwatchButton } from './SwatchButton';
 
 describe('WidgetSDK - UIKit/SwatchButton', () => {

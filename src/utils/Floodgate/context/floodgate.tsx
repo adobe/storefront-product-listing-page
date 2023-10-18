@@ -8,6 +8,7 @@ it.
 */
 
 import { createContext, FC, useEffect, useState } from 'preact/compat';
+
 import { FeatureFlags } from '../../../types/interface';
 
 const FloodgateContext = createContext({});

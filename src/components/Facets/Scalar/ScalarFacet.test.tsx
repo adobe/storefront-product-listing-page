@@ -9,8 +9,8 @@ it.
 
 /// <reference types="@types/jest" />;
 import { render } from '@testing-library/preact';
-import { PriceFacet } from '../../../types/interface';
 
+import { PriceFacet } from '../../../types/interface';
 import { ScalarFacet } from './ScalarFacet';
 
 describe('PLP widget/RangeFacet', () => {

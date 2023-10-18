@@ -17,7 +17,7 @@ import {
   PageSizeOption,
   Product,
   ProductSearchQuery,
-  RedirectRouteFunc
+  RedirectRouteFunc,
 } from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,

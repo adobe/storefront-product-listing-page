@@ -15,4 +15,3 @@ export * from './getProductPrice';
 export * from './getUserViewHistory';
 export * from './htmlStringDecode';
 export * from './setCssVariable';
-

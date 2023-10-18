@@ -9,9 +9,7 @@ it.
 
 //Luma Specific URL handling
 
-import { SearchClauseInput } from '../types/interface';
-
-import { FacetFilter } from '../types/interface';
+import { FacetFilter, SearchClauseInput } from '../types/interface';
 import { DEFAULT_PAGE_SIZE } from '../utils/constants';
 
 const nonFilterKeys = {
@@ -157,6 +155,5 @@ export {
   handleUrlPagination,
   handleUrlSort,
   removeAllUrlFilters,
-  removeUrlFilter
+  removeUrlFilter,
 };
-
