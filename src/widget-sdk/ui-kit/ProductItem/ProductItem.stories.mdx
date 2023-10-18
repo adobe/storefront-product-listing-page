@@ -1,0 +1,40 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { sampleProductDiscounted, sampleProductNotDiscounted, sampleProductNoImage } from "./MockData";
+import { ProductItem } from "../ProductItem";
+import { action } from "@storybook/addon-actions"
+
+<Meta
+    title="UIKit/ProductItem"
+    component={ProductItem}
+    parameters={{
+        layout: "centered"
+    }}
+/>
+
+export const Template = args => <ProductItem {...args} />;
+
+# ProductItem
+
+
+
+```
+import { ProductItem } from '../ProductItem'
+```
+
+<Canvas>
+    <Story name="ProductItem" args={{ item: sampleProductNotDiscounted, currencySymbol: '$', currencyRate: '', setRoute: action("setRoute") }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="ProductItemWithDiscount" args={{ item: sampleProductDiscounted, currencySymbol: '$', currencyRate: '', setRoute: action("setRoute")  }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="ProductItemNoImage" args={{ item: sampleProductNoImage, currencySymbol: '$', currencyRate: '', setRoute: action("setRoute")  }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>

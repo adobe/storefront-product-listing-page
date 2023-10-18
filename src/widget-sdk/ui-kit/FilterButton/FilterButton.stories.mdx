@@ -1,0 +1,34 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { action } from "@storybook/addon-actions"
+import { FilterButton } from '../FilterButton';
+
+<Meta
+  title="UIKit/FilterButton"
+  component={FilterButton}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <FilterButton {...args} />;
+
+# FilterButton
+
+
+
+```
+import { FilterButton } from '../FilterButton'
+```
+
+<Canvas>
+    <Story
+        name="FilterButton"
+        args={{
+            displayFilter: action("displayFilter"),
+            type: "mobile",
+            title: "Hide Filters"
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

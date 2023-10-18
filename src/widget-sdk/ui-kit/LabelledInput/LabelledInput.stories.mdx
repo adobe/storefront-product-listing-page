@@ -1,0 +1,48 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { LabelledInput } from "./LabelledInput";
+import { action } from "@storybook/addon-actions"
+
+<Meta
+    title="UIKit/LabelledInput"
+    component={LabelledInput}
+    parameters={{
+        layout: "centered"
+    }}
+/>
+
+export const Template = args => <LabelledInput {...args} />;
+
+# LabelledInput
+
+
+
+```
+import { LabelledInput } from './LabelledInput'
+```
+
+<Canvas>
+    <Story
+        name="Radio"
+        args={{
+            name: "Homer",
+            type: "radio",
+            checked: true,
+            onChange: action('onChange'),
+            label: "Homer",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Checkbox"
+        args={{
+            name: "Bender",
+            type: "checkbox",
+            checked: false,
+            onChange: action('onChange'),
+            label: "Bender",
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

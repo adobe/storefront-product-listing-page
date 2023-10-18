@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Live Search PLP</title>
+
+  <!-- reset css -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <script
+    type="text/javascript"
+    src="https://unpkg.com/@adobe/magento-storefront-events-sdk@qa/dist/index.js"
+  ></script>
+
+  <script
+    type="text/javascript"
+    src="https://unpkg.com/@adobe/magento-storefront-event-collector@qa/dist/index.js"
+  ></script>
+</head>
+
+<body>
+  <div class="search-plp-root"></div>
+
+  <style>
+    body {
+      margin: 0 auto;
+      max-width: 1280px;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .ds-widgets {
+      --color-primary: black;
+    }
+
+    .ds-sdk-product-item__product-name {
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script type="text/javascript" src="search.js"></script>
+
+  <script type="text/javascript">
+    const root = document.querySelector('div.search-plp-root');
+    const storeDetails = {
+      environmentId: '',
+      websiteCode: '',
+      storeCode: '',
+      storeViewCode: '',
+      config: {
+        minQueryLength: '2',
+        pageSize: 8,
+        perPageConfig: {
+          pageSizeOptions: '12,24,36',
+          defaultPageSizeOption: '24',
+        },
+        currencySymbol: '$',
+        currencyRate: '1',
+        displaySearchBox: true, // display search box
+        displayOutOfStock: true,
+        allowAllProducts: false,
+      },
+      context: {
+        customerGroup: '',
+      },
+      apiKey: '',
+      environmentType: '',
+      // searchQuery: 'search_query', // Optional: providing searchQuery will override 'q' query param
+      // route: ({ sku }) => {
+      //   const storeConfig = JSON.parse(
+      //     document
+      //       .querySelector("meta[name='store-config']")
+      //       .getAttribute('content')
+      //   );
+      //   const { storeRootUrl } = storeConfig;
+      //   const redirectUrl = storeRootUrl.split('.html')[0];
+      //   return `${redirectUrl}/${sku}`;
+      // },
+      // Will result to `http://localhost:8081/v1/MT11`
+    };
+
+    const mse = window.magentoStorefrontEvents;
+
+    mse.context.setMagentoExtension({
+      magentoExtensionVersion: '1.0.0',
+    });
+    mse.context.setSearchExtension({
+      version: '2.0.3',
+    });
+    mse.context.setShopper({ shopperId: 'logged-in' });
+
+    mse.context.setPage({
+      pageType: 'plp',
+      maxXOffset: 0,
+      maxYOffset: 0,
+      minXOffset: 0,
+      minYOffset: 0,
+      ping_interval: 5,
+      pings: 1,
+    });
+
+    mse.context.setStorefrontInstance({
+      environmentId: '',
+      instanceId: 'bbbbbb',
+      environment: 'ccccccc',
+      storeUrl: '',
+      websiteId: 123456,
+      websiteCode: '',
+      storeId: 123456,
+      storeCode: '',
+      storeViewId: 123456,
+      storeViewCode: '',
+      websiteName: '',
+      storeName: '',
+      storeViewName: '',
+      baseCurrencyCode: 'USD',
+      storeViewCurrencyCode: 'USD',
+      catalogExtensionVersion: '1.0.0',
+    });
+
+    setTimeout(async () => {
+      while (typeof window.LiveSearchPLP !== 'function') {
+        console.log('waiting for window.LiveSearchPLP to be available');
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+      window.LiveSearchPLP({ storeDetails, root });
+    }, 1000);
+  </script>
+</body>

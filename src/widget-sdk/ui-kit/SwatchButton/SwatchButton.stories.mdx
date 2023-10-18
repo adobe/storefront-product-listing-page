@@ -1,0 +1,68 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { SwatchButton } from "../SwatchButton";
+import { action } from "@storybook/addon-actions"
+
+<Meta
+    title="UIKit/SwatchButton"
+    component={SwatchButton}
+    parameters={{
+        layout: "centered",
+    }}
+/>
+
+export const Template = args => <SwatchButton {...args} />;
+
+# SwatchButton
+
+
+
+```
+import { SwatchButton } from '../SwatchButton'
+```
+
+<Canvas>
+    <Story
+        name="Text - Unchecked"
+        args={{
+            value: "32",
+            type: "text",
+            checked: false,
+            onClick: action('onClick'),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Text - Checked"
+        args={{
+            value: "32",
+            type: "text",
+            checked: true,
+            onClick: action('onClick'),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Color - Unchecked"
+        args={{
+            value: "red",
+            type: "COLOR_HEX",
+            checked: false,
+            onClick: action('onClick'),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Color - Checked"
+        args={{
+            value: "red",
+            type: "COLOR_HEX",
+            checked: true,
+            onClick: action('onClick'),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

@@ -1,0 +1,27 @@
+node_modules
+.DS_Store
+dist
+public
+
+# testing
+/coverage
+/.nyc_output
+
+# env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.idea
+/.vscode
+
+# local debug
+npm-debug.log*
+
+
+#storybook
+/storybook-static
+
+

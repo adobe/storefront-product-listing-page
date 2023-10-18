@@ -1,0 +1,38 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { action } from '@storybook/addon-actions';
+import { PerPagePicker } from "../PerPagePicker";
+
+<Meta
+    title="UIKit/PerPagePicker"
+    component={PerPagePicker}
+    parameters={{
+        layout: "centered"
+    }}
+/>
+
+export const Template = args => <PerPagePicker {...args} />;
+
+# ProductItem
+
+
+
+```
+import { PerPagePicker } from '../PerPagePicker'
+```
+
+<Canvas>
+    <Story
+        name="PerPagePicker"
+        args={{
+            value: 12,
+            pageSizeOptions: [
+                { label: "12", value: 12 },
+                { label: "24", value: 24 },
+                { label: "36", value: 36 },
+            ],
+            onChange: action('onChange'),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

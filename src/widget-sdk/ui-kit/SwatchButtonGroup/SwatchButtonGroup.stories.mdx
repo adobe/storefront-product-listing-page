@@ -1,0 +1,55 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { SwatchButtonGroup } from '../SwatchButtonGroup';
+import { action } from "@storybook/addon-actions"
+
+<Meta
+  title="UIKit/SwatchButtonGroup"
+  component={SwatchButtonGroup}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <SwatchButtonGroup {...args} />;
+
+# SwatchButtonGroup
+
+
+
+```
+import { SwatchButtonGroup } from '../SwatchButtonGroup'
+```
+
+<Canvas>
+  <Story
+    name="SwatchButtonGroup"
+    args={{
+      isSelected: action('isSelected'),
+      swatches: [
+        {
+          title: 'Black',
+          id: 'test1',
+          type: 'COLOR_HEX',
+          value: '#000000',
+        },
+        {
+          title: 'Orange',
+          id: 'test2',
+          type: 'COLOR_HEX',
+          value: '#eb6703',
+        },
+        {
+          title: 'Red',
+          id: 'test3',
+          type: 'COLOR_HEX',
+          value: 'red',
+        },
+      ],
+      showMore: action('showMore'),
+      onClick: action('onClick'),
+      skue: 'test',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

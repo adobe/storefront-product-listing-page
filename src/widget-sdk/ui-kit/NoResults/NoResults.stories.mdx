@@ -1,0 +1,33 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { NoResults } from "../NoResults";
+
+<Meta
+    title="UIKit/NoResults"
+    component={NoResults}
+    parameters={{
+        layout: "centered"
+    }}
+/>
+
+export const Template = args => <NoResults {...args} />;
+
+# NoResults
+
+
+
+```
+import { NoResults } from '../NoResults'
+```
+
+<Canvas>
+    <Story
+        name="NoResults"
+        args={{
+            heading: "No results for your search.",
+            subheading: "Please try again...",
+            isError: false,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
