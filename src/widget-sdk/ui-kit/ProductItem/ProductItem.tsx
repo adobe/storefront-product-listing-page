@@ -63,7 +63,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     ? product.refineProduct?.priceRange?.minimum?.regular?.amount?.value >
       product.refineProduct?.priceRange?.minimum?.final?.amount?.value
     : productView?.priceRange?.minimum?.regular?.amount?.value >
-      productView?.priceRange?.minimum?.final?.amount?.value;
+        productView?.priceRange?.minimum?.final?.amount?.value ||
+      productView?.price?.regular?.amount?.value >
+        productView?.price?.final?.amount?.value;
   const isComplexProductView = productView?.__typename === 'ComplexProductView';
 
   const onProductClick = () => {
