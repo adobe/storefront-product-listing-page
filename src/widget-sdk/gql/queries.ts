@@ -113,6 +113,7 @@ const REFINE_PRODUCT_QUERY = `
             sku
             name
             url
+            urlKey
             images {
                 label
                 url

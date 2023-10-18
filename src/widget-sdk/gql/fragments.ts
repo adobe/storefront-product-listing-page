@@ -39,6 +39,7 @@ const Product = `
             sku
             name
             url
+            urlKey
             images {
                 label
                 url
