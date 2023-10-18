@@ -11,8 +11,8 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment, FunctionalComponent, h } from 'preact';
 import { useState } from 'preact/hooks';
 
+import { PageSizeOption } from '../../../types/interface';
 import Chevron from '../../icons/chevron.svg';
-import { PageSizeOption } from '../../utils/types';
 
 export interface PerPagePickerProps {
   value: number;

@@ -9,7 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { SwatchValues } from '../../types/interface';
+import { SwatchValues } from '../../../types/interface';
 import { SwatchButton } from '../../ui-kit';
 
 export interface SwatchButtonGroupProps {

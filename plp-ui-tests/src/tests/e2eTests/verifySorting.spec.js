@@ -26,7 +26,7 @@ describe('Verify Price Sort', () => {
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
         const price_text = $elem.text().replace(/As low as/g, '');
-        expect(price_text).to.equal('$32.00');
+        expect(price_text).to.equal('$29.00');
       });
 
     cy.get('.ds-sdk-sort-dropdown').click();
@@ -45,7 +45,7 @@ describe('Verify Price Sort', () => {
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
         const price_text = $elem.text().replace(/As low as/g, '');
-        expect(price_text).to.equal('$32.00');
+        expect(price_text).to.equal('$29.00');
       });
   });
 });

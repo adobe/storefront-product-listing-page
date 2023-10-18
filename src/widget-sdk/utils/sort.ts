@@ -8,7 +8,7 @@ it.
 */
 
 import { Language } from '../../context/translation';
-import { GQLSortInput, SortMetadata, SortOption } from './types';
+import { GQLSortInput, SortMetadata, SortOption } from '../../types/interface';
 
 const defaultSortOptions = (): SortOption[] => {
   return [

@@ -12,9 +12,9 @@ import { Fragment, FunctionComponent, h } from 'preact';
 import { useContext, useState } from 'preact/hooks';
 
 import { TranslationContext } from '../../../context/translation';
+import { SortOption } from '../../../types/interface';
 import Chevron from '../../icons/chevron.svg';
 import SortIcon from '../../icons/sort.svg';
-import { SortOption } from '../../utils/types';
 
 export interface SortDropdownProps {
   value: string;
