@@ -9,7 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
-import { Facet } from 'src/types/interface';
+import { Facet } from '../../types/interface';
 
 import { TranslationContext } from '../../context/translation';
 import { FilterButton } from '../../widget-sdk/ui-kit';

@@ -14,9 +14,10 @@ import { getProductSearch, refineProductSearch } from '../api/search';
 import {
   Facet,
   FacetFilter,
+  PageSizeOption,
   Product,
   ProductSearchQuery,
-  RedirectRouteFunc,
+  RedirectRouteFunc
 } from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,
@@ -31,7 +32,6 @@ import {
   getValueFromUrl,
   handleUrlPagination,
 } from '../utils/handleUrlFilters';
-import { PageSizeOption } from '../widget-sdk/utils/types';
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';

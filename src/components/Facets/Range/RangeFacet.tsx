@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { PriceFacet } from 'src/types/interface';
+import { PriceFacet } from '../../../types/interface';
 
 import useRangeFacet from '../../../hooks/useRangeFacet';
 import { InputButtonGroup } from '../../../widget-sdk/ui-kit';

@@ -9,7 +9,7 @@ it.
 
 import { render } from 'preact';
 
-import './styles/global.css';
+import './styles/index.css';
 
 import { getUserViewHistory } from '../src/widget-sdk/utils';
 import App from './containers/App';

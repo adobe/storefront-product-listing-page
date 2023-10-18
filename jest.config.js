@@ -8,7 +8,7 @@ const config = {
   setupFilesAfterEnv: ['@testing-library/jest-dom', 'jest-styled-components'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.svg$': '<rootDir>/src/widget-sdk/test-utils/imageTransform.js',
+    '^.+\\.svg$': 'jest-transformer-svg',
   },
   moduleDirectories: ['<rootDir>/src', 'node_modules'],
   moduleNameMapper: {

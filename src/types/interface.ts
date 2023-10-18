@@ -335,3 +335,24 @@ export interface FacetFilter {
 export interface FeatureFlags {
   [key: string]: boolean;
 }
+
+export interface PageSizeOption {
+  label: string;
+  value: number;
+}
+
+export interface SortMetadata {
+  label: string;
+  attribute: string;
+  numeric: boolean;
+}
+
+export interface SortOption {
+  label: string;
+  value: string;
+}
+
+export interface GQLSortInput {
+  direction: 'ASC' | 'DESC';
+  attribute: string;
+}
