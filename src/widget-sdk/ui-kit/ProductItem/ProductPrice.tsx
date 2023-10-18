@@ -9,7 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { Product, RefinedProduct } from '../../types/interface';
+import { Product, RefinedProduct } from '../../../types/interface';
 import { getProductPrice } from '../../utils';
 
 export interface ProductPriceProps {
