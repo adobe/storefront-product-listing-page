@@ -14,7 +14,7 @@ import { getProductPrice } from '../../utils';
 
 export interface ProductPriceProps {
   isComplexProductView: boolean;
-  item: any;
+  item: Product | RefinedProduct;
   discount: boolean | undefined;
   currencySymbol: string;
   currencyRate?: string;
@@ -27,11 +27,13 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
-  const price =
-    item?.productView?.priceRange?.minimum ??
-    item?.productView?.price ??
-    item?.refineProduct?.priceRange?.minimum ??
-    item?.refineProduct?.price;
+  let price;
+  if ('productView' in item) {
+    price = item?.productView?.priceRange?.minimum ?? item?.productView?.price;
+  } else {
+    price =
+      item?.refineProduct?.priceRange?.minimum ?? item?.refineProduct?.price;
+  }
   return (
     <>
       {price && (
