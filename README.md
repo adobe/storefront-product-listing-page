@@ -13,7 +13,7 @@ Learn more:
 
 
 ## Repo containing the Live Search PLP
-This repo is available as a reference implementation *only*, customizations are *not supported*, and subject to change.
+This repo is provided as a reference implementation only. While you’re expected to create your own customizations based on these assets, those customizations can’t be supported by Adobe.
 
 Best practices include:
 - forking this repo
