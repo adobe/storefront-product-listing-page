@@ -29,10 +29,13 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
 }: ProductPriceProps) => {
   let price;
   if ('productView' in item) {
-    price = item?.productView?.priceRange?.minimum ?? item?.productView?.price;
+    price =
+      item?.productView?.priceRange?.minimum?.regular ??
+      item?.productView?.price?.regular;
   } else {
     price =
-      item?.refineProduct?.priceRange?.minimum ?? item?.refineProduct?.price;
+      item?.refineProduct?.priceRange?.minimum?.regular ??
+      item?.refineProduct?.price?.regular;
   }
   return (
     <>
