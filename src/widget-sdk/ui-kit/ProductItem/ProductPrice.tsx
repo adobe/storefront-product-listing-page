@@ -15,6 +15,10 @@ import { getProductPrice } from '../../utils';
 export interface ProductPriceProps {
   isComplexProductView: boolean;
   item: Product | RefinedProduct;
+  isBundle: boolean;
+  isGrouped: boolean;
+  isGiftCard: boolean;
+  isConfigurable: boolean;
   discount: boolean | undefined;
   currencySymbol: string;
   currencyRate?: string;
@@ -23,11 +27,16 @@ export interface ProductPriceProps {
 export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   isComplexProductView,
   item,
+  isBundle,
+  isGrouped,
+  isGiftCard,
+  isConfigurable,
   discount,
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
   let price;
+
   if ('productView' in item) {
     price =
       item?.productView?.priceRange?.minimum?.final ??
@@ -37,22 +46,45 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       item?.refineProduct?.priceRange?.minimum?.final ??
       item?.refineProduct?.price?.final;
   }
+
   return (
     <>
       {price && (
         <div className="ds-sdk-product-price">
-          {!isComplexProductView && discount && (
-            <p className="ds-sdk-product-price--discount mt-xs text-sm font-medium text-gray-900">
-              <span className="line-through pr-2">
-                {getProductPrice(
-                  item,
-                  currencySymbol,
-                  currencyRate,
-                  false,
-                  false
-                )}
-              </span>
-              <span className="text-secondary">
+          {!isBundle &&
+            !isGrouped &&
+            !isConfigurable &&
+            !isComplexProductView &&
+            discount && (
+              <p className="ds-sdk-product-price--discount mt-xs text-sm font-medium text-gray-900">
+                <span className="line-through pr-2">
+                  {getProductPrice(
+                    item,
+                    currencySymbol,
+                    currencyRate,
+                    false,
+                    false
+                  )}
+                </span>
+                <span className="text-secondary">
+                  {getProductPrice(
+                    item,
+                    currencySymbol,
+                    currencyRate,
+                    false,
+                    true
+                  )}
+                </span>
+              </p>
+            )}
+
+          {!isBundle &&
+            !isGrouped &&
+            !isGiftCard &&
+            !isConfigurable &&
+            !isComplexProductView &&
+            !discount && (
+              <p className="ds-sdk-product-price--no-discount mt-xs text-sm font-medium text-gray-900">
                 {getProductPrice(
                   item,
                   currencySymbol,
@@ -60,47 +92,95 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
                   false,
                   true
                 )}
-              </span>
-            </p>
+              </p>
+            )}
+
+          {isBundle && (
+            <div className="ds-sdk-product-price--bundle">
+              <p className="mt-xs text-sm font-medium text-gray-900">
+                <span className="text-gray-500 text-xs font-normal mr-xs">
+                  From
+                </span>
+                {getProductPrice(
+                  item,
+                  currencySymbol,
+                  currencyRate,
+                  false,
+                  true
+                )}
+              </p>
+              <p className="mt-xs text-sm font-medium text-gray-900">
+                <span className="text-gray-500 text-xs font-normal mr-xs">
+                  To
+                </span>
+                {getProductPrice(
+                  item,
+                  currencySymbol,
+                  currencyRate,
+                  true,
+                  true
+                )}
+              </p>
+            </div>
           )}
 
-          {!isComplexProductView && !discount && (
-            <p className="ds-sdk-product-price--no-discount mt-xs text-sm font-medium text-gray-900">
+          {isGrouped && (
+            <p className="ds-sdk-product-price--grouped mt-xs text-sm font-medium text-gray-900">
+              <span className="text-gray-500 text-xs font-normal mr-xs">
+                Starting at
+              </span>
               {getProductPrice(item, currencySymbol, currencyRate, false, true)}
             </p>
           )}
 
-          {isComplexProductView && (
-            <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900">
+          {isGiftCard && (
+            <p className="ds-sdk-product-price--gift-card mt-xs text-sm font-medium text-gray-900">
               <span className="text-gray-500 text-xs font-normal mr-xs">
-                As low as
+                From
               </span>
-              {discount ? (
-                <>
-                  <span className="line-through pr-2">
-                    {getProductPrice(
-                      item,
-                      currencySymbol,
-                      currencyRate,
-                      false,
-                      false
-                    )}
-                  </span>
-                  <span className="text-secondary">
-                    {getProductPrice(
-                      item,
-                      currencySymbol,
-                      currencyRate,
-                      false,
-                      true
-                    )}
-                  </span>
-                </>
-              ) : (
-                getProductPrice(item, currencySymbol, currencyRate, false, true)
-              )}
+              {getProductPrice(item, currencySymbol, currencyRate, false, true)}
             </p>
           )}
+
+          {!isGrouped &&
+            !isBundle &&
+            (isConfigurable || isComplexProductView) && (
+              <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900">
+                <span className="text-gray-500 text-xs font-normal mr-xs">
+                  As low as
+                </span>
+                {discount ? (
+                  <>
+                    <span className="line-through pr-2">
+                      {getProductPrice(
+                        item,
+                        currencySymbol,
+                        currencyRate,
+                        false,
+                        false
+                      )}
+                    </span>
+                    <span className="text-secondary">
+                      {getProductPrice(
+                        item,
+                        currencySymbol,
+                        currencyRate,
+                        false,
+                        true
+                      )}
+                    </span>
+                  </>
+                ) : (
+                  getProductPrice(
+                    item,
+                    currencySymbol,
+                    currencyRate,
+                    false,
+                    true
+                  )
+                )}
+              </p>
+            )}
         </div>
       )}
     </>

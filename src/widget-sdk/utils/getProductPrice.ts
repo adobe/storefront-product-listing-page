@@ -19,29 +19,35 @@ const getProductPrice = (
   useFinal = false
 ): string => {
   let priceType;
-  if ('productView' in product) {
-    priceType =
-      product?.productView?.priceRange?.minimum ?? product?.productView?.price;
+  let price;
+  if ('product' in product) {
+    priceType = product?.product?.price_range?.minimum_price;
+
+    if (useMaximum) {
+      priceType = product?.product?.price_range?.maximum_price;
+    }
+
+    price = priceType?.regular_price;
+    if (useFinal) {
+      price = priceType?.final_price;
+    }
   } else {
     priceType =
       product?.refineProduct?.priceRange?.minimum ??
       product?.refineProduct?.price;
-  }
-  if (useMaximum) {
-    if ('productView' in product) {
-      priceType = product?.productView?.priceRange?.maximum;
-    } else {
+
+    if (useMaximum) {
       priceType = product?.refineProduct?.priceRange?.maximum;
+    }
+
+    price = priceType?.regular?.amount;
+    if (useFinal) {
+      price = priceType?.final?.amount;
     }
   }
 
-  let price = priceType?.regular;
-  if (useFinal) {
-    price = priceType?.final;
-  }
-
   // if currency symbol is configurable within Commerce, that symbol is used
-  let currency = price?.amount?.currency;
+  let currency = price?.currency;
 
   if (currencySymbol) {
     currency = currencySymbol;
@@ -50,8 +56,8 @@ const getProductPrice = (
   }
 
   const convertedPrice = currencyRate
-    ? price?.amount?.value * parseFloat(currencyRate)
-    : price?.amount?.value;
+    ? price?.value * parseFloat(currencyRate)
+    : price?.value;
 
   return `${currency}${convertedPrice.toFixed(2)}`;
 };

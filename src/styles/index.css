@@ -790,6 +790,10 @@ video {
   max-height: 45rem;
 }
 
+.min-h-\[20rem\] {
+  min-height: 20rem;
+}
+
 .min-h-\[32px\] {
   min-height: 32px;
 }

@@ -11,8 +11,8 @@ import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 
 import {
-  Media,
   Product,
+  ProductViewMedia,
   RedirectRouteFunc,
   RefinedProduct,
 } from '../../../types/interface';
@@ -40,16 +40,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   setRoute,
   refineProduct,
 }: ProductProps) => {
-  const { productView } = item;
+  const { product, productView } = item;
   const [selectedSwatch, setSelectedSwatch] = useState('');
-  const [productImages, setImages] = useState<Media[] | null>();
-  const [product, setProduct] = useState<RefinedProduct>();
+  const [productImages, setImages] = useState<ProductViewMedia[] | null>();
+  const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
 
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProduct(optionIds, sku);
     setSelectedSwatch(optionIds[0]);
     setImages(data.refineProduct.images);
-    setProduct(data);
+    setRefinedProduct(data);
   };
 
   const isSelected = (id: string) => {
@@ -62,14 +62,19 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   ); // get image for PLP
 
   // will have to figure out discount logic for amount_off and percent_off still
-  const discount: boolean = product
-    ? product.refineProduct?.priceRange?.minimum?.regular?.amount?.value >
-      product.refineProduct?.priceRange?.minimum?.final?.amount?.value
+  const discount: boolean = refinedProduct
+    ? refinedProduct.refineProduct?.priceRange?.minimum?.regular?.amount
+        ?.value >
+      refinedProduct.refineProduct?.priceRange?.minimum?.final?.amount?.value
     : productView?.priceRange?.minimum?.regular?.amount?.value >
         productView?.priceRange?.minimum?.final?.amount?.value ||
       productView?.price?.regular?.amount?.value >
         productView?.price?.final?.amount?.value;
   const isComplexProductView = productView?.__typename === 'ComplexProductView';
+  const isBundle = product?.__typename === 'BundleProduct';
+  const isGrouped = product?.__typename === 'GroupedProduct';
+  const isGiftCard = product?.__typename === 'GiftCardProduct';
+  const isConfigurable = product?.__typename === 'ConfigurableProduct';
 
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
@@ -80,7 +85,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productUrl = setRoute
     ? setRoute({ sku: productView?.sku })
-    : productView?.url;
+    : product.canonical_url;
 
   return (
     <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">
@@ -90,7 +95,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         className="!text-primary hover:no-underline hover:text-primary"
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden min-h-[20rem]">
             {/*
                   NOTE:
                   we could use <picture> <source...
@@ -98,7 +103,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   in future for better performance
                  */}
             {productImage ? (
-              <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none">
                 <img
                   src={productImage}
                   alt={productView.name}
@@ -117,7 +122,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               {htmlStringDecode(productView.name)}
             </div>
             <ProductPrice
-              item={product ?? item}
+              item={refinedProduct ?? item}
+              isBundle={isBundle}
+              isGrouped={isGrouped}
+              isGiftCard={isGiftCard}
+              isConfigurable={isConfigurable}
               isComplexProductView={isComplexProductView}
               discount={discount}
               currencySymbol={currencySymbol}

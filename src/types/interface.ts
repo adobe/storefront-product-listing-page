@@ -146,6 +146,35 @@ export interface AttributeMetadataResponse {
 }
 
 export interface Product {
+  product: {
+    __typename: string;
+    id: number;
+    uid: string;
+    name: string;
+    sku: string;
+    description: null | ComplexTextValue;
+    short_description: null | ComplexTextValue;
+    attribute_set_id: null | number;
+    meta_title: null | string;
+    meta_keyword: null | string;
+    meta_description: null | string;
+    image: null | ProductMedia;
+    small_image: null | ProductMedia;
+    thumbnail: null | ProductMedia;
+    new_from_date: null | string;
+    new_to_date: null | string;
+    created_at: null | string;
+    updated_at: null | string;
+    price_range: {
+      minimum_price: ProductPrice;
+      maximum_price: ProductPrice;
+    };
+    gift_message_available: null | string;
+    canonical_url: null | string;
+    media_gallery: null | ProductMedia;
+    custom_attributes: null | CustomAttribute;
+    add_to_cart_allowed: null | boolean;
+  };
   productView: {
     __typename: string;
     id: number;
@@ -158,28 +187,28 @@ export interface Product {
     meta_title: null | string;
     meta_keyword: null | string;
     meta_description: null | string;
-    images: null | Media[];
+    images: null | ProductViewMedia[];
     new_from_date: null | string;
     new_to_date: null | string;
     created_at: null | string;
     updated_at: null | string;
     price: {
-      final: Price;
-      regular: Price;
+      final: ProductViewPrice;
+      regular: ProductViewPrice;
     };
     priceRange: {
       minimum: {
-        final: Price;
-        regular: Price;
+        final: ProductViewPrice;
+        regular: ProductViewPrice;
       };
       maximum: {
-        final: Price;
-        regular: Price;
+        final: ProductViewPrice;
+        regular: ProductViewPrice;
       };
     };
     gift_message_available: null | string;
     url: null | string;
-    media_gallery: null | Media;
+    media_gallery: null | ProductViewMedia;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
     options:
@@ -206,28 +235,28 @@ export interface RefinedProduct {
     meta_title: null | string;
     meta_keyword: null | string;
     meta_description: null | string;
-    images: null | Media[];
+    images: null | ProductViewMedia[];
     new_from_date: null | string;
     new_to_date: null | string;
     created_at: null | string;
     updated_at: null | string;
     price: {
-      final: Price;
-      regular: Price;
+      final: ProductViewPrice;
+      regular: ProductViewPrice;
     };
     priceRange: {
       minimum: {
-        final: Price;
-        regular: Price;
+        final: ProductViewPrice;
+        regular: ProductViewPrice;
       };
       maximum: {
-        final: Price;
-        regular: Price;
+        final: ProductViewPrice;
+        regular: ProductViewPrice;
       };
     };
     gift_message_available: null | string;
     url: null | string;
-    media_gallery: null | Media;
+    media_gallery: null | ProductViewMedia;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
     options:
@@ -249,14 +278,28 @@ export interface Money {
   currency: string;
 }
 
-export interface Price {
+export interface ProductPrice {
+  fixed_product_taxes: null | { amount: Money; label: string };
+  regular_price: Money;
+  final_price: Money;
+  discount: null | { percent_off: number; amount_off: number };
+}
+
+export interface ProductViewPrice {
   adjustments: null | { amount: number; code: string };
   amount: Money;
 }
 
 type ImageRoles = 'image' | 'small_image' | 'thumbnail' | 'swatch_image';
 
-export interface Media {
+export interface ProductMedia {
+  url: null | string;
+  label: null | string;
+  position: null | number;
+  disabled: null | boolean;
+}
+
+export interface ProductViewMedia {
   url: null | string;
   label: null | string;
   position: null | number;

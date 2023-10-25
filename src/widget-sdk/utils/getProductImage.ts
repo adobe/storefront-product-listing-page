@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { Media } from '../../types/interface';
+import { ProductViewMedia } from '../../types/interface';
 
 type ImageTypes = {
   thumbnail?: string | null;
@@ -16,30 +16,33 @@ type ImageTypes = {
   main?: string | null;
 };
 
-const getProductImageURL = (images: Media[]): string => {
+const getProductImageURL = (images: ProductViewMedia[]): string => {
   const imageTypes: ImageTypes = {};
+  const url = new URL(window.location.href);
+  const protocol = url.protocol;
 
   if (images?.length) {
     for (const image of images) {
       if (image.roles.includes('thumbnail')) {
-        imageTypes.thumbnail = image.url;
+        imageTypes.thumbnail = image.url?.replace(/^https?:\/\//, '');
       } else if (image.roles.includes('small_image')) {
-        imageTypes.small_image = image.url;
+        imageTypes.small_image = image.url?.replace(/^https?:\/\//, '');
       } else if (image.roles.includes('image')) {
-        imageTypes.image = image.url;
+        imageTypes.image = image.url?.replace(/^https?:\/\//, '');
       } else if (image.url?.includes('main')) {
-        imageTypes.main = image.url;
+        imageTypes.main = image.url?.replace(/^https?:\/\//, '');
       }
     }
   }
 
-  return (
+  const imageUrl =
     imageTypes.thumbnail ??
     imageTypes.small_image ??
     imageTypes.image ??
     imageTypes.main ??
-    ''
-  );
+    '';
+
+  return `${protocol}//${imageUrl}`;
 };
 
 export { getProductImageURL };

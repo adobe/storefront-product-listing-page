@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { Facet, Product } from './fragments';
+import { Facet, Product, ProductView } from './fragments';
 
 const ATTRIBUTE_METADATA_QUERY = `
     query attributeMetadata {
@@ -77,6 +77,7 @@ const PRODUCT_SEARCH_QUERY = `
             total_count
             items {
                 ...Product
+                ...ProductView
             }
             facets {
                 ...Facet
@@ -96,6 +97,7 @@ const PRODUCT_SEARCH_QUERY = `
         }
     }
     ${Product}
+    ${ProductView}
     ${Facet}
 `;
 
