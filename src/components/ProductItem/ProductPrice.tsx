@@ -9,8 +9,8 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { Product, RefinedProduct } from '../../../types/interface';
-import { getProductPrice } from '../../utils';
+import { Product, RefinedProduct } from '../../types/interface';
+import { getProductPrice } from '../../utils/getProductPrice';
 
 export interface ProductPriceProps {
   isComplexProductView: boolean;

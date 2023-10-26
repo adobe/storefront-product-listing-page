@@ -10,7 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 
-import { TranslationContext } from '../../../context/translation';
+import { TranslationContext } from '../../context/translation';
 import AdjustmentsIcon from '../../icons/adjustments.svg';
 
 export interface FilterButtonProps {

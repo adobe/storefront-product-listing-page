@@ -19,12 +19,12 @@ import {
   RefinedProduct,
   RefineProductQuery,
 } from '../types/interface';
+import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
   ATTRIBUTE_METADATA_QUERY,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
-} from '../widget-sdk/gql/queries';
-import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
+} from './queries';
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {

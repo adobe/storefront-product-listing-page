@@ -10,7 +10,7 @@ it.
 import { Fragment } from 'preact';
 import { useState } from 'preact/hooks';
 
-import { setCssVariables } from './utils';
+import { setCssVariables } from './utils/setCssVariable';
 
 export const CssVars = () => {
   const [primary, setPrimary] = useState<string>('#000');

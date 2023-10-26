@@ -10,7 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 
 import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
-import Chevron from '../../widget-sdk/icons/chevron.svg';
+import Chevron from '../../icons/chevron.svg'
 
 interface PaginationProps {
   onPageChange: (page: number | string) => void;

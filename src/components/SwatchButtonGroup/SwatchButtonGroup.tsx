@@ -9,8 +9,8 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { SwatchValues } from '../../../types/interface';
-import { SwatchButton } from '../../ui-kit';
+import { SwatchValues } from '../../types/interface';
+import { SwatchButton } from '../SwatchButton';
 
 export interface SwatchButtonGroupProps {
   isSelected: (id: string) => boolean | undefined;

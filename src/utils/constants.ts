@@ -24,3 +24,7 @@ export const SEARCH_SORT_DEFAULT: ProductSearchSortInput[] = [
 export const CATEGORY_SORT_DEFAULT: ProductSearchSortInput[] = [
   { attribute: 'position', direction: 'ASC' },
 ];
+
+export const SEARCH_UNIT_ID = 'livesearch-plp';
+export const BOOLEAN_YES = 'yes';
+export const BOOLEAN_NO = 'no';

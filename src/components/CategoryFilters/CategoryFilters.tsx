@@ -12,8 +12,8 @@ import { useContext } from 'preact/hooks';
 
 import { TranslationContext } from '../../context/translation';
 import { Facet } from '../../types/interface';
-import { FilterButton } from '../../widget-sdk/ui-kit';
 import { Facets } from '../Facets';
+import { FilterButton } from '../FilterButton';
 
 interface CategoryFiltersProps {
   loading: boolean;

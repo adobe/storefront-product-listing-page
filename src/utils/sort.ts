@@ -7,8 +7,8 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { Language } from '../../context/translation';
-import { GQLSortInput, SortMetadata, SortOption } from '../../types/interface';
+import { Language } from '../context/translation';
+import { GQLSortInput, SortMetadata, SortOption } from '../types/interface';
 
 const defaultSortOptions = (): SortOption[] => {
   return [

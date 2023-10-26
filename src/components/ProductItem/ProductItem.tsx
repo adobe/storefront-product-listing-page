@@ -10,19 +10,23 @@ it.
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 
+import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
   ProductViewMedia,
   RedirectRouteFunc,
   RefinedProduct,
-} from '../../../types/interface';
-import NoImage from '../../icons/NoImage.svg';
-import { SwatchButtonGroup } from '../../ui-kit';
+} from '../../types/interface';
+import {
+  SEARCH_UNIT_ID,
+} from '../../utils/constants';
 import {
   getProductImageURL,
+} from '../../utils/getProductImage';
+import {
   htmlStringDecode,
-  SEARCH_UNIT_ID,
-} from '../../utils';
+} from '../../utils/htmlStringDecode';
+import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
 
 export interface ProductProps {

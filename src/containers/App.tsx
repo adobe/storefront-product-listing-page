@@ -11,9 +11,10 @@ import { FunctionComponent } from 'preact';
 import { useContext, useState } from 'preact/hooks';
 
 import { CategoryFilters } from '../components/CategoryFilters';
+import { FilterButton } from '../components/FilterButton';
+import { Loading } from '../components/Loading';
 import { useProducts, useSensor, useStore } from '../context';
 import { TranslationContext } from '../context/translation';
-import { FilterButton, Loading } from '../widget-sdk/ui-kit';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
 

@@ -11,7 +11,7 @@ import { FunctionComponent } from 'preact';
 
 import useRangeFacet from '../../../hooks/useRangeFacet';
 import { PriceFacet } from '../../../types/interface';
-import { InputButtonGroup } from '../../../widget-sdk/ui-kit';
+import { InputButtonGroup } from '../../InputButtonGroup';
 
 interface RangeFacetProps {
   filterData: PriceFacet;

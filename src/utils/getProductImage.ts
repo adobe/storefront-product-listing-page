@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { ProductViewMedia } from '../../types/interface';
+import { ProductViewMedia } from '../types/interface';
 
 type ImageTypes = {
   thumbnail?: string | null;

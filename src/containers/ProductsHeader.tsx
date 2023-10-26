@@ -11,16 +11,18 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
 
 import Facets from '../components/Facets';
+import { FilterButton  } from '../components/FilterButton';
+import {  SearchBar  } from '../components/SearchBar';
+import {  SortDropdown } from '../components/SortDropdown';
 import { useAttributeMetadata, useSearch, useStore } from '../context';
 import { TranslationContext } from '../context/translation';
 import { Facet } from '../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
-import { FilterButton, SearchBar, SortDropdown } from '../widget-sdk/ui-kit';
 import {
   defaultSortOptions,
   generateGQLSortInput,
   getSortOptionsfromMetadata,
-} from '../widget-sdk/utils/sort';
+} from '../utils/sort';
 
 interface Props {
   facets: Facet[];

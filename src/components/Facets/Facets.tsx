@@ -15,7 +15,7 @@ import {
   FacetFilter,
   PriceFacet,
 } from '../../types/interface';
-import { Pill } from '../../widget-sdk/ui-kit';
+import { Pill } from '../Pill';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 

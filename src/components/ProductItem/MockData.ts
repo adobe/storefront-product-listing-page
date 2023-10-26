@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { Product } from '../../../types/interface';
+import { Product } from '../../types/interface';
 
 export const sampleProductNoImage: Product = {
   product: {

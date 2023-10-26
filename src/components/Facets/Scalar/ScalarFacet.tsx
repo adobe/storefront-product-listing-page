@@ -11,7 +11,7 @@ import { FunctionComponent } from 'preact';
 
 import useScalarFacet from '../../../hooks/useScalarFacet';
 import { Facet as FacetType, PriceFacet } from '../../../types/interface';
-import { InputButtonGroup } from '../../../widget-sdk/ui-kit';
+import { InputButtonGroup } from '../../InputButtonGroup';
 
 interface ScalarFacetProps {
   filterData: FacetType | PriceFacet;

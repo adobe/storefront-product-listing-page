@@ -12,7 +12,7 @@ import { HTMLAttributes } from 'preact/compat';
 
 import './product-list.css';
 
-import { Product, RedirectRouteFunc } from '../../../types/interface';
+import { Product, RedirectRouteFunc } from '../../types/interface';
 import ProductItem from '../ProductItem';
 
 export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {

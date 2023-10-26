@@ -22,7 +22,7 @@ import {
   removeAllUrlFilters,
   removeUrlFilter,
 } from '../utils/handleUrlFilters';
-import { generateGQLSortInput } from '../widget-sdk/utils/sort';
+import { generateGQLSortInput } from '../utils/sort';
 import { useStore } from './store';
 
 interface SearchContextProps {

@@ -11,7 +11,7 @@ import { render } from 'preact';
 
 import './styles/index.css';
 
-import { getUserViewHistory } from '../src/widget-sdk/utils';
+import { getUserViewHistory } from '../src/utils/getUserViewHistory';
 import App from './containers/App';
 import {
   AttributeMetadataProvider,

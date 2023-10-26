@@ -94,7 +94,7 @@ module.exports = {
   },
 
   resolve: {
-    modules: ['.', 'node_modules', '@adobe/ds-widget-sdk'],
+    modules: ['.', 'node_modules'],
     alias: {
       containers: path.resolve(__dirname, 'src/containers'),
       components: path.resolve(__dirname, 'src/components'),

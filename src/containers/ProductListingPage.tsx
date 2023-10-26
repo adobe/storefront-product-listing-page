@@ -22,7 +22,7 @@ import Resize from '../context/displayChange';
 import { SentryProvider } from '../context/sentry';
 import Translation from '../context/translation';
 import { FloodgateProvider } from '../utils/Floodgate';
-import { getUserViewHistory } from '../widget-sdk/utils';
+import { getUserViewHistory } from '../utils/getUserViewHistory';
 import App from './App';
 
 type MountSearchPlpProps = {
