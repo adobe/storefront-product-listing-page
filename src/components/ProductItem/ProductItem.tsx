@@ -17,15 +17,9 @@ import {
   RedirectRouteFunc,
   RefinedProduct,
 } from '../../types/interface';
-import {
-  SEARCH_UNIT_ID,
-} from '../../utils/constants';
-import {
-  getProductImageURL,
-} from '../../utils/getProductImage';
-import {
-  htmlStringDecode,
-} from '../../utils/htmlStringDecode';
+import { SEARCH_UNIT_ID } from '../../utils/constants';
+import { getProductImageURL } from '../../utils/getProductImage';
+import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
 

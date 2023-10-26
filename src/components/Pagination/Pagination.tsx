@@ -16,17 +16,14 @@ interface PaginationProps {
   onPageChange: (page: number | string) => void;
   totalPages: number;
   currentPage: number;
-  pageSize: number;
 }
 
 export const Pagination: FunctionComponent<PaginationProps> = ({
   onPageChange,
   totalPages,
   currentPage,
-  pageSize,
 }) => {
   const paginationRange = usePagination({
-    pageSize,
     currentPage,
     totalPages,
   });

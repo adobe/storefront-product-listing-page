@@ -115,7 +115,6 @@ export const ProductsContainer: FunctionComponent<Props> = ({
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            pageSize={pageSize}
             onPageChange={goToPage}
           />
         )}

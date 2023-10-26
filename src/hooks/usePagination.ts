@@ -17,14 +17,12 @@ const getRange = (start: number, end: number) => {
 };
 
 type PaginationType = {
-  pageSize: number;
   currentPage: number;
   totalPages: number;
   siblingCount?: number; // defaults to 1
 };
 
 export const usePagination = ({
-  pageSize,
   currentPage,
   totalPages,
   siblingCount = 1,
@@ -75,7 +73,7 @@ export const usePagination = ({
         lastPageIndex,
       ];
     }
-  }, [currentPage, totalPages, pageSize, siblingCount]);
+  }, [currentPage, totalPages, siblingCount]);
 
   return paginationRange;
 };

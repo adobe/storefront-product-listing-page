@@ -18,7 +18,6 @@ describe('PLP widget/Pagination', () => {
       <Pagination
         currentPage={1}
         totalPages={3}
-        pageSize={12}
         onPageChange={() => {}}
       />
     );

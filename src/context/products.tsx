@@ -139,7 +139,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     useState<boolean>(false);
   const minQueryLength = useMemo(() => {
     return storeCtx?.config?.minQueryLength || DEFAULT_MIN_QUERY_LENGTH;
-  }, [storeCtx?.config.minQueryLength, DEFAULT_MIN_QUERY_LENGTH]);
+  }, [storeCtx?.config.minQueryLength]);
 
   const variables = useMemo(() => {
     return {
