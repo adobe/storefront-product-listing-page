@@ -40,10 +40,10 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   const translation = useContext(TranslationContext);
   let price;
 
-  if ('productView' in item) {
+  if ('product' in item) {
     price =
-      item?.productView?.priceRange?.minimum?.final ??
-      item?.productView?.price?.final;
+      item?.product?.price_range?.minimum_price?.final_price ??
+      item?.product?.price_range?.minimum_price?.regular_price;
   } else {
     price =
       item?.refineProduct?.priceRange?.minimum?.final ??
