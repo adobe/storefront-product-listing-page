@@ -39,6 +39,9 @@ export const no_NO = {
     results: 'resultater for {phrase}',
     products: 'Produkter',
   },
+  ProductCard: {
+    asLowAs: "Så lavt som",
+  },
   ProductContainers: {
     minquery:
       'Søkeordet ditt {variables.phrase} har ikke nådd minimumsgrensen på {minQueryLength} tegn.',

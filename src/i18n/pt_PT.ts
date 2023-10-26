@@ -39,6 +39,9 @@ export const pt_PT = {
     results: 'resultados para {frase}',
     products: 'produtos',
   },
+  ProductCard: {
+    asLowAs: "Tão baixo quanto",
+  },
   ProductContainers: {
     minquery:
       'Seu termo de pesquisa {variables.phrase} não atingiu o mínimo de {minQueryLength} caracteres.',

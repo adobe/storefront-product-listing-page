@@ -8,7 +8,9 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
+import { useContext } from 'preact/hooks';
 
+import { TranslationContext } from '../../context/translation';
 import { Product, RefinedProduct } from '../../types/interface';
 import { getProductPrice } from '../../utils/getProductPrice';
 
@@ -35,6 +37,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
+  const translation = useContext(TranslationContext);
   let price;
 
   if ('productView' in item) {
@@ -147,7 +150,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             (isConfigurable || isComplexProductView) && (
               <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900">
                 <span className="text-gray-500 text-xs font-normal mr-xs">
-                  As low as
+                  {translation.ProductCard.asLowAs}
                 </span>
                 {discount ? (
                   <>

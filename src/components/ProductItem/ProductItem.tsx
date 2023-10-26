@@ -83,7 +83,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productUrl = setRoute
     ? setRoute({ sku: productView?.sku })
-    : product.canonical_url;
+    : product?.canonical_url;
 
   return (
     <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">

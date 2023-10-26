@@ -23,11 +23,11 @@ const getProductImageURL = (images: ProductViewMedia[]): string => {
 
   if (images?.length) {
     for (const image of images) {
-      if (image.roles.includes('thumbnail')) {
+      if (image.roles?.includes('thumbnail')) {
         imageTypes.thumbnail = image.url?.replace(/^https?:\/\//, '');
-      } else if (image.roles.includes('small_image')) {
+      } else if (image.roles?.includes('small_image')) {
         imageTypes.small_image = image.url?.replace(/^https?:\/\//, '');
-      } else if (image.roles.includes('image')) {
+      } else if (image.roles?.includes('image')) {
         imageTypes.image = image.url?.replace(/^https?:\/\//, '');
       } else if (image.url?.includes('main')) {
         imageTypes.main = image.url?.replace(/^https?:\/\//, '');

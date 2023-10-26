@@ -39,6 +39,9 @@ export const ja_JA = {
     results: '{phrase} の結果',
     products: '製品',
   },
+  ProductCard: {
+    asLowAs: "以下のように",
+  },
   ProductContainers: {
     minquery:
       '検索用語 {variables.phrase} が最小の {minQueryLength} 文字に達していません。',

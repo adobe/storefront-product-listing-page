@@ -39,6 +39,9 @@ export const nl_NL = {
     results: 'resultaten voor {phrase}',
     products: 'producten',
   },
+  ProductCard: {
+    asLowAs: "Zo laag als",
+  },
   ProductContainers: {
     minquery:
       'Uw zoekterm {variables.phrase} heeft niet het minimum van {minQueryLength} tekens bereikt.',

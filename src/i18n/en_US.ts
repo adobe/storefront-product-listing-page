@@ -39,6 +39,9 @@ export const en_US = {
     results: 'results for {phrase}',
     products: 'products',
   },
+  ProductCard: {
+    asLowAs: 'As low as',
+  },
   ProductContainers: {
     minquery:
       'Your search term {variables.phrase} has not reached the minimum of {minQueryLength} characters.',
