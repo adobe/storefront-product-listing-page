@@ -42,7 +42,7 @@ const getProductImageURL = (images: ProductViewMedia[]): string => {
     imageTypes.main ??
     '';
 
-  return `${protocol}//${imageUrl}`;
+  return imageUrl ? `${protocol}//${imageUrl}` : '';
 };
 
 export { getProductImageURL };
