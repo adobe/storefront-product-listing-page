@@ -1,10 +1,19 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { FunctionComponent } from 'preact';
 import { useContext, useState } from 'preact/hooks';
 
+import { FilterButton, Loading } from '../components';
 import { CategoryFilters } from '../components/CategoryFilters';
 import { useProducts, useSensor, useStore } from '../context';
 import { TranslationContext } from '../context/translation';
-import { FilterButton, Loading } from '../widget-sdk/ui-kit';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
 
@@ -81,7 +90,7 @@ export const App: FunctionComponent = () => {
                       <FilterButton
                         displayFilter={() => setShowFilters(true)}
                         type="desktop"
-                        title="Show Filters"
+                        title={translation.Filter.showTitle}
                       />
                     </div>
                   )}

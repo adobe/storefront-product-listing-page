@@ -1,17 +1,26 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
 
+import { FilterButton, SearchBar, SortDropdown } from '../components';
 import Facets from '../components/Facets';
 import { useAttributeMetadata, useSearch, useStore } from '../context';
 import { TranslationContext } from '../context/translation';
 import { Facet } from '../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
-import { FilterButton, SearchBar, SortDropdown } from '../widget-sdk/ui-kit';
 import {
   defaultSortOptions,
   generateGQLSortInput,
   getSortOptionsfromMetadata,
-} from '../widget-sdk/utils/sort';
+} from '../utils/sort';
 
 interface Props {
   facets: Facet[];

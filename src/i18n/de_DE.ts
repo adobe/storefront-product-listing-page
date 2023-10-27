@@ -1,6 +1,17 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 export const de_DE = {
   Filter: {
     title: 'Filter',
+    showTitle: 'Filter anzeigen',
+    hideTitle: 'Filter ausblenden',
   },
   InputButtonGroup: {
     title: 'Kategorien',
@@ -27,6 +38,9 @@ export const de_DE = {
   CategoryFilters: {
     results: 'Ergebnisse für {phrase}',
     products: 'Produkte',
+  },
+  ProductCard: {
+    asLowAs: 'So niedrig wie',
   },
   ProductContainers: {
     minquery:

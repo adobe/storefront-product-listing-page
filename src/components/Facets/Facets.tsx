@@ -1,3 +1,12 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { FunctionComponent } from 'preact';
 
 import { useProducts, useSearch } from '../../context';
@@ -6,7 +15,7 @@ import {
   FacetFilter,
   PriceFacet,
 } from '../../types/interface';
-import { Pill } from '../../widget-sdk/ui-kit';
+import { Pill } from '../Pill';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 

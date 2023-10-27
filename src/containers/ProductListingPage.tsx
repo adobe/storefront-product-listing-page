@@ -1,3 +1,12 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { render } from 'preact';
 
 import './styles/index.css';
@@ -11,7 +20,7 @@ import {
 } from '../context';
 import Resize from '../context/displayChange';
 import Translation from '../context/translation';
-import { getUserViewHistory } from '../widget-sdk/utils';
+import { getUserViewHistory } from '../utils/getUserViewHistory';
 import App from './App';
 
 type MountSearchPlpProps = {

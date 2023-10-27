@@ -1,23 +1,29 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { FunctionComponent } from 'preact';
 
 import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
-import Chevron from '../../widget-sdk/icons/chevron.svg';
+import Chevron from '../../icons/chevron.svg';
 
 interface PaginationProps {
   onPageChange: (page: number | string) => void;
   totalPages: number;
   currentPage: number;
-  pageSize: number;
 }
 
 export const Pagination: FunctionComponent<PaginationProps> = ({
   onPageChange,
   totalPages,
   currentPage,
-  pageSize,
 }) => {
   const paginationRange = usePagination({
-    pageSize,
     currentPage,
     totalPages,
   });

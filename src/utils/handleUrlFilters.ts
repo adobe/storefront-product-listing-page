@@ -1,8 +1,15 @@
-//Luma based URL handling
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
 
-import { SearchClauseInput } from 'src/types/interface';
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
 
-import { FacetFilter } from '../types/interface';
+//Luma Specific URL handling
+
+import { FacetFilter, SearchClauseInput } from '../types/interface';
 import { DEFAULT_PAGE_SIZE } from '../utils/constants';
 
 // if you add custom search query params, add them to this object

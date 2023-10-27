@@ -1,6 +1,17 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 export const ja_JA = {
   Filter: {
     title: 'フィルター',
+    showTitle: 'フィルターを表示',
+    hideTitle: 'フィルターを非表示にする',
   },
   InputButtonGroup: {
     title: 'カテゴリー',
@@ -27,6 +38,9 @@ export const ja_JA = {
   CategoryFilters: {
     results: '{phrase} の結果',
     products: '製品',
+  },
+  ProductCard: {
+    asLowAs: '以下のように',
   },
   ProductContainers: {
     minquery:

@@ -20,7 +20,6 @@ public
 # local debug
 npm-debug.log*
 
-
 #storybook
 /storybook-static
 

@@ -1,3 +1,12 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { v4 as uuidv4 } from 'uuid';
 
 import { updateSearchInputCtx, updateSearchResultsCtx } from '../context';
@@ -10,12 +19,12 @@ import {
   RefinedProduct,
   RefineProductQuery,
 } from '../types/interface';
+import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
   ATTRIBUTE_METADATA_QUERY,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
-} from '../widget-sdk/gql/queries';
-import { SEARCH_UNIT_ID } from '../widget-sdk/utils';
+} from './queries';
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {

@@ -1,3 +1,12 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { FunctionComponent } from 'preact';
 import { useContext } from 'preact/hooks';
 import { useProducts, useSensor } from 'src/context';
@@ -7,8 +16,8 @@ import {
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
 
+import { Alert, PerPagePicker, ProductList } from '../components';
 import Pagination from '../components/Pagination/Pagination';
-import { Alert, PerPagePicker, ProductList } from '../widget-sdk/ui-kit';
 
 interface Props {
   showFilters: boolean;
@@ -103,7 +112,6 @@ export const ProductsContainer: FunctionComponent<Props> = ({
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            pageSize={pageSize}
             onPageChange={goToPage}
           />
         )}
