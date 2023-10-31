@@ -93,7 +93,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         className="!text-primary hover:no-underline hover:text-primary"
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden min-h-[20rem]">
+          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
             {/*
                   NOTE:
                   we could use <picture> <source...
