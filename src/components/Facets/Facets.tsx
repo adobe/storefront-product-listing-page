@@ -40,13 +40,14 @@ export const Facets: FunctionComponent<FacetsProps> = ({
       ? productsCtx.currencySymbol
       : '$';
     const label = `${currencySymbol}${
-      range?.from
+      range?.from &&
+      parseFloat(currencyRate) * parseInt(range.to.toFixed(0), 10)
         ? (
-            parseFloat(currencyRate) * parseInt(range.from.toFixed(0), 10)
-          ).toFixed(2)
+            parseFloat(currencyRate) * parseInt(range.from?.toFixed(0), 10)
+          )?.toFixed(2)
         : 0
     }${
-      range?.to
+      range?.to && parseFloat(currencyRate) * parseInt(range.to.toFixed(0), 10)
         ? ` - ${currencySymbol}${(
             parseFloat(currencyRate) * parseInt(range.to.toFixed(0), 10)
           ).toFixed(2)}`

@@ -77,13 +77,15 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
         ? productsCtx.currencySymbol
         : '$';
       const label = `${currencySymbol}${
-        bucket.from
+        bucket?.from &&
+        parseFloat(currencyRate) * parseInt(bucket.from.toFixed(0), 10)
           ? (
               parseFloat(currencyRate) * parseInt(bucket.from.toFixed(0), 10)
             ).toFixed(2)
           : 0
       }${
-        bucket.to
+        bucket?.to &&
+        parseFloat(currencyRate) * parseInt(bucket.to.toFixed(0), 10)
           ? ` - ${currencySymbol}${(
               parseFloat(currencyRate) * parseInt(bucket.to.toFixed(0), 10)
             ).toFixed(2)}`
