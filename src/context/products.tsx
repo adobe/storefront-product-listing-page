@@ -70,6 +70,7 @@ const ProductsContext = createContext<{
   refineProduct: (optionIds: string[], sku: string) => any;
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
+  categoryPath: string | undefined;
 }>({
   variables: {
     phrase: '',
@@ -101,6 +102,7 @@ const ProductsContext = createContext<{
   refineProduct: () => {},
   pageLoading: false,
   setPageLoading: () => {},
+  categoryPath: undefined,
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -145,6 +147,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const minQueryLength = useMemo(() => {
     return storeCtx?.config?.minQueryLength || DEFAULT_MIN_QUERY_LENGTH;
   }, [storeCtx?.config.minQueryLength]);
+  const categoryPath = storeCtx.config?.currentCategoryUrlPath;
 
   const variables = useMemo(() => {
     return {
@@ -203,6 +206,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     refineProduct: handleRefineProductSearch,
     pageLoading,
     setPageLoading,
+    categoryPath,
   };
 
   const searchProducts = async () => {
@@ -210,7 +214,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       setLoading(true);
       moveToTop();
       if (checkMinQueryLength()) {
-        const categoryPath = storeCtx.config?.currentCategoryUrlPath;
         const filters = [...variables.filter];
 
         handleCategorySearch(categoryPath, filters);

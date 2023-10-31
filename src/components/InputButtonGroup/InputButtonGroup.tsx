@@ -91,7 +91,9 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       }`;
       return label;
     } else if (bucket.__typename === 'CategoryView') {
-      return bucket.name ?? bucket.title;
+      return productsCtx.categoryPath
+        ? bucket.name ?? bucket.title
+        : bucket.title;
     } else if (bucket.title === BOOLEAN_YES) {
       return title;
     } else if (bucket.title === BOOLEAN_NO) {

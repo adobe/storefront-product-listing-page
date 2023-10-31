@@ -56,12 +56,15 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   };
 
   const formatBinaryLabel = (filter: FacetFilter, option: string) => {
-    const category = searchCtx.categoryNames.find(
-      (facet) => facet.attribute === filter.attribute && facet.value === option
-    );
+    if (productsCtx.categoryPath) {
+      const category = searchCtx.categoryNames.find(
+        (facet) =>
+          facet.attribute === filter.attribute && facet.value === option
+      );
 
-    if (category?.name) {
-      return category.name;
+      if (category?.name) {
+        return category.name;
+      }
     }
 
     const title = filter.attribute?.split('_');
