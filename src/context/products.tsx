@@ -68,6 +68,8 @@ const ProductsContext = createContext<{
   pageSizeOptions: PageSizeOption[];
   setRoute: RedirectRouteFunc | undefined;
   refineProduct: (optionIds: string[], sku: string) => any;
+  pageLoading: boolean;
+  setPageLoading: (loading: boolean) => void;
 }>({
   variables: {
     phrase: '',
@@ -97,6 +99,8 @@ const ProductsContext = createContext<{
   pageSizeOptions: [],
   setRoute: undefined,
   refineProduct: () => {},
+  pageLoading: false,
+  setPageLoading: () => {},
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -119,6 +123,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const showAllLabel = translation.ProductContainers.showAll;
 
   const [loading, setLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
@@ -155,9 +160,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     searchCtx.phrase,
     searchCtx.filters,
     searchCtx.sort,
+    storeCtx.context,
     storeCtx.config.displayOutOfStock,
-    currentPage,
     pageSize,
+    currentPage,
   ]);
 
   const handleRefineProductSearch = async (
@@ -195,6 +201,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageSizeOptions,
     setRoute: storeCtx.route,
     refineProduct: handleRefineProductSearch,
+    pageLoading,
+    setPageLoading,
   };
 
   const searchProducts = async () => {
@@ -219,6 +227,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         setFacets(data?.productSearch?.facets || []);
         setTotalCount(data?.productSearch?.total_count || 0);
         setTotalPages(data?.productSearch?.page_info?.total_pages || 1);
+        handleCategoryNames(data?.productSearch?.facets || []);
 
         getPageSizeOptions(data?.productSearch?.total_count);
 
@@ -228,8 +237,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         );
       }
       setLoading(false);
+      setPageLoading(false);
     } catch (error) {
       setLoading(false);
+      setPageLoading(false);
     }
   };
 
@@ -259,7 +270,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageSizeArray.forEach((option) => {
       optionsArray.push({
         label: option,
-        value: parseInt(option),
+        value: parseInt(option, 10),
       });
     });
 
@@ -299,6 +310,23 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         variables.sort = CATEGORY_SORT_DEFAULT;
       }
     }
+  };
+
+  const handleCategoryNames = (facets: Facet[]) => {
+    facets.map((facet) => {
+      const bucketType = facet?.buckets[0]?.__typename;
+      if (bucketType === 'CategoryView') {
+        const names = facet.buckets.map((bucket) => {
+          if (bucket.__typename === 'CategoryView')
+            return {
+              name: bucket.name,
+              value: bucket.title,
+              attribute: facet.attribute,
+            };
+        });
+        searchCtx.setCategoryNames(names);
+      }
+    });
   };
 
   useEffect(() => {

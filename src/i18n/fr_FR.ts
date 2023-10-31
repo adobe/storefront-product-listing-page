@@ -40,7 +40,7 @@ export const fr_FR = {
     products: 'des produits',
   },
   ProductCard: {
-    asLowAs: "Aussi bas que",
+    asLowAs: 'Aussi bas que',
   },
   ProductContainers: {
     minquery:

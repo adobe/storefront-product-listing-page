@@ -40,7 +40,7 @@ export const pt_PT = {
     products: 'produtos',
   },
   ProductCard: {
-    asLowAs: "Tão baixo quanto",
+    asLowAs: 'Tão baixo quanto',
   },
   ProductContainers: {
     minquery:

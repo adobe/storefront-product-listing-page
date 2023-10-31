@@ -34,6 +34,8 @@ interface SearchContextProps {
   setCategoryPath: any;
   setFilters: any;
   setSort: any;
+  setCategoryNames: any;
+  categoryNames: { name: string; value: string; attribute: string }[];
   createFilter: (filter: FacetFilter) => void;
   updateFilter: (filter: FacetFilter) => void;
   updateFilterOptions(filter: FacetFilter, option: string): void;
@@ -57,6 +59,9 @@ const SearchProvider: FunctionComponent = ({ children }) => {
   const [phrase, setPhrase] = useState<string>(phraseFromUrl);
   const [categoryPath, setCategoryPath] = useState<string>('');
   const [filters, setFilters] = useState<SearchClauseInput[]>([]);
+  const [categoryNames, setCategoryNames] = useState<
+    { name: string; value: string; attribute: string }[]
+  >([]);
   const [sort, setSort] = useState<ProductSearchSortInput[]>(sortDefault);
 
   const createFilter = (filter: SearchClauseInput) => {
@@ -112,9 +117,11 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     categoryPath,
     filters,
     sort,
+    categoryNames,
     setPhrase,
     setCategoryPath,
     setFilters,
+    setCategoryNames,
     setSort,
     createFilter,
     updateFilter,
@@ -133,4 +140,4 @@ const useSearch = () => {
   return searchCtx;
 };
 
-export { useSearch, SearchProvider };
+export { SearchProvider, useSearch };

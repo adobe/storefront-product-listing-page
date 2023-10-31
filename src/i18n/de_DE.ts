@@ -38,9 +38,9 @@ export const de_DE = {
   CategoryFilters: {
     results: 'Ergebnisse für {phrase}',
     products: 'Produkte',
-  },  
+  },
   ProductCard: {
-    asLowAs: "So niedrig wie",
+    asLowAs: 'So niedrig wie',
   },
   ProductContainers: {
     minquery:

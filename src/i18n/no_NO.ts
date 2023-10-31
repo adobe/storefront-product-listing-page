@@ -40,7 +40,7 @@ export const no_NO = {
     products: 'Produkter',
   },
   ProductCard: {
-    asLowAs: "Så lavt som",
+    asLowAs: 'Så lavt som',
   },
   ProductContainers: {
     minquery:

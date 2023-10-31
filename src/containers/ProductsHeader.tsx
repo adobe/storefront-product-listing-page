@@ -11,9 +11,9 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
 
 import Facets from '../components/Facets';
-import { FilterButton  } from '../components/FilterButton';
-import {  SearchBar  } from '../components/SearchBar';
-import {  SortDropdown } from '../components/SortDropdown';
+import { FilterButton } from '../components/FilterButton';
+import { SearchBar } from '../components/SearchBar';
+import { SortDropdown } from '../components/SortDropdown';
 import { useAttributeMetadata, useSearch, useStore } from '../context';
 import { TranslationContext } from '../context/translation';
 import { Facet } from '../types/interface';

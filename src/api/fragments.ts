@@ -13,18 +13,21 @@ const Facet = `
         attribute
         buckets {
             title
+            __typename
+            ... on CategoryView {
+                name
+                count
+                path
+            }
             ... on ScalarBucket {
-                __typename
                 count
             }
             ... on RangeBucket {
-                __typename
                 from
                 to
                 count
             }
             ... on StatsBucket {
-                __typename
                 min
                 max
             }

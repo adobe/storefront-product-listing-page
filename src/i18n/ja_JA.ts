@@ -40,7 +40,7 @@ export const ja_JA = {
     products: '製品',
   },
   ProductCard: {
-    asLowAs: "以下のように",
+    asLowAs: '以下のように',
   },
   ProductContainers: {
     minquery:

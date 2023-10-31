@@ -16,11 +16,10 @@ import {
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
 
-import { Alert  } from '../components/Alert';
+import { Alert } from '../components/Alert';
 import { Pagination } from '../components/Pagination';
 import { PerPagePicker } from '../components/PerPagePicker';
 import { ProductList } from '../components/ProductList';
-
 
 interface Props {
   showFilters: boolean;

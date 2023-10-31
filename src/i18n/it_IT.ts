@@ -40,7 +40,7 @@ export const it_IT = {
     products: 'prodotti',
   },
   ProductCard: {
-    asLowAs: "Così basso come",
+    asLowAs: 'Così basso come',
   },
   ProductContainers: {
     minquery:

@@ -21,6 +21,7 @@ export type InputButtonGroupOnChangeProps = {
   value: string;
   selected?: boolean;
 };
+
 export type InputButtonGroupOnChange = (
   arg0: InputButtonGroupOnChangeProps
 ) => void;
@@ -30,7 +31,8 @@ export type Bucket = {
   count: number;
   to?: number;
   from?: number;
-  __typename: 'ScalarBucket' | 'RangeBucket';
+  name?: string;
+  __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
 export interface InputButtonGroupProps {
   title: string;
@@ -88,6 +90,8 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           : translation.InputButtonGroup.priceRange
       }`;
       return label;
+    } else if (bucket.__typename === 'CategoryView') {
+      return bucket.name ?? bucket.title;
     } else if (bucket.title === BOOLEAN_YES) {
       return title;
     } else if (bucket.title === BOOLEAN_NO) {

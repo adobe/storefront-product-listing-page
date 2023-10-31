@@ -40,7 +40,7 @@ export const nl_NL = {
     products: 'producten',
   },
   ProductCard: {
-    asLowAs: "Zo laag als",
+    asLowAs: 'Zo laag als',
   },
   ProductContainers: {
     minquery:

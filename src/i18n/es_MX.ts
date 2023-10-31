@@ -40,7 +40,7 @@ export const es_MX = {
     products: 'productos',
   },
   ProductCard: {
-    asLowAs: "Tan bajo como",
+    asLowAs: 'Tan bajo como',
   },
   ProductContainers: {
     minquery:

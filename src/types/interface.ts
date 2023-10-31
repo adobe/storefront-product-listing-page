@@ -44,7 +44,11 @@ export interface StoreDetailsConfig {
 }
 
 // Types
-export type BucketTypename = 'ScalarBucket' | 'RangeBucket' | 'StatsBucket';
+export type BucketTypename =
+  | 'ScalarBucket'
+  | 'RangeBucket'
+  | 'StatsBucket'
+  | 'CategoryView';
 
 export type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
 
@@ -336,7 +340,7 @@ export interface Facet {
   title: string;
   attribute: string;
   type?: 'PINNED' | 'INTELLIGENT' | 'POPULAR';
-  buckets: Array<RangeBucket | ScalarBucket | StatsBucket>;
+  buckets: Array<RangeBucket | ScalarBucket | StatsBucket | CategoryView>;
 }
 
 export interface RangeBucket {
@@ -359,6 +363,14 @@ export interface StatsBucket {
   title: string;
   min: number;
   max: number;
+}
+
+export interface CategoryView {
+  __typename: 'CategoryView';
+  title: string;
+  name: string;
+  path: string;
+  count: number;
 }
 
 export interface PriceFacet extends Facet {

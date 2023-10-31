@@ -56,6 +56,14 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   };
 
   const formatBinaryLabel = (filter: FacetFilter, option: string) => {
+    const category = searchCtx.categoryNames.find(
+      (facet) => facet.attribute === filter.attribute && facet.value === option
+    );
+
+    if (category?.name) {
+      return category.name;
+    }
+
     const title = filter.attribute?.split('_');
     if (option === 'yes') {
       return title.join(' ');
@@ -88,7 +96,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
               <div className="flex flex-wrap gap-3" key={filter.attribute}>
                 {filter.in?.map((option) => (
                   <Pill
-                    key={formatBinaryLabel(filter, option)}
+                    key={filter.attribute}
                     label={formatBinaryLabel(filter, option)}
                     onClick={() =>
                       searchCtx.updateFilterOptions(filter, option)
@@ -123,6 +131,8 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                   filterData={facet as PriceFacet}
                 />
               );
+            case 'CategoryView':
+              return <ScalarFacet key={facet.attribute} filterData={facet} />;
             default:
               return null;
           }

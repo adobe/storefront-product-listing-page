@@ -15,11 +15,7 @@ import Pagination from './Pagination';
 describe('PLP widget/Pagination', () => {
   it('renders', () => {
     const { container } = render(
-      <Pagination
-        currentPage={1}
-        totalPages={3}
-        onPageChange={() => {}}
-      />
+      <Pagination currentPage={1} totalPages={3} onPageChange={() => {}} />
     );
 
     const elem = container.querySelector('.ds-plp-pagination');

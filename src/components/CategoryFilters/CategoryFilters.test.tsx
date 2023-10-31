@@ -17,6 +17,7 @@ describe('PLP widget/CategoryFilters', () => {
     const { container } = render(
       <CategoryFilters
         loading={true}
+        pageLoading={false}
         totalCount={1}
         facets={[]}
         categoryName=""
