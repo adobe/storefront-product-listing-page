@@ -59,7 +59,7 @@ const getProductPrice = (
     ? price?.value * parseFloat(currencyRate)
     : price?.value;
 
-  return `${currency}${convertedPrice.toFixed(2)}`;
+  return convertedPrice ? `${currency}${convertedPrice.toFixed(2)}` : '';
 };
 
 export { getProductPrice };

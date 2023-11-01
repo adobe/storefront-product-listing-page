@@ -40,13 +40,14 @@ export const Facets: FunctionComponent<FacetsProps> = ({
       ? productsCtx.currencySymbol
       : '$';
     const label = `${currencySymbol}${
-      range?.from
+      range?.from &&
+      parseFloat(currencyRate) * parseInt(range.to.toFixed(0), 10)
         ? (
-            parseFloat(currencyRate) * parseInt(range.from.toFixed(0), 10)
-          ).toFixed(2)
+            parseFloat(currencyRate) * parseInt(range.from?.toFixed(0), 10)
+          )?.toFixed(2)
         : 0
     }${
-      range?.to
+      range?.to && parseFloat(currencyRate) * parseInt(range.to.toFixed(0), 10)
         ? ` - ${currencySymbol}${(
             parseFloat(currencyRate) * parseInt(range.to.toFixed(0), 10)
           ).toFixed(2)}`
@@ -56,6 +57,17 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   };
 
   const formatBinaryLabel = (filter: FacetFilter, option: string) => {
+    if (productsCtx.categoryPath) {
+      const category = searchCtx.categoryNames.find(
+        (facet) =>
+          facet.attribute === filter.attribute && facet.value === option
+      );
+
+      if (category?.name) {
+        return category.name;
+      }
+    }
+
     const title = filter.attribute?.split('_');
     if (option === 'yes') {
       return title.join(' ');
@@ -88,7 +100,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
               <div className="flex flex-wrap gap-3" key={filter.attribute}>
                 {filter.in?.map((option) => (
                   <Pill
-                    key={formatBinaryLabel(filter, option)}
+                    key={filter.attribute}
                     label={formatBinaryLabel(filter, option)}
                     onClick={() =>
                       searchCtx.updateFilterOptions(filter, option)
@@ -123,6 +135,8 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                   filterData={facet as PriceFacet}
                 />
               );
+            case 'CategoryView':
+              return <ScalarFacet key={facet.attribute} filterData={facet} />;
             default:
               return null;
           }

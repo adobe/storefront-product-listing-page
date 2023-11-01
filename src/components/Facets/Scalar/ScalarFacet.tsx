@@ -20,7 +20,7 @@ interface ScalarFacetProps {
 export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
   filterData,
 }) => {
-  const { isSelected, onChange } = useScalarFacet(filterData.attribute);
+  const { isSelected, onChange } = useScalarFacet(filterData);
 
   return (
     <InputButtonGroup

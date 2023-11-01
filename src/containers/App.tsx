@@ -41,6 +41,7 @@ export const App: FunctionComponent = () => {
             <div className="flex">
               <CategoryFilters
                 loading={productsCtx.loading}
+                pageLoading={productsCtx.pageLoading}
                 facets={productsCtx.facets}
                 totalCount={productsCtx.totalCount}
                 categoryName={productsCtx.categoryName ?? ''}

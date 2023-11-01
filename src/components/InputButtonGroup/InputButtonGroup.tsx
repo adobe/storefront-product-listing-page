@@ -21,6 +21,7 @@ export type InputButtonGroupOnChangeProps = {
   value: string;
   selected?: boolean;
 };
+
 export type InputButtonGroupOnChange = (
   arg0: InputButtonGroupOnChangeProps
 ) => void;
@@ -30,7 +31,8 @@ export type Bucket = {
   count: number;
   to?: number;
   from?: number;
-  __typename: 'ScalarBucket' | 'RangeBucket';
+  name?: string;
+  __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
 export interface InputButtonGroupProps {
   title: string;
@@ -75,19 +77,25 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
         ? productsCtx.currencySymbol
         : '$';
       const label = `${currencySymbol}${
-        bucket.from
+        bucket?.from &&
+        parseFloat(currencyRate) * parseInt(bucket.from.toFixed(0), 10)
           ? (
               parseFloat(currencyRate) * parseInt(bucket.from.toFixed(0), 10)
             ).toFixed(2)
           : 0
       }${
-        bucket.to
+        bucket?.to &&
+        parseFloat(currencyRate) * parseInt(bucket.to.toFixed(0), 10)
           ? ` - ${currencySymbol}${(
               parseFloat(currencyRate) * parseInt(bucket.to.toFixed(0), 10)
             ).toFixed(2)}`
           : translation.InputButtonGroup.priceRange
       }`;
       return label;
+    } else if (bucket.__typename === 'CategoryView') {
+      return productsCtx.categoryPath
+        ? bucket.name ?? bucket.title
+        : bucket.title;
     } else if (bucket.title === BOOLEAN_YES) {
       return title;
     } else if (bucket.title === BOOLEAN_NO) {

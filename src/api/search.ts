@@ -220,4 +220,4 @@ const refineProductSearch = async ({
   return results?.data;
 };
 
-export { getProductSearch, getAttributeMetadata, refineProductSearch };
+export { getAttributeMetadata, getProductSearch, refineProductSearch };

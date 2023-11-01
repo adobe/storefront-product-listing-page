@@ -17,6 +17,7 @@ import { FilterButton } from '../FilterButton';
 
 interface CategoryFiltersProps {
   loading: boolean;
+  pageLoading: boolean;
   totalCount: number;
   facets: Facet[];
   categoryName: string;
@@ -26,6 +27,7 @@ interface CategoryFiltersProps {
 
 export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   loading,
+  pageLoading,
   totalCount,
   facets,
   categoryName,
@@ -50,14 +52,18 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
         )}
       </div>
 
-      <div className="flex pb-4 w-full h-full">
-        <FilterButton
-          displayFilter={() => setShowFilters(false)}
-          type="desktop"
-          title={translation.Filter.hideTitle}
-        />
-      </div>
-      <Facets searchFacets={facets} />
+      {!pageLoading && (
+        <>
+          <div className="flex pb-4 w-full h-full">
+            <FilterButton
+              displayFilter={() => setShowFilters(false)}
+              type="desktop"
+              title={translation.Filter.hideTitle}
+            />
+          </div>
+          <Facets searchFacets={facets} />
+        </>
+      )}
     </div>
   );
 };

@@ -8,16 +8,20 @@ it.
 */
 
 import { useSearch } from '../context';
-import { FacetFilter } from '../types/interface';
+import {
+  Facet as FacetType,
+  FacetFilter,
+  PriceFacet,
+} from '../types/interface';
 
-export const useScalarFacet = (title: string) => {
+export const useScalarFacet = (facet: FacetType | PriceFacet) => {
   const searchCtx = useSearch();
   const filter = searchCtx?.filters?.find(
-    (e: FacetFilter) => e.attribute === title
+    (e: FacetFilter) => e.attribute === facet.attribute
   );
 
-  const isSelected = (title: string) => {
-    const selected = filter ? filter.in?.includes(title) : false;
+  const isSelected = (attribute: string) => {
+    const selected = filter ? filter.in?.includes(attribute) : false;
     return selected;
   };
 
@@ -25,7 +29,7 @@ export const useScalarFacet = (title: string) => {
     // create filter
     if (!filter) {
       const newFilter: FacetFilter = {
-        attribute: title,
+        attribute: facet.attribute,
         in: [value],
       };
 
@@ -48,7 +52,7 @@ export const useScalarFacet = (title: string) => {
     // update filter
     if (newFilter.in?.length) {
       if (filterUnselected?.length) {
-        searchCtx.removeFilter(title, filterUnselected[0]);
+        searchCtx.removeFilter(facet.attribute, filterUnselected[0]);
       }
       searchCtx.updateFilter(newFilter);
       return;
@@ -56,7 +60,7 @@ export const useScalarFacet = (title: string) => {
 
     // remove filter
     if (!newFilter.in?.length) {
-      searchCtx.removeFilter(title);
+      searchCtx.removeFilter(facet.attribute);
       return;
     }
   };
