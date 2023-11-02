@@ -1,0 +1,27 @@
+{
+    "templateVersion": "0.2",
+    "product": {
+        "name": "Live Search",
+        "description": "Product Listing Page for Adobe Commerce Storefronts"
+    },
+    "contacts": {
+        "team": {
+            "name": "livesearch",
+            "DL": "GRP-SEARCHANDMERCH",
+            "slackChannel": "#search-and-merch"
+        }
+    },
+    "ticketTracker": {
+        "functionalJiraQueue": {
+            "projectKey": "MSRCH",
+            "component": ""
+        },
+        "securityJiraQueue": {
+            "projectKey": "MAGREQ",
+            "component": "MAGREQ/Search"
+        }
+    },
+    "productionCodeBranches": [
+        "develop"
+    ]
+}
