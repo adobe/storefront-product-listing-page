@@ -22,7 +22,9 @@ interface CategoryFiltersProps {
   facets: Facet[];
   categoryName: string;
   phrase: string;
+  showFilters: boolean;
   setShowFilters: (showFilters: boolean) => void;
+  filterCount: number;
 }
 
 export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
@@ -33,6 +35,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   categoryName,
   phrase,
   setShowFilters,
+  filterCount,
 }) => {
   const translation = useContext(TranslationContext);
   let title = categoryName || '';
@@ -52,13 +55,15 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
         )}
       </div>
 
-      {!pageLoading && (
+      {!pageLoading && facets.length > 0 && totalCount > 0 && (
         <>
           <div className="flex pb-4 w-full h-full">
             <FilterButton
               displayFilter={() => setShowFilters(false)}
               type="desktop"
-              title={translation.Filter.hideTitle}
+              title={`${translation.Filter.hideTitle}${
+                filterCount > 0 ? ` (${filterCount})` : ''
+              }`}
             />
           </div>
           <Facets searchFacets={facets} />
