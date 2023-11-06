@@ -16,6 +16,7 @@ export interface PillProps {
   onClick: () => void;
   CTA?: JSXInternal.Element;
   classes?: string;
+  type?: string;
 }
 
 const defaultIcon = (
@@ -27,8 +28,19 @@ export const Pill: FunctionComponent<PillProps> = ({
   label,
   onClick,
   CTA = defaultIcon,
+  type,
 }) => {
-  return (
+  return type === 'transparent' ? (
+    <div
+      key={label}
+      className="ds-sdk-pill inline-flex justify-content items-center rounded-full w-fit min-h-[32px] px-4 py-1"
+    >
+      <span className="ds-sdk-pill__label font-normal text-sm">{label}</span>
+      <span className="ds-sdk-pill__cta" onClick={onClick}>
+        {CTA}
+      </span>
+    </div>
+  ) : (
     <div
       key={label}
       className="ds-sdk-pill inline-flex justify-content items-center bg-gray-100 rounded-full w-fit outline outline-gray-200 min-h-[32px] px-4 py-1"
