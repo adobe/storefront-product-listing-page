@@ -25,6 +25,7 @@ export type InputButtonGroupOnChangeProps = {
 export type InputButtonGroupOnChange = (
   arg0: InputButtonGroupOnChangeProps
 ) => void;
+export type InputButtonGroupTitleSlot = (label: string) => FunctionComponent;
 export type Bucket = {
   title: string;
   id?: string;
@@ -41,6 +42,7 @@ export interface InputButtonGroupProps {
   isSelected: (title: string) => boolean | undefined;
   onChange: InputButtonGroupOnChange;
   type: 'radio' | 'checkbox';
+  inputGroupTitleSlot?: InputButtonGroupTitleSlot;
 }
 
 const numberOfOptionsShown = 5;
@@ -51,6 +53,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   isSelected,
   onChange,
   type,
+  inputGroupTitleSlot,
 }) => {
   const translation = useContext(TranslationContext);
   const productsCtx = useProducts();
@@ -106,9 +109,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
 
   return (
     <div className="ds-sdk-input pt-md">
-      <label className="ds-sdk-input__label text-base font-normal text-gray-900">
-        {title}
-      </label>
+      {inputGroupTitleSlot ? (
+        inputGroupTitleSlot(title)
+      ) : (
+        <label className="ds-sdk-input__label text-base font-normal text-gray-900">
+          {title}
+        </label>
+      )}
       <fieldset className="ds-sdk-input__options mt-md">
         <div className="space-y-4">
           {buckets.slice(0, numberOfOptions).map((option) => {

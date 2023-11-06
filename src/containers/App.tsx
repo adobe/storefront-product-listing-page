@@ -9,15 +9,18 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useContext, useState } from 'preact/hooks';
+import FilterButton from 'src/components/FilterButton';
+import Loading from 'src/components/Loading';
 
-import { FilterButton, Loading } from '../components';
 import { CategoryFilters } from '../components/CategoryFilters';
-import { useProducts, useSensor, useStore } from '../context';
+import { SelectedFilters } from '../components/Facets';
+import { useProducts, useSearch, useSensor, useStore } from '../context';
 import { TranslationContext } from '../context/translation';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
 
 export const App: FunctionComponent = () => {
+  const searchCtx = useSearch();
   const productsCtx = useProducts();
   const { screenSize } = useSensor();
   const { displayMode } = useStore().config;
@@ -46,7 +49,9 @@ export const App: FunctionComponent = () => {
                 totalCount={productsCtx.totalCount}
                 categoryName={productsCtx.categoryName ?? ''}
                 phrase={productsCtx.variables.phrase ?? ''}
+                showFilters={showFilters}
                 setShowFilters={setShowFilters}
+                filterCount={searchCtx.filterCount}
               />
               <div
                 className={`ds-widgets_results flex flex-col items-center ${
@@ -58,6 +63,7 @@ export const App: FunctionComponent = () => {
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
+                <SelectedFilters />
                 {productsCtx.loading ? (
                   <Loading label={loadingLabel} />
                 ) : (
@@ -86,15 +92,22 @@ export const App: FunctionComponent = () => {
               </div>
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
                 <div className="flex w-full h-full">
-                  {!screenSize.mobile && (
-                    <div className="flex w-full h-full">
-                      <FilterButton
-                        displayFilter={() => setShowFilters(true)}
-                        type="desktop"
-                        title={translation.Filter.showTitle}
-                      />
-                    </div>
-                  )}
+                  {!screenSize.mobile &&
+                    !productsCtx.loading &&
+                    productsCtx.facets.length &&
+                    productsCtx.totalCount > 0 && (
+                      <div className="flex w-full h-full">
+                        <FilterButton
+                          displayFilter={() => setShowFilters(true)}
+                          type="desktop"
+                          title={`${translation.Filter.showTitle}${
+                            searchCtx.filterCount > 0
+                              ? ` (${searchCtx.filterCount})`
+                              : ''
+                          }`}
+                        />
+                      </div>
+                    )}
                   <div className="flex w-full h-full">
                     <ProductsHeader
                       facets={productsCtx.facets}
@@ -103,6 +116,7 @@ export const App: FunctionComponent = () => {
                     />
                   </div>
                 </div>
+                <SelectedFilters />
                 {productsCtx.loading ? (
                   <Loading label={loadingLabel} />
                 ) : (

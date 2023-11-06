@@ -9,6 +9,7 @@ it.
 
 import { createContext, FunctionComponent, useContext } from 'preact/compat';
 import { useState } from 'preact/hooks';
+import { useEffect } from 'react';
 
 import {
   FacetFilter,
@@ -35,6 +36,7 @@ interface SearchContextProps {
   setFilters: any;
   setSort: any;
   setCategoryNames: any;
+  filterCount: number;
   categoryNames: { name: string; value: string; attribute: string }[];
   createFilter: (filter: FacetFilter) => void;
   updateFilter: (filter: FacetFilter) => void;
@@ -63,6 +65,7 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     { name: string; value: string; attribute: string }[]
   >([]);
   const [sort, setSort] = useState<ProductSearchSortInput[]>(sortDefault);
+  const [filterCount, setFilterCount] = useState<number>(0);
 
   const createFilter = (filter: SearchClauseInput) => {
     const newFilters = [...filters, filter];
@@ -112,12 +115,30 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     }
   };
 
+  const getFilterCount = (filters: SearchClauseInput[]) => {
+    let count = 0;
+    filters.forEach((filter) => {
+      if (filter.in) {
+        count += filter.in.length;
+      } else {
+        count += 1;
+      }
+    });
+    return count;
+  };
+
+  useEffect(() => {
+    const count = getFilterCount(filters);
+    setFilterCount(count);
+  }, [filters]);
+
   const context: SearchContextProps = {
     phrase,
     categoryPath,
     filters,
     sort,
     categoryNames,
+    filterCount,
     setPhrase,
     setCategoryPath,
     setFilters,
