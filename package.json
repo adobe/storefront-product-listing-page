@@ -32,7 +32,8 @@
     "test": "jest --passWithNoTests --color --silent",
     "test:e2e": "cypress open --browser chrome --config-file cypress.config.js",
     "test:e2e:headless": "cypress run --browser chrome --config-file cypress.config.js",
-    "cleanup": "rimraf dist"
+    "cleanup": "rimraf dist",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

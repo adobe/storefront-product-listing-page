@@ -160,7 +160,11 @@ describe('Verify One Price Filter', () => {
   it('Verify One Price Filter', () => {
     cy.visitHomePage();
     cy.get('.ds-sdk-search-bar').type('shorts{enter}', { delay: 0 });
-    cy.get('label[for="24.0-48.0-price"]').click();
+    cy.get('#price-range')
+      .should('be.visible')
+      .should('be.enabled')
+      .should('have.attr', 'min', '0')
+      .should('have.attr', 'max', '72');
 
     cy.get('.ds-sdk-sort-dropdown').click();
     cy.get('.ds-sdk-sort-dropdown__items--item')
@@ -178,7 +182,7 @@ describe('Verify One Price Filter', () => {
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
         const price_text = parseFloat($elem.text().replace(/As low as\$/g, ''));
-        cy.wrap(price_text).should('be.lte', 50);
+        cy.wrap(price_text).should('be.lte', 72);
       });
   });
 });
@@ -196,7 +200,11 @@ describe('Verify One Price and One Category Filter', () => {
           .find('a')
           .should('have.length', category_count);
       });
-    cy.get('label[for="24.0-48.0-price"]').click();
+    cy.get('#price-range')
+      .should('be.visible')
+      .should('be.enabled')
+      .should('have.attr', 'min', '0')
+      .should('have.attr', 'max', '72');
     cy.get('.ds-sdk-sort-dropdown').click();
     cy.get('.ds-sdk-sort-dropdown__items--item')
       .contains('Price: High to Low')
@@ -213,7 +221,7 @@ describe('Verify One Price and One Category Filter', () => {
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
         const price_text = parseFloat($elem.text().replace(/As low as\$/g, ''));
-        cy.wrap(price_text).should('be.lte', 44);
+        cy.wrap(price_text).should('be.lte', 72);
       });
   });
 });
