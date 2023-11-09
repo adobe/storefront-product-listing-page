@@ -74,9 +74,8 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     searchCtx.setSort(generateGQLSortInput(sortOption));
     handleUrlSort(sortOption);
   };
-
   return (
-    <div className="flex flex-col max-w-5xl lg:max-w-7xl mx-auto w-full h-full">
+    <div className="flex flex-col max-w-5xl lg:max-w-7xl ml-auto w-full h-full">
       <div className="flex justify-between">
         <div>
           {screenSize.mobile

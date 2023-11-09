@@ -39,7 +39,7 @@ export const App: FunctionComponent = () => {
   return (
     <>
       {!(displayMode === 'PAGE') &&
-        (!screenSize.mobile && showFilters && productsCtx.facets.length ? (
+        (!screenSize.mobile && showFilters && productsCtx.facets.length > 0 ? (
           <div className="ds-widgets bg-body py-2">
             <div className="flex">
               <CategoryFilters
@@ -94,7 +94,7 @@ export const App: FunctionComponent = () => {
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
                     !productsCtx.loading &&
-                    productsCtx.facets.length &&
+                    productsCtx.facets.length > 0 &&
                     productsCtx.totalCount > 0 && (
                       <div className="flex w-full h-full">
                         <FilterButton
@@ -121,7 +121,9 @@ export const App: FunctionComponent = () => {
                   <Loading label={loadingLabel} />
                 ) : (
                   <>
-                    <ProductsContainer showFilters={showFilters} />
+                    <ProductsContainer
+                      showFilters={showFilters && productsCtx.facets.length > 0}
+                    />
                   </>
                 )}
               </div>
