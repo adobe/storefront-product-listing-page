@@ -20,6 +20,7 @@ import {
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import { getProductImageURL } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
+import { ImageCarousel } from '../ImageCarousel';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
 
@@ -101,14 +102,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   in future for better performance
                  */}
             {productImage ? (
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none">
-                <img
-                  src={productImage}
-                  alt={productView.name}
-                  loading="eager"
-                  className="max-h-[45rem] h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
+              <ImageCarousel
+                images={[productImage]}
+                productName={productView.name}
+              />
             ) : (
               <NoImage
                 className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
