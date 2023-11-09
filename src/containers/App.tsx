@@ -39,7 +39,7 @@ export const App: FunctionComponent = () => {
   return (
     <>
       {!(displayMode === 'PAGE') &&
-        (!screenSize.mobile && showFilters ? (
+        (!screenSize.mobile && showFilters && productsCtx.facets.length ? (
           <div className="ds-widgets bg-body py-2">
             <div className="flex">
               <CategoryFilters
