@@ -56,7 +56,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     return selected;
   };
 
-  const productImage = getProductImageURL(
+  const productImageArray = getProductImageURL(
     productImages ? productImages ?? [] : productView.images ?? []
   ); // get image for PLP
 
@@ -101,9 +101,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   or srcset in <img /> for  breakpoint based img file
                   in future for better performance
                  */}
-            {productImage ? (
+            {productImageArray.length ? (
               <ImageCarousel
-                images={[productImage]}
+                images={productImageArray}
                 productName={productView.name}
               />
             ) : (

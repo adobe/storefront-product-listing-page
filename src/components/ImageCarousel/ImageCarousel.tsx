@@ -20,14 +20,41 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
   productName,
 }) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [swipeIndex, setSwipeIndex] = useState(0);
   const cirHandler = (index: SetStateAction<number>) => {
     setCarouselIndex(index);
+  };
+
+  const prevHandler = () => {
+    if (carouselIndex === 0) {
+      setCarouselIndex(0);
+    } else {
+      setCarouselIndex((prev) => prev - 1);
+    }
+  };
+  const nextHandler = () => {
+    if (carouselIndex === images.length - 1) {
+      setCarouselIndex(0);
+    } else {
+      setCarouselIndex((prev) => prev + 1);
+    }
   };
 
   return (
     <>
       <div class="ds-sdk-product-image-carousel max-w-2xl m-auto">
-        <div className="flex flex-nowrap overflow-hidden rounded-lg relative rounded-lg w-full h-full ">
+        <div
+          className="flex flex-nowrap overflow-hidden rounded-lg relative rounded-lg w-full h-full "
+          onTouchStart={(e) => setSwipeIndex(e.touches[0].clientX)}
+          onTouchEnd={(e) => {
+            const endIndex = e.changedTouches[0].clientX;
+            if (swipeIndex > endIndex) {
+              nextHandler();
+            } else if (swipeIndex < endIndex) {
+              prevHandler();
+            }
+          }}
+        >
           {images.map((item, index) => {
             return (
               // eslint-disable-next-line react/jsx-key
@@ -67,8 +94,9 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
                           width: `12px`,
                           height: `12px`,
                           'border-radius': `50%`,
-                          border: `1px solid black`,
+                          border: `1px solid silver`,
                           cursor: `pointer`,
+                          'background-color': `silver`,
                         }
                   }
                   onClick={(e) => {

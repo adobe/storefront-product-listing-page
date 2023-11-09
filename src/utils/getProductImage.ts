@@ -10,39 +10,58 @@ it.
 import { ProductViewMedia } from '../types/interface';
 
 type ImageTypes = {
-  thumbnail?: string | null;
-  small_image?: string | null;
-  image?: string | null;
-  main?: string | null;
+  thumbnail?: string[] | null;
+  small_image?: string[] | null;
+  image?: string[] | null;
+  main?: string[] | null;
 };
 
-const getProductImageURL = (images: ProductViewMedia[]): string => {
-  const imageTypes: ImageTypes = {};
+const getProductImageURL = (images: ProductViewMedia[]): string[] => {
+  const imageTypes: ImageTypes = {
+    thumbnail: [],
+    small_image: [],
+    image: [],
+    main: [],
+  };
   const url = new URL(window.location.href);
   const protocol = url.protocol;
 
   if (images?.length) {
     for (const image of images) {
       if (image.roles?.includes('thumbnail')) {
-        imageTypes.thumbnail = image.url?.replace(/^https?:\/\//, '');
+        imageTypes.thumbnail?.push(
+          image.url?.replace(/^https?:\/\//, '') ?? ''
+        );
       } else if (image.roles?.includes('small_image')) {
-        imageTypes.small_image = image.url?.replace(/^https?:\/\//, '');
+        imageTypes.small_image?.push(
+          image.url?.replace(/^https?:\/\//, '') ?? ''
+        );
       } else if (image.roles?.includes('image')) {
-        imageTypes.image = image.url?.replace(/^https?:\/\//, '');
+        imageTypes.image?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
       } else if (image.url?.includes('main')) {
-        imageTypes.main = image.url?.replace(/^https?:\/\//, '');
+        imageTypes.main?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
       }
     }
   }
 
-  const imageUrl =
+  const imageTypesArray =
     imageTypes.thumbnail ??
     imageTypes.small_image ??
     imageTypes.image ??
     imageTypes.main ??
-    '';
+    [];
 
-  return imageUrl ? `${protocol}//${imageUrl}` : '';
+  const imageUrlArray = [];
+
+  if (imageTypesArray.length) {
+    for (const imageUrl of imageTypesArray) {
+      imageUrl
+        ? imageUrlArray.push(`${protocol}//${imageUrl}`)
+        : imageUrlArray.push('');
+    }
+  }
+
+  return imageUrlArray;
 };
 
 export { getProductImageURL };
