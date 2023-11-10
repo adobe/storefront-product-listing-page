@@ -12,14 +12,15 @@ export const pt_PT = {
     title: 'Filtros',
     showTitle: 'Mostrar filtros',
     hideTitle: 'Ocultar filtros',
+    clearAll: 'Limpar tudo',
   },
   InputButtonGroup: {
     title: 'Categorias',
     price: 'Preço',
     customPrice: 'Preço personalizado',
-    priceIncluded: 'Sim',
-    priceExcluded: 'Não',
-    priceExcludedMessage: 'Não ',
+    priceIncluded: 'sim',
+    priceExcluded: 'não',
+    priceExcludedMessage: 'Não {title}',
     priceRange: ' e acima',
     showmore: 'Mostre mais',
   },
@@ -32,22 +33,22 @@ export const pt_PT = {
   },
   SortDropdown: {
     title: 'Ordenar por',
+    option: 'Classificar por: {selectedOption}',
     relevanceLabel: 'Mais relevante',
     positionLabel: 'Posição',
   },
   CategoryFilters: {
-    results: 'resultados para {frase}',
-    products: 'produtos',
+    results: 'resultados para {phrase}',
+    products: '{totalCount} produtos',
   },
   ProductCard: {
-    asLowAs: 'Tão baixo quanto',
+    asLowAs: 'A partir de {discountPrice}',
   },
   ProductContainers: {
     minquery:
       'Seu termo de pesquisa {variables.phrase} não atingiu o mínimo de {minQueryLength} caracteres.',
     noresults: 'Sua busca não retornou resultados.',
-    show: 'Mostrar ',
-    perPage: 'por página',
+    pagePicker: 'Mostrar {pageSize} por página',
     showAll: 'todos',
   },
   SearchBar: {

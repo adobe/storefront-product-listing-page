@@ -8,14 +8,18 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 
 import Facets from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
 import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
-import { useAttributeMetadata, useSearch, useStore } from '../context';
-import { TranslationContext } from '../context/translation';
+import {
+  useAttributeMetadata,
+  useSearch,
+  useStore,
+  useTranslation,
+} from '../context';
 import { Facet } from '../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
 import {
@@ -43,7 +47,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   const storeCtx = useStore();
   const attributeMetadata = useAttributeMetadata();
 
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
 
   const [showMobileFacet, setShowMobileFacet] = useState(false);
   const [sortOptions, setSortOptions] = useState(defaultSortOptions());

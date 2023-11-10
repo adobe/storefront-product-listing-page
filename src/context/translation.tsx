@@ -10,6 +10,7 @@ it.
 import {
   createContext,
   FunctionComponent,
+  useContext,
   useEffect,
   useState,
 } from 'preact/compat';
@@ -44,6 +45,11 @@ export const languages: Languages = {
 };
 export const TranslationContext = createContext(languages.default);
 
+const useTranslation = () => {
+  const translation = useContext(TranslationContext);
+  return translation;
+};
+
 const Translation: FunctionComponent = ({ children }) => {
   const storeCtx = useStore();
 
@@ -70,3 +76,4 @@ const Translation: FunctionComponent = ({ children }) => {
   );
 };
 export default Translation;
+export { useTranslation };

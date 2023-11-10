@@ -12,14 +12,15 @@ export const fr_FR = {
     title: 'Filtres',
     showTitle: 'Afficher les filtres',
     hideTitle: 'Masquer les filtres',
+    clearAll: 'Tout effacer',
   },
   InputButtonGroup: {
     title: 'Catégories',
     price: 'Prix',
-    customPrice: 'Prix ​​personnalisé',
+    customPrice: 'Prix ​personnalisé',
     priceIncluded: 'Oui',
     priceExcluded: 'Non',
-    priceExcludedMessage: 'Pas ',
+    priceExcludedMessage: 'Pas {title}',
     priceRange: ' et ci-dessus',
     showmore: 'Montre plus',
   },
@@ -32,22 +33,22 @@ export const fr_FR = {
   },
   SortDropdown: {
     title: 'Trier par',
+    option: 'Trier par: {selectedOption}',
     relevanceLabel: 'Le plus pertinent',
     positionLabel: 'Position',
   },
   CategoryFilters: {
     results: 'résultats pour {phrase}',
-    products: 'des produits',
+    products: '{totalCount} produits',
   },
   ProductCard: {
-    asLowAs: 'Aussi bas que',
+    asLowAs: 'À partir de {discountPrice}',
   },
   ProductContainers: {
     minquery:
-      "Votre terme de recherche {variables.phrase} n'a pas atteint le minimum de {minQueryLength} caractères.",
+      "Votre terme de recherche {variables.phrase} n'a pas atteint le minimum de {minQueryLength} caractères.",
     noresults: "Votre recherche n'a donné aucun résultat.",
-    show: 'Montrer ',
-    perPage: 'par page',
+    pagePicker: 'Afficher {pageSize} par page',
     showAll: 'tous',
   },
   SearchBar: {

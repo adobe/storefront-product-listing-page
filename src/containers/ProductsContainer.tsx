@@ -7,10 +7,9 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
-import { useContext } from 'preact/hooks';
-import { useProducts, useSensor } from 'src/context';
-import { TranslationContext } from 'src/context/translation';
+import { FunctionalComponent, FunctionComponent } from 'preact';
+import { useProducts, useSensor, useTranslation } from 'src/context';
+import { PageSizeOption } from 'src/types/interface';
 import {
   handleUrlPageSize,
   handleUrlPagination,
@@ -18,7 +17,7 @@ import {
 
 import { Alert } from '../components/Alert';
 import { Pagination } from '../components/Pagination';
-import { PerPagePicker } from '../components/PerPagePicker';
+import { PerPagePicker, PerPagePickerProps } from '../components/PerPagePicker';
 import { ProductList } from '../components/ProductList';
 
 interface Props {
@@ -60,7 +59,28 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     setPageSize(pageSizeOption);
     handleUrlPageSize(pageSizeOption);
   };
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
+
+  const getPageSizeTranslation = (
+    pageSize: number,
+    pageSizeOptions: PageSizeOption[],
+    PerPagePicker: FunctionalComponent<PerPagePickerProps>
+  ) => {
+    const pageSizeTranslation = translation.ProductContainers.pagePicker;
+    const pageSizeTranslationOrder = pageSizeTranslation.split(' ');
+    return pageSizeTranslationOrder.map((word: string, index: any) =>
+      word === '{pageSize}' ? (
+        <PerPagePicker
+          pageSizeOptions={pageSizeOptions}
+          value={pageSize}
+          onChange={onPageSizeChange}
+          key={index}
+        />
+      ) : (
+        `${word} `
+      )
+    );
+  };
 
   if (!minQueryLengthReached) {
     const templateMinQueryText = translation.ProductContainers.minquery;
@@ -102,13 +122,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         } w-full h-full`}
       >
         <div>
-          {translation.ProductContainers.show}{' '}
-          <PerPagePicker
-            pageSizeOptions={pageSizeOptions}
-            value={pageSize}
-            onChange={onPageSizeChange}
-          />{' '}
-          {translation.ProductContainers.perPage}
+          {getPageSizeTranslation(pageSize, pageSizeOptions, PerPagePicker)}
         </div>
         {totalPages > 1 && (
           <Pagination

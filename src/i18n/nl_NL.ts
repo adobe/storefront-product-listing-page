@@ -12,6 +12,7 @@ export const nl_NL = {
     title: 'Filters',
     showTitle: 'Filters weergeven',
     hideTitle: 'Verberg filters',
+    clearAll: 'Wis alles',
   },
   InputButtonGroup: {
     title: 'Categorieën',
@@ -19,7 +20,7 @@ export const nl_NL = {
     customPrice: 'Aangepaste prijs',
     priceIncluded: 'Ja',
     priceExcluded: 'Nee',
-    priceExcludedMessage: 'Niet ',
+    priceExcludedMessage: 'Niet {title}',
     priceRange: ' en hoger',
     showmore: 'Laat meer zien',
   },
@@ -32,22 +33,22 @@ export const nl_NL = {
   },
   SortDropdown: {
     title: 'Sorteer op',
+    option: 'Sorteer op: {selectedOption}',
     relevanceLabel: 'Meest relevant',
     positionLabel: 'Positie',
   },
   CategoryFilters: {
-    results: 'resultaten voor {phrase}',
-    products: 'producten',
+    results: 'resultaten voor {zin}',
+    products: '{totalCount} producten',
   },
   ProductCard: {
-    asLowAs: 'Zo laag als',
+    asLowAs: 'Zo laag als {discountPrice}',
   },
   ProductContainers: {
     minquery:
       'Uw zoekterm {variables.phrase} heeft niet het minimum van {minQueryLength} tekens bereikt.',
     noresults: 'Je zoekopdracht heeft geen resultaten opgeleverd.',
-    show: 'Show ',
-    perPage: 'per pagina',
+    pagePicker: 'Toon {pageSize} per pagina',
     showAll: 'alle',
   },
   SearchBar: {

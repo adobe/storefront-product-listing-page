@@ -9,9 +9,10 @@ it.
 
 export const es_MX = {
   Filter: {
-    title: 'filtros',
+    title: 'Filtros',
     showTitle: 'Mostrar filtros',
     hideTitle: 'Ocultar filtros',
+    clearAll: 'Limpiar todo',
   },
   InputButtonGroup: {
     title: 'Categorías',
@@ -19,7 +20,7 @@ export const es_MX = {
     customPrice: 'Precio personalizado',
     priceIncluded: 'Sí',
     priceExcluded: 'No',
-    priceExcludedMessage: 'No ',
+    priceExcludedMessage: 'No {title}',
     priceRange: ' y por encima',
     showmore: 'Mostrar más',
   },
@@ -32,22 +33,22 @@ export const es_MX = {
   },
   SortDropdown: {
     title: 'Ordenar por',
+    option: 'Ordenar por: {opción seleccionada}',
     relevanceLabel: 'Lo más relevante',
     positionLabel: 'Posición',
   },
   CategoryFilters: {
     results: 'resultados para {phrase}',
-    products: 'productos',
+    products: '{totalCount} productos',
   },
   ProductCard: {
-    asLowAs: 'Tan bajo como',
+    asLowAs: 'Tan bajo como {discountPrice}',
   },
   ProductContainers: {
     minquery:
       'Su término de búsqueda {variables.phrase} no ha alcanzado el mínimo de {minQueryLength} caracteres.',
     noresults: 'Su búsqueda no produjo resultados.',
-    show: 'Espectáculo ',
-    perPage: 'por página',
+    pagePicker: 'Mostrar {pageSize} por página',
     showAll: 'todo',
   },
   SearchBar: {

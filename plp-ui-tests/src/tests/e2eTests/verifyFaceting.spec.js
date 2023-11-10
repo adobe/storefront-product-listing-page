@@ -181,7 +181,7 @@ describe('Verify One Price Filter', () => {
       .first()
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
-        const price_text = parseFloat($elem.text().replace(/As low as\$/g, ''));
+        const price_text = parseFloat($elem.text().replace(/Aslowas\$/g, ''));
         cy.wrap(price_text).should('be.lte', 72);
       });
   });
@@ -220,7 +220,7 @@ describe('Verify One Price and One Category Filter', () => {
       .first()
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
-        const price_text = parseFloat($elem.text().replace(/As low as\$/g, ''));
+        const price_text = parseFloat($elem.text().replace(/Aslowas\$/g, ''));
         cy.wrap(price_text).should('be.lte', 72);
       });
   });

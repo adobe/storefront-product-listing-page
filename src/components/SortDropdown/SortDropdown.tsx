@@ -9,9 +9,9 @@ it.
 
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, FunctionComponent, h } from 'preact';
-import { useContext, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 
-import { TranslationContext } from '../../context/translation';
+import { useTranslation } from '../../context/translation';
 import Chevron from '../../icons/chevron.svg';
 import SortIcon from '../../icons/sort.svg';
 import { SortOption } from '../../types/interface';
@@ -35,7 +35,13 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   };
 
   const selectedOption = sortOptions.find((e) => e.value === selected);
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
+
+  const sortOptionTranslation = translation.SortDropdown.option;
+  const sortOption = sortOptionTranslation.replace(
+    '{selectedOption}',
+    `${selectedOption?.label}`
+  );
 
   return h(
     Menu,
@@ -55,9 +61,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
         Fragment,
         null,
         h(SortIcon, { class: 'h-md w-md mr-sm stroke-gray-600' }),
-        selectedOption
-          ? `${translation.SortDropdown.title}: ${selectedOption.label}`
-          : translation.SortDropdown.title,
+        selectedOption ? sortOption : translation.SortDropdown.title,
         isOpen
           ? h(Chevron, {
               class:

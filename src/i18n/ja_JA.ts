@@ -12,6 +12,7 @@ export const ja_JA = {
     title: 'フィルター',
     showTitle: 'フィルターを表示',
     hideTitle: 'フィルターを非表示にする',
+    clearAll: 'すべてクリア',
   },
   InputButtonGroup: {
     title: 'カテゴリー',
@@ -19,7 +20,7 @@ export const ja_JA = {
     customPrice: 'カスタム価格',
     priceIncluded: 'はい',
     priceExcluded: 'いいえ',
-    priceExcludedMessage: 'いいえ ',
+    priceExcludedMessage: '{title} ではありません',
     priceRange: ' 以上',
     showmore: 'もっと見せる',
   },
@@ -28,26 +29,26 @@ export const ja_JA = {
   },
   NoResults: {
     heading: '検索結果はありません。',
-    subheading: 'もう一度お試しください...',
+    subheading: 'もう一度試してください...',
   },
   SortDropdown: {
-    title: '並び替え',
+    title: '並べ替え',
+    option: '並べ替え基準: {selectedOption}',
     relevanceLabel: '最適な',
     positionLabel: '位置',
   },
   CategoryFilters: {
     results: '{phrase} の結果',
-    products: '製品',
+    products: '{totalCount} 商品',
   },
   ProductCard: {
-    asLowAs: '以下のように',
+    asLowAs: '{discountPrice} 程度の低価格',
   },
   ProductContainers: {
     minquery:
-      '検索用語 {variables.phrase} が最小の {minQueryLength} 文字に達していません。',
+      '検索語句 {variables.phrase} が最小文字数 {minQueryLength} に達していません。',
     noresults: '検索結果はありませんでした。',
-    show: '見せる ',
-    perPage: '1ページあたり',
+    pagePicker: 'ページごとに {pageSize} を表示',
     showAll: '全て',
   },
   SearchBar: {

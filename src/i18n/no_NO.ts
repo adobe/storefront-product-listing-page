@@ -12,14 +12,15 @@ export const no_NO = {
     title: 'Filtre',
     showTitle: 'Vis filtre',
     hideTitle: 'Skjul filtre',
+    clearAll: 'Rydd alt',
   },
   InputButtonGroup: {
     title: 'Kategorier',
     price: 'Pris',
     customPrice: 'Tilpasset pris',
-    priceIncluded: 'Ja',
+    priceIncluded: 'ja',
     priceExcluded: 'Nei',
-    priceExcludedMessage: 'Ikke ',
+    priceExcludedMessage: 'Ikke {title}',
     priceRange: ' og over',
     showmore: 'Vis mer',
   },
@@ -32,22 +33,22 @@ export const no_NO = {
   },
   SortDropdown: {
     title: 'Sorter etter',
+    option: 'Sorter etter: {selectedOption}',
     relevanceLabel: 'Mest relevant',
     positionLabel: 'Posisjon',
   },
   CategoryFilters: {
     results: 'resultater for {phrase}',
-    products: 'Produkter',
+    products: '{totalCount} produkter',
   },
   ProductCard: {
-    asLowAs: 'Så lavt som',
+    asLowAs: 'Så lavt som {discountPrice}',
   },
   ProductContainers: {
     minquery:
       'Søkeordet ditt {variables.phrase} har ikke nådd minimumsgrensen på {minQueryLength} tegn.',
     noresults: 'Søket ditt ga ingen resultater.',
-    show: 'Forestilling ',
-    perPage: 'per side',
+    pagePicker: 'Vis {pageSize} per side',
     showAll: 'alle',
   },
   SearchBar: {

@@ -12,6 +12,7 @@ export const it_IT = {
     title: 'Filtri',
     showTitle: 'Mostra filtri',
     hideTitle: 'Nascondi filtri',
+    clearAll: 'Cancella tutto',
   },
   InputButtonGroup: {
     title: 'Categorie',
@@ -19,7 +20,7 @@ export const it_IT = {
     customPrice: 'Prezzo personalizzato',
     priceIncluded: 'Sì',
     priceExcluded: 'No',
-    priceExcludedMessage: 'Non ',
+    priceExcludedMessage: 'Non {title}',
     priceRange: ' e al di sopra',
     showmore: 'Mostra di più',
   },
@@ -27,28 +28,28 @@ export const it_IT = {
     title: 'Caricamento',
   },
   NoResults: {
-    heading: 'Nessun risultato per la tua ricerca.',
+    heading: 'Nessun risultato per la tua ricerca',
     subheading: 'Per favore riprova...',
   },
   SortDropdown: {
     title: 'Ordina per',
+    option: 'Ordina per: {selectedOption}',
     relevanceLabel: 'Più rilevanti',
     positionLabel: 'Posizione',
   },
   CategoryFilters: {
-    results: 'risultati per {phrase}',
-    products: 'prodotti',
+    results: 'risultati per {frase}',
+    products: '{totalCount} prodotti',
   },
   ProductCard: {
-    asLowAs: 'Così basso come',
+    asLowAs: 'A partire da {discountPrice}',
   },
   ProductContainers: {
     minquery:
-      'Il termine di ricerca {variables.phrase} non ha raggiunto il numero minimo di {minQueryLength} caratteri.',
+      'Il termine di ricerca {variables.phrase} non ha raggiunto il minimo di {minQueryLength} caratteri.',
     noresults: 'La ricerca non ha prodotto risultati.',
-    show: 'Spettacolo ',
-    perPage: 'per pagina',
-    showAll: 'tutto',
+    pagePicker: 'Mostra {pageSize} per pagina',
+    showAll: 'Tutto',
   },
   SearchBar: {
     placeholder: 'Ricerca...',

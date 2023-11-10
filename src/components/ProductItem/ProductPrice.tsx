@@ -50,6 +50,33 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       item?.refineProduct?.price?.final;
   }
 
+  const getDiscountedPrice = (discount: boolean | undefined) => {
+    const discountPrice = discount ? (
+      <>
+        <span className="line-through pr-2">
+          {getProductPrice(item, currencySymbol, currencyRate, false, false)}
+        </span>
+        <span className="text-secondary">
+          {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+        </span>
+      </>
+    ) : (
+      getProductPrice(item, currencySymbol, currencyRate, false, true)
+    );
+    const discountedPriceTranslation = translation.ProductCard.asLowAs;
+    const discountedPriceTranslationOrder =
+      discountedPriceTranslation.split(' ');
+    return discountedPriceTranslationOrder.map((word: string, index: any) =>
+      word === '{discountPrice}' ? (
+        discountPrice
+      ) : (
+        <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
+          {word}
+        </span>
+      )
+    );
+  };
+
   return (
     <>
       {price && (
@@ -149,39 +176,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
               <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900">
-                <span className="text-gray-500 text-xs font-normal mr-xs">
-                  {translation.ProductCard.asLowAs}
-                </span>
-                {discount ? (
-                  <>
-                    <span className="line-through pr-2">
-                      {getProductPrice(
-                        item,
-                        currencySymbol,
-                        currencyRate,
-                        false,
-                        false
-                      )}
-                    </span>
-                    <span className="text-secondary">
-                      {getProductPrice(
-                        item,
-                        currencySymbol,
-                        currencyRate,
-                        false,
-                        true
-                      )}
-                    </span>
-                  </>
-                ) : (
-                  getProductPrice(
-                    item,
-                    currencySymbol,
-                    currencyRate,
-                    false,
-                    true
-                  )
-                )}
+                {getDiscountedPrice(discount)}
               </p>
             )}
         </div>

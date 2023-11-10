@@ -8,9 +8,8 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useContext } from 'preact/hooks';
 
-import { TranslationContext } from '../../context/translation';
+import { useTranslation } from '../../context/translation';
 import { Facet } from '../../types/interface';
 import { Facets } from '../Facets';
 import { FilterButton } from '../FilterButton';
@@ -37,22 +36,20 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   setShowFilters,
   filterCount,
 }) => {
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
   let title = categoryName || '';
   if (phrase) {
     const text = translation.CategoryFilters.results;
     title = text.replace('{phrase}', `"${phrase}"`);
   }
+  const resultsTranslation = translation.CategoryFilters.products;
+  const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
 
   return (
     <div class="hidden sm:flex ds-widgets-_actions relative max-w-[21rem] w-full h-full px-2 flex-col overflow-y-auto">
       <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
         {title && <span> {title}</span>}
-        {!loading && (
-          <span className="text-primary text-sm">
-            {totalCount} {translation.CategoryFilters.products}
-          </span>
-        )}
+        {!loading && <span className="text-primary text-sm">{results}</span>}
       </div>
 
       {!pageLoading && facets.length > 0 && totalCount > 0 && (

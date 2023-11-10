@@ -12,6 +12,7 @@ export const en_US = {
     title: 'Filters',
     showTitle: 'Show filters',
     hideTitle: 'Hide filters',
+    clearAll: 'Clear all',
   },
   InputButtonGroup: {
     title: 'Categories',
@@ -19,7 +20,7 @@ export const en_US = {
     customPrice: 'Custom Price',
     priceIncluded: 'yes',
     priceExcluded: 'no',
-    priceExcludedMessage: 'Not ',
+    priceExcludedMessage: 'Not {title}',
     priceRange: ' and above',
     showmore: 'Show more',
   },
@@ -32,22 +33,22 @@ export const en_US = {
   },
   SortDropdown: {
     title: 'Sort by',
+    option: 'Sort by: {selectedOption}',
     relevanceLabel: 'Most Relevant',
     positionLabel: 'Position',
   },
   CategoryFilters: {
     results: 'results for {phrase}',
-    products: 'products',
+    products: '{totalCount} products',
   },
   ProductCard: {
-    asLowAs: 'As low as',
+    asLowAs: 'As low as {discountPrice}',
   },
   ProductContainers: {
     minquery:
       'Your search term {variables.phrase} has not reached the minimum of {minQueryLength} characters.',
     noresults: 'Your search returned no results.',
-    show: 'Show ',
-    perPage: 'per page',
+    pagePicker: 'Show {pageSize} per page',
     showAll: 'all',
   },
   SearchBar: {

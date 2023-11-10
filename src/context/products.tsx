@@ -35,7 +35,7 @@ import {
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
-import { TranslationContext } from './translation';
+import { useTranslation } from './translation';
 
 interface WithChildrenProps {
   children?: any;
@@ -121,7 +121,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     ? Number(pageSizeValue)
     : defaultPageSizeOption;
 
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
+
   const showAllLabel = translation.ProductContainers.showAll;
 
   const [loading, setLoading] = useState(true);
