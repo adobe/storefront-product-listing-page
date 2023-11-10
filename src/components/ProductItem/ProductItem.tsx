@@ -40,6 +40,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   refineProduct,
 }: ProductProps) => {
   const { product, productView } = item;
+  const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
   const [productImages, setImages] = useState<ProductViewMedia[] | null>();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
@@ -49,6 +50,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     setSelectedSwatch(optionIds[0]);
     setImages(data.refineProduct.images);
     setRefinedProduct(data);
+    setCarouselIndex(0);
   };
 
   const isSelected = (id: string) => {
@@ -105,6 +107,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               <ImageCarousel
                 images={productImageArray}
                 productName={productView.name}
+                carouselIndex={carouselIndex}
+                setCarouselIndex={setCarouselIndex}
               />
             ) : (
               <NoImage

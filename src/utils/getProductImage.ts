@@ -14,6 +14,7 @@ type ImageTypes = {
   small_image?: string[] | null;
   image?: string[] | null;
   main?: string[] | null;
+  other?: string[] | null;
 };
 
 const getProductImageURL = (images: ProductViewMedia[]): string[] => {
@@ -22,6 +23,7 @@ const getProductImageURL = (images: ProductViewMedia[]): string[] => {
     small_image: [],
     image: [],
     main: [],
+    other: [],
   };
   const url = new URL(window.location.href);
   const protocol = url.protocol;
@@ -40,18 +42,21 @@ const getProductImageURL = (images: ProductViewMedia[]): string[] => {
         imageTypes.image?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
       } else if (image.url?.includes('main')) {
         imageTypes.main?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
+      } else {
+        imageTypes.other?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
       }
     }
   }
 
   const imageTypesArray =
-    imageTypes.thumbnail ??
-    imageTypes.small_image ??
-    imageTypes.image ??
-    imageTypes.main ??
-    [];
+    imageTypes.thumbnail?.concat(
+      imageTypes.small_image ?? [],
+      imageTypes.image ?? [],
+      imageTypes.main ?? [],
+      imageTypes.other ?? []
+    ) ?? [];
 
-  const imageUrlArray = [];
+  const imageUrlArray: Array<string> = [];
 
   if (imageTypesArray.length) {
     for (const imageUrl of imageTypesArray) {
@@ -61,7 +66,9 @@ const getProductImageURL = (images: ProductViewMedia[]): string[] => {
     }
   }
 
-  return imageUrlArray;
+  return imageUrlArray
+    .filter((url, index) => imageUrlArray.indexOf(url) === index)
+    .slice(0, 3);
 };
 
 export { getProductImageURL };

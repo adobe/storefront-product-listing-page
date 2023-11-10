@@ -13,7 +13,14 @@ import { ImageCarousel } from './ImageCarousel';
 
 describe('WidgetSDK - UIKit/ImageCarousel', () => {
   test('renders', () => {
-    const { container } = render(<ImageCarousel images={[]} productName="" />);
+    const { container } = render(
+      <ImageCarousel
+        images={[]}
+        productName=""
+        carouselIndex={0}
+        setCarouselIndex={() => {}}
+      />
+    );
 
     const elem = container.querySelector('.ds-sdk-product-image-carousel');
 

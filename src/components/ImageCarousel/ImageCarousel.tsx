@@ -13,13 +13,16 @@ import { SetStateAction, useState } from 'react';
 export interface ImageCarouselProps {
   images: string[];
   productName: string;
+  carouselIndex: number;
+  setCarouselIndex: (carouselIndex: number | SetStateAction<number>) => void;
 }
 
 export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
   images,
   productName,
+  carouselIndex,
+  setCarouselIndex,
 }) => {
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const [swipeIndex, setSwipeIndex] = useState(0);
   const cirHandler = (index: SetStateAction<number>) => {
     setCarouselIndex(index);
@@ -29,14 +32,14 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
     if (carouselIndex === 0) {
       setCarouselIndex(0);
     } else {
-      setCarouselIndex((prev) => prev - 1);
+      setCarouselIndex((prev: number) => prev - 1);
     }
   };
   const nextHandler = () => {
     if (carouselIndex === images.length - 1) {
       setCarouselIndex(0);
     } else {
-      setCarouselIndex((prev) => prev + 1);
+      setCarouselIndex((prev: number) => prev + 1);
     }
   };
 
