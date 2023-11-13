@@ -35,7 +35,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   refineProduct,
 }) => {
   const className = showFilters
-    ? 'ds-sdk-product-list bg-body max-w-5xl mx-auto pb-2xl sm:pb-24 lg:max-w-7xl'
+    ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
     : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
   return (
     <div className={className}>
