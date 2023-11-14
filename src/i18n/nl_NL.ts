@@ -38,11 +38,14 @@ export const nl_NL = {
     positionLabel: 'Positie',
   },
   CategoryFilters: {
-    results: 'resultaten voor {zin}',
+    results: 'resultaten voor {phrase}',
     products: '{totalCount} producten',
   },
   ProductCard: {
     asLowAs: 'Zo laag als {discountPrice}',
+    startingAt: 'Vanaf {productPrice}',
+    bundlePrice: 'Van {fromBundlePrice} naar {toBundlePrice}',
+    from: 'Vanaf {productPrice}',
   },
   ProductContainers: {
     minquery:

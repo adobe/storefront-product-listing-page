@@ -38,11 +38,14 @@ export const it_IT = {
     positionLabel: 'Posizione',
   },
   CategoryFilters: {
-    results: 'risultati per {frase}',
+    results: 'risultati per {phrase}',
     products: '{totalCount} prodotti',
   },
   ProductCard: {
     asLowAs: 'A partire da {discountPrice}',
+    startingAt: 'A partire da {productPrice}',
+    bundlePrice: 'Da {fromBundlePrice} a {toBundlePrice}',
+    from: 'Da {productPrice}',
   },
   ProductContainers: {
     minquery:

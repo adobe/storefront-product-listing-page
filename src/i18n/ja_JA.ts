@@ -43,6 +43,9 @@ export const ja_JA = {
   },
   ProductCard: {
     asLowAs: '{discountPrice} 程度の低価格',
+    startingAt: '{productPrice} から',
+    bundlePrice: '{fromBundlePrice} から {toBundlePrice} まで',
+    from: '{productPrice}より',
   },
   ProductContainers: {
     minquery:

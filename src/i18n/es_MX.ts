@@ -33,7 +33,7 @@ export const es_MX = {
   },
   SortDropdown: {
     title: 'Ordenar por',
-    option: 'Ordenar por: {opción seleccionada}',
+    option: 'Ordenar por: {selectedOption}',
     relevanceLabel: 'Lo más relevante',
     positionLabel: 'Posición',
   },
@@ -43,6 +43,9 @@ export const es_MX = {
   },
   ProductCard: {
     asLowAs: 'Tan bajo como {discountPrice}',
+    startingAt: 'Desde {productPrice}',
+    bundlePrice: 'De {fromBundlePrice} a {toBundlePrice}',
+    from: 'De {productPrice}',
   },
   ProductContainers: {
     minquery:

@@ -43,6 +43,9 @@ export const en_US = {
   },
   ProductCard: {
     asLowAs: 'As low as {discountPrice}',
+    startingAt: 'Starting at {productPrice}',
+    bundlePrice: 'From {fromBundlePrice} To {toBundlePrice}',
+    from: 'From {productPrice}',
   },
   ProductContainers: {
     minquery:

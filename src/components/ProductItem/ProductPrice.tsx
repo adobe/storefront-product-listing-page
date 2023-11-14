@@ -49,6 +49,46 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       item?.refineProduct?.priceRange?.minimum?.final ??
       item?.refineProduct?.price?.final;
   }
+  const getBundledPrice = (
+    item: Product | RefinedProduct,
+    currencySymbol: string,
+    currencyRate: string | undefined
+  ) => {
+    const bundlePriceTranslationOrder =
+      translation.ProductCard.bundlePrice.split(' ');
+    return bundlePriceTranslationOrder.map((word: string, index: any) =>
+      word === '{fromBundlePrice}' ? (
+        getProductPrice(item, currencySymbol, currencyRate, false, true)
+      ) : word === '{toBundlePrice}' ? (
+        getProductPrice(item, currencySymbol, currencyRate, true, true)
+      ) : (
+        <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
+          {word}
+        </span>
+      )
+    );
+  };
+
+  const getPriceFormat = (
+    item: Product | RefinedProduct,
+    currencySymbol: string,
+    currencyRate: string | undefined,
+    isGiftCard: boolean
+  ) => {
+    const priceTranslation = isGiftCard
+      ? translation.ProductCard.from
+      : translation.ProductCard.startingAt;
+    const startingAtTranslationOrder = priceTranslation.split('{productPrice}');
+    return startingAtTranslationOrder.map((word: string, index: any) =>
+      word === '' ? (
+        getProductPrice(item, currencySymbol, currencyRate, false, true)
+      ) : (
+        <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
+          {word}
+        </span>
+      )
+    );
+  };
 
   const getDiscountedPrice = (discount: boolean | undefined) => {
     const discountPrice = discount ? (
@@ -65,9 +105,9 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
     );
     const discountedPriceTranslation = translation.ProductCard.asLowAs;
     const discountedPriceTranslationOrder =
-      discountedPriceTranslation.split(' ');
+      discountedPriceTranslation.split('{discountPrice}');
     return discountedPriceTranslationOrder.map((word: string, index: any) =>
-      word === '{discountPrice}' ? (
+      word === '' ? (
         discountPrice
       ) : (
         <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
@@ -128,47 +168,20 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
           {isBundle && (
             <div className="ds-sdk-product-price--bundle">
               <p className="mt-xs text-sm font-medium text-gray-900">
-                <span className="text-gray-500 text-xs font-normal mr-xs">
-                  From
-                </span>
-                {getProductPrice(
-                  item,
-                  currencySymbol,
-                  currencyRate,
-                  false,
-                  true
-                )}
-              </p>
-              <p className="mt-xs text-sm font-medium text-gray-900">
-                <span className="text-gray-500 text-xs font-normal mr-xs">
-                  To
-                </span>
-                {getProductPrice(
-                  item,
-                  currencySymbol,
-                  currencyRate,
-                  true,
-                  true
-                )}
+                {getBundledPrice(item, currencySymbol, currencyRate)}
               </p>
             </div>
           )}
 
           {isGrouped && (
             <p className="ds-sdk-product-price--grouped mt-xs text-sm font-medium text-gray-900">
-              <span className="text-gray-500 text-xs font-normal mr-xs">
-                Starting at
-              </span>
-              {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+              {getPriceFormat(item, currencySymbol, currencyRate, false)}
             </p>
           )}
 
           {isGiftCard && (
             <p className="ds-sdk-product-price--gift-card mt-xs text-sm font-medium text-gray-900">
-              <span className="text-gray-500 text-xs font-normal mr-xs">
-                From
-              </span>
-              {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+              {getPriceFormat(item, currencySymbol, currencyRate, true)}
             </p>
           )}
 

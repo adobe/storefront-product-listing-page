@@ -43,6 +43,9 @@ export const no_NO = {
   },
   ProductCard: {
     asLowAs: 'Så lavt som {discountPrice}',
+    startingAt: 'Fra {productPrice}',
+    bundlePrice: 'Fra {fromBundlePrice} til {toBundlePrice}',
+    from: 'Fra {productPrice}',
   },
   ProductContainers: {
     minquery:
