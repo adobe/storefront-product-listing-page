@@ -524,9 +524,6 @@ video {
   .z-20 {
     z-index: 20;
   }
-  .z-30 {
-    z-index: 30;
-  }
   .m-4 {
     margin: 1rem;
   }
@@ -1471,10 +1468,6 @@ video {
 }
 
 @media (min-width: 1024px) {
-  .lg\:h-full {
-    height: 100%;
-  }
-
   .lg\:w-full {
     width: 100%;
   }

@@ -117,7 +117,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         refineProduct={refineProduct}
       />
       <div
-        className={`flex flex-row justify-between max-w-5xl lg:max-w-7xl ${
+        className={`flex flex-row justify-between max-w-full ${
           showFilters ? 'mx-auto' : 'mr-auto'
         } w-full h-full`}
       >
