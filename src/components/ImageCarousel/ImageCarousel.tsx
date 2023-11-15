@@ -78,7 +78,7 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
           })}
         </div>
         {images.length > 1 && (
-          <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-0 left-1/2 pb-2 ">
+          <div className="absolute z-1 flex space-x-3 -translate-x-1/2 bottom-0 left-1/2 pb-2 ">
             {images.map((_item, index) => {
               return (
                 <span
