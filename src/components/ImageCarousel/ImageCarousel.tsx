@@ -58,24 +58,18 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
             }
           }}
         >
-          {images.map((item, index) => {
-            return (
-              // eslint-disable-next-line react/jsx-key
-              <>
-                <img
-                  src={item}
-                  key={index}
-                  alt={productName}
-                  loading="eager"
-                  className="max-h-[45rem] h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  style={{
-                    transform: `translate(-${carouselIndex * 100}%)`,
-                    transition: `1s cubic-bezier(0.39, 0.575, 0.565, 1)`,
-                  }}
-                />
-              </>
-            );
-          })}
+          <div className="overflow-hidden relative">
+            <div
+              className={`flex transition ease-out duration-40`}
+              style={{
+                transform: `translateX(-${carouselIndex * 100}%)`,
+              }}
+            >
+              {images.map((item, index) => {
+                return <img src={item} key={index} alt={productName} />;
+              })}
+            </div>
+          </div>
         </div>
         {images.length > 1 && (
           <div className="absolute z-1 flex space-x-3 -translate-x-1/2 bottom-0 left-1/2 pb-2 ">
