@@ -534,10 +534,6 @@ video {
     margin-left: auto;
     margin-right: auto;
   }
-  .mx-md {
-    margin-left: var(--spacing-md);
-    margin-right: var(--spacing-md);
-  }
   .mx-sm {
     margin-left: var(--spacing-sm);
     margin-right: var(--spacing-sm);
@@ -562,6 +558,9 @@ video {
   }
   .mb-6 {
     margin-bottom: 1.5rem;
+  }
+  .mb-\[1px\] {
+    margin-bottom: 1px;
   }
   .mb-md {
     margin-bottom: var(--spacing-md);

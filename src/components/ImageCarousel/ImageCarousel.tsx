@@ -47,7 +47,7 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
     <>
       <div class="ds-sdk-product-image-carousel max-w-2xl m-auto">
         <div
-          className="flex flex-nowrap overflow-hidden rounded-lg relative rounded-lg w-full h-full "
+          className="flex flex-nowrap overflow-hidden relative rounded-lg w-full h-full"
           onTouchStart={(e) => setSwipeIndex(e.touches[0].clientX)}
           onTouchEnd={(e) => {
             const endIndex = e.changedTouches[0].clientX;
