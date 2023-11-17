@@ -21,13 +21,26 @@ Best practices include:
 
 ## Setup
 
+#### Requirements
+Node and NPM setup: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
+* Node version: **v16 or greater**
+* NPM version: **v8 or greater**
+
+[NVM](https://nodejs.org/en/download/package-manager#nvm) is a nifty tool to help toggle between enironment versions
+
+
 #### Install dependencies
+
+Within the root of the project (~/storefront-product-listing-page):
 
 ```
 npm install
 ```
 
-#### Storybook
+#### Storybook (mdx files)
+
+Install storybook: https://storybook.js.org/docs/react/get-started/install
 
 ```
 npm run storybook
