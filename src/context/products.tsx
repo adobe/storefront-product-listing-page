@@ -278,7 +278,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       });
     });
 
-    if (storeCtx?.config?.allowAllProducts) {
+    if (storeCtx?.config?.allowAllProducts === ('1' || true)) {
       optionsArray.push({
         label: showAllLabel,
         value: totalCount !== null ? (totalCount > 500 ? 500 : totalCount) : 0,

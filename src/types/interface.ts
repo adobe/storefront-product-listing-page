@@ -29,7 +29,7 @@ export interface ClientProps {
 }
 
 export interface StoreDetailsConfig {
-  allowAllProducts?: boolean;
+  allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
   minQueryLength?: number;
   pageSize?: number;
@@ -38,7 +38,7 @@ export interface StoreDetailsConfig {
   currentCategoryUrlPath?: string;
   categoryName?: string;
   displaySearchBox?: boolean;
-  displayOutOfStock?: string;
+  displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayMode?: string;
   locale?: string;
 }
@@ -66,7 +66,7 @@ export interface ProductSearchQuery {
   phrase: string;
   pageSize?: number;
   currentPage?: number;
-  displayOutOfStock?: string;
+  displayOutOfStock?: string | boolean;
   filter?: SearchClauseInput[];
   sort?: ProductSearchSortInput[];
   xRequestId?: string;

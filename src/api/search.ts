@@ -79,7 +79,7 @@ const getProductSearch = async ({
 
   variables.filter.push(defaultFilters); //add default visibility filter
 
-  const displayInStockOnly = displayOutOfStock !== '1';
+  const displayInStockOnly = displayOutOfStock !== ('1' || true);
 
   const inStockFilter = {
     attribute: 'inStock',

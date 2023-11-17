@@ -25,7 +25,7 @@ describe('Verify Search Conditions', () => {
 
   it('Verify Discount Item', () => {
     cy.visitHomePage();
-    cy.get('.ds-sdk-search-bar').type('cronus pants{enter}', { delay: 0 });
+    cy.get('.ds-sdk-search-bar').type('karmen yoga pant{enter}', { delay: 0 });
     cy.get('.ds-sdk-product-price--configurable').should('be.visible');
     cy.get('.line-through.pr-2').should('be.visible');
     cy.get('.text-secondary').should('be.visible');
