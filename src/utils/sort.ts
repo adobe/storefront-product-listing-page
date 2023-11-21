@@ -37,7 +37,7 @@ const getSortOptionsfromMetadata = (
           value: 'relevance_DESC',
         },
       ];
-  const displayInStockOnly = displayOutOfStock !== ('1' || true);
+  const displayInStockOnly = displayOutOfStock != '1'; // '!=' is intentional for conversion
 
   if (sortMetadata && sortMetadata.length > 0) {
     sortMetadata.forEach((e) => {
