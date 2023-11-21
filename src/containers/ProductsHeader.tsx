@@ -84,10 +84,12 @@ export const ProductsHeader: FunctionComponent<Props> = ({
         <div>
           {screenSize.mobile
             ? totalCount > 0 && (
-                <FilterButton
-                  displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                  type="mobile"
-                />
+                <div className="pb-4">
+                  <FilterButton
+                    displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                    type="mobile"
+                  />
+                </div>
               )
             : storeCtx.config.displaySearchBox && (
                 <SearchBar

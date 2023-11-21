@@ -9,10 +9,11 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { HTMLAttributes, useState } from 'preact/compat';
+import { useEffect } from 'react';
 
 import '../Slider/Slider.css';
 
-import { useProducts } from '../../context';
+import { useProducts, useSearch } from '../../context';
 import useSliderFacet from '../../hooks/useSliderFacet';
 import { PriceFacet } from '../../types/interface';
 
@@ -32,9 +33,34 @@ export type Bucket = {
 
 export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
   const productsCtx = useProducts();
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const preSelectedToPrice = productsCtx.variables.filter?.find(
+    (obj) => obj.attribute === 'price'
+  )?.range?.to;
+
+  const searchCtx = useSearch();
+
+  useEffect(() => {
+    if (
+      searchCtx?.filters?.length === 0 ||
+      !searchCtx?.filters?.find((obj) => obj.attribute === 'price')
+    ) {
+      setSelectedPrice(filterData.buckets[filterData.buckets.length - 1].to);
+    }
+  }, [searchCtx]);
+
+  useEffect(() => {
+    if (!isFirstRender) {
+      setSelectedPrice(filterData.buckets[filterData.buckets.length - 1].to);
+    }
+    setIsFirstRender(false);
+  }, [filterData.buckets[filterData.buckets.length - 1].to]);
+
   const { onChange } = useSliderFacet(filterData);
   const [selectedPrice, setSelectedPrice] = useState(
-    filterData.buckets[filterData.buckets.length - 1].to
+    !preSelectedToPrice
+      ? filterData.buckets[filterData.buckets.length - 1].to
+      : preSelectedToPrice
   );
   const handleSliderChange = (event: any) => {
     onChange(filterData.buckets[0].from, parseInt(event.target.value));
@@ -61,7 +87,7 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
 
   return (
     <>
-      <p>{filterData.title}</p>
+      <p className="pt-md">{filterData.title}</p>
       <div class="ds-sdk-slider slider-container">
         <input
           type="range"
@@ -72,6 +98,8 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
           value={selectedPrice}
           onChange={handleNewPrice}
           onMouseUp={handleSliderChange}
+          onTouchEnd={handleSliderChange}
+          onKeyUp={handleSliderChange}
         />
         <span className="selected-price">{formatLabel(selectedPrice)}</span>
         <div class="price-range-display">

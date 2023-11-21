@@ -116,19 +116,19 @@ export const App: FunctionComponent = () => {
                         />
                       </div>
                     )}
-                  <div className="flex w-full h-full">
-                    <ProductsHeader
-                      facets={productsCtx.facets}
-                      totalCount={productsCtx.totalCount}
-                      screenSize={screenSize}
-                    />
-                  </div>
                 </div>
-                <SelectedFilters />
                 {productsCtx.loading ? (
                   <Loading label={loadingLabel} />
                 ) : (
                   <>
+                    <div className="flex w-full h-full">
+                      <ProductsHeader
+                        facets={productsCtx.facets}
+                        totalCount={productsCtx.totalCount}
+                        screenSize={screenSize}
+                      />
+                    </div>
+                    <SelectedFilters />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />
