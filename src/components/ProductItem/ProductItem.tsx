@@ -88,6 +88,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     ? setRoute({ sku: productView?.sku })
     : product?.canonical_url;
 
+  // rare cases where the productView.name is null with no images
+  const isNotValidProductItem = !productImageArray.length && !productView.name;
+
+  if (isNotValidProductItem) {
+    return <></>;
+  }
+
   return (
     <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">
       <a
@@ -118,7 +125,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
           <div className="flex flex-col">
             <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
-              {htmlStringDecode(productView.name)}
+              {productView.name !== null && htmlStringDecode(productView.name)}
             </div>
             <ProductPrice
               item={refinedProduct ?? item}
