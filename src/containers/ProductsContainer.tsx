@@ -8,6 +8,7 @@ it.
 */
 
 import { FunctionalComponent, FunctionComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
 import { useProducts, useSensor, useTranslation } from 'src/context';
 import { PageSizeOption } from 'src/types/interface';
 import {
@@ -37,16 +38,18 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     currentPage,
     setPageSize,
     pageSize,
-    currencySymbol,
-    currencyRate,
     totalPages,
     totalCount,
     minQueryLength,
     minQueryLengthReached,
     pageSizeOptions,
-    setRoute,
-    refineProduct,
   } = productsCtx;
+
+  useEffect(() => {
+    if (currentPage < 1) {
+      goToPage(1);
+    }
+  }, []);
 
   const goToPage = (page: number | string) => {
     if (typeof page === 'number') {
@@ -110,11 +113,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       <ProductList
         products={items}
         numberOfColumns={screenSize.columns}
-        currencySymbol={currencySymbol}
-        currencyRate={currencyRate}
         showFilters={showFilters}
-        setRoute={setRoute}
-        refineProduct={refineProduct}
       />
       <div
         className={`flex flex-row justify-between max-w-full ${

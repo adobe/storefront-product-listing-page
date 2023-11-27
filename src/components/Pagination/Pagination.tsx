@@ -8,7 +8,9 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
 
+import { useProducts } from '../../context';
 import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
 import Chevron from '../../icons/chevron.svg';
 
@@ -23,11 +25,20 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   totalPages,
   currentPage,
 }) => {
+  const productsCtx = useProducts();
   const paginationRange = usePagination({
     currentPage,
     totalPages,
   });
 
+  useEffect(() => {
+    const { currentPage, totalPages } = productsCtx;
+    if (currentPage > totalPages) {
+      onPageChange(totalPages);
+    }
+
+    return () => {};
+  }, []);
   const onPrevious = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
