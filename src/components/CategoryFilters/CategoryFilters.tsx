@@ -52,7 +52,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
         {!loading && <span className="text-primary text-sm">{results}</span>}
       </div>
 
-      {!pageLoading && facets.length > 0 && totalCount > 0 && (
+      {!pageLoading && facets.length > 0 && (
         <>
           <div className="flex pb-4 w-full h-full">
             <FilterButton

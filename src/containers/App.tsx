@@ -102,8 +102,7 @@ export const App: FunctionComponent = () => {
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
                     !productsCtx.loading &&
-                    productsCtx.facets.length > 0 &&
-                    productsCtx.totalCount > 0 && (
+                    productsCtx.facets.length > 0 && (
                       <div className="flex w-full h-full">
                         <FilterButton
                           displayFilter={() => setShowFilters(true)}
