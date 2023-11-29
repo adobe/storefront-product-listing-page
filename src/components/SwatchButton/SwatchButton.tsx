@@ -23,16 +23,21 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   checked,
   onClick,
 }: SwatchButtonProps) => {
-  const outlineColor = checked ? 'outline-black' : 'outline-transparent';
+  const outlineColor = checked ? 'border-black' : 'border-transparent';
+
   if (type === 'COLOR_HEX') {
     const color = value.toLowerCase();
-    const className = `min-w-[32px] rounded-full p-sm outline ${outlineColor} h-[32px]`;
+    const className = `min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px]`;
+    const isWhite = color === '#ffffff' || color === '#fff';
     return (
       <div className={`ds-sdk-swatch-button_${id}`}>
         <button
           key={id}
           className={className}
-          style={`background-color: ${color}`}
+          style={{
+            backgroundColor: color,
+            border: !checked && isWhite ? '1px solid #ccc' : undefined,
+          }}
           onClick={onClick}
           checked={checked}
         />
@@ -47,7 +52,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
         <button
           key={id}
           className={className}
-          style={`background-image: url(${value}})`}
+          style={{ backgroundImage: `url(${value})` }}
           onClick={onClick}
           checked={checked}
         />
