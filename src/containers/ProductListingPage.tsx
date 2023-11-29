@@ -6,13 +6,13 @@ NOTICE: Adobe permits you to use, modify, and distribute this file in
 accordance with the terms of the Adobe license agreement accompanying
 it.
 */
-
 import { render } from 'preact';
 
 import './styles/global.css';
 
 import {
   AttributeMetadataProvider,
+  CartProvider,
   ProductsContextProvider,
   SearchProvider,
   StoreContextProvider,
@@ -57,7 +57,9 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
               <Resize>
                 <Translation>
                   <ProductsContextProvider>
-                    <App />
+                    <CartProvider>
+                      <App />
+                    </CartProvider>
                   </ProductsContextProvider>
                 </Translation>
               </Resize>

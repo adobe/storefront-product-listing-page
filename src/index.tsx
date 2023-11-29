@@ -15,6 +15,7 @@ import { getUserViewHistory } from '../src/utils/getUserViewHistory';
 import App from './containers/App';
 import {
   AttributeMetadataProvider,
+  CartProvider,
   ProductsContextProvider,
   SearchProvider,
   StoreContextProvider,
@@ -47,7 +48,6 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
       userViewHistory,
     },
   };
-
   render(
     <SentryProvider>
       <FloodgateProvider>
@@ -57,7 +57,9 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
               <Resize>
                 <Translation>
                   <ProductsContextProvider>
-                    <App />
+                    <CartProvider>
+                      <App />
+                    </CartProvider>
                   </ProductsContextProvider>
                 </Translation>
               </Resize>
