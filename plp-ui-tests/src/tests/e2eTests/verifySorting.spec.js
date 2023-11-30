@@ -18,7 +18,7 @@ describe('Verify Price Sort', () => {
       .find('button')
       .then(function ($elem) {
         const sort_text = $elem.text().trim();
-        expect(sort_text).to.equal('Sort by: Custom Price: Low to High');
+        expect(sort_text).to.equal('Sort by: Price: Low to High');
       });
     cy.get('.ds-sdk-product-list__grid')
       .find('a')
@@ -26,7 +26,7 @@ describe('Verify Price Sort', () => {
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
         const price_text = $elem.text().replace(/As low as/g, '');
-        expect(price_text).to.equal(' $34.00');
+        expect(price_text).to.equal(' $18.00');
       });
 
     cy.get('.ds-sdk-sort-dropdown').click();
@@ -37,7 +37,7 @@ describe('Verify Price Sort', () => {
       .find('button')
       .then(function ($elem) {
         const sort_text = $elem.text().trim();
-        expect(sort_text).to.equal('Sort by: Custom Price: High to Low');
+        expect(sort_text).to.equal('Sort by: Price: High to Low');
       });
     cy.get('.ds-sdk-product-list__grid')
       .find('a')
@@ -45,7 +45,7 @@ describe('Verify Price Sort', () => {
       .find('.ds-sdk-product-price--configurable')
       .then(function ($elem) {
         const price_text = $elem.text().replace(/As low as/g, '');
-        expect(price_text).to.equal(' $34.00');
+        expect(price_text).to.equal(' $39.00');
       });
   });
 });
