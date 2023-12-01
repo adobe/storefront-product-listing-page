@@ -252,7 +252,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     if (
       !storeCtx.config?.currentCategoryUrlPath &&
       searchCtx.phrase.trim().length <
-        (storeCtx.config.minQueryLength || DEFAULT_MIN_QUERY_LENGTH)
+        (Number(storeCtx.config.minQueryLength) || DEFAULT_MIN_QUERY_LENGTH)
     ) {
       setItems([]);
       setFacets([]);

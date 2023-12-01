@@ -25,6 +25,7 @@ import Resize from './context/displayChange';
 import { SentryProvider } from './context/sentry';
 import Translation from './context/translation';
 import { FloodgateProvider } from './utils/Floodgate';
+import { validateStoreDetailsKeys } from './utils/validateStoreDetails';
 
 type MountSearchPlpProps = {
   storeDetails: StoreDetailsProps;
@@ -41,17 +42,20 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
 
   const userViewHistory = getUserViewHistory();
 
-  const updatedStoreDetails = {
+  const updatedStoreDetails: StoreDetailsProps = {
     ...storeDetails,
     context: {
       ...storeDetails.context,
       userViewHistory,
     },
   };
+
   render(
     <SentryProvider>
       <FloodgateProvider>
-        <StoreContextProvider {...updatedStoreDetails}>
+        <StoreContextProvider
+          {...validateStoreDetailsKeys(updatedStoreDetails)}
+        >
           <AttributeMetadataProvider>
             <SearchProvider>
               <Resize>

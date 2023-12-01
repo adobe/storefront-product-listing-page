@@ -31,7 +31,7 @@ export interface ClientProps {
 export interface StoreDetailsConfig {
   allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
-  minQueryLength?: number;
+  minQueryLength?: string | number; // string if used on magento, number if used on data-service-graphql
   pageSize?: number;
   currencySymbol?: string;
   currencyRate?: string;

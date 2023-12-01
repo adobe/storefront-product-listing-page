@@ -7,6 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 import { render } from 'preact';
+import { validateStoreDetailsKeys } from 'src/utils/validateStoreDetails';
 
 import './styles/global.css';
 
@@ -29,7 +30,7 @@ type MountSearchPlpProps = {
   storeDetails: StoreDetailsProps;
   root: HTMLElement;
 };
-
+// TODO: this file is not being used currently
 const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   if (!storeDetails) {
     throw new Error("Livesearch PLP's storeDetails prop was not provided");
@@ -51,7 +52,9 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   render(
     <SentryProvider>
       <FloodgateProvider>
-        <StoreContextProvider {...updatedStoreDetails}>
+        <StoreContextProvider
+          {...validateStoreDetailsKeys(updatedStoreDetails)}
+        >
           <AttributeMetadataProvider>
             <SearchProvider>
               <Resize>
