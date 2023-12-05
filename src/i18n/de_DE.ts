@@ -10,31 +10,31 @@ it.
 export const de_DE = {
   Filter: {
     title: 'Filter',
-    showTitle: 'Filter anzeigen',
+    showTitle: 'Filter einblenden',
     hideTitle: 'Filter ausblenden',
-    clearAll: 'Alles löschen',
+    clearAll: 'Alle löschen',
   },
   InputButtonGroup: {
     title: 'Kategorien',
     price: 'Preis',
     customPrice: 'Benutzerdefinierter Preis',
-    priceIncluded: 'Ja',
-    priceExcluded: 'Nein',
+    priceIncluded: 'ja',
+    priceExcluded: 'nein',
     priceExcludedMessage: 'Nicht {title}',
-    priceRange: ' und darüber',
-    showmore: 'Zeig mehr',
+    priceRange: ' und höher',
+    showmore: 'Mehr anzeigen',
   },
   Loading: {
-    title: 'Wird geladen',
+    title: 'Ladevorgang läuft',
   },
   NoResults: {
-    heading: 'Keine Ergebnisse für Ihre Suche.',
-    subheading: 'Bitte versuche es erneut...',
+    heading: 'Keine Ergebnisse zu Ihrer Suche.',
+    subheading: 'Versuchen Sie es erneut...',
   },
   SortDropdown: {
-    title: 'Sortiere nach',
+    title: 'Sortieren nach',
     option: 'Sortieren nach: {selectedOption}',
-    relevanceLabel: 'Relevanteste',
+    relevanceLabel: 'Höchste Relevanz',
     positionLabel: 'Position',
   },
   CategoryFilters: {
@@ -42,16 +42,16 @@ export const de_DE = {
     products: '{totalCount} Produkte',
   },
   ProductCard: {
-    asLowAs: 'So niedrig wie {discountPrice}',
+    asLowAs: 'Schon ab {discountPrice}',
     startingAt: 'Ab {productPrice}',
-    bundlePrice: 'Von {fromBundlePrice} bis {toBundlePrice}',
-    from: 'Von {productPrice}',
+    bundlePrice: 'Aus {fromBundlePrice} zu {toBundlePrice}',
+    from: 'Ab {productPrice}',
   },
   ProductContainers: {
     minquery:
-      'Ihr Suchbegriff {variables.phrase} hat die Mindestlänge von {minQueryLength} Zeichen nicht erreicht.',
-    noresults: 'Deine Suche ergab keine Ergebnisse.',
-    pagePicker: 'Zeigt {pageSize} pro Seite an',
+      'Ihr Suchbegriff {variables.phrase} ist kürzer als das Minimum von {minQueryLength} Zeichen.',
+    noresults: 'Zu Ihrer Suche wurden keine Ergebnisse zurückgegeben.',
+    pagePicker: '{pageSize} pro Seite anzeigen',
     showAll: 'alle',
   },
   SearchBar: {

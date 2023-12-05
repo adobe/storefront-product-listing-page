@@ -18,23 +18,23 @@ export const it_IT = {
     title: 'Categorie',
     price: 'Prezzo',
     customPrice: 'Prezzo personalizzato',
-    priceIncluded: 'Sì',
-    priceExcluded: 'No',
+    priceIncluded: 'sì',
+    priceExcluded: 'no',
     priceExcludedMessage: 'Non {title}',
-    priceRange: ' e al di sopra',
-    showmore: 'Mostra di più',
+    priceRange: ' e superiore',
+    showmore: 'Mostra altro',
   },
   Loading: {
     title: 'Caricamento',
   },
   NoResults: {
-    heading: 'Nessun risultato per la tua ricerca',
-    subheading: 'Per favore riprova...',
+    heading: 'Nessun risultato per la ricerca.',
+    subheading: 'Riprova...',
   },
   SortDropdown: {
     title: 'Ordina per',
     option: 'Ordina per: {selectedOption}',
-    relevanceLabel: 'Più rilevanti',
+    relevanceLabel: 'Più rilevante',
     positionLabel: 'Posizione',
   },
   CategoryFilters: {
@@ -52,9 +52,9 @@ export const it_IT = {
       'Il termine di ricerca {variables.phrase} non ha raggiunto il minimo di {minQueryLength} caratteri.',
     noresults: 'La ricerca non ha prodotto risultati.',
     pagePicker: 'Mostra {pageSize} per pagina',
-    showAll: 'Tutto',
+    showAll: 'tutto',
   },
   SearchBar: {
-    placeholder: 'Ricerca...',
+    placeholder: 'Cerca...',
   },
 };

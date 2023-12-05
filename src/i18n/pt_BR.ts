@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export const pt_PT = {
+export const pt_BR = {
   Filter: {
     title: 'Filtros',
     showTitle: 'Mostrar filtros',
@@ -17,7 +17,7 @@ export const pt_PT = {
   InputButtonGroup: {
     title: 'Categorias',
     price: 'Preço',
-    customPrice: 'Preço Personalizado',
+    customPrice: 'Preço personalizado',
     priceIncluded: 'sim',
     priceExcluded: 'não',
     priceExcludedMessage: 'Não {title}',
@@ -25,16 +25,16 @@ export const pt_PT = {
     showmore: 'Mostrar mais',
   },
   Loading: {
-    title: 'A carregar',
+    title: 'Carregando',
   },
   NoResults: {
-    heading: 'Não existem resultados para a sua pesquisa.',
+    heading: 'Nenhum resultado para sua busca.',
     subheading: 'Tente novamente...',
   },
   SortDropdown: {
-    title: 'Ordenar por',
-    option: 'Ordenar por: {selectedOption}',
-    relevanceLabel: 'Mais Relevantes',
+    title: 'Classificar por',
+    option: 'Classificar por: {selectedOption}',
+    relevanceLabel: 'Mais relevantes',
     positionLabel: 'Posição',
   },
   CategoryFilters: {
@@ -42,19 +42,19 @@ export const pt_PT = {
     products: '{totalCount} produtos',
   },
   ProductCard: {
-    asLowAs: 'A partir de {discountPrice}',
+    asLowAs: 'Por apenas {discountPrice}',
     startingAt: 'A partir de {productPrice}',
-    bundlePrice: 'De {fromBundlePrice} a {toBundlePrice}',
-    from: 'A partir de {productPrice}',
+    bundlePrice: 'De {fromBundlePrice} por {toBundlePrice}',
+    from: 'De {productPrice}',
   },
   ProductContainers: {
     minquery:
-      'O seu termo de pesquisa {variables.phrase} não atingiu o mínimo de {minQueryLength} carateres.',
-    noresults: 'A sua pesquisa não devolveu resultados.',
+      'Seu termo de pesquisa {variables.phrase} não atingiu o mínimo de {minQueryLength} caracteres.',
+    noresults: 'Sua busca não retornou resultados.',
     pagePicker: 'Mostrar {pageSize} por página',
     showAll: 'tudo',
   },
   SearchBar: {
-    placeholder: 'Procurar...',
+    placeholder: 'Pesquisar...',
   },
 };
