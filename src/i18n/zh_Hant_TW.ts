@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export const zh_TW = {
+export const zh_Hant_TW = {
   Filter: {
     title: '篩選器',
     showTitle: '顯示篩選器',

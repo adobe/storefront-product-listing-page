@@ -16,15 +16,48 @@ import {
 } from 'preact/compat';
 
 import {
+  ar_AE,
+  bg_BG,
+  bn_IN,
+  ca_ES,
+  cs_CZ,
+  da_DK,
   de_DE,
+  el_GR,
+  en_GA,
+  en_GB,
   en_US,
+  es_ES,
   es_MX,
+  et_EE,
+  eu_ES,
+  fa_IR,
+  fi_FI,
   fr_FR,
+  gl_ES,
+  hi_IN,
+  hu_HU,
+  hy_AM,
+  id_ID,
   it_IT,
   ja_JA,
+  ja_JP,
+  ko_KR,
+  lt_LT,
+  lv_LV,
+  nb_NO,
   nl_NL,
   no_NO,
+  pt_BR,
   pt_PT,
+  ro_RO,
+  ru_RU,
+  Sorani,
+  sv_SE,
+  th_TH,
+  tr_TR,
+  zh_Hans_CN,
+  zh_Hant_TW,
 } from '../i18n';
 import { useStore } from './store';
 
@@ -33,15 +66,48 @@ export type Languages = { [key: string]: Language };
 
 export const languages: Languages = {
   default: en_US,
-  en: en_US,
-  fr: fr_FR,
-  es: es_MX,
-  de: de_DE,
-  it: it_IT,
-  ja: ja_JA,
-  nl: nl_NL,
-  no: no_NO,
-  pt: pt_PT,
+  ar: ar_AE,
+  bg_BG,
+  bn: bn_IN,
+  ca_ES,
+  cs_CZ,
+  da_DK,
+  de_DE,
+  el_GR,
+  en_GA,
+  en_GB,
+  en_US,
+  es_ES,
+  es_MX,
+  et_EE,
+  eu_ES,
+  fa_IR,
+  fi_FI,
+  fr_FR,
+  gl_ES,
+  hi_IN,
+  hu_HU,
+  hy: hy_AM,
+  id_ID,
+  it_IT,
+  ja_JA,
+  ja: ja_JP,
+  ko_KR,
+  lt_LT,
+  lv_LV,
+  nb_NO,
+  nl_NL,
+  nn: no_NO,
+  pt_BR,
+  pt_PT,
+  ro_RO,
+  ru_RU,
+  Sorani,
+  sv_SE,
+  th_TH,
+  tr_TR,
+  zh_Hans_CN,
+  zh_Hant_TW,
 };
 export const TranslationContext = createContext(languages.default);
 
@@ -54,11 +120,18 @@ const Translation: FunctionComponent = ({ children }) => {
   const storeCtx = useStore();
 
   const getCurrLanguage = () => {
-    const languageDetected =
-      storeCtx?.config?.locale?.split('_')[0] ||
-      navigator.language.split('-')[0];
+    const languageDetected = storeCtx?.config?.locale ?? '';
+
     if (Object.keys(languages).includes(languageDetected)) {
       return languageDetected;
+    } else if (
+      Object.keys(languages).includes(languageDetected.split('_')[0])
+    ) {
+      return languageDetected.split('_')[0];
+    } else if (
+      Object.keys(languages).includes(navigator.language.replace('-', '_'))
+    ) {
+      return navigator.language.replace('-', '_');
     }
     return 'default';
   };

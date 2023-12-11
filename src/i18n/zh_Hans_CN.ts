@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export const zh_CN = {
+export const zh_Hans_CN = {
   Filter: {
     title: '筛选条件',
     showTitle: '显示筛选条件',
