@@ -27,7 +27,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
 
   if (type === 'COLOR_HEX') {
     const color = value.toLowerCase();
-    const className = `min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px]`;
+    const className = `min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
     const isWhite = color === '#ffffff' || color === '#fff';
     return (
       <div className={`ds-sdk-swatch-button_${id}`}>

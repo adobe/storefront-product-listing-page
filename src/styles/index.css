@@ -1,7 +1,7 @@
 /* Tokens */
 
 .ds-widgets {
-  /* ! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com */
+  /* ! tailwindcss v3.3.6 | MIT License | https://tailwindcss.com */
   /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -104,8 +104,10 @@ strong {
     font-weight: bolder;
   }
   /*
-1. Use the user's configured `mono` font family by default.
-2. Correct the odd `em` font sizing in all browsers.
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
 */
   code,
 kbd,
@@ -113,8 +115,12 @@ samp,
 pre {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     /* 1 */
-    font-size: 1em;
+    font-feature-settings: normal;
     /* 2 */
+    font-variation-settings: normal;
+    /* 3 */
+    font-size: 1em;
+    /* 4 */
   }
   /*
 Add the correct font size in all browsers.
@@ -1164,6 +1170,9 @@ video {
   .outline-gray-200 {
     outline-color: var(--color-gray-2);
   }
+  .outline-transparent {
+    outline-color: transparent;
+  }
   .ring-1 {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
@@ -1325,10 +1334,6 @@ video {
 
 .hover\:no-underline:hover {
   text-decoration-line: none;
-}
-
-.hover\:outline-black:hover {
-  outline-color: #000;
 }
 
 .hover\:outline-gray-600:hover {
