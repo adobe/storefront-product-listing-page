@@ -21,6 +21,8 @@ describe('WidgetSDK - UIKit/ProductItem', () => {
         currencyRate="USD"
         setRoute={undefined}
         refineProduct={() => {}}
+        setItemAdded={() => 'test'}
+        setCartUpdated={() => true}
       />
     );
 

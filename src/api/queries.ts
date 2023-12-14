@@ -114,6 +114,7 @@ const REFINE_PRODUCT_QUERY = `
             id
             sku
             name
+            inStock
             url
             urlKey
             images {
@@ -176,9 +177,26 @@ const REFINE_PRODUCT_QUERY = `
     }
 `;
 
+const GET_CUSTOMER_CART = `
+    query customerCart {
+        customerCart {
+            id
+            items {
+            id
+            product {
+                name
+                sku
+            }
+            quantity
+            }
+        }
+    }    
+`;
+
 export {
   ATTRIBUTE_METADATA_QUERY,
   PRODUCT_SEARCH_QUERY,
   QUICK_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
+  GET_CUSTOMER_CART,
 };

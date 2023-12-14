@@ -21,6 +21,7 @@ export interface AlertProps {
   type: 'error' | 'warning' | 'info' | 'success';
   description: string;
   url?: string;
+  onClick?: (e: any) => any;
 }
 
 export const Alert: FunctionComponent<AlertProps> = ({
@@ -28,6 +29,7 @@ export const Alert: FunctionComponent<AlertProps> = ({
   type,
   description,
   url,
+  onClick,
 }) => {
   return (
     <div className="mx-auto max-w-8xl">
@@ -132,7 +134,11 @@ export const Alert: FunctionComponent<AlertProps> = ({
                         className="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
                       >
                         <span className="sr-only">Dismiss</span>
-                        <X className="h-5 w-5" aria-hidden="true" />
+                        <X
+                          className="h-5 w-5"
+                          aria-hidden="true"
+                          onClick={onClick}
+                        />
                       </button>
                     </div>
                   </div>

@@ -10,15 +10,19 @@ it.
 import { createContext, FunctionComponent } from 'preact';
 import { useContext, useState } from 'preact/hooks';
 
-import { createEmptyCart } from '../api/graphql';
+import { getGraphQL } from '../api/graphql';
+import { ADD_TO_CART, CREATE_EMPTY_CART } from '../api/mutations';
+import { GET_CUSTOMER_CART } from '../api/queries';
 
 export interface CartAttributesContext {
   cart: CartProps;
   createEmptyCartID: () => Promise<{ createEmptyCart: string }>;
+  initializeCustomerCart: () => Promise<string>;
+  addToCart: (cartId: string, sku: string) => Promise<any>;
 }
 
 interface CartProps {
-  cartID: '';
+  cartId: '';
 }
 
 const CartContext = createContext({} as CartAttributesContext);
@@ -28,17 +32,44 @@ const useCart = (): CartAttributesContext => {
 };
 
 const CartProvider: FunctionComponent = ({ children }) => {
-  const [cart, setCart] = useState<CartProps>({ cartID: '' });
+  const [cart, setCart] = useState<CartProps>({ cartId: '' });
+
+  const initializeCustomerCart = async (): Promise<string> => {
+    const customerResponse = await getGraphQL(GET_CUSTOMER_CART);
+    const cartId = customerResponse?.customerCart?.id;
+    setCart({ ...cart, cartId });
+    return cartId ?? '';
+  };
 
   const createEmptyCartID = async (): Promise<{ createEmptyCart: string }> => {
-    const cartID = await createEmptyCart();
-    setCart({ ...cart, cartID });
-    return cartID;
+    const response = await getGraphQL(CREATE_EMPTY_CART);
+    const cartId = response.createEmptyCart;
+    setCart({ ...cart, cartId });
+    return response;
+  };
+
+  const addToCart = async (cartId: string, sku: string) => {
+    const cartItems = [
+      {
+        quantity: 1,
+        sku,
+      },
+    ];
+
+    const variables = {
+      cartId,
+      cartItems,
+    };
+
+    const response = await getGraphQL(ADD_TO_CART, variables);
+    return response;
   };
 
   const cartContext: CartAttributesContext = {
     cart,
     createEmptyCartID,
+    initializeCustomerCart,
+    addToCart,
   };
 
   return (

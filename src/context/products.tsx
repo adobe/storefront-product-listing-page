@@ -71,6 +71,7 @@ const ProductsContext = createContext<{
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
   categoryPath: string | undefined;
+  refreshCart?: () => void;
 }>({
   variables: {
     phrase: '',
@@ -103,6 +104,7 @@ const ProductsContext = createContext<{
   pageLoading: false,
   setPageLoading: () => {},
   categoryPath: undefined,
+  refreshCart: () => {},
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -208,6 +210,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageLoading,
     setPageLoading,
     categoryPath,
+    refreshCart: storeCtx.config.refreshCart,
   };
 
   const searchProducts = async () => {

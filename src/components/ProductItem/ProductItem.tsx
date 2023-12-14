@@ -10,6 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 
+import { useCart } from '../../context/cart';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -20,6 +21,7 @@ import {
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import { getProductImageURL } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
+import { AddToCartButton } from '../AddToCartButton';
 import { ImageCarousel } from '../ImageCarousel';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
@@ -30,6 +32,9 @@ export interface ProductProps {
   currencyRate?: string;
   setRoute?: RedirectRouteFunc | undefined;
   refineProduct: (optionIds: string[], sku: string) => any;
+  setCartUpdated: (cartUpdated: boolean) => void;
+  setItemAdded: (itemAdded: string) => void;
+  refreshCart?: () => void;
 }
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
@@ -38,12 +43,27 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   currencyRate,
   setRoute,
   refineProduct,
+  setCartUpdated,
+  setItemAdded,
+  refreshCart,
 }: ProductProps) => {
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
   const [productImages, setImages] = useState<ProductViewMedia[] | null>();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
+  const [isHovering, setIsHovering] = useState(false);
+  const { addToCart, initializeCustomerCart, createEmptyCartID, cart } =
+    useCart();
+  refreshCart && refreshCart();
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
 
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProduct(optionIds, sku);
@@ -71,6 +91,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         productView?.priceRange?.minimum?.final?.amount?.value ||
       productView?.price?.regular?.amount?.value >
         productView?.price?.final?.amount?.value;
+  const isSimple = product?.__typename === 'SimpleProduct';
   const isComplexProductView = productView?.__typename === 'ComplexProductView';
   const isBundle = product?.__typename === 'BundleProduct';
   const isGrouped = product?.__typename === 'GroupedProduct';
@@ -88,15 +109,35 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     ? setRoute({ sku: productView?.sku })
     : product?.canonical_url;
 
-  // rare cases where the productView.name is null with no images
-  const isNotValidProductItem = !productImageArray.length && !productView.name;
+  const handleAddToCart = async () => {
+    if (isSimple) {
+      let cartId = '';
+      if (!cart.cartId) {
+        const customerCartId = await initializeCustomerCart();
+        cartId = customerCartId.length
+          ? customerCartId
+          : (await createEmptyCartID()).createEmptyCart;
+      }
 
-  if (isNotValidProductItem) {
-    return <></>;
-  }
+      addToCart(cart.cartId.length ? cart.cartId : cartId, productView.sku);
+      setItemAdded(productView.name);
+
+      refreshCart && refreshCart();
+      setCartUpdated(true);
+    } else if (productUrl) {
+      window.open(productUrl, '_self');
+    }
+  };
 
   return (
-    <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">
+    <div
+      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
+      style={{
+        'border-color': '#D5D5D5',
+      }}
+      onMouseEnter={handleMouseOver}
+      onMouseLeave={handleMouseOut}
+    >
       <a
         href={productUrl as string}
         onClick={onProductClick}
@@ -105,11 +146,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
           <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
             {/*
-                  NOTE:
-                  we could use <picture> <source...
-                  or srcset in <img /> for  breakpoint based img file
-                  in future for better performance
-                 */}
+         NOTE:
+         we could use <picture> <source...
+         or srcset in <img /> for breakpoint based img file
+         in future for better performance
+         */}
             {productImageArray.length ? (
               <ImageCarousel
                 images={productImageArray}
@@ -156,6 +197,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             )
         )}
+      </div>
+      <div className="pb-4 h-[38px]">
+        {isHovering && <AddToCartButton onClick={handleAddToCart} />}
+        {/* <AddToCartButton onClick={handleAddToCart} /> */}
       </div>
     </div>
   );

@@ -4,4 +4,30 @@ const CREATE_EMPTY_CART = `
   }
 `;
 
-export { CREATE_EMPTY_CART };
+const ADD_TO_CART = `
+  mutation addProductsToCart(
+    $cartId: String!
+    $cartItems: [CartItemInput!]!
+  ) {
+      addProductsToCart(
+        cartId: $cartId
+        cartItems: $cartItems
+      ) {
+          cart {
+            items {
+              product {
+                name
+                sku
+              }
+              quantity
+            }
+          }
+          user_errors {
+            code
+            message
+          }
+      }
+  }
+`;
+
+export { CREATE_EMPTY_CART, ADD_TO_CART };

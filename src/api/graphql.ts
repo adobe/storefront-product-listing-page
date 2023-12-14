@@ -1,17 +1,16 @@
-import { CREATE_EMPTY_CART } from './mutations';
-
 const graphqlEndpoint = `${window.origin}/graphql`;
 
-const createEmptyCart = async () => {
+async function getGraphQL(query = '', variables = {}) {
   const response = await fetch(graphqlEndpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      query: CREATE_EMPTY_CART,
+      query,
+      variables,
     }),
-  });
-  const results = await response.json();
-  return results?.data;
-};
+  }).then((res) => res.json());
 
-export { createEmptyCart };
+  return response?.data;
+}
+
+export { getGraphQL };

@@ -9,9 +9,11 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { HTMLAttributes } from 'preact/compat';
+import { useState } from 'preact/hooks';
 
 import './product-list.css';
 
+import { Alert } from '../../components/Alert';
 import { useProducts } from '../../context';
 import { Product } from '../../types/interface';
 import ProductItem from '../ProductItem';
@@ -29,12 +31,24 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
 }) => {
   const productsCtx = useProducts();
   const { currencySymbol, currencyRate, setRoute, refineProduct } = productsCtx;
+  const [cartUpdated, setCartUpdated] = useState(false);
+  const [itemAdded, setItemAdded] = useState('');
 
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
     : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
   return (
     <div className={className}>
+      {cartUpdated && (
+        <div className="mt-8">
+          <Alert
+            title={`You added ${itemAdded} to your shopping cart.`}
+            type="success"
+            description=""
+            onClick={() => setCartUpdated(false)}
+          />
+        </div>
+      )}
       <div
         style={{
           gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
@@ -49,6 +63,9 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
             currencyRate={currencyRate}
             setRoute={setRoute}
             refineProduct={refineProduct}
+            setCartUpdated={setCartUpdated}
+            setItemAdded={setItemAdded}
+            refreshCart={productsCtx.refreshCart}
           />
         ))}
       </div>
