@@ -274,6 +274,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 };
 ```
 
+For more robust examples, please see our [Examples folder](https://github.com/adobe/storefront-product-listing-page/tree/main/src/examples)
+
 ## Hosting with CDN
 
 Follow the below instructions on how to host with CDN and update your Commerce store to include your new product listing page.
