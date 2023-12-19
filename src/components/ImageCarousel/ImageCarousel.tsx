@@ -10,6 +10,8 @@ it.
 import { FunctionComponent } from 'preact';
 import { SetStateAction, useState } from 'react';
 
+import { Image } from './Image';
+
 export interface ImageCarouselProps {
   images: string[];
   productName: string;
@@ -66,7 +68,15 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
               }}
             >
               {images.map((item, index) => {
-                return <img src={item} key={index} alt={productName} />;
+                return (
+                  <Image
+                    image={item}
+                    carouselIndex={carouselIndex}
+                    index={index}
+                    key={index}
+                    alt={productName}
+                  />
+                );
               })}
             </div>
           </div>

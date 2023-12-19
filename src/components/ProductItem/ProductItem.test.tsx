@@ -12,6 +12,17 @@ import { render } from '@testing-library/preact';
 import { sampleProductNotDiscounted } from './MockData';
 import ProductItem from './ProductItem';
 
+beforeEach(() => {
+  // IntersectionObserver isn't available in test environment
+  const mockIntersectionObserver = jest.fn();
+  mockIntersectionObserver.mockReturnValue({
+    observe: () => null,
+    unobserve: () => null,
+    disconnect: () => null,
+  });
+  window.IntersectionObserver = mockIntersectionObserver;
+});
+
 describe('WidgetSDK - UIKit/ProductItem', () => {
   test('renders', () => {
     const { container } = render(
