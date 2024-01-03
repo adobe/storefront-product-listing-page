@@ -26,7 +26,7 @@ export const Image = ({
 
       setImageUrl((entry?.target as HTMLElement)?.dataset.src || '');
     }
-  }, [entry, carouselIndex, index]);
+  }, [entry, carouselIndex, index, image]);
 
   return (
     <img
