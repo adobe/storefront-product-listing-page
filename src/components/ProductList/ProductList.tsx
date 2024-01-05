@@ -16,6 +16,7 @@ import './product-list.css';
 import { Alert } from '../../components/Alert';
 import { useProducts } from '../../context';
 import { Product } from '../../types/interface';
+import { classNames } from '../../utils/dom';
 import ProductItem from '../ProductItem';
 
 export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
@@ -34,11 +35,15 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
 
-  const className = showFilters
-    ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
-    : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
+  const className = showFilters ? 'max-w-full pl-3' : 'w-full mx-auto';
+
   return (
-    <div className={className}>
+    <div
+      className={classNames(
+        'ds-sdk-product-list bg-body pb-2xl sm:pb-24',
+        className
+      )}
+    >
       {cartUpdated && (
         <div className="mt-8">
           <Alert
