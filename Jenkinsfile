@@ -148,6 +148,7 @@ pipeline {
         }
 
         stage('Create CMR for Prod Deployment') {
+            agent { label "ec2-worker" }
             when {
                 allOf {
                     buildingTag()
@@ -269,17 +270,19 @@ pipeline {
         }
         // 'cleanup' runs after all other post stages (learned that 'always' runs before 'success' stage ¯\_(ツ)_/¯) (https://www.jenkins.io/doc/book/pipeline/syntax/#post))
         cleanup {
-            script {
-                if (env.CMR_ID) {
-                    echo "Closing CMR with status: ${env.CMR_COMPLETION_STATUS}..."
-                    cmr([
-                       cmr_id: "${env.CMR_ID}",
-                       api_account_name: "${env.CMR_API_ACCOUNT_NAME}",
-                       cmr_function: "close",
-                       user: "${env.BUILD_USER}",
-                       completion_status: "${env.CMR_COMPLETION_STATUS}",
-                       slack_channel: "${env.CMR_SLACK_CHANNEL}"
-                    ])
+            node('ec2-worker') {
+                script {
+                    if (env.CMR_ID) {
+                        echo "Closing CMR with status: ${env.CMR_COMPLETION_STATUS}..."
+                        cmr([
+                           cmr_id: "${env.CMR_ID}",
+                           api_account_name: "${env.CMR_API_ACCOUNT_NAME}",
+                           cmr_function: "close",
+                           user: "${env.BUILD_USER}",
+                           completion_status: "${env.CMR_COMPLETION_STATUS}",
+                           slack_channel: "${env.CMR_SLACK_CHANNEL}"
+                        ])
+                    }
                 }
             }
         }
