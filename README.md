@@ -1,6 +1,7 @@
 # storefront-product-listing-page
 
 ## Product Listing Page for Adobe Commerce Storefronts using Live Search
+
 The product listing page provides coverage for both search and browse (PLP) results and includes the faceting, sorting, and product card areas on the page. This is the recommended default storefront PLP provided by Live Search. It provides a search experience that is client side rendered and hosted with a decoupled architecture.
 
 The PLP calls the catalog service which extends the Live Search productSearch query to return product view data. This allows the PLP to render additional product attributes like swatches with a single call.
@@ -11,24 +12,25 @@ Learn more:
 - PLP https://experienceleague.adobe.com/docs/commerce-merchant-services/live-search/live-search-storefront/plp-styling.html?lang=en
 - Catalog Service https://developer.adobe.com/commerce/webapi/graphql/schema/catalog-service/
 
-
 ## Repo containing the Live Search PLP
+
 This repo is provided as a reference implementation only. While you’re expected to create your own customizations based on these assets, those customizations can’t be supported by Adobe.
 
 Best practices include:
+
 - forking this repo
 - periodically rebasing with develop
 
 ## Setup
 
 #### Requirements
+
 Node and NPM setup: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
-* Node version: **v16 or greater**
-* NPM version: **v8 or greater**
+- Node version: **v16 or greater**
+- NPM version: **v8 or greater**
 
 [NVM](https://nodejs.org/en/download/package-manager#nvm) is a nifty tool to help toggle between enironment versions
-
 
 #### Install dependencies
 
@@ -48,9 +50,14 @@ npm run storybook
 
 #### Local Development
 
+build tailwind styles and run locally
+
 ```
+npm run tailwind:build
 npm run dev
 ```
+
+note: for styles to update you must run `npm run tailwind:build`
 
 And open `localhost:8080/v1/index.html` in your favorite browser.
 
@@ -61,7 +68,9 @@ npm run test
 ```
 
 ### Build
+
 ```
+npm run tailwind:build //builds tailwind styles
 npm run build
 ```
 
@@ -80,15 +89,17 @@ import the script:
 Most of these will be passed with the extension if you have your storefront setup. The SANDBOX_KEY (api key for the sandbox env) is the only key that will need to be set within webpack.
 
 #### Store Variables needed:
+
 ```
-      ENVIRONMENT_ID 
-      WEBSITE_CODE 
-      STORE_CODE 
-      STORE_VIEW_CODE 
-      CUSTOMER_GROUP_CODE 
-      API_KEY 
+      ENVIRONMENT_ID
+      WEBSITE_CODE
+      STORE_CODE
+      STORE_VIEW_CODE
+      CUSTOMER_GROUP_CODE
+      API_KEY
       SANDBOX_KEY // input this key into webpack.dev.js & webpack.prod.js
 ```
+
 - To set up sandbox keys please see here: https://experienceleague.adobe.com/docs/commerce-merchant-services/catalog-service/installation.html?lang=en
 
 #### insert into store details config
@@ -134,7 +145,6 @@ setTimeout(async () => {
 ```
 
 You can see the example in [dev-template.html](./dev-template.html)
-
 
 ### Theming and Styling
 
@@ -213,6 +223,59 @@ Some helpful tools when developing with tailwind:
 
 - [Tailwind CSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
+### Developing with React
+
+To extend and customize this repo, you must first be familiar with react:
+
+- https://react.dev/learn
+- https://preactjs.com/guide/v10/components // we use Preact, which is just a smaller bundle version of React
+
+Example Implemention - adding a button to [ProductItem](./src/components/ProductItem/ProductItem.tsx):
+
+```
+export const ProductItem: FunctionComponent<ProductProps> = ({
+  item,
+  currencySymbol,
+  currencyRate,
+  setRoute,
+  refineProduct,
+}: ProductProps) => {
+  ...
+
+  const handleClickButton = () => {
+    console.log('clicked the button!');
+  }
+
+  return (
+    <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">
+        ...
+          <div className="flex flex-col">
+            <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+              {htmlStringDecode(productView.name)}
+            </div>
+            <ProductPrice
+              item={refinedProduct ?? item}
+              isBundle={isBundle}
+              isGrouped={isGrouped}
+              isGiftCard={isGiftCard}
+              isConfigurable={isConfigurable}
+              isComplexProductView={isComplexProductView}
+              discount={discount}
+              currencySymbol={currencySymbol}
+              currencyRate={currencyRate}
+            />
+            <button onClick={handleClickButton}>I am a button!</button> // added a button
+          </div>
+        </div>
+      </a>
+
+    </div>
+  );
+};
+```
+
+For more robust examples, please see our [Examples folder](https://github.com/adobe/storefront-product-listing-page/tree/main/src/examples)
+
 ## Hosting with CDN
 
 Follow the below instructions on how to host with CDN and update your Commerce store to include your new product listing page.
@@ -220,13 +283,15 @@ Follow the below instructions on how to host with CDN and update your Commerce s
 1. In the root of this repository, install dependencies: `npm install`
 1. Create a production build of the application: `npm run build`
 1. After the previous step succeeds, it will output a `search.js` file in the `dist/` directory. This is the production-ready product listing page.
-1. Follow the instructions from your favorite frontend hosting with CDN (we use AWS S3 + Cloudfront, but there are many options to choose from) to upload the `search.js` file. 
+1. Follow the instructions from your favorite frontend hosting with CDN (we use AWS S3 + Cloudfront, but there are many options to choose from) to upload the `search.js` file.
 1. The hosting platform with CDN will provide you a url where the `search.js` file will be publicly hosted for your consumption.
 1. Take the url where the `search.js` file is hosted and validate in your browser that it is working correctly by loading the url in your browser and seeing the `search.js` file returned to you.
-1. Now the Live Search extension needs to be updated to include your new url. Find the `magento-live-search` extension code in your adobe commerce code base. Locate the directory `LiveSearchProductListing`. 
+1. Now the Live Search extension needs to be updated to include your new url. Find the `magento-live-search` extension code in your adobe commerce code base. Locate the directory `LiveSearchProductListing`.
 1. We will be updating two files under `magento-live-search > LiveSearchProductListing`: `etc/config.xml` & `etc/csp_whitelist.xml`
 1. Changes for `etc/config.xml`: change the live search url in `<frontend_url>`to match the one you created with your hosting/CDN solution url above. See below.
 1. ![image](./config_xml.png)
 1. Changes for `etc/csp_whitelist.xml`: find all references to the live search SaaS product list page (`plp-widgets-ui.magento.ds.com`) and replace with your hosting/CDN solution url. See below.
 1. ![image](./csp_whitelist_xml.png)
 1. Those are all the required changes. Now redeploy your adobe commerce store code and see your new custom product listing page in your storefront.
+
+_The purpose of this project is to provide a dev-ready starting point for developers to implement the product listing page. The project, repo, and any accompanying assets included herein (“Assets”) are provided “as-is” for your use solely at your sole discretion, risk, and responsibility. By using these Assets, you agree Adobe will in no event be responsible for any use of the Assets, including but not limited to any customizations made thereto, by you or any third party. Adobe will not provide any support of any kind for any customizations made to the Assets by anyone._
