@@ -2,15 +2,16 @@
   "private": true,
   "name": "@adobe/storefront-product-listing-page",
   "version": "1.0.2",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "typings": "./dist/@types/index.d.ts",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "build": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.prod.js",
-    "build:dev": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.dev.js",
-    "dev": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js",
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "tailwind:build": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css",
     "storybook": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; storybook dev -p 6006",
     "lint": "eslint '*/**/*.{ts,tsx}'",
     "lint:fix": "eslint '*/**/*.{ts,tsx}' --fix",
