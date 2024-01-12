@@ -22,6 +22,7 @@ const config = {
   testPathIgnorePatterns: ['<rootDir>/src/components/Facets'],
   globals: {
     API_URL: 'https://catalog-service-qa.adobe.io/graphql',
+    WIDGET_CONFIG_URL: 'https://storefront-cfg-qa.magento-datasolutions.com',
     API_KEY: 'storefront-catalog-apollo',
   },
 };

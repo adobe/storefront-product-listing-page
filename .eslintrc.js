@@ -18,7 +18,14 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:@typescript-eslint/eslint-recommended', 'preact', 'prettier', 'plugin:storybook/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'preact',
+    'prettier',
+    'plugin:storybook/recommended',
+  ],
   plugins: ['jest', 'prettier', 'simple-import-sort', '@typescript-eslint'],
   rules: {
     'no-console': ['error'],
@@ -70,6 +77,7 @@ module.exports = {
     document: true,
     window: true,
     API_URL: true,
+    WIDGET_CONFIG_URL: true,
     API_KEY: true,
     TEST_URL: true,
     LS_API_URL: true,

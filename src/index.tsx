@@ -20,6 +20,7 @@ import {
   SearchProvider,
   StoreContextProvider,
   StoreDetailsProps,
+  WidgetConfigContextProvider,
 } from './context/';
 import Resize from './context/displayChange';
 import { SentryProvider } from './context/sentry';
@@ -56,19 +57,21 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
         <StoreContextProvider
           {...validateStoreDetailsKeys(updatedStoreDetails)}
         >
-          <AttributeMetadataProvider>
-            <SearchProvider>
-              <Resize>
-                <Translation>
-                  <ProductsContextProvider>
-                    <CartProvider>
-                      <App />
-                    </CartProvider>
-                  </ProductsContextProvider>
-                </Translation>
-              </Resize>
-            </SearchProvider>
-          </AttributeMetadataProvider>
+          <WidgetConfigContextProvider>
+            <AttributeMetadataProvider>
+              <SearchProvider>
+                <Resize>
+                  <Translation>
+                    <ProductsContextProvider>
+                      <CartProvider>
+                        <App />
+                      </CartProvider>
+                    </ProductsContextProvider>
+                  </Translation>
+                </Resize>
+              </SearchProvider>
+            </AttributeMetadataProvider>
+          </WidgetConfigContextProvider>
         </StoreContextProvider>
       </FloodgateProvider>
     </SentryProvider>,

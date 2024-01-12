@@ -13,6 +13,9 @@ module.exports = merge(commonConfig, {
   plugins: [
     new webpack.DefinePlugin({
       API_URL: JSON.stringify('https://catalog-service-qa.adobe.io/graphql'),
+      WIDGET_CONFIG_URL: JSON.stringify(
+        'https://storefront-cfg-qa.magento-datasolutions.com'
+      ),
       TEST_URL: JSON.stringify('https://catalog-service-qa.adobe.io/graphql'),
       LS_API_URL: JSON.stringify(
         'https://commerce-int.adobe.io/search/graphql'

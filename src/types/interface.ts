@@ -412,3 +412,5 @@ export interface GQLSortInput {
   direction: 'ASC' | 'DESC';
   attribute: string;
 }
+
+export { WidgetConfigOptions } from './widgetConfig.interface';
