@@ -12,7 +12,7 @@ import { FunctionComponent } from 'preact';
 export interface SwatchButtonProps {
   id: string;
   value: string;
-  type: string;
+  type: 'COLOR_HEX' | 'IMAGE' | 'TEXT';
   checked: boolean;
   onClick: (e: any) => any;
 }
@@ -23,7 +23,11 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   checked,
   onClick,
 }: SwatchButtonProps) => {
-  const outlineColor = checked ? 'border-black' : 'border-transparent';
+  const outlineColor = checked
+    ? 'border-black'
+    : type === 'COLOR_HEX'
+    ? 'border-transparent'
+    : 'border-gray';
 
   if (type === 'COLOR_HEX') {
     const color = value.toLowerCase();
@@ -45,21 +49,24 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
     );
   }
 
-  if (type === 'image_url' && value) {
-    const className = `${value} min-w-[32px] bg-gray-100 ring-black ring-opacity-5 rounded-full p-sm outline ${outlineColor} h-[32px]`;
+  if (type === 'IMAGE' && value) {
+    const className = `object-cover object-center min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
+    const style = `background: url(${value}) no-repeat center; background-size: initial`;
     return (
       <div className={`ds-sdk-swatch-button_${value}`}>
         <button
           key={id}
           className={className}
-          style={{ backgroundImage: `url(${value})` }}
+          style={style}
           onClick={onClick}
           checked={checked}
         />
       </div>
     );
   }
-  const className = `flex items-center bg-white ring-black ring-opacity-5 rounded-full p-sm h-[32px] border-transparent`;
+
+  // assume TEXT type
+  const className = `flex items-center bg-white rounded-full p-sm border border-[1.5px]h-[32px] ${outlineColor} outline-transparent`;
   return (
     <div className={`ds-sdk-swatch-button_${value}`}>
       <button

@@ -23,8 +23,9 @@ import { SwatchButton } from '../SwatchButton'
     <Story
         name="Text - Unchecked"
         args={{
+            id: "text_unchecked",
             value: "32",
-            type: "text",
+            type: "TEXT",
             checked: false,
             onClick: () => {},
         }}
@@ -34,8 +35,9 @@ import { SwatchButton } from '../SwatchButton'
     <Story
         name="Text - Checked"
         args={{
+            id: "text_checked",
             value: "32",
-            type: "text",
+            type: "TEXT",
             checked: true,
             onClick: () => {},
         }}
@@ -45,8 +47,9 @@ import { SwatchButton } from '../SwatchButton'
     <Story
         name="Color - Unchecked"
         args={{
-            value: "blue",
-            type: "color",
+            id: "color_unchecked",
+            value: "#1857f7",
+            type: "COLOR_HEX",
             checked: false,
             onClick: () => {},
         }}
@@ -56,8 +59,33 @@ import { SwatchButton } from '../SwatchButton'
     <Story
         name="Color - Checked"
         args={{
-            value: "blue",
-            type: "color",
+            id: "color_checked",
+            value: "#1857f7",
+            type: "COLOR_HEX",
+            checked: true,
+            onClick: () => {},
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Image - Unchecked"
+        args={{
+            id: "image_checked",
+            value: "https://as2.ftcdn.net/v2/jpg/02/97/02/47/1000_F_297024799_2KcvlqDHOrKJyTqqA3IW9m7nQ11GU1fM.jpg",
+            type: "IMAGE",
+            checked: false,
+            onClick: () => {},
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Image - Checked"
+        args={{
+            id: "image_checked",
+            value: "https://as2.ftcdn.net/v2/jpg/02/97/02/47/1000_F_297024799_2KcvlqDHOrKJyTqqA3IW9m7nQ11GU1fM.jpg",
+            type: "IMAGE",
             checked: true,
             onClick: () => {},
         }}
