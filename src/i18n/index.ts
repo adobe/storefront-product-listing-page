@@ -19,7 +19,6 @@ import { en_GA } from './en_GA';
 import { en_GB } from './en_GB';
 import { en_US } from './en_US';
 import { es_ES } from './es_ES';
-import { es_MX } from './es_MX';
 import { et_EE } from './et_EE';
 import { eu_ES } from './eu_ES';
 import { fa_IR } from './fa_IR';
@@ -31,14 +30,12 @@ import { hu_HU } from './hu_HU';
 import { hy_AM } from './hy_AM';
 import { id_ID } from './id_ID';
 import { it_IT } from './it_IT';
-import { ja_JA } from './ja_JA';
 import { ja_JP } from './ja_JP';
 import { ko_KR } from './ko_KR';
 import { lt_LT } from './lt_LT';
 import { lv_LV } from './lv_LV';
 import { nb_NO } from './nb_NO';
 import { nl_NL } from './nl_NL';
-import { no_NO } from './no_NO';
 import { pt_BR } from './pt_BR';
 import { pt_PT } from './pt_PT';
 import { ro_RO } from './ro_RO';
@@ -62,7 +59,6 @@ export {
   en_GB,
   en_US,
   es_ES,
-  es_MX,
   et_EE,
   eu_ES,
   fa_IR,
@@ -74,14 +70,12 @@ export {
   hy_AM,
   id_ID,
   it_IT,
-  ja_JA,
   ja_JP,
   ko_KR,
   lt_LT,
   lv_LV,
   nb_NO,
   nl_NL,
-  no_NO,
   pt_BR,
   pt_PT,
   ro_RO,
