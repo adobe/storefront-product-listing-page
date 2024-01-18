@@ -41,6 +41,7 @@ export interface StoreDetailsConfig {
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayMode?: string;
   locale?: string;
+  resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
 }
 

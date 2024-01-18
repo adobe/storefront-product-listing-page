@@ -34,7 +34,7 @@ export interface ProductProps {
   refineProduct: (optionIds: string[], sku: string) => any;
   setCartUpdated: (cartUpdated: boolean) => void;
   setItemAdded: (itemAdded: string) => void;
-  refreshCart?: () => void;
+  setError: (error: boolean) => void;
 }
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
@@ -45,7 +45,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   refineProduct,
   setCartUpdated,
   setItemAdded,
-  refreshCart,
+  setError,
 }: ProductProps) => {
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -55,9 +55,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
-  const { addToCart, initializeCustomerCart, createEmptyCartID, cart } =
-    useCart();
-  refreshCart && refreshCart();
+  const { addToCart, refreshCart } = useCart();
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -115,16 +113,15 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     : product?.canonical_url;
 
   const handleAddToCart = async () => {
+    setError(false);
     if (isSimple) {
-      let cartId = '';
-      if (!cart.cartId) {
-        const customerCartId = await initializeCustomerCart();
-        cartId = customerCartId.length
-          ? customerCartId
-          : (await createEmptyCartID()).createEmptyCart;
+      const response = await addToCart(productView.sku);
+
+      if (response?.errors) {
+        setError(true);
+        return;
       }
 
-      addToCart(cart.cartId.length ? cart.cartId : cartId, product.sku);
       setItemAdded(product.name);
 
       refreshCart && refreshCart();

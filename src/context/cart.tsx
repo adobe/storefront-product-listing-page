@@ -11,18 +11,19 @@ import { createContext, FunctionComponent } from 'preact';
 import { useContext, useState } from 'preact/hooks';
 
 import { getGraphQL } from '../api/graphql';
-import { ADD_TO_CART, CREATE_EMPTY_CART } from '../api/mutations';
+import { ADD_TO_CART } from '../api/mutations';
 import { GET_CUSTOMER_CART } from '../api/queries';
+import { useProducts } from './products';
 
 export interface CartAttributesContext {
   cart: CartProps;
-  createEmptyCartID: () => Promise<{ createEmptyCart: string }>;
   initializeCustomerCart: () => Promise<string>;
-  addToCart: (cartId: string, sku: string) => Promise<any>;
+  addToCart: (sku: string) => Promise<any>;
+  refreshCart?: () => void;
 }
 
 interface CartProps {
-  cartId: '';
+  cartId: string;
 }
 
 const CartContext = createContext({} as CartAttributesContext);
@@ -33,22 +34,25 @@ const useCart = (): CartAttributesContext => {
 
 const CartProvider: FunctionComponent = ({ children }) => {
   const [cart, setCart] = useState<CartProps>({ cartId: '' });
+  const { refreshCart, resolveCartId } = useProducts();
 
   const initializeCustomerCart = async (): Promise<string> => {
-    const customerResponse = await getGraphQL(GET_CUSTOMER_CART);
-    const cartId = customerResponse?.customerCart?.id;
+    let cartId = '';
+    if (!resolveCartId) {
+      const customerResponse = await getGraphQL(GET_CUSTOMER_CART);
+      cartId = customerResponse?.data.customerCart?.id ?? '';
+    } else {
+      cartId = (await resolveCartId()) ?? '';
+    }
     setCart({ ...cart, cartId });
-    return cartId ?? '';
+    return cartId;
   };
 
-  const createEmptyCartID = async (): Promise<{ createEmptyCart: string }> => {
-    const response = await getGraphQL(CREATE_EMPTY_CART);
-    const cartId = response.createEmptyCart;
-    setCart({ ...cart, cartId });
-    return response;
-  };
-
-  const addToCart = async (cartId: string, sku: string) => {
+  const addToCart = async (sku: string) => {
+    let cartId = cart.cartId;
+    if (!cartId) {
+      cartId = await initializeCustomerCart();
+    }
     const cartItems = [
       {
         quantity: 1,
@@ -62,14 +66,15 @@ const CartProvider: FunctionComponent = ({ children }) => {
     };
 
     const response = await getGraphQL(ADD_TO_CART, variables);
+
     return response;
   };
 
   const cartContext: CartAttributesContext = {
     cart,
-    createEmptyCartID,
     initializeCustomerCart,
     addToCart,
+    refreshCart,
   };
 
   return (

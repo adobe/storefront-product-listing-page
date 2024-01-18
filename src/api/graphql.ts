@@ -10,7 +10,7 @@ async function getGraphQL(query = '', variables = {}) {
     }),
   }).then((res) => res.json());
 
-  return response?.data;
+  return response;
 }
 
 export { getGraphQL };

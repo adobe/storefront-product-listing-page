@@ -34,6 +34,7 @@ describe('WidgetSDK - UIKit/ProductItem', () => {
         refineProduct={() => {}}
         setItemAdded={() => 'test'}
         setCartUpdated={() => true}
+        setError={() => ''}
       />
     );
 

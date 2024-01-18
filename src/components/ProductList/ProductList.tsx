@@ -9,7 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { HTMLAttributes } from 'preact/compat';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 import './product-list.css';
 
@@ -31,11 +31,17 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   showFilters,
 }) => {
   const productsCtx = useProducts();
-  const { currencySymbol, currencyRate, setRoute, refineProduct } = productsCtx;
+  const { currencySymbol, currencyRate, setRoute, refineProduct, refreshCart } =
+    productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
+  const [error, setError] = useState<boolean>(false);
 
   const className = showFilters ? 'max-w-full pl-3' : 'w-full mx-auto';
+
+  useEffect(() => {
+    refreshCart && refreshCart();
+  }, [itemAdded]);
 
   return (
     <div
@@ -54,6 +60,16 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           />
         </div>
       )}
+      {error && (
+        <div className="mt-8">
+          <Alert
+            title={`Something went wrong trying to add an item to your cart.`}
+            type="error"
+            description=""
+            onClick={() => setError(false)}
+          />
+        </div>
+      )}
       <div
         style={{
           gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
@@ -63,6 +79,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
         {products?.map((product) => (
           <ProductItem
             item={product}
+            setError={setError}
             key={product?.productView?.id}
             currencySymbol={currencySymbol}
             currencyRate={currencyRate}
@@ -70,7 +87,6 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
             refineProduct={refineProduct}
             setCartUpdated={setCartUpdated}
             setItemAdded={setItemAdded}
-            refreshCart={productsCtx.refreshCart}
           />
         ))}
       </div>

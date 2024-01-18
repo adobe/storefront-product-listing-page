@@ -71,6 +71,7 @@ const ProductsContext = createContext<{
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
   categoryPath: string | undefined;
+  resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
 }>({
   variables: {
@@ -104,6 +105,7 @@ const ProductsContext = createContext<{
   pageLoading: false,
   setPageLoading: () => {},
   categoryPath: undefined,
+  resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
 });
 
@@ -210,7 +212,9 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageLoading,
     setPageLoading,
     categoryPath,
+    cartId: storeCtx.config.resolveCartId,
     refreshCart: storeCtx.config.refreshCart,
+    resolveCartId: storeCtx.config.resolveCartId,
   };
 
   const searchProducts = async () => {
