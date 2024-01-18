@@ -5,7 +5,7 @@ pipeline {
     agent {
         docker {
             label "worker"
-            image "cypress/browsers-all-aws:16.14.2"
+            image "cypress/browsers-all-aws:18.16.0"
             args  "-v /etc/passwd:/etc/passwd"
             registryUrl "http://docker-data-solution-jenkins-node-aws-dev.dr-uw2.adobeitc.com"
             registryCredentialsId "artifactory-datasoln"

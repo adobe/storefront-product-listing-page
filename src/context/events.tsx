@@ -111,15 +111,15 @@ const createProducts = (
   }
 
   const products: SearchResultProduct[] = items.map((item, index) => ({
-    name: item?.productView?.name,
-    sku: item?.productView?.sku,
-    url: item?.productView?.url ?? '',
+    name: item?.product?.name,
+    sku: item?.product?.sku,
+    url: item?.product?.canonical_url ?? '',
     imageUrl: item?.productView?.images?.length
       ? item?.productView?.images[0].url ?? ''
       : '',
     price:
       item?.productView?.price?.final?.amount?.value ??
-      item?.productView?.priceRange?.minimum?.final?.amount?.value,
+      item?.product?.price_range?.minimum_price?.final_price?.value,
     rank: index,
   }));
 

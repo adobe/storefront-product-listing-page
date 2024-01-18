@@ -22,7 +22,8 @@ module.exports = defineConfig({
       require('@cypress/code-coverage/task')(on, config);
       return config;
     },
-    baseUrl: 'http://localhost:8080/v1/',
+    baseUrl:
+      'https://master-7rqtwti-xdjc2fq3tbsx2.us-4.magentosite.cloud/sale.html',
     supportFile: 'plp-ui-tests/src/support/index.js',
     specPattern: 'plp-ui-tests/src/tests/**/*.spec.js',
   },

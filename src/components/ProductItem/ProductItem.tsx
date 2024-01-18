@@ -19,7 +19,7 @@ import {
   RefinedProduct,
 } from '../../types/interface';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
-import { getProductImageURL } from '../../utils/getProductImage';
+import { getProductImageURLs } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { AddToCartButton } from '../AddToCartButton';
 import { ImageCarousel } from '../ImageCarousel';
@@ -50,7 +50,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
-  const [productImages, setImages] = useState<ProductViewMedia[] | null>();
+  const [imagesFromRefinedProduct, setImagesFromRefinedProduct] = useState<
+    ProductViewMedia[] | null
+  >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
   const { addToCart, initializeCustomerCart, createEmptyCartID, cart } =
@@ -68,7 +70,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProduct(optionIds, sku);
     setSelectedSwatch(optionIds[0]);
-    setImages(data.refineProduct.images);
+    setImagesFromRefinedProduct(data.refineProduct.images);
     setRefinedProduct(data);
     setCarouselIndex(0);
   };
@@ -78,17 +80,20 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     return selected;
   };
 
-  const productImageArray = getProductImageURL(
-    productImages ? productImages ?? [] : productView.images ?? []
-  ); // get image for PLP
+  const productImageArray = imagesFromRefinedProduct
+    ? getProductImageURLs(imagesFromRefinedProduct ?? [])
+    : getProductImageURLs(
+        productView.images ?? [],
+        product.image?.url ?? undefined
+      );
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = refinedProduct
     ? refinedProduct.refineProduct?.priceRange?.minimum?.regular?.amount
         ?.value >
       refinedProduct.refineProduct?.priceRange?.minimum?.final?.amount?.value
-    : productView?.priceRange?.minimum?.regular?.amount?.value >
-        productView?.priceRange?.minimum?.final?.amount?.value ||
+    : product?.price_range?.minimum_price?.regular_price?.value >
+        product?.price_range?.minimum_price?.regular_price?.value ||
       productView?.price?.regular?.amount?.value >
         productView?.price?.final?.amount?.value;
   const isSimple = product?.__typename === 'SimpleProduct';
@@ -101,7 +106,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const onProductClick = () => {
     window.magentoStorefrontEvents?.publish.searchProductClick(
       SEARCH_UNIT_ID,
-      productView?.sku
+      product?.sku
     );
   };
 
@@ -119,8 +124,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           : (await createEmptyCartID()).createEmptyCart;
       }
 
-      addToCart(cart.cartId.length ? cart.cartId : cartId, productView.sku);
-      setItemAdded(productView.name);
+      addToCart(cart.cartId.length ? cart.cartId : cartId, product.sku);
+      setItemAdded(product.name);
 
       refreshCart && refreshCart();
       setCartUpdated(true);
@@ -154,7 +159,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             {productImageArray.length ? (
               <ImageCarousel
                 images={productImageArray}
-                productName={productView.name}
+                productName={product.name}
                 carouselIndex={carouselIndex}
                 setCarouselIndex={setCarouselIndex}
               />
@@ -166,7 +171,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
           <div className="flex flex-col">
             <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
-              {productView.name !== null && htmlStringDecode(productView.name)}
+              {product.name !== null && htmlStringDecode(product.name)}
             </div>
             <ProductPrice
               item={refinedProduct ?? item}
@@ -187,13 +192,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           (swatches) =>
             swatches.id == 'color' && (
               <SwatchButtonGroup
-                key={productView?.sku}
+                key={product?.sku}
                 isSelected={isSelected}
                 swatches={swatches.values ?? []}
                 showMore={onProductClick}
                 productUrl={productUrl as string}
                 onClick={handleSelection}
-                sku={productView?.sku}
+                sku={product?.sku}
               />
             )
         )}

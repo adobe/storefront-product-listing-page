@@ -9,66 +9,36 @@ it.
 
 import { ProductViewMedia } from '../types/interface';
 
-type ImageTypes = {
-  thumbnail?: string[] | null;
-  small_image?: string[] | null;
-  image?: string[] | null;
-  main?: string[] | null;
-  other?: string[] | null;
-};
-
-const getProductImageURL = (images: ProductViewMedia[]): string[] => {
-  const imageTypes: ImageTypes = {
-    thumbnail: [],
-    small_image: [],
-    image: [],
-    main: [],
-    other: [],
-  };
+const getProductImageURLs = (
+  images: ProductViewMedia[],
+  topImageUrl?: string
+): string[] => {
+  const imageUrlArray: Array<string> = [];
   const url = new URL(window.location.href);
   const protocol = url.protocol;
 
-  if (images?.length) {
-    for (const image of images) {
-      if (image.roles?.includes('thumbnail')) {
-        imageTypes.thumbnail?.push(
-          image.url?.replace(/^https?:\/\//, '') ?? ''
-        );
-      } else if (image.roles?.includes('small_image')) {
-        imageTypes.small_image?.push(
-          image.url?.replace(/^https?:\/\//, '') ?? ''
-        );
-      } else if (image.roles?.includes('image')) {
-        imageTypes.image?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
-      } else if (image.url?.includes('main')) {
-        imageTypes.main?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
-      } else {
-        imageTypes.other?.push(image.url?.replace(/^https?:\/\//, '') ?? '');
-      }
+  // const topImageUrl = "http://master-7rqtwti-wdxwuaerh4gbm.eu-4.magentosite.cloud/media/catalog/product/3/1/31t0a-sopll._ac_.jpg";
+  for (const image of images) {
+    const imageUrl = image.url?.replace(/^https?:\/\//, '');
+    if (imageUrl) {
+      imageUrlArray.push(`${protocol}//${imageUrl}`);
     }
   }
 
-  const imageTypesArray =
-    imageTypes.thumbnail?.concat(
-      imageTypes.small_image ?? [],
-      imageTypes.image ?? [],
-      imageTypes.main ?? [],
-      imageTypes.other ?? []
-    ) ?? [];
-
-  const imageUrlArray: Array<string> = [];
-
-  if (imageTypesArray.length) {
-    for (const imageUrl of imageTypesArray) {
-      imageUrl
-        ? imageUrlArray.push(`${protocol}//${imageUrl}`)
-        : imageUrlArray.push('');
+  if (topImageUrl) {
+    const topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
+      /^https?:\/\//,
+      ''
+    )}`;
+    const index = topImageUrlFormatted.indexOf(topImageUrlFormatted);
+    if (index > -1) {
+      imageUrlArray.splice(index, 1);
     }
+
+    imageUrlArray.unshift(topImageUrlFormatted);
   }
 
-  return imageUrlArray
-    .filter((url, index) => imageUrlArray.indexOf(url) === index)
-    .slice(0, 3);
+  return imageUrlArray;
 };
 
-export { getProductImageURL };
+export { getProductImageURLs };
