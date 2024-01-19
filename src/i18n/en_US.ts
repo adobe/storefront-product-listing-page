@@ -36,6 +36,13 @@ export const en_US = {
     option: 'Sort by: {selectedOption}',
     relevanceLabel: 'Most Relevant',
     positionLabel: 'Position',
+    sortAttributeASC: '{label}: Low to High',
+    sortAttributeDESC: '{label}: High to Low',
+    sortASC: 'Price: Low to High',
+    sortDESC: 'Price: High to Low',
+    productName: 'Product Name',
+    productInStock: 'In Stock',
+    productLowStock: 'Low Stock',
   },
   CategoryFilters: {
     results: 'results for {phrase}',
