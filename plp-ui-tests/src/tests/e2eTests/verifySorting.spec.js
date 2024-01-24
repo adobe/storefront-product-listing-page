@@ -1,7 +1,7 @@
 describe('Verify Sort Exists', () => {
   it('Verify Sort Exists', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-sort-dropdown').should('be.visible');
   });
 });
@@ -9,7 +9,7 @@ describe('Verify Sort Exists', () => {
 describe('Verify Price Sort', () => {
   it('Verify Price Sort', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('tank{enter}', { delay: 0 });
+    cy.get('#search').type('tank{enter}', { delay: 0 });
     cy.get('.ds-sdk-sort-dropdown').click();
     cy.get('.ds-sdk-sort-dropdown__items--item')
       .contains('Price: Low to High')
@@ -53,7 +53,7 @@ describe('Verify Price Sort', () => {
 describe('Verify Name Sort', () => {
   it('Verify Name Sort', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-sort-dropdown').click();
     cy.get('.ds-sdk-sort-dropdown__items--item').contains('Name').click();
     cy.get('.ds-sdk-sort-dropdown')

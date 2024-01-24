@@ -1,7 +1,7 @@
 describe('Verify No Filters', () => {
   it('Verify No Filters', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('blue pants{enter}', { delay: 0 });
+    cy.get('#search').type('blue pants{enter}', { delay: 0 });
     cy.get('.ds-widgets_actions_header')
       .contains('products')
       .then(($elem) => {
@@ -18,7 +18,7 @@ describe('Verify No Filters', () => {
 describe('Verify Show More Functionality', () => {
   it('Verify Show More Functionality', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-product-list').should('be.visible');
     cy.get('label[for="collections/eco-friendly-categories"]').should(
       'not.exist'
@@ -34,7 +34,7 @@ describe('Verify Show More Functionality', () => {
 describe('Verify One Category Filter', () => {
   it('Verify One Category Filter', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('blue pants{enter}', { delay: 0 });
+    cy.get('#search').type('blue pants{enter}', { delay: 0 });
     cy.get('label[for="men/bottoms-men-categories"]').click();
     cy.get('label[for="men/bottoms-men-categories"]')
       .find('span')
@@ -50,7 +50,7 @@ describe('Verify One Category Filter', () => {
 describe('Verify Removing Filters Via Clear All', () => {
   it('Verify Removing Filters Via Clear All', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('blue pants{enter}', { delay: 0 });
+    cy.get('#search').type('blue pants{enter}', { delay: 0 });
     cy.get('label[for="men/bottoms-men-categories"]').click();
     cy.get('label[for="men/bottoms-men-categories"]')
       .find('span')
@@ -77,7 +77,7 @@ describe('Verify Removing Filters Via Clear All', () => {
 describe('Verify Removing Filters Via Pill', () => {
   it('Verify Removing Filters Via Pill', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('blue pants{enter}', { delay: 0 });
+    cy.get('#search').type('blue pants{enter}', { delay: 0 });
     cy.get('label[for="men/bottoms-men-categories"]').click();
     cy.get('label[for="men/bottoms-men-categories"]')
       .find('span')
@@ -104,7 +104,7 @@ describe('Verify Removing Filters Via Pill', () => {
 describe('Verify Unselecting Filters', () => {
   it('Verify Unselecting Filters', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('blue pants{enter}', { delay: 0 });
+    cy.get('#search').type('blue pants{enter}', { delay: 0 });
     cy.get('label[for="men/bottoms-men-categories"]').click();
     cy.get('label[for="men/bottoms-men-categories"]')
       .find('span')
@@ -131,7 +131,7 @@ describe('Verify Unselecting Filters', () => {
 describe('Verify Multiple(Non-Overlapping) Category Filters', () => {
   it('Verify Multiple(Non-Overlapping) Category Filters', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-per-page-picker').click();
     cy.get('.ds-sdk-per-page-picker__items--item').contains('all').click();
     cy.get('label[for="men/bottoms-men-categories"]').click();
@@ -161,7 +161,7 @@ describe('Verify Multiple(Non-Overlapping) Category Filters', () => {
 describe('Verify One Price Filter', () => {
   it('Verify One Price Filter', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('shorts{enter}', { delay: 0 });
+    cy.get('#search').type('shorts{enter}', { delay: 0 });
     cy.get('#price-range')
       .should('be.visible')
       .should('be.enabled')
@@ -194,7 +194,7 @@ describe('Verify One Price Filter', () => {
 describe('Verify One Price and One Category Filter', () => {
   it('Verify One Price and One Category Filter', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('shorts{enter}', { delay: 0 });
+    cy.get('#search').type('shorts{enter}', { delay: 0 });
     cy.get('label[for="men/bottoms-men-categories"]').click();
     cy.get('label[for="men/bottoms-men-categories"]')
       .find('span')

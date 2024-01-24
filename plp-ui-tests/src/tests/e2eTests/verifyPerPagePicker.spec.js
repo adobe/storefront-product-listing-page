@@ -1,7 +1,7 @@
 describe('Verify Exists', () => {
   it('Verify Per Page Picker is Visible', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-product-list').should('be.visible');
     cy.get('.ds-sdk-per-page-picker').should('be.visible');
   });
@@ -10,7 +10,7 @@ describe('Verify Exists', () => {
 describe('Verify Default', () => {
   it('Verify 24 Results Show', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-product-list').should('be.visible');
     cy.get('.ds-sdk-per-page-picker')
       .find('button')
@@ -27,7 +27,7 @@ describe('Verify Default', () => {
 describe('Verify 12 Results', () => {
   it('Verify 12 Results Show', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-product-list').should('be.visible');
     cy.get('.ds-sdk-per-page-picker').click();
     cy.get('.ds-sdk-per-page-picker__items--item').contains('12').click();
@@ -46,7 +46,7 @@ describe('Verify 12 Results', () => {
 describe('Verify 36 Results', () => {
   it('Verify 36 Results Show', () => {
     cy.visitHomePage();
-    cy.get('.input-text').type('pants{enter}', { delay: 0 });
+    cy.get('#search').type('pants{enter}', { delay: 0 });
     cy.get('.ds-sdk-product-list').should('be.visible');
     cy.get('.ds-sdk-per-page-picker').click();
     cy.get('.ds-sdk-per-page-picker__items--item').contains('36').click();

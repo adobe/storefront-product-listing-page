@@ -91,7 +91,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         ?.value >
       refinedProduct.refineProduct?.priceRange?.minimum?.final?.amount?.value
     : product?.price_range?.minimum_price?.regular_price?.value >
-        product?.price_range?.minimum_price?.regular_price?.value ||
+        product?.price_range?.minimum_price?.final_price?.value ||
       productView?.price?.regular?.amount?.value >
         productView?.price?.final?.amount?.value;
   const isSimple = product?.__typename === 'SimpleProduct';
@@ -117,13 +117,15 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     if (isSimple) {
       const response = await addToCart(productView.sku);
 
-      if (response?.errors) {
+      if (
+        response?.errors ||
+        response?.data?.addProductsToCart?.user_errors.length > 0
+      ) {
         setError(true);
         return;
       }
 
       setItemAdded(product.name);
-
       refreshCart && refreshCart();
       setCartUpdated(true);
     } else if (productUrl) {

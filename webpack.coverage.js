@@ -57,7 +57,9 @@ const plugins = [
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, 'src', 'index.tsx'),
+  entry: {
+    search: './src',
+  },
   output: {
     crossOriginLoading: 'anonymous', // add 'anonymous' to script tag for CORS
     path: path.resolve(__dirname, 'dist'),
