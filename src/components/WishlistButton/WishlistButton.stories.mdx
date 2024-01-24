@@ -1,0 +1,39 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { WishlistButton } from '../WishlistButton';
+
+<Meta
+  title="PLP/WishlistButton"
+  component={WishlistButton}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <WishlistButton {...args} />;
+
+# WishlistButton
+
+```
+import { WishlistButton } from '../WishlistButton'
+```
+
+<Canvas>
+  <Story
+    name="Wishlist Default Button"
+    args={{
+      type: 'default',
+      isPressed: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Wishlist Product Tile Button"
+    args={{
+      type: 'OnProductTile',
+      isPressed: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

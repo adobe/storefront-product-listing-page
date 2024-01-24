@@ -48,11 +48,12 @@ type AttributeSlot = {
 };
 
 type AddToWishlist = {
+  enabled: boolean;
   placement: AddToWishlistPlacement;
 };
 
-type AddToWishlistPlacement =
-  | 'inLineWithName' // in-line with name
+export type AddToWishlistPlacement =
+  | 'inLineWithName' // default
   | 'onCard';
 
 type Layout = {

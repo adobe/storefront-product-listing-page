@@ -15,7 +15,7 @@ import { useStore } from './store';
 
 interface WidgetConfigProps extends WidgetConfigOptions {}
 
-const defaultWidgetConfigProps = {
+const defaultWidgetConfigState = {
   badge: {
     enabled: false,
     label: '',
@@ -34,6 +34,7 @@ const defaultWidgetConfigProps = {
     backgroundColor: '',
   },
   addToWishlist: {
+    enabled: true,
     placement: 'inLineWithName' as const,
   },
   layout: {
@@ -46,18 +47,19 @@ const defaultWidgetConfigProps = {
   swatches: {
     enabled: false,
     swatchAttributes: [],
-    swatchesOnPage: 1,
+    swatchesOnPage: 10,
   },
   multipleImages: {
     enabled: true,
-    limit: 1,
+    limit: 10,
   },
   compare: {
     enabled: true,
   },
 };
+
 const WidgetConfigContext = createContext<WidgetConfigProps>(
-  defaultWidgetConfigProps
+  defaultWidgetConfigState
 );
 
 const WidgetConfigContextProvider = ({ children }: { children?: any }) => {
@@ -65,7 +67,7 @@ const WidgetConfigContextProvider = ({ children }: { children?: any }) => {
   const { environmentId, storeCode } = storeCtx;
 
   const [widgetConfig, setWidgetConfig] = useState<WidgetConfigProps>(
-    defaultWidgetConfigProps
+    defaultWidgetConfigState
   );
   // widgetConfigFetched is to prevent configs flashing with default setting
   // incase of there's slowness of widget config API
@@ -82,7 +84,7 @@ const WidgetConfigContextProvider = ({ children }: { children?: any }) => {
         .then((results) => {
           const newWidgetConfig = {
             // new merchant config could have some missing node config, so it needs to merge with default config for missing nodes
-            ...defaultWidgetConfigProps,
+            ...defaultWidgetConfigState,
             ...results,
           };
           setWidgetConfig(newWidgetConfig);
@@ -104,6 +106,10 @@ const WidgetConfigContextProvider = ({ children }: { children?: any }) => {
     const response = await fetch(widgetConfigUrl, {
       method: 'GET',
     });
+
+    if (response.status !== 200) {
+      return defaultWidgetConfigState;
+    }
     const results = await response?.json();
     return results;
   };

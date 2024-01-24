@@ -107,7 +107,7 @@ const REFINE_PRODUCT_QUERY = `
         $sku: String!
     ) {
         refineProduct(
-            optionIds: $optionIds 
+            optionIds: $optionIds
             sku: $sku
         ) {
             __typename
@@ -190,7 +190,29 @@ const GET_CUSTOMER_CART = `
             quantity
             }
         }
-    }    
+    }
+`;
+
+const GET_CUSTOMER_WISHLISTS = `
+    query customer {
+      customer {
+        wishlists {
+          id
+          name
+          items_count
+          items_v2 {
+            items {
+            id
+              product {
+              uid
+              name
+              sku
+              }
+            }
+          }
+        }
+      }
+    }
 `;
 
 export {
@@ -199,4 +221,5 @@ export {
   QUICK_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
   GET_CUSTOMER_CART,
+  GET_CUSTOMER_WISHLISTS,
 };

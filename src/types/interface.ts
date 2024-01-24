@@ -414,4 +414,33 @@ export interface GQLSortInput {
   attribute: string;
 }
 
+export interface WishlistItem {
+  id: string;
+  product: {
+    uid: string;
+    name: string;
+    sku: string;
+  };
+}
+
+export interface Wishlist {
+  id: string;
+  name: string;
+  items_count: number;
+  items_v2: {
+    items: WishlistItem[];
+  };
+}
+
+export interface WishlistResponse {
+  wishlists: Array<Wishlist>;
+}
+
+export interface WishlistAddItemInput {
+  quantity: number;
+  sku: string;
+  parent_sku?: string;
+  selected_options?: string[];
+}
+
 export { WidgetConfigOptions } from './widgetConfig.interface';

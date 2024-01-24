@@ -10,7 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 
-import { useCart } from '../../context/cart';
+import { useCart, useWidgetConfig } from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -19,11 +19,13 @@ import {
   RefinedProduct,
 } from '../../types/interface';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
+import { useFloodgateFlags } from '../../utils/Floodgate';
 import { getProductImageURLs } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { AddToCartButton } from '../AddToCartButton';
 import { ImageCarousel } from '../ImageCarousel';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
+import WishlistButton from '../WishlistButton';
 import ProductPrice from './ProductPrice';
 
 export interface ProductProps {
@@ -47,6 +49,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   setItemAdded,
   setError,
 }: ProductProps) => {
+  const flags = useFloodgateFlags();
+  const { addToCart, refreshCart } = useCart();
+  const widgetConfig = useWidgetConfig();
+
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
@@ -55,7 +61,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
-  const { addToCart, refreshCart } = useCart();
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -168,44 +173,60 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             )}
           </div>
-          <div className="flex flex-col">
-            <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
-              {product.name !== null && htmlStringDecode(product.name)}
+          <div className="flex flex-row">
+            <div className="flex flex-col">
+              <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+                {productView.name !== null &&
+                  htmlStringDecode(productView.name)}
+              </div>
+              <ProductPrice
+                item={refinedProduct ?? item}
+                isBundle={isBundle}
+                isGrouped={isGrouped}
+                isGiftCard={isGiftCard}
+                isConfigurable={isConfigurable}
+                isComplexProductView={isComplexProductView}
+                discount={discount}
+                currencySymbol={currencySymbol}
+                currencyRate={currencyRate}
+              />
             </div>
-            <ProductPrice
-              item={refinedProduct ?? item}
-              isBundle={isBundle}
-              isGrouped={isGrouped}
-              isGiftCard={isGiftCard}
-              isConfigurable={isConfigurable}
-              isComplexProductView={isComplexProductView}
-              discount={discount}
-              currencySymbol={currencySymbol}
-              currencyRate={currencyRate}
-            />
+            {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
+              // TODO: Remove flag during phase 3 MSRCH-4278
+              <div className="ds-sdk-wishlist ml-auto mt-md">
+                <WishlistButton
+                  productSku={item.product.sku}
+                  type={widgetConfig.addToWishlist.placement}
+                />
+              </div>
+            )}
           </div>
         </div>
       </a>
-      <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
-        {productView?.options?.map(
-          (swatches) =>
-            swatches.id == 'color' && (
-              <SwatchButtonGroup
-                key={product?.sku}
-                isSelected={isSelected}
-                swatches={swatches.values ?? []}
-                showMore={onProductClick}
-                productUrl={productUrl as string}
-                onClick={handleSelection}
-                sku={product?.sku}
-              />
-            )
-        )}
-      </div>
-      <div className="pb-4 h-[38px]">
-        {isHovering && <AddToCartButton onClick={handleAddToCart} />}
-        {/* <AddToCartButton onClick={handleAddToCart} /> */}
-      </div>
+
+      {productView?.options && productView.options?.length > 0 && (
+        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+          {productView?.options?.map(
+            (swatches) =>
+              swatches.id == 'color' && (
+                <SwatchButtonGroup
+                  key={product?.sku}
+                  isSelected={isSelected}
+                  swatches={swatches.values ?? []}
+                  showMore={onProductClick}
+                  productUrl={productUrl as string}
+                  onClick={handleSelection}
+                  sku={product?.sku}
+                />
+              )
+          )}
+        </div>
+      )}
+      {widgetConfig.addToCart.enabled && (
+        <div className="pb-4 h-[38px]">
+          {isHovering && <AddToCartButton onClick={handleAddToCart} />}
+        </div>
+      )}
     </div>
   );
 };

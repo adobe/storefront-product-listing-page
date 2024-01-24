@@ -18,6 +18,7 @@ import {
   SearchProvider,
   StoreContextProvider,
   StoreDetailsProps,
+  WishlistProvider,
 } from '../context';
 import Resize from '../context/displayChange';
 import { SentryProvider } from '../context/sentry';
@@ -61,7 +62,9 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
                 <Translation>
                   <ProductsContextProvider>
                     <CartProvider>
-                      <App />
+                      <WishlistProvider>
+                        <App />
+                      </WishlistProvider>
                     </CartProvider>
                   </ProductsContextProvider>
                 </Translation>
