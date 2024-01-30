@@ -43,6 +43,44 @@ const getProductImageURL = (images: ProductViewMedia[]): string => {
     '';
 
   return imageUrl ? `${protocol}//${imageUrl}` : '';
-};
+}
 
-export { getProductImageURL };
+export interface ResolveImageUrlOptions {
+  width: number;
+  height?: number;
+  auto?: string;
+  quality?: number;
+  crop?: boolean;
+  fit?: string;
+}
+
+const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions) : string => {
+  const [base, query] = url.split('?');
+  const params = new URLSearchParams(query);
+
+  Object.entries(opts).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      params.set(key, String(value));
+    }
+  });
+
+  return `${base}?${params.toString()}`;
+}
+
+const generateOptimizedImages = (imageUrl: string, baseImageWidth: number): [string, string[]] => {
+  const baseOptions = {
+    fit: 'cover',
+    crop: false,
+    dpi: 1,
+  };
+
+  const src = resolveImageUrl(imageUrl, { ...baseOptions, width: baseImageWidth });
+  const dpiSet = [1, 2, 3];
+  const srcset = dpiSet.map((dpi) => {
+    return `${resolveImageUrl(imageUrl, { ...baseOptions, auto: 'webp', quality: 80, width: baseImageWidth * dpi })} ${dpi}x`;
+  });
+
+  return [src, srcset];
+}
+
+export { getProductImageURL, generateOptimizedImages };

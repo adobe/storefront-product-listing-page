@@ -41,6 +41,8 @@ export interface StoreDetailsConfig {
   displayOutOfStock?: string;
   displayMode?: string;
   locale?: string;
+  optimizeImages?: boolean; // Using Fastly Image Optimizer
+  imageBaseWidth?: number;
 }
 
 // Types

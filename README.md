@@ -122,6 +122,8 @@ const storeDetails = {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
+        optimizeImages: true,
+        imageBaseWidth: 200,
       },
       context: {
         customerGroup: 'CUSTOMER_GROUP_CODE',

@@ -10,6 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 
+import { useStore } from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -18,7 +19,7 @@ import {
   RefinedProduct,
 } from '../../types/interface';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
-import { getProductImageURL } from '../../utils/getProductImage';
+import { generateOptimizedImages, getProductImageURL } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
@@ -42,6 +43,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const [selectedSwatch, setSelectedSwatch] = useState('');
   const [productImages, setImages] = useState<ProductViewMedia[] | null>();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
+  const { config: { optimizeImages, imageBaseWidth } } = useStore();
 
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProduct(optionIds, sku);
@@ -55,9 +57,14 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     return selected;
   };
 
-  const productImage = getProductImageURL(
+  let productImageSrc = getProductImageURL(
     productImages ? productImages ?? [] : productView.images ?? []
   ); // get image for PLP
+  let productImageSrcset : string[] = [];
+
+  if (optimizeImages) {
+    [productImageSrc, productImageSrcset] = generateOptimizedImages(productImageSrc, imageBaseWidth ?? 200);
+  };
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = refinedProduct
@@ -94,16 +101,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
           <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
-            {/*
-                  NOTE:
-                  we could use <picture> <source...
-                  or srcset in <img /> for  breakpoint based img file
-                  in future for better performance
-                 */}
-            {productImage ? (
+            {productImageSrc ? (
               <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none">
                 <img
-                  src={productImage}
+                  src={productImageSrc}
+                  srcSet={productImageSrcset.join(', ')}
                   alt={productView.name}
                   loading="eager"
                   className="max-h-[45rem] h-full w-full object-cover object-center lg:h-full lg:w-full"
