@@ -9,6 +9,7 @@ it.
 
 import { FunctionalComponent, FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
+import { ProductCardShimmer } from 'src/components/ProductCardShimmer';
 import { useProducts, useSensor, useTranslation } from 'src/context';
 import { PageSizeOption } from 'src/types/interface';
 import {
@@ -43,6 +44,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     minQueryLength,
     minQueryLengthReached,
     pageSizeOptions,
+    loading,
   } = productsCtx;
 
   useEffect(() => {
@@ -50,6 +52,8 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       goToPage(1);
     }
   }, []);
+
+  const productCardArray = Array.from({ length: 8 });
 
   const goToPage = (page: number | string) => {
     if (typeof page === 'number') {
@@ -108,13 +112,28 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       </div>
     );
   }
+
   return (
     <>
-      <ProductList
-        products={items}
-        numberOfColumns={screenSize.columns}
-        showFilters={showFilters}
-      />
+      {loading ? (
+        <div
+          style={{
+            gridTemplateColumns: `repeat(${screenSize.columns}, minmax(0, 1fr))`,
+          }}
+          className="ds-sdk-product-list__grid mt-md grid grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
+        >
+          {' '}
+          {productCardArray.map((_, index) => (
+            <ProductCardShimmer key={index} />
+          ))}
+        </div>
+      ) : (
+        <ProductList
+          products={items}
+          numberOfColumns={screenSize.columns}
+          showFilters={showFilters}
+        />
+      )}
       <div
         className={`flex flex-row justify-between max-w-full ${
           showFilters ? 'mx-auto' : 'mr-auto'

@@ -11,6 +11,7 @@ import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
+import Shimmer from 'src/components/Shimmer';
 
 import { CategoryFilters } from '../components/CategoryFilters';
 import { SelectedFilters } from '../components/Facets';
@@ -73,11 +74,8 @@ export const App: FunctionComponent = () => {
                   screenSize={screenSize}
                 />
                 <SelectedFilters />
-                {productsCtx.loading ? (
-                  <Loading label={loadingLabel} />
-                ) : (
-                  <ProductsContainer showFilters={showFilters} />
-                )}
+
+                <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
           </div>
@@ -117,7 +115,11 @@ export const App: FunctionComponent = () => {
                     )}
                 </div>
                 {productsCtx.loading ? (
-                  <Loading label={loadingLabel} />
+                  screenSize.mobile ? (
+                    <Loading label={loadingLabel} />
+                  ) : (
+                    <Shimmer />
+                  )
                 ) : (
                   <>
                     <div className="flex w-full h-full">

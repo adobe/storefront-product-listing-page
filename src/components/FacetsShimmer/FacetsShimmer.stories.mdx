@@ -1,0 +1,22 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { FacetsShimmer } from '../FacetsShimmer';
+
+<Meta
+  title="PLP/FacetsShimmer"
+  component={FacetsShimmer}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <FacetsShimmer {...args} />;
+
+# FacetsShimmer
+
+```
+import { FacetsShimmer } from '../FacetsShimmer'
+```
+
+<Canvas>
+  <Story name="FacetsShimmer">{Template.bind({})}</Story>
+</Canvas>

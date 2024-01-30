@@ -15,6 +15,6 @@ app.get('*', (req, res) => {
 
 
 // Serve the files on port.
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!\n`);
 });
