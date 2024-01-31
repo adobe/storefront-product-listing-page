@@ -18,6 +18,7 @@ import {
   WishlistAddItemInput,
   WishlistResponse,
 } from '../types/interface';
+import { useStore } from './store';
 
 export interface WishlistAttributesContext {
   isAuthorized: boolean;
@@ -40,13 +41,15 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [allWishlist, setAllWishlist] = useState<Wishlist[] | []>([]);
   const [wishlist, setWishlist] = useState<Wishlist>();
+  const { storeViewCode } = useStore();
 
   useEffect(() => {
     getWishlists();
   }, []);
 
   const getWishlists = async () => {
-    const { data } = (await getGraphQL(GET_CUSTOMER_WISHLISTS, {})) || {};
+    const { data } =
+      (await getGraphQL(GET_CUSTOMER_WISHLISTS, {}, storeViewCode)) || {};
     const wishlistResponse: WishlistResponse = data?.customer;
     const isAuthorized = !!wishlistResponse;
 
@@ -103,4 +106,4 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
   );
 };
 
-export { WishlistProvider, useWishlist };
+export { useWishlist, WishlistProvider };

@@ -14,6 +14,7 @@ import { getGraphQL } from '../api/graphql';
 import { ADD_TO_CART } from '../api/mutations';
 import { GET_CUSTOMER_CART } from '../api/queries';
 import { useProducts } from './products';
+import { useStore } from './store';
 
 export interface CartAttributesContext {
   cart: CartProps;
@@ -35,6 +36,7 @@ const useCart = (): CartAttributesContext => {
 const CartProvider: FunctionComponent = ({ children }) => {
   const [cart, setCart] = useState<CartProps>({ cartId: '' });
   const { refreshCart, resolveCartId } = useProducts();
+  const { storeViewCode } = useStore();
 
   const initializeCustomerCart = async (): Promise<string> => {
     let cartId = '';
@@ -65,7 +67,7 @@ const CartProvider: FunctionComponent = ({ children }) => {
       cartItems,
     };
 
-    const response = await getGraphQL(ADD_TO_CART, variables);
+    const response = await getGraphQL(ADD_TO_CART, variables, storeViewCode);
 
     return response;
   };
