@@ -64,4 +64,7 @@ export const en_US = {
   SearchBar: {
     placeholder: 'Search...',
   },
+  ListView: {
+    viewDetails: 'View details',
+  },
 };

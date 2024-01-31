@@ -124,6 +124,12 @@ const Product = `
         product {
             __typename
             sku
+            description {
+                html
+            }
+            short_description{
+                html
+            }
             name
             canonical_url
             small_image {

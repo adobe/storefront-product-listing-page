@@ -8,9 +8,17 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import { useContext, useState } from 'preact/hooks';
 
-import { useCart, useWidgetConfig } from '../../context';
+import '../ProductItem/ProductItem.css';
+
+import {
+  useCart,
+  useProducts,
+  useSensor,
+  useWidgetConfig,
+} from '../../context';
+import { TranslationContext } from '../../context/translation';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -50,8 +58,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   setError,
 }: ProductProps) => {
   const flags = useFloodgateFlags();
-  const { addToCart, refreshCart } = useCart();
   const widgetConfig = useWidgetConfig();
+  const translation = useContext(TranslationContext);
 
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -61,6 +69,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
+  const { addToCart, refreshCart } = useCart();
+  const { viewType, listViewType } = useProducts();
+
+  const { screenSize } = useSensor();
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -138,6 +150,149 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     }
   };
 
+  const VIEW_DETAILS_TEXT = translation.ListView.viewDetails;
+  const truncateHTML = (content: string, maxLength: number) => {
+    let truncatedText = content.substring(0, maxLength);
+
+    const lastTagIndex = truncatedText.lastIndexOf('>') + 1;
+
+    truncatedText = truncatedText.substring(0, lastTagIndex);
+
+    const lines = truncatedText.split('\n').length;
+    truncatedText =
+      lines > 5
+        ? truncatedText.slice(0, truncatedText.lastIndexOf('\n'))
+        : truncatedText;
+
+    truncatedText += `<span style="color: #000000;">...<span style="color: #57a0f6">${VIEW_DETAILS_TEXT}</span></span>`;
+
+    return truncatedText;
+  };
+
+  const truncatedContent = truncateHTML(
+    product.description?.html as string,
+    300
+  );
+
+  if (viewType === 'listview' && listViewType === 'default') {
+    return (
+      <>
+        <div className="grid-container">
+          <div
+            className={`product-image ds-sdk-product-item__image relative rounded-md overflow-hidden ${
+              productImageArray.length ? '' : 'hidden'
+            }`}
+          >
+            <a
+              href={productUrl as string}
+              onClick={onProductClick}
+              className="!text-primary hover:no-underline hover:text-primary"
+            >
+              {/* Image */}
+              {productImageArray.length ? (
+                <ImageCarousel
+                  images={productImageArray}
+                  productName={product.name}
+                  carouselIndex={carouselIndex}
+                  setCarouselIndex={setCarouselIndex}
+                />
+              ) : (
+                <NoImage
+                  className={`w-full object-cover object-center lg:w-full`}
+                />
+              )}
+            </a>
+          </div>
+          <div className="product-details">
+            <div className="flex flex-col w-1/3">
+              {/* Product name */}
+              <a
+                href={productUrl as string}
+                onClick={onProductClick}
+                className="!text-primary hover:no-underline hover:text-primary"
+              >
+                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-primary">
+                  {product.name !== null && htmlStringDecode(product.name)}
+                </div>
+                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-primary">
+                  SKU:
+                  {product.sku !== null && htmlStringDecode(product.sku)}
+                </div>
+              </a>
+
+              {/* Swatch */}
+              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+                {productView?.options?.map(
+                  (swatches) =>
+                    swatches.id === 'color' && (
+                      <SwatchButtonGroup
+                        key={productView?.sku}
+                        isSelected={isSelected}
+                        swatches={swatches.values ?? []}
+                        showMore={onProductClick}
+                        productUrl={productUrl as string}
+                        onClick={handleSelection}
+                        sku={productView?.sku}
+                      />
+                    )
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="product-price">
+            <a
+              href={productUrl as string}
+              onClick={onProductClick}
+              className="!text-primary hover:no-underline hover:text-primary"
+            >
+              <ProductPrice
+                item={refinedProduct ?? item}
+                isBundle={isBundle}
+                isGrouped={isGrouped}
+                isGiftCard={isGiftCard}
+                isConfigurable={isConfigurable}
+                isComplexProductView={isComplexProductView}
+                discount={discount}
+                currencySymbol={currencySymbol}
+                currencyRate={currencyRate}
+              />
+            </a>
+          </div>
+          <div className="product-description text-sm text-primary mt-xs">
+            <a
+              href={productUrl as string}
+              onClick={onProductClick}
+              className="!text-primary hover:no-underline hover:text-primary"
+            >
+              {product.description?.html ? (
+                <>
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        product.description.html.length > 250
+                          ? truncatedContent
+                          : product.description.html,
+                    }}
+                  />
+                </>
+              ) : (
+                <span />
+              )}
+            </a>
+          </div>
+
+          {/* TO BE ADDED LATER */}
+          <div className="product-ratings" />
+          <div className="product-add-to-cart">
+            <div className="pb-4 h-[38px] w-96">
+              <AddToCartButton onClick={handleAddToCart} />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div
       className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
@@ -176,8 +331,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           <div className="flex flex-row">
             <div className="flex flex-col">
               <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
-                {productView.name !== null &&
-                  htmlStringDecode(productView.name)}
+                {product.name !== null && htmlStringDecode(product.name)}
               </div>
               <ProductPrice
                 item={refinedProduct ?? item}
@@ -224,6 +378,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       )}
       {widgetConfig.addToCart.enabled && (
         <div className="pb-4 h-[38px]">
+          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
           {isHovering && <AddToCartButton onClick={handleAddToCart} />}
         </div>
       )}

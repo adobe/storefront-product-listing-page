@@ -71,6 +71,10 @@ const ProductsContext = createContext<{
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
   categoryPath: string | undefined;
+  viewType: string;
+  setViewType: (viewType: string) => void;
+  listViewType: string;
+  setListViewType: (viewType: string) => void;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
 }>({
@@ -105,6 +109,10 @@ const ProductsContext = createContext<{
   pageLoading: false,
   setPageLoading: () => {},
   categoryPath: undefined,
+  viewType: '',
+  setViewType: () => {},
+  listViewType: '',
+  setListViewType: () => {},
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
 });
@@ -153,6 +161,12 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     return storeCtx?.config?.minQueryLength || DEFAULT_MIN_QUERY_LENGTH;
   }, [storeCtx?.config.minQueryLength]);
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
+
+  const viewTypeFromUrl = getValueFromUrl('view_type');
+  const [viewType, setViewType] = useState<string>(
+    viewTypeFromUrl ? viewTypeFromUrl : 'gridView'
+  );
+  const [listViewType, setListViewType] = useState<string>('default');
 
   const variables = useMemo(() => {
     return {
@@ -212,6 +226,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageLoading,
     setPageLoading,
     categoryPath,
+    viewType,
+    setViewType,
+    listViewType,
+    setListViewType,
     cartId: storeCtx.config.resolveCartId,
     refreshCart: storeCtx.config.refreshCart,
     resolveCartId: storeCtx.config.resolveCartId,

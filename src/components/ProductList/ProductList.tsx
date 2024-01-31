@@ -35,9 +35,12 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
     productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
+  const { viewType, listViewType } = useProducts();
   const [error, setError] = useState<boolean>(false);
 
-  const className = showFilters ? 'max-w-full pl-3' : 'w-full mx-auto';
+  const className = showFilters
+    ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
+    : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
 
   useEffect(() => {
     refreshCart && refreshCart();
@@ -70,26 +73,45 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           />
         </div>
       )}
-      <div
-        style={{
-          gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
-        }}
-        className="ds-sdk-product-list__grid mt-md grid grid-cols-1 gap-y-8 gap-x-2xl sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8"
-      >
-        {products?.map((product) => (
-          <ProductItem
-            item={product}
-            setError={setError}
-            key={product?.productView?.id}
-            currencySymbol={currencySymbol}
-            currencyRate={currencyRate}
-            setRoute={setRoute}
-            refineProduct={refineProduct}
-            setCartUpdated={setCartUpdated}
-            setItemAdded={setItemAdded}
-          />
-        ))}
-      </div>
+
+      {viewType === 'listview' && listViewType === 'default' ? (
+        <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
+          {products?.map((product) => (
+            <ProductItem
+              item={product}
+              setError={setError}
+              key={product?.productView?.id}
+              currencySymbol={currencySymbol}
+              currencyRate={currencyRate}
+              setRoute={setRoute}
+              refineProduct={refineProduct}
+              setCartUpdated={setCartUpdated}
+              setItemAdded={setItemAdded}
+            />
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
+          }}
+          className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-2xl xl:gap-x-8"
+        >
+          {products?.map((product) => (
+            <ProductItem
+              item={product}
+              setError={setError}
+              key={product?.productView?.id}
+              currencySymbol={currencySymbol}
+              currencyRate={currencyRate}
+              setRoute={setRoute}
+              refineProduct={refineProduct}
+              setCartUpdated={setCartUpdated}
+              setItemAdded={setItemAdded}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

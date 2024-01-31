@@ -9,6 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
+import ViewSwitcher from 'src/components/ViewSwitcher';
 
 import Facets from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
@@ -78,9 +79,14 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     searchCtx.setSort(generateGQLSortInput(sortOption));
     handleUrlSort(sortOption);
   };
+
   return (
-    <div className="flex flex-col max-w-5xl lg:max-w-7xl ml-auto w-full h-full">
-      <div className="flex justify-between mb-[1px]">
+    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
+      <div
+        className={`flex gap-x-2.5 mb-[1px] ${
+          screenSize.mobile ? 'justify-between' : 'justify-end'
+        }`}
+      >
         <div>
           {screenSize.mobile
             ? totalCount > 0 && (
@@ -103,6 +109,9 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                   placeholder={translation.SearchBar.placeholder}
                 />
               )}
+        </div>
+        <div>
+          <ViewSwitcher />
         </div>
         {totalCount > 0 && (
           <SortDropdown

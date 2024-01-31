@@ -75,6 +75,13 @@ const handleUrlSort = (sortOption: string) => {
   window.history.pushState({}, '', `${url.pathname}?${params}`);
 };
 
+const handleViewType = (viewType: string) => {
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.searchParams);
+  params.set('view_type', viewType);
+  window.history.pushState({}, '', `${url.pathname}?${params}`);
+};
+
 const handleUrlPageSize = (pageSizeOption: number) => {
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.searchParams);
@@ -154,6 +161,7 @@ export {
   handleUrlPageSize,
   handleUrlPagination,
   handleUrlSort,
+  handleViewType,
   removeAllUrlFilters,
   removeUrlFilter,
 };
