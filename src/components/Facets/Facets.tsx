@@ -10,7 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 
 import { Facet as FacetType, PriceFacet } from '../../types/interface';
-import Slider from '../Slider';
+import SliderDoubleControl from '../SliderDoubleControl';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 
 interface FacetsProps {
@@ -29,7 +29,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
             case 'ScalarBucket':
               return <ScalarFacet key={facet.attribute} filterData={facet} />;
             case 'RangeBucket':
-              return <Slider filterData={facet as PriceFacet} />;
+              return <SliderDoubleControl filterData={facet as PriceFacet} />;
             case 'CategoryView':
               return <ScalarFacet key={facet.attribute} filterData={facet} />;
             default:

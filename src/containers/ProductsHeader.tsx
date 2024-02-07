@@ -17,6 +17,7 @@ import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
 import {
   useAttributeMetadata,
+  useProducts,
   useSearch,
   useStore,
   useTranslation,
@@ -47,10 +48,12 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   const searchCtx = useSearch();
   const storeCtx = useStore();
   const attributeMetadata = useAttributeMetadata();
-
+  const productsCtx = useProducts();
   const translation = useTranslation();
 
-  const [showMobileFacet, setShowMobileFacet] = useState(false);
+  const [showMobileFacet, setShowMobileFacet] = useState(
+    !!productsCtx.variables.filter?.length
+  );
   const [sortOptions, setSortOptions] = useState(defaultSortOptions());
 
   const getSortOptions = useCallback(() => {
@@ -121,7 +124,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
           />
         )}
       </div>
-      {showMobileFacet && <Facets searchFacets={facets} />}
+      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
     </div>
   );
 };
