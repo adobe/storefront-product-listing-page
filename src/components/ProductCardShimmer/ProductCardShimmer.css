@@ -2,6 +2,7 @@
   margin: 0.625rem auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 0.5rem 1.5rem;
   padding: 1.25rem;
+  width: 22rem;
 }
 
 @keyframes placeholderShimmer {
@@ -47,12 +48,12 @@
 .ds-sdk-product-item__title {
   height: 2.5rem;
   flex: 0 0 auto;
-  width: 6vw;
+  width: 5vw;
 }
 
 .ds-sdk-product-item__list {
   height: 2rem;
-  width: 8vw;
+  width: 6vw;
   margin-bottom: 0.3125rem;
 }
 
@@ -62,7 +63,7 @@
 
 .ds-sdk-product-item__info {
   height: 2rem;
-  width: 10vw;
+  width: 7vw;
   margin-bottom: 0.3125rem;
 }
 

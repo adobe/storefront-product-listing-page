@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useContext, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
@@ -18,7 +18,6 @@ import {
   useSensor,
   useWidgetConfig,
 } from '../../context';
-import { TranslationContext } from '../../context/translation';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -59,7 +58,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 }: ProductProps) => {
   const flags = useFloodgateFlags();
   const widgetConfig = useWidgetConfig();
-  const translation = useContext(TranslationContext);
 
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -150,38 +148,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     }
   };
 
-  const VIEW_DETAILS_TEXT = translation.ListView.viewDetails;
-  const truncateHTML = (content: string, maxLength: number) => {
-    let truncatedText = content.substring(0, maxLength);
-
-    const lastTagIndex = truncatedText.lastIndexOf('>') + 1;
-
-    truncatedText = truncatedText.substring(0, lastTagIndex);
-
-    const lines = truncatedText.split('\n').length;
-    truncatedText =
-      lines > 5
-        ? truncatedText.slice(0, truncatedText.lastIndexOf('\n'))
-        : truncatedText;
-
-    truncatedText += `<span style="color: #000000;">...<span style="color: #57a0f6">${VIEW_DETAILS_TEXT}</span></span>`;
-
-    return truncatedText;
-  };
-
-  const truncatedContent = truncateHTML(
-    product.description?.html as string,
-    300
-  );
-
   if (viewType === 'listview' && listViewType === 'default') {
     return (
       <>
         <div className="grid-container">
           <div
-            className={`product-image ds-sdk-product-item__image relative rounded-md overflow-hidden ${
-              productImageArray.length ? '' : 'hidden'
-            }`}
+            className={`product-image ds-sdk-product-item__image relative rounded-md overflow-hidden}`}
           >
             <a
               href={productUrl as string}
@@ -198,7 +170,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 />
               ) : (
                 <NoImage
-                  className={`w-full object-cover object-center lg:w-full`}
+                  className={`max-h-[250px] max-w-[200px] pr-5 m-auto object-cover object-center lg:w-full`}
                 />
               )}
             </a>
@@ -264,14 +236,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               onClick={onProductClick}
               className="!text-primary hover:no-underline hover:text-primary"
             >
-              {product.description?.html ? (
+              {product.short_description?.html ? (
                 <>
                   <span
                     dangerouslySetInnerHTML={{
-                      __html:
-                        product.description.html.length > 250
-                          ? truncatedContent
-                          : product.description.html,
+                      __html: product.short_description.html,
                     }}
                   />
                 </>

@@ -75,20 +75,22 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
       )}
 
       {viewType === 'listview' && listViewType === 'default' ? (
-        <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
-          {products?.map((product) => (
-            <ProductItem
-              item={product}
-              setError={setError}
-              key={product?.productView?.id}
-              currencySymbol={currencySymbol}
-              currencyRate={currencyRate}
-              setRoute={setRoute}
-              refineProduct={refineProduct}
-              setCartUpdated={setCartUpdated}
-              setItemAdded={setItemAdded}
-            />
-          ))}
+        <div className="w-full">
+          <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
+            {products?.map((product) => (
+              <ProductItem
+                item={product}
+                setError={setError}
+                key={product?.productView?.id}
+                currencySymbol={currencySymbol}
+                currencyRate={currencyRate}
+                setRoute={setRoute}
+                refineProduct={refineProduct}
+                setCartUpdated={setCartUpdated}
+                setItemAdded={setItemAdded}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <div
