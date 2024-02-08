@@ -59,7 +59,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
   useEffect(() => {
     if (
       searchCtx?.filters?.length === 0 ||
-      !searchCtx?.filters?.find((obj) => obj.attribute === 'price')
+      !searchCtx?.filters?.find((obj) => obj.attribute === filterData.attribute)
     ) {
       setMinVal(min);
       setMaxVal(max);
