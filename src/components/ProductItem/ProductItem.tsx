@@ -350,7 +350,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       </a>
 
       {productView?.options && productView.options?.length > 0 && (
-        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
           {productView?.options?.map(
             (swatches) =>
               swatches.id == 'color' && (
@@ -367,10 +367,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-      <div className="pb-4 h-[38px]">
-        {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-        {isHovering && <AddToCartButton onClick={handleAddToCart} />}
-      </div>
+        <div className="pb-4 mt-sm">
+          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+          {isHovering && screenSize.desktop && (
+            <AddToCartButton onClick={handleAddToCart} />
+          )}
+        </div>
     </div>
   );
 };
