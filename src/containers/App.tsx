@@ -66,7 +66,7 @@ export const App: FunctionComponent = () => {
               <div
                 className={`ds-widgets_results flex flex-col items-center ${
                   productsCtx.categoryName ? 'pt-16' : 'pt-28'
-                } w-full h-full`}
+                } flex-[75]`}
               >
                 <ProductsHeader
                   facets={productsCtx.facets}
@@ -96,7 +96,7 @@ export const App: FunctionComponent = () => {
                   </div>
                 </div>
               </div>
-              <div className="ds-widgets_results flex flex-col items-center w-full h-full">
+              <div className="ds-widgets_results flex flex-col items-center flex-[75]">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
                     !productsCtx.loading &&

@@ -46,15 +46,17 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
 
   return (
-    <div class="sm:flex ds-widgets-_actions relative max-w-[21rem] w-full h-full px-2 flex-col overflow-y-auto">
+    <div class="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col overflow-y-auto top-[6.4rem] right-0 bottom-[48px] left-0 box-content">
       <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
-        {title && <span> {title}</span>}
-        {!loading && <span className="text-primary text-sm">{results}</span>}
+        {title && <span className="font-display-3"> {title}</span>}
+        {!loading && (
+          <span className="text-primary font-button-2">{results}</span>
+        )}
       </div>
 
       {!pageLoading && facets.length > 0 && (
         <>
-          <div className="flex pb-4 w-full h-full">
+          <div className="flex pb-4">
             <FilterButton
               displayFilter={() => setShowFilters(false)}
               type="desktop"

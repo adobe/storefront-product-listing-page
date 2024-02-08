@@ -116,7 +116,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-base font-normal text-gray-900">
+        <label className="ds-sdk-input__label text-neutral-900 font-headline-1">
           {title}
         </label>
       )}
@@ -143,21 +143,23 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           })}
           {!showMore && buckets.length > numberOfOptionsShown && (
             <div
-              className="ds-sdk-input__fieldset__show-more flex items-center text-gray-700 cursor-pointer"
+              className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
               onClick={() => setShowMore(true)}
             >
-              <PlusIcon className="h-md w-md fill-gray-500" />
+              <PlusIcon className="h-md w-md fill-neutral-800" />
               <button
                 type="button"
-                className="ml-sm font-light cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm"
+                className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
               >
-                {translation.InputButtonGroup.showmore}
+                <span className="font-button-2">
+                  {translation.InputButtonGroup.showmore}
+                </span>
               </button>
             </div>
           )}
         </div>
       </fieldset>
-      <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
+      <div className="ds-sdk-input__border border-t mt-md border-neutral-500" />
     </div>
   );
 };

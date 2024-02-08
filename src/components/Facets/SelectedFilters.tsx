@@ -63,7 +63,9 @@ export const SelectedFilters: FunctionComponent = ({}) => {
               focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm px-4"
               onClick={() => searchCtx.clearFilters()}
             >
-              {translation.Filter.clearAll}
+              <span className="font-button-2">
+                {translation.Filter.clearAll}
+              </span>
             </button>
           </div>
         </div>

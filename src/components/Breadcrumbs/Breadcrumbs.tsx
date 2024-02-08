@@ -30,14 +30,14 @@ export const Breadcrumbs: FunctionComponent<BreadcrumbsProps> = ({
           <li key={page.name} className="ds-sdk-breadcrumbs__item">
             <div className="flex items-center">
               {index > 0 && (
-                <Chevron className="h-sm w-sm transform -rotate-90 stroke-gray-400" />
+                <Chevron className="h-sm w-sm transform -rotate-90 stroke-neutral-600" />
               )}
 
               <a
                 href={page.href}
-                className={`ml-2 text-sm font-normal hover:text-gray-900 first:ml-0 ${
+                className={`ml-2 text-sm font-normal hover:text-neutral-900 first:ml-0 ${
                   page.current
-                    ? 'ds-sdk-breadcrumbs__item--current text-gray-500 font-light'
+                    ? 'ds-sdk-breadcrumbs__item--current text-brand-300 font-light'
                     : 'text-black'
                 }`}
                 aria-current={page.current ? 'page' : undefined}

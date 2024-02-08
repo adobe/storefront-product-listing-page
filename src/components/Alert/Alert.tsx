@@ -37,7 +37,7 @@ export const Alert: FunctionComponent<AlertProps> = ({
         switch (type) {
           case 'error':
             return (
-              <div className="rounded-md bg-red-50 p-4">
+              <div className="rounded-2 bg-red-50 p-4">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 p-1">
                     <Error
@@ -60,7 +60,7 @@ export const Alert: FunctionComponent<AlertProps> = ({
             );
           case 'warning':
             return (
-              <div className="rounded-md bg-yellow-50 p-4">
+              <div className="rounded-2 bg-yellow-50 p-4">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 p-1">
                     <Warning
@@ -83,7 +83,7 @@ export const Alert: FunctionComponent<AlertProps> = ({
             );
           case 'info':
             return (
-              <div className="rounded-md bg-blue-50 p-4">
+              <div className="rounded-2 bg-blue-50 p-4">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 p-1">
                     <Info
@@ -117,7 +117,7 @@ export const Alert: FunctionComponent<AlertProps> = ({
             );
           case 'success':
             return (
-              <div className="rounded-md bg-green-50 p-4">
+              <div className="rounded-2 bg-green-50 p-4">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 p-1">
                     <Checkmark
@@ -139,7 +139,7 @@ export const Alert: FunctionComponent<AlertProps> = ({
                     <div className="md:ml-6">
                       <button
                         type="button"
-                        className="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 ring-off hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+                        className="inline-flex rounded-2 bg-green-50 p-1.5 text-green-500 ring-off hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
                       >
                         <span className="sr-only">Dismiss</span>
                         <X
