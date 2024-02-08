@@ -298,7 +298,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         className="!text-primary hover:no-underline hover:text-primary"
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+          <div className="ds-sdk-product-item__image relative w-full h-full rounded-2 overflow-hidden">
             {productImageArray.length ? (
               <ImageCarousel
                 images={
@@ -318,7 +318,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
           <div className="flex flex-row">
             <div className="flex flex-col">
-              <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+              <div className="ds-sdk-product-item__product-name font-headline-2-strong">
                 {product.name !== null && htmlStringDecode(product.name)}
               </div>
               <ProductPrice
