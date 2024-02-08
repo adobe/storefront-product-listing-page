@@ -12,9 +12,10 @@ it.
 import { FacetFilter, SearchClauseInput } from '../types/interface';
 import { DEFAULT_PAGE_SIZE } from '../utils/constants';
 
+// if you add custom search query params, add them to this object
 const nonFilterKeys = {
   search: 'q',
-  search_query: 'search_query', // AEM/CIF search query
+  search_query: 'search_query',
   pagination: 'p',
   sort: 'product_list_order',
   page_size: 'page_size',

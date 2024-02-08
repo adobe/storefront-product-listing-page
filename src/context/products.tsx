@@ -77,6 +77,11 @@ const ProductsContext = createContext<{
   setListViewType: (viewType: string) => void;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
+  addToCart?: (
+    sku: string,
+    options: [],
+    quantity: number
+  ) => Promise<void | undefined>;
 }>({
   variables: {
     phrase: '',
@@ -115,6 +120,7 @@ const ProductsContext = createContext<{
   setListViewType: () => {},
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
+  addToCart: () => Promise.resolve(),
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -233,6 +239,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     cartId: storeCtx.config.resolveCartId,
     refreshCart: storeCtx.config.refreshCart,
     resolveCartId: storeCtx.config.resolveCartId,
+    addToCart: storeCtx.config.addToCart,
   };
 
   const searchProducts = async () => {

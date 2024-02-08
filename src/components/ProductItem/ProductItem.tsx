@@ -12,12 +12,7 @@ import { useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
-import {
-  useCart,
-  useProducts,
-  useSensor,
-  useWidgetConfig,
-} from '../../context';
+import { useCart, useProducts, useSensor, useStore } from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -26,13 +21,14 @@ import {
   RefinedProduct,
 } from '../../types/interface';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
-import { useFloodgateFlags } from '../../utils/Floodgate';
-import { getProductImageURLs } from '../../utils/getProductImage';
+import {
+  generateOptimizedImages,
+  getProductImageURLs,
+} from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { AddToCartButton } from '../AddToCartButton';
 import { ImageCarousel } from '../ImageCarousel';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
-import WishlistButton from '../WishlistButton';
 import ProductPrice from './ProductPrice';
 
 export interface ProductProps {
@@ -44,6 +40,11 @@ export interface ProductProps {
   setCartUpdated: (cartUpdated: boolean) => void;
   setItemAdded: (itemAdded: string) => void;
   setError: (error: boolean) => void;
+  addToCart?: (
+    sku: string,
+    options: [],
+    quantity: number
+  ) => Promise<void | undefined>;
 }
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
@@ -55,10 +56,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   setCartUpdated,
   setItemAdded,
   setError,
+  addToCart,
 }: ProductProps) => {
-  const flags = useFloodgateFlags();
-  const widgetConfig = useWidgetConfig();
-
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
@@ -67,8 +66,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
-  const { addToCart, refreshCart } = useCart();
-  const { viewType, listViewType } = useProducts();
+  const { addToCartGraphQL, refreshCart } = useCart();
+  const { viewType } = useProducts();
+  const {
+    config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
+  } = useStore();
 
   const { screenSize } = useSensor();
 
@@ -94,11 +96,20 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productImageArray = imagesFromRefinedProduct
-    ? getProductImageURLs(imagesFromRefinedProduct ?? [])
+    ? getProductImageURLs(imagesFromRefinedProduct ?? [], imageCarousel ? 3 : 1)
     : getProductImageURLs(
         productView.images ?? [],
+        imageCarousel ? 3 : 1, // number of images to display in carousel
         product.image?.url ?? undefined
       );
+  let optimizedImageArray: { src: string; srcset: any }[] = [];
+
+  if (optimizeImages) {
+    optimizedImageArray = generateOptimizedImages(
+      productImageArray,
+      imageBaseWidth ?? 200
+    );
+  }
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = refinedProduct
@@ -130,25 +141,31 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const handleAddToCart = async () => {
     setError(false);
     if (isSimple) {
-      const response = await addToCart(productView.sku);
+      if (addToCart) {
+        //Custom add to cart function passed in
+        await addToCart(productView.sku, [], 1);
+      } else {
+        // Add to cart using GraphQL & Luma extension
+        const response = await addToCartGraphQL(productView.sku);
 
-      if (
-        response?.errors ||
-        response?.data?.addProductsToCart?.user_errors.length > 0
-      ) {
-        setError(true);
-        return;
+        if (
+          response?.errors ||
+          response?.data?.addProductsToCart?.user_errors.length > 0
+        ) {
+          setError(true);
+          return;
+        }
+
+        setItemAdded(product.name);
+        refreshCart && refreshCart();
+        setCartUpdated(true);
       }
-
-      setItemAdded(product.name);
-      refreshCart && refreshCart();
-      setCartUpdated(true);
     } else if (productUrl) {
       window.open(productUrl, '_self');
     }
   };
 
-  if (viewType === 'listview' && listViewType === 'default') {
+  if (listview && viewType === 'listview') {
     return (
       <>
         <div className="grid-container">
@@ -163,7 +180,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               {/* Image */}
               {productImageArray.length ? (
                 <ImageCarousel
-                  images={productImageArray}
+                  images={
+                    optimizedImageArray.length
+                      ? optimizedImageArray
+                      : productImageArray
+                  }
                   productName={product.name}
                   carouselIndex={carouselIndex}
                   setCarouselIndex={setCarouselIndex}
@@ -278,15 +299,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
           <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
-            {/*
-         NOTE:
-         we could use <picture> <source...
-         or srcset in <img /> for breakpoint based img file
-         in future for better performance
-         */}
             {productImageArray.length ? (
               <ImageCarousel
-                images={productImageArray}
+                images={
+                  optimizedImageArray.length
+                    ? optimizedImageArray
+                    : productImageArray
+                }
                 productName={product.name}
                 carouselIndex={carouselIndex}
                 setCarouselIndex={setCarouselIndex}
@@ -314,6 +333,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 currencyRate={currencyRate}
               />
             </div>
+
+            {/* 
+            //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
               <div className="ds-sdk-wishlist ml-auto mt-md">
@@ -322,7 +344,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   type={widgetConfig.addToWishlist.placement}
                 />
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </a>
@@ -345,12 +367,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-      {widgetConfig.addToCart.enabled && (
-        <div className="pb-4 h-[38px]">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && <AddToCartButton onClick={handleAddToCart} />}
-        </div>
-      )}
+      <div className="pb-4 h-[38px]">
+        {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+        {isHovering && <AddToCartButton onClick={handleAddToCart} />}
+      </div>
     </div>
   );
 };

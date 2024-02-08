@@ -51,6 +51,11 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
   );
   const { onChange } = useSliderFacet(filterData);
 
+  const fromSliderId = `fromSlider_${filterData.attribute}`;
+  const toSliderId = `toSlider_${filterData.attribute}`;
+  const fromInputId = `fromInput_${filterData.attribute}`;
+  const toInputId = `toInput_${filterData.attribute}`;
+
   useEffect(() => {
     if (
       searchCtx?.filters?.length === 0 ||
@@ -87,7 +92,6 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
     ) => {
       const [from, to] = getParsed(fromInput, toInput);
       fillSlider(fromInput, toInput, '#C6C6C6', '#383838', controlSlider);
-      setToggleAccessible(toInput);
       if (from <= to) {
         toSlider.value = to;
         toInput.value = to;
@@ -116,7 +120,6 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
     const controlToSlider = (fromSlider: any, toSlider: any, toInput: any) => {
       const [from, to] = getParsed(fromSlider, toSlider);
       fillSlider(fromSlider, toSlider, '#C6C6C6', '#383838', toSlider);
-      setToggleAccessible(toSlider);
       if (from <= to) {
         toSlider.value = to;
         toInput.value = to;
@@ -154,18 +157,19 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
     };
 
     const fromSlider = document.querySelector(
-      '#fromSlider'
+      `#${fromSliderId}`
     )! as HTMLInputElement;
-    const toSlider = document.querySelector('#toSlider')! as HTMLInputElement;
-    const fromInput = document.querySelector('#fromInput')! as HTMLInputElement;
-    const toInput = document.querySelector('#toInput')! as HTMLInputElement;
-
-    const setToggleAccessible = (currentTarget: any) => {
-      toSlider.style.zIndex = Number(currentTarget.value) <= 0 ? '2' : '0';
-    };
+    const toSlider = document.querySelector(
+      `#${toSliderId}`
+    )! as HTMLInputElement;
+    const fromInput = document.querySelector(
+      `#${fromInputId}`
+    )! as HTMLInputElement;
+    const toInput = document.querySelector(
+      `#${toInputId}`
+    )! as HTMLInputElement;
 
     fillSlider(fromSlider, toSlider, '#C6C6C6', '#383838', toSlider);
-    setToggleAccessible(toSlider);
 
     fromSlider.oninput = () =>
       controlFromSlider(fromSlider, toSlider, fromInput);
@@ -193,13 +197,16 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
   };
 
   return (
-    <>
-      <p className="pt-md pb-8">{filterData.title}</p>
+    <div className="ds-sdk-input pt-md">
+      <label className="ds-sdk-input__label text-base font-normal text-gray-900">
+        {filterData.title}
+      </label>
 
       <div class="ds-sdk-slider range_container">
         <div class="sliders_control">
           <input
-            id="fromSlider"
+            className="ds-sdk-slider__from fromSlider"
+            id={fromSliderId}
             type="range"
             value={minVal}
             min={min}
@@ -220,7 +227,8 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
             }}
           />
           <input
-            id="toSlider"
+            className="ds-sdk-slider__to toSlider"
+            id={toSliderId}
             type="range"
             value={maxVal}
             min={min}
@@ -247,7 +255,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
             <input
               class="form_control_container__time__input"
               type="number"
-              id="fromInput"
+              id={fromInputId}
               value={minVal}
               min={min}
               max={max}
@@ -272,7 +280,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
             <input
               class="form_control_container__time__input"
               type="number"
-              id="toInput"
+              id={toInputId}
               value={maxVal}
               min={min}
               max={max}
@@ -295,8 +303,8 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
         </div>
       </div>
 
-      <div className="price-range-display pb-3">
-        <span className="text-gray-700 font-light">
+      <div className={`price-range-display__${filterData.attribute} pb-3`}>
+        <span className="ml-sm block-display text-sm font-light text-gray-700">
           Between{' '}
           <span className="min-price text-gray-900 font-semibold">
             {formatLabel(minVal)}
@@ -308,6 +316,6 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
         </span>
       </div>
       <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
-    </>
+    </div>
   );
 };

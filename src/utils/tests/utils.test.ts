@@ -51,6 +51,8 @@ describe('test validating storeDetails.', () => {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
+        optimizeImages: true,
+        imageBaseWidth: 200,
       },
       context: {
         customerGroup: 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c',
@@ -83,6 +85,8 @@ describe('test validating storeDetails.', () => {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
+        optimizeImages: true,
+        imageBaseWidth: 200,
       },
       context: {
         customerGroup: 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c',
@@ -109,6 +113,8 @@ describe('test validating storeDetails.', () => {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
+        optimizeImages: true,
+        imageBaseWidth: 200,
       },
       context: {
         customerGroup: 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c',

@@ -63,9 +63,13 @@ input[type='range'] {
   pointer-events: none;
 }
 
-#fromSlider {
+.fromSlider {
   height: 0;
   z-index: 1;
+}
+
+.toSlider {
+  z-index: 2;
 }
 
 .price-range-display {
@@ -73,7 +77,7 @@ input[type='range'] {
   font-size: 0.8em;
 }
 
-#fromSlider,
-#toSlider {
+.fromSlider,
+.toSlider {
   box-shadow: none !important;
 }

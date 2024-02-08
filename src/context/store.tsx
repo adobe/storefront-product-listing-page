@@ -30,7 +30,7 @@ export interface StoreDetailsProps extends WithChildrenProps {
   context?: QueryContextInput;
   apiUrl: string;
   apiKey: string;
-  route?: RedirectRouteFunc; // optional product redirect func prop (used in AEM/CIF)
+  route?: RedirectRouteFunc; // optional product redirect func prop
   searchQuery?: string; // 'q' default search query param if not provided.
 }
 
@@ -75,6 +75,11 @@ const StoreContextProvider = ({
       },
       apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : API_URL,
       apiKey: environmentType?.toLowerCase() === 'testing' ? API_KEY : apiKey,
+      //This is for the publix repo setup
+      // apiKey:
+      //   environmentType?.toLowerCase() === 'testing' && !apiKey
+      //     ? SANDBOX_KEY
+      //     : apiKey,
       route,
       searchQuery,
     }),

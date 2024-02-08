@@ -13,7 +13,7 @@ import { SetStateAction, useState } from 'react';
 import { Image } from './Image';
 
 export interface ImageCarouselProps {
-  images: string[];
+  images: string[] | { src: string; srcset: any }[];
   productName: string;
   carouselIndex: number;
   setCarouselIndex: (carouselIndex: number | SetStateAction<number>) => void;

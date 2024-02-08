@@ -8,7 +8,7 @@ export const Image = ({
   carouselIndex,
   index,
 }: {
-  image: string;
+  image: { src: string; srcset: any } | string;
   alt: string;
   carouselIndex: number;
   index: number;
@@ -26,7 +26,7 @@ export const Image = ({
 
       setImageUrl((entry?.target as HTMLElement)?.dataset.src || '');
     }
-  }, [entry, carouselIndex, index]);
+  }, [entry, carouselIndex, index, image]);
 
   return (
     <img
@@ -35,7 +35,8 @@ export const Image = ({
       }`}
       ref={imageRef}
       src={imageUrl}
-      data-src={image}
+      data-src={typeof image === 'object' ? image.src : image}
+      srcset={typeof image === 'object' ? image.srcset : null}
       alt={alt}
     />
   );

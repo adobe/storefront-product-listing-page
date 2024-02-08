@@ -113,15 +113,16 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                 />
               )}
         </div>
-        <div>
-          <ViewSwitcher />
-        </div>
         {totalCount > 0 && (
-          <SortDropdown
-            sortOptions={sortOptions}
-            value={sortBy}
-            onChange={onSortChange}
-          />
+          <>
+            {storeCtx?.config?.listview && <ViewSwitcher />}
+
+            <SortDropdown
+              sortOptions={sortOptions}
+              value={sortBy}
+              onChange={onSortChange}
+            />
+          </>
         )}
       </div>
       {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}

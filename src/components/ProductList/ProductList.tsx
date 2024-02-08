@@ -14,7 +14,7 @@ import { useEffect, useState } from 'preact/hooks';
 import './product-list.css';
 
 import { Alert } from '../../components/Alert';
-import { useProducts } from '../../context';
+import { useProducts, useStore } from '../../context';
 import { Product } from '../../types/interface';
 import { classNames } from '../../utils/dom';
 import ProductItem from '../ProductItem';
@@ -31,12 +31,21 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   showFilters,
 }) => {
   const productsCtx = useProducts();
-  const { currencySymbol, currencyRate, setRoute, refineProduct, refreshCart } =
-    productsCtx;
+  const {
+    currencySymbol,
+    currencyRate,
+    setRoute,
+    refineProduct,
+    refreshCart,
+    addToCart,
+  } = productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
-  const { viewType, listViewType } = useProducts();
+  const { viewType } = useProducts();
   const [error, setError] = useState<boolean>(false);
+  const {
+    config: { listview },
+  } = useStore();
 
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
@@ -74,7 +83,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
         </div>
       )}
 
-      {viewType === 'listview' && listViewType === 'default' ? (
+      {listview && viewType === 'listview' ? (
         <div className="w-full">
           <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
             {products?.map((product) => (
@@ -88,6 +97,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                 refineProduct={refineProduct}
                 setCartUpdated={setCartUpdated}
                 setItemAdded={setItemAdded}
+                addToCart={addToCart}
               />
             ))}
           </div>
@@ -110,6 +120,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
               refineProduct={refineProduct}
               setCartUpdated={setCartUpdated}
               setItemAdded={setItemAdded}
+              addToCart={addToCart}
             />
           ))}
         </div>
