@@ -50,7 +50,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
       <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
         {title && <span className="font-display-3"> {title}</span>}
         {!loading && (
-          <span className="text-primary font-button-2">{results}</span>
+          <span className="text-brand-700 font-button-2">{results}</span>
         )}
       </div>
 

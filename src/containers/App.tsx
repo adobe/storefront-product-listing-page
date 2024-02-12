@@ -16,11 +16,11 @@ import Shimmer from 'src/components/Shimmer';
 import { CategoryFilters } from '../components/CategoryFilters';
 import { SelectedFilters } from '../components/Facets';
 import {
-  useProducts,
-  useSearch,
-  useSensor,
-  useStore,
-  useTranslation,
+    useProducts,
+    useSearch,
+    useSensor,
+    useStore,
+    useTranslation,
 } from '../context';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
@@ -88,7 +88,7 @@ export const App: FunctionComponent = () => {
                     <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
                       {title && <span> {title}</span>}
                       {!productsCtx.loading && (
-                        <span className="text-primary text-sm">
+                        <span className="text-brand-700 text-sm">
                           {getResults(productsCtx.totalCount)}
                         </span>
                       )}
