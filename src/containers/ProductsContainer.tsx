@@ -84,7 +84,9 @@ export const ProductsContainer: FunctionComponent<Props> = ({
           key={index}
         />
       ) : (
-        `${word} `
+        <span className="font-body-1-default" key={index}>
+          {word}{' '}
+        </span>
       )
     );
   };

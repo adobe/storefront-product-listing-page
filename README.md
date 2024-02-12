@@ -187,8 +187,8 @@ Let's say as if I want to style an element with the theme's primary color. Norma
 Using Tailwind the following produces the exact same result:
 
 ```
-<div class="text-primary">
-  Yippee I am a primary color!
+<div class="text-brand-700">
+  Yippee I am a brand color!
 </div>
 
 ```
@@ -266,7 +266,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     <div className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full">
         ...
           <div className="flex flex-col">
-            <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+            <div className="ds-sdk-product-item__product-name mt-md text-sm text-brand-700">
               {htmlStringDecode(productView.name)}
             </div>
             <ProductPrice

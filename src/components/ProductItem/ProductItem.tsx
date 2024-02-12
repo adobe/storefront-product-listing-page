@@ -175,7 +175,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-brand-700 hover:no-underline hover:text-brand-700"
             >
               {/* Image */}
               {productImageArray.length ? (
@@ -202,19 +202,19 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               <a
                 href={productUrl as string}
                 onClick={onProductClick}
-                className="!text-primary hover:no-underline hover:text-primary"
+                className="!text-brand-700 hover:no-underline hover:text-brand-700"
               >
-                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-primary">
+                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-brand-700">
                   {product.name !== null && htmlStringDecode(product.name)}
                 </div>
-                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-primary">
+                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-brand-700">
                   SKU:
                   {product.sku !== null && htmlStringDecode(product.sku)}
                 </div>
               </a>
 
               {/* Swatch */}
-              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-brand-700 pb-6">
                 {productView?.options?.map(
                   (swatches) =>
                     swatches.id === 'color' && (
@@ -236,7 +236,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-brand-700 hover:no-underline hover:text-brand-700"
             >
               <ProductPrice
                 item={refinedProduct ?? item}
@@ -251,11 +251,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </a>
           </div>
-          <div className="product-description text-sm text-primary mt-xs">
+          <div className="product-description text-sm text-brand-700 mt-xs">
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-brand-700 hover:no-underline hover:text-brand-700"
             >
               {product.short_description?.html ? (
                 <>
@@ -295,10 +295,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <a
         href={productUrl as string}
         onClick={onProductClick}
-        className="!text-primary hover:no-underline hover:text-primary"
+        className="!text-brand-700 hover:no-underline hover:text-brand-700"
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+          <div className="ds-sdk-product-item__image relative w-full h-full rounded-2 overflow-hidden">
             {productImageArray.length ? (
               <ImageCarousel
                 images={
@@ -318,7 +318,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
           <div className="flex flex-row">
             <div className="flex flex-col">
-              <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+              <div className="ds-sdk-product-item__product-name font-headline-2-strong">
                 {product.name !== null && htmlStringDecode(product.name)}
               </div>
               <ProductPrice
@@ -350,7 +350,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       </a>
 
       {productView?.options && productView.options?.length > 0 && (
-        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
+        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-brand-700">
           {productView?.options?.map(
             (swatches) =>
               swatches.id == 'color' && (

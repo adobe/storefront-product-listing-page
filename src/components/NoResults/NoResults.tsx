@@ -25,7 +25,7 @@ export const NoResults: FunctionComponent<NoResultsProps> = ({
       {isError ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-28 w-28 my-0 mx-auto stroke-gray-400"
+          className="h-28 w-28 my-0 mx-auto stroke-neutral-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -40,7 +40,7 @@ export const NoResults: FunctionComponent<NoResultsProps> = ({
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-28 w-28 my-0 mx-auto stroke-gray-400"
+          className="h-28 w-28 my-0 mx-auto stroke-neutral-600"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -53,10 +53,10 @@ export const NoResults: FunctionComponent<NoResultsProps> = ({
         </svg>
       )}
 
-      <h1 className="ds-sdk-no-results__page__heading text-2xl text-center text-gray-600">
+      <h1 className="ds-sdk-no-results__page__heading text-2xl text-center text-neutral-700">
         {heading}
       </h1>
-      <h3 className="ds-sdk-no-results__page__subheading text-lg text-center text-gray-500">
+      <h3 className="ds-sdk-no-results__page__subheading text-lg text-center text-brand-300">
         {subheading}
       </h3>
     </div>

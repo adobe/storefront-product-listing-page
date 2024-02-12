@@ -56,8 +56,8 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       <Chevron
         className={`h-sm w-sm transform rotate-90 ${
           currentPage === 1
-            ? 'stroke-gray-400 cursor-not-allowed'
-            : 'stroke-gray-600 cursor-pointer'
+            ? 'stroke-neutral-600 cursor-not-allowed'
+            : 'stroke-brand-700 cursor-pointer'
         }`}
         onClick={onPrevious}
       />
@@ -67,7 +67,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
           return (
             <li
               key={page}
-              className="ds-plp-pagination__dots text-gray-500 mx-sm my-auto"
+              className="ds-plp-pagination__dots text-brand-300 mx-sm my-auto"
             >
               ...
             </li>
@@ -77,9 +77,9 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
         return (
           <li
             key={page}
-            className={`ds-plp-pagination__item flex items-center cursor-pointer text-center text-gray-500 my-auto mx-sm ${
+            className={`ds-plp-pagination__item flex items-center cursor-pointer text-center font-body-2-default text-brand-700 my-auto mx-sm ${
               currentPage === page
-                ? 'ds-plp-pagination__item--current text-black font-medium underline underline-offset-4 decoration-black'
+                ? 'ds-plp-pagination__item--current text-brand-700 font-body-1-strong underline underline-offset-4 decoration-brand-700'
                 : ''
             }`}
             onClick={() => onPageChange(page)}
@@ -92,8 +92,8 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       <Chevron
         className={`h-sm w-sm transform -rotate-90 ${
           currentPage === totalPages
-            ? 'stroke-gray-400 cursor-not-allowed'
-            : 'stroke-gray-600 cursor-pointer'
+            ? 'stroke-neutral-600 cursor-not-allowed'
+            : 'stroke-brand-700 cursor-pointer'
         }`}
         onClick={onNext}
       />
