@@ -16,7 +16,10 @@ declare global {
     LiveSearchPLP: typeof import('../index');
     magentoStorefrontEvents: MagentoStorefrontEvents;
   }
+  const Sentry: any;
   const API_URL: string;
+  const WIDGET_CONFIG_URL: string;
+  const LS_API_URL: string;
   const TEST_URL: string;
   const API_KEY: string;
   const SANDBOX_KEY: string;

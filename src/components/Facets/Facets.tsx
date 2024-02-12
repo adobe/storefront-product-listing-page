@@ -9,7 +9,9 @@ it.
 
 import { FunctionComponent } from 'preact';
 
+import { useStore } from '../../context';
 import { Facet as FacetType, PriceFacet } from '../../types/interface';
+import SliderDoubleControl from '../SliderDoubleControl';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 
@@ -20,17 +22,21 @@ interface FacetsProps {
 export const Facets: FunctionComponent<FacetsProps> = ({
   searchFacets,
 }: FacetsProps) => {
+  const {
+    config: { priceSlider },
+  } = useStore();
   return (
     <div className="ds-plp-facets flex flex-col">
       <form className="ds-plp-facets__list border-t border-gray-200">
         {searchFacets?.map((facet) => {
           const bucketType = facet?.buckets[0]?.__typename;
-
           switch (bucketType) {
             case 'ScalarBucket':
               return <ScalarFacet key={facet.attribute} filterData={facet} />;
             case 'RangeBucket':
-              return (
+              return priceSlider ? (
+                <SliderDoubleControl filterData={facet as PriceFacet} />
+              ) : (
                 <RangeFacet
                   key={facet.attribute}
                   filterData={facet as PriceFacet}

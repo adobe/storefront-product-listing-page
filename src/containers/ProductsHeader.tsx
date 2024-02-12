@@ -8,12 +8,20 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useCallback, useContext, useEffect, useState } from 'preact/hooks';
+import { useCallback, useEffect, useState } from 'preact/hooks';
+import ViewSwitcher from 'src/components/ViewSwitcher';
 
-import { FilterButton, SearchBar, SortDropdown } from '../components';
 import Facets from '../components/Facets';
-import { useAttributeMetadata, useSearch, useStore } from '../context';
-import { TranslationContext } from '../context/translation';
+import { FilterButton } from '../components/FilterButton';
+import { SearchBar } from '../components/SearchBar';
+import { SortDropdown } from '../components/SortDropdown';
+import {
+  useAttributeMetadata,
+  useProducts,
+  useSearch,
+  useStore,
+  useTranslation,
+} from '../context';
 import { Facet } from '../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
 import {
@@ -40,10 +48,12 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   const searchCtx = useSearch();
   const storeCtx = useStore();
   const attributeMetadata = useAttributeMetadata();
+  const productsCtx = useProducts();
+  const translation = useTranslation();
 
-  const translation = useContext(TranslationContext);
-
-  const [showMobileFacet, setShowMobileFacet] = useState(false);
+  const [showMobileFacet, setShowMobileFacet] = useState(
+    !!productsCtx.variables.filter?.length
+  );
   const [sortOptions, setSortOptions] = useState(defaultSortOptions());
 
   const getSortOptions = useCallback(() => {
@@ -74,15 +84,21 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className="flex flex-col max-w-5xl lg:max-w-7xl mx-auto w-full h-full">
-      <div className="flex justify-between">
+    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
+      <div
+        className={`flex gap-x-2.5 mb-[1px] ${
+          screenSize.mobile ? 'justify-between' : 'justify-end'
+        }`}
+      >
         <div>
           {screenSize.mobile
             ? totalCount > 0 && (
-                <FilterButton
-                  displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                  type="mobile"
-                />
+                <div className="pb-4">
+                  <FilterButton
+                    displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                    type="mobile"
+                  />
+                </div>
               )
             : storeCtx.config.displaySearchBox && (
                 <SearchBar
@@ -98,14 +114,18 @@ export const ProductsHeader: FunctionComponent<Props> = ({
               )}
         </div>
         {totalCount > 0 && (
-          <SortDropdown
-            sortOptions={sortOptions}
-            value={sortBy}
-            onChange={onSortChange}
-          />
+          <>
+            {storeCtx?.config?.listview && <ViewSwitcher />}
+
+            <SortDropdown
+              sortOptions={sortOptions}
+              value={sortBy}
+              onChange={onSortChange}
+            />
+          </>
         )}
       </div>
-      {showMobileFacet && <Facets searchFacets={facets} />}
+      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
     </div>
   );
 };

@@ -1,9 +1,9 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
 /* Tokens */
 .ds-widgets {
+  @import 'tailwindcss/base';
+  @import 'tailwindcss/components';
+  @import 'tailwindcss/utilities';
+
   /* Colors */
   --color-body: #fff;
   --color-on-body: #222;

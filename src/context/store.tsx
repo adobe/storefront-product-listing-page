@@ -75,7 +75,9 @@ const StoreContextProvider = ({
       },
       apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : API_URL,
       apiKey:
-        environmentType?.toLowerCase() === 'testing' && !apiKey ? SANDBOX_KEY : apiKey,
+        environmentType?.toLowerCase() === 'testing' && !apiKey
+          ? SANDBOX_KEY
+          : apiKey,
       route,
       searchQuery,
     }),

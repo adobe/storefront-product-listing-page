@@ -11,9 +11,11 @@ import { render } from 'preact';
 
 import './styles/index.css';
 
+import { getUserViewHistory } from '../src/utils/getUserViewHistory';
 import App from './containers/App';
 import {
   AttributeMetadataProvider,
+  CartProvider,
   ProductsContextProvider,
   SearchProvider,
   StoreContextProvider,
@@ -21,7 +23,7 @@ import {
 } from './context/';
 import Resize from './context/displayChange';
 import Translation from './context/translation';
-import { getUserViewHistory } from './utils/getUserViewHistory';
+import { validateStoreDetailsKeys } from './utils/validateStoreDetails';
 
 type MountSearchPlpProps = {
   storeDetails: StoreDetailsProps;
@@ -38,7 +40,7 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
 
   const userViewHistory = getUserViewHistory();
 
-  const updatedStoreDetails = {
+  const updatedStoreDetails: StoreDetailsProps = {
     ...storeDetails,
     context: {
       ...storeDetails.context,
@@ -47,13 +49,15 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   };
 
   render(
-    <StoreContextProvider {...updatedStoreDetails}>
+    <StoreContextProvider {...validateStoreDetailsKeys(updatedStoreDetails)}>
       <AttributeMetadataProvider>
         <SearchProvider>
           <Resize>
             <Translation>
               <ProductsContextProvider>
-                <App />
+                <CartProvider>
+                  <App />
+                </CartProvider>
               </ProductsContextProvider>
             </Translation>
           </Resize>

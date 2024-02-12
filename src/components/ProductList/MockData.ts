@@ -8,11 +8,18 @@ it.
 */
 
 const SimpleProduct = {
+  product: {
+    sku: '24-WG088',
+    name: 'Sprite Foam Roller',
+    canonical_url:
+      'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/sprite-foam-roller.html',
+  },
   productView: {
     __typename: 'SimpleProductView',
     sku: '24-WG088',
     name: 'Sprite Foam Roller',
     url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/sprite-foam-roller.html',
+    urlKey: 'sprite-foam-roller',
     images: [
       {
         label: 'Image',
@@ -44,11 +51,18 @@ const SimpleProduct = {
 };
 
 const ComplexProduct = {
+  product: {
+    sku: 'MSH06',
+    name: 'Lono Yoga Short',
+    canonical_url:
+      'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/lono-yoga-short.html',
+  },
   productView: {
     __typename: 'ComplexProductView',
     sku: 'MSH06',
     name: 'Lono Yoga Short',
     url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/lono-yoga-short.html',
+    urlKey: 'lono-yoga-short',
     images: [
       {
         label: '',

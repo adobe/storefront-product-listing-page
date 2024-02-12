@@ -1,0 +1,22 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { ProductCardShimmer } from '../ProductCardShimmer';
+
+<Meta
+  title="PLP/ProductCardShimmer"
+  component={ProductCardShimmer}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <ProductCardShimmer {...args} />;
+
+# ProductCardShimmer
+
+```
+import { ProductCardShimmer } from '../ProductCardShimmer'
+```
+
+<Canvas>
+  <Story name="ProductCardShimmer">{Template.bind({})}</Story>
+</Canvas>

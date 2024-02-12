@@ -9,10 +9,8 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { ChangeEvent, useState } from 'preact/compat';
-import { useContext } from 'preact/hooks';
 
-import { useProducts } from '../../context';
-import { TranslationContext } from '../../context/translation';
+import { useProducts, useTranslation } from '../../context';
 import PlusIcon from '../../icons/plus.svg';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
@@ -55,7 +53,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   type,
   inputGroupTitleSlot,
 }) => {
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
   const productsCtx = useProducts();
 
   const [showMore, setShowMore] = useState(
@@ -102,7 +100,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
     } else if (bucket.title === BOOLEAN_YES) {
       return title;
     } else if (bucket.title === BOOLEAN_NO) {
-      return translation.InputButtonGroup.priceExcludedMessage + title;
+      const excludedMessageTranslation =
+        translation.InputButtonGroup.priceExcludedMessage;
+      const excludedMessage = excludedMessageTranslation.replace(
+        '{title}',
+        `${title}`
+      );
+      return excludedMessage;
     }
     return bucket.title;
   };

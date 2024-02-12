@@ -122,6 +122,20 @@ const storeDetails = {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
+        currentCategoryUrlPath?: string;
+        categoryName: '', // name of category to display
+        displaySearchBox: false, // display search box
+        displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
+        displayMode: '', // "" for search || "PAGE" for category search
+        locale: '', //add locale for translations
+        priceSlider: false, //enable slider for price - EXPERIMENTAL, default is false
+        imageCarousel: false, //enable multiple image carousel - EXPERIMENTAL, default is false
+        listview: false; //add listview as an option - EXPERIMENTAL, default is false
+        optimizeImages: true, // optimize images with Fastly
+        imageBaseWidth: 200,
+        resolveCartId?: resolveCartId // Luma specific addToCart method. Enabled with the extension
+        refreshCart?: refreshCart // Luma specific addToCart method. Enabled with the extension
+        addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action
       },
       context: {
         customerGroup: 'CUSTOMER_GROUP_CODE',
@@ -184,6 +198,8 @@ Looking at the config file you will notice that the CSS variable is `--color-pri
 You can add your own variables to [tokens.css](./src/styles/tokens.css). Furthermore, you can define your own tailwind classes using these variables in the [config file](./tailwind.config.js).
 
 ### Have tailwind only apply to the nested widget
+
+Now default behavior:
 
 Follow the [tailwind nesting documentation](https://tailwindcss.com/docs/using-with-preprocessors#nesting). Your [postcss.config](./postcss.config.js) will look like this:
 

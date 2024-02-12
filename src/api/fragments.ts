@@ -41,6 +41,7 @@ const ProductView = `
             __typename
             sku
             name
+            inStock
             url
             urlKey
             images {
@@ -86,6 +87,7 @@ const ProductView = `
                         title
                         ... on ProductViewOptionValueSwatch {
                             id
+                            inStock
                             type
                             value
                         }
@@ -122,6 +124,12 @@ const Product = `
         product {
             __typename
             sku
+            description {
+                html
+            }
+            short_description{
+                html
+            }
             name
             canonical_url
             small_image {
