@@ -19,6 +19,7 @@ const SimpleProduct = {
     sku: '24-WG088',
     name: 'Sprite Foam Roller',
     url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/sprite-foam-roller.html',
+    urlKey: 'sprite-foam-roller',
     images: [
       {
         label: 'Image',
@@ -61,6 +62,7 @@ const ComplexProduct = {
     sku: 'MSH06',
     name: 'Lono Yoga Short',
     url: 'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/lono-yoga-short.html',
+    urlKey: 'lono-yoga-short',
     images: [
       {
         label: '',

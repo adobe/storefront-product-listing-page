@@ -62,7 +62,13 @@ export type BucketTypename =
   | 'StatsBucket'
   | 'CategoryView';
 
-export type RedirectRouteFunc = ({ sku }: { sku: string }) => string;
+export type RedirectRouteFunc = ({
+  sku,
+  urlKey,
+}: {
+  sku: string;
+  urlKey: null | string;
+}) => string;
 
 export interface MagentoHeaders {
   environmentId: string;
@@ -224,6 +230,7 @@ export interface Product {
     };
     gift_message_available: null | string;
     url: null | string;
+    urlKey: null | string;
     media_gallery: null | ProductViewMedia;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
