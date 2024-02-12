@@ -128,9 +128,9 @@ const storeDetails = {
         displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
         displayMode: '', // "" for search || "PAGE" for category search
         locale: '', //add locale for translations
-        priceSlider: false, //enable slider for price
-        imageCarousel: false, //enable multiple image carousel
-        listview: false; //add listview as an option
+        priceSlider: false, //enable slider for price - EXPERIMENTAL, default is false
+        imageCarousel: false, //enable multiple image carousel - EXPERIMENTAL, default is false
+        listview: false; //add listview as an option - EXPERIMENTAL, default is false
         optimizeImages: true, // optimize images with Fastly
         imageBaseWidth: 200,
         resolveCartId?: resolveCartId // Luma specific addToCart method. Enabled with the extension
@@ -198,6 +198,8 @@ Looking at the config file you will notice that the CSS variable is `--color-pri
 You can add your own variables to [tokens.css](./src/styles/tokens.css). Furthermore, you can define your own tailwind classes using these variables in the [config file](./tailwind.config.js).
 
 ### Have tailwind only apply to the nested widget
+
+Now default behavior:
 
 Follow the [tailwind nesting documentation](https://tailwindcss.com/docs/using-with-preprocessors#nesting). Your [postcss.config](./postcss.config.js) will look like this:
 
