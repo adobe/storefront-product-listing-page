@@ -18,7 +18,7 @@ describe('WidgetSDK - UIKit/SwatchButton', () => {
       <SwatchButton
         id="test"
         value="test"
-        type="text"
+        type="TEXT"
         checked={true}
         onClick={handleChange}
       />

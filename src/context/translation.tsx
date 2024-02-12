@@ -7,23 +7,43 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import {
-  createContext,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from 'preact/compat';
+import { createContext, FunctionComponent, useContext } from 'preact/compat';
 
 import {
+  bg_BG,
+  ca_ES,
+  cs_CZ,
+  da_DK,
   de_DE,
+  el_GR,
+  en_GB,
   en_US,
-  es_MX,
+  es_ES,
+  et_EE,
+  eu_ES,
+  fa_IR,
+  fi_FI,
   fr_FR,
+  gl_ES,
+  hi_IN,
+  hu_HU,
+  id_ID,
   it_IT,
-  ja_JA,
+  ja_JP,
+  ko_KR,
+  lt_LT,
+  lv_LV,
+  nb_NO,
   nl_NL,
-  no_NO,
+  pt_BR,
   pt_PT,
+  ro_RO,
+  ru_RU,
+  sv_SE,
+  th_TH,
+  tr_TR,
+  zh_Hans_CN,
+  zh_Hant_TW,
 } from '../i18n';
 import { useStore } from './store';
 
@@ -32,36 +52,60 @@ export type Languages = { [key: string]: Language };
 
 export const languages: Languages = {
   default: en_US,
-  en: en_US,
-  fr: fr_FR,
-  es: es_MX,
-  de: de_DE,
-  it: it_IT,
-  ja: ja_JA,
-  nl: nl_NL,
-  no: no_NO,
-  pt: pt_PT,
+  bg_BG,
+  ca_ES,
+  cs_CZ,
+  da_DK,
+  de_DE,
+  el_GR,
+  en_GB,
+  en_US,
+  es_ES,
+  et_EE,
+  eu_ES,
+  fa_IR,
+  fi_FI,
+  fr_FR,
+  gl_ES,
+  hi_IN,
+  hu_HU,
+  id_ID,
+  it_IT,
+  ja_JP,
+  ko_KR,
+  lt_LT,
+  lv_LV,
+  nb_NO,
+  nl_NL,
+  pt_BR,
+  pt_PT,
+  ro_RO,
+  ru_RU,
+  sv_SE,
+  th_TH,
+  tr_TR,
+  zh_Hans_CN,
+  zh_Hant_TW,
 };
 export const TranslationContext = createContext(languages.default);
+
+const useTranslation = () => {
+  const translation = useContext(TranslationContext);
+  return translation;
+};
+
+const getCurrLanguage = (languageDetected: string) => {
+  const langKeys = Object.keys(languages);
+  if (langKeys.includes(languageDetected)) {
+    return languageDetected;
+  }
+  return 'default';
+};
 
 const Translation: FunctionComponent = ({ children }) => {
   const storeCtx = useStore();
 
-  const getCurrLanguage = () => {
-    const languageDetected =
-      storeCtx?.config?.locale?.split('_')[0] ||
-      navigator.language.split('-')[0];
-    if (Object.keys(languages).includes(languageDetected)) {
-      return languageDetected;
-    }
-    return 'default';
-  };
-
-  const [currLanguage, setCurrLanguage] = useState(getCurrLanguage);
-
-  useEffect(() => {
-    () => setCurrLanguage(getCurrLanguage);
-  }, [navigator.language]);
+  const currLanguage = getCurrLanguage(storeCtx?.config?.locale ?? '');
 
   return (
     <TranslationContext.Provider value={languages[currLanguage]}>
@@ -70,3 +114,4 @@ const Translation: FunctionComponent = ({ children }) => {
   );
 };
 export default Translation;
+export { getCurrLanguage, useTranslation };

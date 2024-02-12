@@ -122,6 +122,20 @@ const storeDetails = {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
+        currentCategoryUrlPath?: string;
+        categoryName: '', // name of category to display
+        displaySearchBox: false, // display search box
+        displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
+        displayMode: '', // "" for search || "PAGE" for category search
+        locale: '', //add locale for translations
+        priceSlider: false, //enable slider for price
+        imageCarousel: false, //enable multiple image carousel
+        listview: false; //add listview as an option
+        optimizeImages: true, // optimize images with Fastly
+        imageBaseWidth: 200,
+        resolveCartId?: resolveCartId // Luma specific addToCart method. Enabled with the extension
+        refreshCart?: refreshCart // Luma specific addToCart method. Enabled with the extension
+        addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action
       },
       context: {
         customerGroup: 'CUSTOMER_GROUP_CODE',

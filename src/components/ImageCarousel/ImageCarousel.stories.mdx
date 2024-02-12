@@ -1,0 +1,33 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { ImageCarousel } from '../ImageCarousel';
+
+<Meta
+  title="PLP/ImageCarousel"
+  component={ImageCarousel}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <ImageCarousel {...args} />;
+
+# ImageCarousel
+
+```
+import { ImageCarousel } from '../ImageCarousel'
+```
+
+<Canvas>
+  <Story
+    name="Block"
+    args={{
+      images: [
+        'https://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        'https://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        'https://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

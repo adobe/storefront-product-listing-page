@@ -9,13 +9,14 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { useProducts, useSearch } from '../../context';
+import { useProducts, useSearch, useTranslation } from '../../context';
 import Pill from '../Pill';
 import { formatBinaryLabel, formatRangeLabel } from './format';
 
 export const SelectedFilters: FunctionComponent = ({}) => {
   const searchCtx = useSearch();
   const productsCtx = useProducts();
+  const translation = useTranslation();
 
   return (
     <div className="w-full h-full">
@@ -62,7 +63,7 @@ export const SelectedFilters: FunctionComponent = ({}) => {
               focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm px-4"
               onClick={() => searchCtx.clearFilters()}
             >
-              Clear all
+              {translation.Filter.clearAll}
             </button>
           </div>
         </div>

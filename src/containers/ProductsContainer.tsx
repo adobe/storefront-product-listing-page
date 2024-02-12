@@ -7,17 +7,20 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
-import { useContext } from 'preact/hooks';
-import { useProducts, useSensor } from 'src/context';
-import { TranslationContext } from 'src/context/translation';
+import { FunctionalComponent, FunctionComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
+import { ProductCardShimmer } from 'src/components/ProductCardShimmer';
+import { useProducts, useSensor, useTranslation } from 'src/context';
+import { PageSizeOption } from 'src/types/interface';
 import {
   handleUrlPageSize,
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
 
-import { Alert, PerPagePicker, ProductList } from '../components';
-import Pagination from '../components/Pagination/Pagination';
+import { Alert } from '../components/Alert';
+import { Pagination } from '../components/Pagination';
+import { PerPagePicker, PerPagePickerProps } from '../components/PerPagePicker';
+import { ProductList } from '../components/ProductList';
 
 interface Props {
   showFilters: boolean;
@@ -36,16 +39,21 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     currentPage,
     setPageSize,
     pageSize,
-    currencySymbol,
-    currencyRate,
     totalPages,
     totalCount,
     minQueryLength,
     minQueryLengthReached,
     pageSizeOptions,
-    setRoute,
-    refineProduct,
+    loading,
   } = productsCtx;
+
+  useEffect(() => {
+    if (currentPage < 1) {
+      goToPage(1);
+    }
+  }, []);
+
+  const productCardArray = Array.from({ length: 8 });
 
   const goToPage = (page: number | string) => {
     if (typeof page === 'number') {
@@ -58,7 +66,28 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     setPageSize(pageSizeOption);
     handleUrlPageSize(pageSizeOption);
   };
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
+
+  const getPageSizeTranslation = (
+    pageSize: number,
+    pageSizeOptions: PageSizeOption[],
+    PerPagePicker: FunctionalComponent<PerPagePickerProps>
+  ) => {
+    const pageSizeTranslation = translation.ProductContainers.pagePicker;
+    const pageSizeTranslationOrder = pageSizeTranslation.split(' ');
+    return pageSizeTranslationOrder.map((word: string, index: any) =>
+      word === '{pageSize}' ? (
+        <PerPagePicker
+          pageSizeOptions={pageSizeOptions}
+          value={pageSize}
+          onChange={onPageSizeChange}
+          key={index}
+        />
+      ) : (
+        `${word} `
+      )
+    );
+  };
 
   if (!minQueryLengthReached) {
     const templateMinQueryText = translation.ProductContainers.minquery;
@@ -83,30 +112,35 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       </div>
     );
   }
+
   return (
     <>
-      <ProductList
-        products={items}
-        numberOfColumns={screenSize.columns}
-        currencySymbol={currencySymbol}
-        currencyRate={currencyRate}
-        showFilters={showFilters}
-        setRoute={setRoute}
-        refineProduct={refineProduct}
-      />
+      {loading ? (
+        <div
+          style={{
+            gridTemplateColumns: `repeat(${screenSize.columns}, minmax(0, 1fr))`,
+          }}
+          className="ds-sdk-product-list__grid mt-md grid grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
+        >
+          {' '}
+          {productCardArray.map((_, index) => (
+            <ProductCardShimmer key={index} />
+          ))}
+        </div>
+      ) : (
+        <ProductList
+          products={items}
+          numberOfColumns={screenSize.columns}
+          showFilters={showFilters}
+        />
+      )}
       <div
-        className={`flex flex-row justify-between max-w-5xl lg:max-w-7xl ${
+        className={`flex flex-row justify-between max-w-full ${
           showFilters ? 'mx-auto' : 'mr-auto'
         } w-full h-full`}
       >
         <div>
-          {translation.ProductContainers.show}{' '}
-          <PerPagePicker
-            pageSizeOptions={pageSizeOptions}
-            value={pageSize}
-            onChange={onPageSizeChange}
-          />{' '}
-          {translation.ProductContainers.perPage}
+          {getPageSizeTranslation(pageSize, pageSizeOptions, PerPagePicker)}
         </div>
         {totalPages > 1 && (
           <Pagination

@@ -6,13 +6,14 @@ NOTICE: Adobe permits you to use, modify, and distribute this file in
 accordance with the terms of the Adobe license agreement accompanying
 it.
 */
-
 import { render } from 'preact';
+import { validateStoreDetailsKeys } from 'src/utils/validateStoreDetails';
 
-import './styles/index.css';
+import './styles/global.css';
 
 import {
   AttributeMetadataProvider,
+  CartProvider,
   ProductsContextProvider,
   SearchProvider,
   StoreContextProvider,
@@ -27,7 +28,7 @@ type MountSearchPlpProps = {
   storeDetails: StoreDetailsProps;
   root: HTMLElement;
 };
-
+// TODO: this file is not being used currently
 const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   if (!storeDetails) {
     throw new Error("Livesearch PLP's storeDetails prop was not provided");
@@ -47,13 +48,15 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   };
 
   render(
-    <StoreContextProvider {...updatedStoreDetails}>
+    <StoreContextProvider {...validateStoreDetailsKeys(updatedStoreDetails)}>
       <AttributeMetadataProvider>
         <SearchProvider>
           <Resize>
             <Translation>
               <ProductsContextProvider>
-                <App />
+                <CartProvider>
+                  <App />
+                </CartProvider>
               </ProductsContextProvider>
             </Translation>
           </Resize>
