@@ -19,6 +19,7 @@
     "checkJs": false,
     "resolveJsonModule": true,
     "noUnusedParameters": true,
+    "sourceMap": true,
     "types": ["node", "jest"],
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "paths": {
