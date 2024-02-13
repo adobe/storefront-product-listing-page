@@ -7,12 +7,13 @@ const { commonConfig, publicPaths } = require('./webpack.common.js');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
+  devtool: 'source-map',
   output: {
     publicPath: publicPaths.DEV,
   },
   plugins: [
     new webpack.DefinePlugin({
-      API_URL: JSON.stringify('https://catalog-service.adobe.io/graphql'),
+      API_URL: JSON.stringify('https://catalog-sandbox.adobe.io/graphql'),
       TEST_URL: JSON.stringify(
         'https://catalog-service-sandbox.adobe.io/graphql'
       ),
