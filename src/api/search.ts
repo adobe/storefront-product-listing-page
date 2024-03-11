@@ -113,10 +113,9 @@ const getProductSearch = async ({
     sort
   );
 
-  const magentoStorefrontEvtPublish = window.magentoStorefrontEvents?.publish;
-
-  magentoStorefrontEvtPublish?.searchRequestSent &&
-    magentoStorefrontEvtPublish.searchRequestSent(SEARCH_UNIT_ID);
+  window.adobeDataLayer.push((dl : any) => {
+    dl.push({ event: 'search-request-sent', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+  })
   // ======  end of data collection =====
 
   const response = await fetch(apiUrl, {
@@ -136,15 +135,18 @@ const getProductSearch = async ({
     results?.data?.productSearch
   );
 
-  magentoStorefrontEvtPublish?.searchResponseReceived &&
-    magentoStorefrontEvtPublish.searchResponseReceived(SEARCH_UNIT_ID);
+  window.adobeDataLayer.push((dl : any) => {
+    dl.push({ event: 'search-response-received', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+  });
 
   if (categorySearch) {
-    magentoStorefrontEvtPublish?.categoryResultsView &&
-      magentoStorefrontEvtPublish.categoryResultsView(SEARCH_UNIT_ID);
+    window.adobeDataLayer.push((dl : any) => {
+      dl.push({ event: 'category-results-view', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+    });
   } else {
-    magentoStorefrontEvtPublish?.searchResultsView &&
-      magentoStorefrontEvtPublish.searchResultsView(SEARCH_UNIT_ID);
+    window.adobeDataLayer.push((dl : any) => {
+      dl.push({ event: 'search-results-view', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+    });
   }
   // ======  end of data collection =====
 

@@ -128,10 +128,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
 
   const onProductClick = () => {
-    window.magentoStorefrontEvents?.publish.searchProductClick(
-      SEARCH_UNIT_ID,
-      product?.sku
-    );
+    window.adobeDataLayer.push((dl: any) => {
+      dl.push({
+        event: 'search-product-click',
+        eventInfo: {
+          ...dl.getState(),
+          sku: product?.sku,
+          searchUnitId: SEARCH_UNIT_ID,
+        },
+      });
+    });
   };
 
   const productUrl = setRoute
