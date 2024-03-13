@@ -35,6 +35,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
   const {
     variables,
     items,
+    promoTiles,
     setCurrentPage,
     currentPage,
     setPageSize,
@@ -44,7 +45,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     minQueryLength,
     minQueryLengthReached,
     pageSizeOptions,
-    loading,
+    loading,    
   } = productsCtx;
 
   useEffect(() => {
@@ -130,6 +131,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       ) : (
         <ProductList
           products={items}
+          promoTiles={promoTiles}
           numberOfColumns={screenSize.columns}
           showFilters={showFilters}
         />

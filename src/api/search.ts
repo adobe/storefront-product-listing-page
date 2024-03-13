@@ -10,18 +10,12 @@ it.
 import { v4 as uuidv4 } from 'uuid';
 
 import { updateSearchInputCtx, updateSearchResultsCtx } from '../context';
-import {
-  AttributeMetadataResponse,
-  ClientProps,
-  MagentoHeaders,
-  ProductSearchQuery,
-  ProductSearchResponse,
-  RefinedProduct,
-  RefineProductQuery,
-} from '../types/interface';
+import {AttributeMetadataResponse, ClientProps, MagentoHeaders, ProductSearchQuery, ProductSearchResponse, PromoTileConfiguration,RefinedProduct, RefineProductQuery} from '../types/interface';
 import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
   ATTRIBUTE_METADATA_QUERY,
+  BLOCK_QUERY,
+  CATEGORY_QUERY,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 } from './queries';
@@ -181,6 +175,59 @@ const getAttributeMetadata = async ({
   return results?.data;
 };
 
+
+const getCategoryPromoTiles = async ({
+  environmentId,
+  websiteCode,
+  storeCode,
+  storeViewCode,
+  apiKey,
+  categoryPath,
+  xRequestId = uuidv4(),
+}: {categoryPath: string} & ClientProps): Promise<PromoTileConfiguration[]> => {
+  const headers = getHeaders({
+    environmentId,
+    websiteCode,
+    storeCode,
+    storeViewCode,
+    apiKey,
+    xRequestId,
+    customerGroup: '',
+  });
+
+  const response = await fetch('/graphql', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: CATEGORY_QUERY,
+      variables: {
+        categoryPath
+      }
+    }),
+  });
+  const results = await response.json();
+
+  const identifier = results.data.categories.items[0].first_cms_block_plp;
+  const position = results.data.categories.items[0].first_cms_position_plp;
+   
+  const promoTilesBlockResult = await fetch('/graphql', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: BLOCK_QUERY,
+      variables: {
+        identifier: [identifier],
+      }
+    }),
+  });
+
+  const promoTilesBlock = await promoTilesBlockResult.json();
+  return [{
+    content: promoTilesBlock?.data?.cmsBlocks?.items[0]?.content,
+    position
+  }];
+};
+
 const refineProductSearch = async ({
   environmentId,
   websiteCode,
@@ -220,4 +267,4 @@ const refineProductSearch = async ({
   return results?.data;
 };
 
-export { getAttributeMetadata, getProductSearch, refineProductSearch };
+export { getAttributeMetadata, getProductSearch, refineProductSearch, getCategoryPromoTiles };

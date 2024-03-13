@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
+import { Fragment, FunctionComponent } from 'preact';
 import { HTMLAttributes } from 'preact/compat';
 import { useEffect, useState } from 'preact/hooks';
 
@@ -15,18 +15,21 @@ import './product-list.css';
 
 import { Alert } from '../../components/Alert';
 import { useProducts, useStore } from '../../context';
-import { Product } from '../../types/interface';
+import { Product, PromoTileConfiguration } from '../../types/interface';
 import { classNames } from '../../utils/dom';
 import ProductItem from '../ProductItem';
+import PromoTile from '../PromoTile';
 
 export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   products: Array<Product> | null | undefined;
+  promoTiles: Array<PromoTileConfiguration> | null | undefined;
   numberOfColumns: number;
   showFilters: boolean;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({
   products,
+  promoTiles,
   numberOfColumns,
   showFilters,
 }) => {
@@ -86,20 +89,43 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
       {listview && viewType === 'listview' ? (
         <div className="w-full">
           <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
-            {products?.map((product) => (
-              <ProductItem
-                item={product}
-                setError={setError}
-                key={product?.productView?.id}
-                currencySymbol={currencySymbol}
-                currencyRate={currencyRate}
-                setRoute={setRoute}
-                refineProduct={refineProduct}
-                setCartUpdated={setCartUpdated}
-                setItemAdded={setItemAdded}
-                addToCart={addToCart}
-              />
-            ))}
+            {products?.map((product, index) => 
+              {
+                const currentPositionPromoTile = promoTiles?.find(item => item.position === index+1);
+                if (currentPositionPromoTile) {
+                  return <Fragment key={product?.productView?.id}>
+                  <PromoTile
+                    setRoute={setRoute}
+                    promoTile={currentPositionPromoTile}
+                  />
+                  <ProductItem
+                    item={product}
+                    setError={setError}
+                    key={product?.productView?.id}
+                    currencySymbol={currencySymbol}
+                    currencyRate={currencyRate}
+                    setRoute={setRoute}
+                    refineProduct={refineProduct}
+                    setCartUpdated={setCartUpdated}
+                    setItemAdded={setItemAdded}
+                    addToCart={addToCart}
+                  />
+                  </Fragment>
+                }
+                return <ProductItem
+                  item={product}
+                  setError={setError}
+                  key={product?.productView?.id}
+                  currencySymbol={currencySymbol}
+                  currencyRate={currencyRate}
+                  setRoute={setRoute}
+                  refineProduct={refineProduct}
+                  setCartUpdated={setCartUpdated}
+                  setItemAdded={setItemAdded}
+                  addToCart={addToCart}
+                />;
+              }
+            )}
           </div>
         </div>
       ) : (
@@ -109,8 +135,29 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           }}
           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-2xl xl:gap-x-8"
         >
-          {products?.map((product) => (
-            <ProductItem
+          {products?.map((product, index) => {            
+            const currentPositionPromoTile = promoTiles?.find(item => item.position === index+1);
+            if (currentPositionPromoTile) {
+              return <Fragment key={product?.productView?.id}>
+              <PromoTile
+                setRoute={setRoute}
+                promoTile={currentPositionPromoTile}
+               />
+              <ProductItem
+                  item={product}
+                  setError={setError}
+                  key={product?.productView?.id}
+                  currencySymbol={currencySymbol}
+                  currencyRate={currencyRate}
+                  setRoute={setRoute}
+                  refineProduct={refineProduct}
+                  setCartUpdated={setCartUpdated}
+                  setItemAdded={setItemAdded}
+                  addToCart={addToCart}
+                />
+              </Fragment>
+            }            
+            return <ProductItem
               item={product}
               setError={setError}
               key={product?.productView?.id}
@@ -122,7 +169,8 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
               setItemAdded={setItemAdded}
               addToCart={addToCart}
             />
-          ))}
+          }
+          )}
         </div>
       )}
     </div>

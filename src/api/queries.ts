@@ -26,6 +26,46 @@ const ATTRIBUTE_METADATA_QUERY = `
     }
 `;
 
+
+const CATEGORY_QUERY = `
+    query categorySearch($categoryPath: String!) {
+        categories(
+          filters: {        
+            url_key: {in: [$categoryPath]}
+          }
+        ) {
+          items {
+              first_cms_block_plp
+              first_cms_position_plp
+              second_cms_block_plp
+              second_cms_position_plp
+              third_cms_block_plp
+              third_cms_position_plp
+              fourth_cms_block_plp
+              fourth_cms_position_plp
+              fifth_cms_block_plp
+              fifth_cms_position_plp
+              sixth_cms_block_plp
+              sixth_cms_position_plp
+          }
+        }
+      }
+`;
+
+const BLOCK_QUERY = `
+
+    query cmsBlockSearch($identifier: [String!]) {
+        cmsBlocks(identifiers: $identifier) {
+            items {
+              identifier
+              title
+              content
+            }
+          }
+    }    
+  
+`;
+
 const QUICK_SEARCH_QUERY = `
     query quickSearch(
         $phrase: String!
@@ -199,4 +239,6 @@ export {
   PRODUCT_SEARCH_QUERY,
   QUICK_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
+  BLOCK_QUERY,
+  CATEGORY_QUERY
 };

@@ -1,0 +1,28 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { samplePromoTile } from "./MockData";
+import { PromoTile } from "../PromoTile";
+
+<Meta
+    title="PLP/PromoTile"
+    component={PromoTile}
+    parameters={{
+        content: "centered"
+    }}
+/>
+
+export const Template = args => <PromoTile { ...args } />;
+
+# ProductTile
+
+
+
+```
+import { PromoTile } from '../PromoTile'
+```
+
+<Canvas>
+    <Story name="PromoTile" args={{ promoTile: samplePromoTile }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
