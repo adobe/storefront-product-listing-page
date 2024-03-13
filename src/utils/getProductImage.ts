@@ -22,15 +22,23 @@ const getProductImageURLs = (
   for (const image of images) {
     const imageUrl = image.url?.replace(/^https?:\/\//, '');
     if (imageUrl) {
-      imageUrlArray.push(`${protocol}//${imageUrl}`);
+      const imgUrl = new URL(`https://${imageUrl}`);
+      imgUrl.host = 'edge-fr.dolce-gusto.com';
+      imgUrl.pathname = imgUrl.pathname.replace('/ndgfredge', '');
+      imageUrlArray.push(imgUrl.href);
     }
   }
 
   if (topImageUrl) {
-    const topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
+    let topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
       /^https?:\/\//,
       ''
     )}`;
+    const imgUrl = new URL(`${topImageUrlFormatted}`);
+    imgUrl.protocol = 'https://'
+    imgUrl.host = 'edge-fr.dolce-gusto.com';
+    imgUrl.pathname = imgUrl.pathname.replace('/ndgfredge', '');
+    topImageUrlFormatted = imgUrl.href;
     const index = topImageUrlFormatted.indexOf(topImageUrlFormatted);
     if (index > -1) {
       imageUrlArray.splice(index, 1);

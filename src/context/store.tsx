@@ -58,6 +58,7 @@ const StoreContextProvider = ({
   config,
   context,
   apiKey,
+  apiUrl,
   route,
   searchQuery,
 }: StoreDetailsProps) => {
@@ -73,7 +74,7 @@ const StoreContextProvider = ({
         customerGroup: context?.customerGroup ?? '',
         userViewHistory: context?.userViewHistory ?? [],
       },
-      apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : API_URL,
+      apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : (apiUrl ? apiUrl : API_URL),
       apiKey:
         environmentType?.toLowerCase() === 'testing' && !apiKey
           ? SANDBOX_KEY

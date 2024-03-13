@@ -35,7 +35,9 @@ export const validateStoreDetailsKeys = (
       delete (storeDetails as any)[key];
       return;
     }
-    (storeDetails as any)[key] = sanitizeString((storeDetails as any)[key]);
+    if (key !== 'apiUrl') {
+      (storeDetails as any)[key] = sanitizeString((storeDetails as any)[key]);
+    }
   });
   return storeDetails;
 };
