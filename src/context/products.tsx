@@ -251,7 +251,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       if (checkMinQueryLength()) {
         const filters = [...variables.filter];
 
-        handleCategorySearch(categoryPath, filters);
+        handleCategorySearch(categoryPath, categoryId, filters);
 
         const data = await getProductSearch({
           ...variables,
@@ -335,20 +335,32 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
   const handleCategorySearch = (
     categoryPath: string | undefined,
+    categoryId: string | undefined,
     filters: FacetFilter[]
   ) => {
+    if (!categoryPath || !categoryId) {
+      return;
+    }
+
     if (categoryPath) {
-      //add category filter
       const categoryFilter = {
         attribute: 'categoryPath',
         eq: categoryPath,
       };
       filters.push(categoryFilter);
+    }
 
-      //add default category sort
-      if (variables.sort.length < 1 || variables.sort === SEARCH_SORT_DEFAULT) {
-        variables.sort = CATEGORY_SORT_DEFAULT;
-      }
+    if (categoryId) {
+      const categoryIdFilter = {
+        attribute: 'categoryIds',
+        eq: categoryId,
+      };
+      filters.push(categoryIdFilter);
+    }
+
+    //add default category sort
+    if (variables.sort.length < 1 || variables.sort === SEARCH_SORT_DEFAULT) {
+      variables.sort = CATEGORY_SORT_DEFAULT;
     }
   };
 
