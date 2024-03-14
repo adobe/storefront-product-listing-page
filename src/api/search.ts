@@ -22,6 +22,7 @@ import {
 import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
   ATTRIBUTE_METADATA_QUERY,
+  CATEGORY_QUERY,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 } from './queries';
@@ -55,6 +56,7 @@ const getProductSearch = async ({
   sort = [],
   context,
   categorySearch = false,
+  categoryId,
 }: ProductSearchQuery & ClientProps): Promise<
   ProductSearchResponse['data']
 > => {
@@ -64,6 +66,7 @@ const getProductSearch = async ({
     currentPage,
     filter,
     sort,
+    categoryId,
     context,
   };
 
@@ -118,16 +121,16 @@ const getProductSearch = async ({
   })
   // ======  end of data collection =====
 
-  const response = await fetch(apiUrl, {
+  const query = categorySearch && categoryId ? CATEGORY_QUERY : PRODUCT_SEARCH_QUERY;
+  const results = await fetch(apiUrl, {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      query: PRODUCT_SEARCH_QUERY,
+      query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
       variables: { ...variables },
     }),
-  });
+  }).then((res) => res.json());
 
-  const results = await response.json();
   // ======  initialize data collection =====
   updateSearchResultsCtx(
     SEARCH_UNIT_ID,
@@ -139,8 +142,9 @@ const getProductSearch = async ({
     dl.push({ event: 'search-response-received', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
   });
 
-  if (categorySearch) {
+  if (categorySearch && categoryId) {
     window.adobeDataLayer.push((dl : any) => {
+      dl.push({ categoryContext: results?.data?.categories?.[0] });
       dl.push({ event: 'category-results-view', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
     });
   } else {

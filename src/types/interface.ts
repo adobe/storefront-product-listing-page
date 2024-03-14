@@ -36,6 +36,7 @@ export interface StoreDetailsConfig {
   currencySymbol?: string;
   currencyRate?: string;
   currentCategoryUrlPath?: string;
+  currentCategoryId?: string;
   categoryName?: string;
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
@@ -91,6 +92,7 @@ export interface ProductSearchQuery {
   context?: QueryContextInput;
   data?: QueryData;
   categorySearch?: boolean;
+  categoryId?: string;
 }
 
 export interface RefineProductQuery {

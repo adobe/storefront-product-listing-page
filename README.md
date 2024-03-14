@@ -123,6 +123,7 @@ const storeDetails = {
         displayOutOfStock: true,
         allowAllProducts: false,
         currentCategoryUrlPath?: string;
+        currentCategoryId?: string;
         categoryName: '', // name of category to display
         displaySearchBox: false, // display search box
         displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql

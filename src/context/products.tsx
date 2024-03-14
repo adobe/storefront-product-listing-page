@@ -167,6 +167,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     return storeCtx?.config?.minQueryLength || DEFAULT_MIN_QUERY_LENGTH;
   }, [storeCtx?.config.minQueryLength]);
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
+  const categoryId = storeCtx.config?.currentCategoryId;
 
   const viewTypeFromUrl = getValueFromUrl('view_type');
   const [viewType, setViewType] = useState<string>(
@@ -232,6 +233,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageLoading,
     setPageLoading,
     categoryPath,
+    categoryId,
     viewType,
     setViewType,
     listViewType,
@@ -256,7 +258,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           ...storeCtx,
           apiUrl: storeCtx.apiUrl,
           filter: filters,
-          categorySearch: !!categoryPath,
+          categorySearch: !!categoryPath || !!categoryId,
+          categoryId,
         });
 
         setItems(data?.productSearch?.items || []);
