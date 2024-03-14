@@ -286,6 +286,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const checkMinQueryLength = () => {
     if (
       !storeCtx.config?.currentCategoryUrlPath &&
+      !storeCtx.config?.currentCategoryId &&
       searchCtx.phrase.trim().length <
         (Number(storeCtx.config.minQueryLength) || DEFAULT_MIN_QUERY_LENGTH)
     ) {
@@ -338,7 +339,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     categoryId: string | undefined,
     filters: FacetFilter[]
   ) => {
-    if (!categoryPath || !categoryId) {
+    if (!categoryPath && !categoryId) {
       return;
     }
 
