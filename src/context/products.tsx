@@ -260,15 +260,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         });
 
         let categoryPromoTiles: PromoTileConfiguration[] = [];;
-        if (categoryPath) {
-          console.log("getting things");
+        if (categoryPath) {          
           categoryPromoTiles = await getCategoryPromoTiles({
-            ...variables,
-            ...storeCtx,
-            apiUrl: storeCtx.apiUrl,
             categoryPath
           });
-          console.log("the promo tiles we got are", categoryPromoTiles);
           setPromoTiles(categoryPromoTiles);
         }
 
@@ -356,8 +351,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     categoryPath: string | undefined,
     filters: FacetFilter[]
   ) => {
-    console.log("categoryPath", categoryPath);
-    console.log("filters", filters);
     if (categoryPath) {
       //add category filter
       const categoryFilter = {

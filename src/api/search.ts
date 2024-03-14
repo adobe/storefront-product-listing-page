@@ -177,55 +177,32 @@ const getAttributeMetadata = async ({
 
 
 const getCategoryPromoTiles = async ({
-  environmentId,
-  websiteCode,
-  storeCode,
-  storeViewCode,
-  apiKey,
   categoryPath,
-  xRequestId = uuidv4(),
-}: {categoryPath: string} & ClientProps): Promise<PromoTileConfiguration[]> => {
-  const headers = getHeaders({
-    environmentId,
-    websiteCode,
-    storeCode,
-    storeViewCode,
-    apiKey,
-    xRequestId,
-    customerGroup: '',
-  });
+}: {categoryPath: string}): Promise<PromoTileConfiguration[]> => {  
+  let promoTilesJSON = window.sessionStorage.getItem(`promo-tiles`);
+  if (!promoTilesJSON) {
+    promoTilesJSON = await fetch('/drafts/kevin/promo-tiles.json').then((res) => res.text());
+    if (!promoTilesJSON) {
+      window.sessionStorage.setItem(`promo-tiles`, '{}');
+      return [];
+    }
+    window.sessionStorage.setItem(`promo-tiles`, promoTilesJSON);
+  }
 
-  const response = await fetch('/graphql', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query: CATEGORY_QUERY,
-      variables: {
-        categoryPath
-      }
-    }),
-  });
-  const results = await response.json();
-
-  const identifier = results.data.categories.items[0].first_cms_block_plp;
-  const position = results.data.categories.items[0].first_cms_position_plp;
-   
-  const promoTilesBlockResult = await fetch('/graphql', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query: BLOCK_QUERY,
-      variables: {
-        identifier: [identifier],
-      }
-    }),
-  });
-
-  const promoTilesBlock = await promoTilesBlockResult.json();
-  return [{
-    content: promoTilesBlock?.data?.cmsBlocks?.items[0]?.content,
-    position
-  }];
+  try {
+    const tiles = JSON.parse(promoTilesJSON);
+    return Object.entries(tiles?.data)
+      .filter(item => { 
+        console.log(item);
+        return item?.path.toUpperCase() === categoryPath.toUpperCase();
+      })
+      .map(item => ({
+        content: '<div>cool!</div>',
+        position: item.position,
+    }));
+  } catch(error) {
+    return [];
+  }  
 };
 
 const refineProductSearch = async ({

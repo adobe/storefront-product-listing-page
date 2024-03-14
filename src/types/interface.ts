@@ -167,9 +167,11 @@ export interface AttributeMetadataResponse {
   };
 }
 
-export interface PromoTileConfiguration {
+export interface PromoTileConfiguration {  
   position: number;
-  content: string;
+  content?: string;
+  title?: string;
+  imagePath?: string;
 }
 
 export interface Product {
