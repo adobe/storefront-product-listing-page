@@ -10,6 +10,7 @@ const validStoreDetailsKeys: Array<keyof StoreDetailsProps> = [
   'context',
   'apiUrl',
   'apiKey',
+  'promoTilesDataPath',
   'route',
   'searchQuery',
 ];

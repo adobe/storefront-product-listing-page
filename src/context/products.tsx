@@ -260,8 +260,9 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         });
 
         let categoryPromoTiles: PromoTileResponse[] = [];;
-        if (categoryPath) {          
+        if (categoryPath && categoryPath.length > 0) {          
           categoryPromoTiles = await getCategoryPromoTiles({
+            promoTilesDataPath: storeCtx.promoTilesDataPath,
             categoryPath
           });
           setPromoTiles(categoryPromoTiles);

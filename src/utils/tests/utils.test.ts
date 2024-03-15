@@ -59,6 +59,7 @@ describe('test validating storeDetails.', () => {
       },
       apiKey: 'storefront-catalog-apollo',
       apiUrl: '',
+      promoTilesDataPath: '',
       environmentType: '',
     } as StoreDetailsProps;
     const expectedStoreDetails = JSON.parse(JSON.stringify(storeDetails));
@@ -94,6 +95,7 @@ describe('test validating storeDetails.', () => {
       apiKey: 'storefront-catalog-apollo',
       apiUrl: '',
       environmentType: '',
+      promoTilesDataPath: '',
       shouldGetRemoved: 'should not belong here',
     } as StoreDetailsProps;
     const expectedStoreDetails = {
@@ -113,7 +115,7 @@ describe('test validating storeDetails.', () => {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
-        optimizeImages: true,
+        optimizeImages: true,        
         imageBaseWidth: 200,
       },
       context: {
@@ -121,6 +123,7 @@ describe('test validating storeDetails.', () => {
       },
       apiKey: 'storefront-catalog-apollo',
       apiUrl: '',
+      promoTilesDataPath: '',
       environmentType: '',
     } as StoreDetailsProps;
 

@@ -175,10 +175,11 @@ const getAttributeMetadata = async ({
 
 
 const getCategoryPromoTiles = async ({
+  promoTilesDataPath,
   categoryPath,
-}: {categoryPath: string}): Promise<PromoTileResponse[]> => {     
+}: {promoTilesDataPath: string, categoryPath: string}): Promise<PromoTileResponse[]> => {     
   try {    
-    const promoTilesJSON = await fetch('/drafts/kevin/promo-tiles.json').then((res) => res.text());
+    const promoTilesJSON = await fetch(promoTilesDataPath).then((res) => res.text());
     const tiles: { data: PromoTileResponse[] } = JSON.parse(promoTilesJSON);
     return tiles?.data
       .filter(item => {
