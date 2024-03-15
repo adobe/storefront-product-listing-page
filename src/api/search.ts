@@ -10,12 +10,10 @@ it.
 import { v4 as uuidv4 } from 'uuid';
 
 import { updateSearchInputCtx, updateSearchResultsCtx } from '../context';
-import {AttributeMetadataResponse, ClientProps, MagentoHeaders, ProductSearchQuery, ProductSearchResponse, PromoTileConfiguration,RefinedProduct, RefineProductQuery} from '../types/interface';
+import {AttributeMetadataResponse, ClientProps, MagentoHeaders, ProductSearchQuery, ProductSearchResponse, PromoTileResponse,RefinedProduct, RefineProductQuery} from '../types/interface';
 import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
-  ATTRIBUTE_METADATA_QUERY,
-  BLOCK_QUERY,
-  CATEGORY_QUERY,
+  ATTRIBUTE_METADATA_QUERY,  
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 } from './queries';
@@ -178,29 +176,17 @@ const getAttributeMetadata = async ({
 
 const getCategoryPromoTiles = async ({
   categoryPath,
-}: {categoryPath: string}): Promise<PromoTileConfiguration[]> => {  
-  let promoTilesJSON = window.sessionStorage.getItem(`promo-tiles`);
-  if (!promoTilesJSON) {
-    promoTilesJSON = await fetch('/drafts/kevin/promo-tiles.json').then((res) => res.text());
-    if (!promoTilesJSON) {
-      window.sessionStorage.setItem(`promo-tiles`, '{}');
-      return [];
-    }
-    window.sessionStorage.setItem(`promo-tiles`, promoTilesJSON);
-  }
-
-  try {
-    const tiles = JSON.parse(promoTilesJSON);
-    return Object.entries(tiles?.data)
-      .filter(item => { 
-        console.log(item);
-        return item?.path.toUpperCase() === categoryPath.toUpperCase();
-      })
-      .map(item => ({
-        content: '<div>cool!</div>',
-        position: item.position,
-    }));
-  } catch(error) {
+}: {categoryPath: string}): Promise<PromoTileResponse[]> => {     
+  try {    
+    const promoTilesJSON = await fetch('/drafts/kevin/promo-tiles.json').then((res) => res.text());
+    const tiles: { data: PromoTileResponse[] } = JSON.parse(promoTilesJSON);
+    return tiles?.data
+      .filter(item => {
+        return (item.path && item.destination && item.image && item.position) 
+          && categoryPath.replace(/^\/|\/$/g, '').toUpperCase()
+            .startsWith(item?.path?.replace(/^\/|\/$/g, '').toUpperCase());
+      });
+  } catch(error) {    
     return [];
   }  
 };

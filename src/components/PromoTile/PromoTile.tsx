@@ -8,65 +8,34 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
 
 import '../PromoTile/PromoTile.css';
 
 import {
-  PromoTileConfiguration,
+  PromoTileResponse,
   RedirectRouteFunc,
 } from '../../types/interface';
 
 
 export interface PromoTileProps {
-  promoTile: PromoTileConfiguration;
+  promoTile: PromoTileResponse;
   setRoute?: RedirectRouteFunc | undefined;  
 }
 
 export const PromoTile: FunctionComponent<PromoTileProps> = ({
   promoTile,
 }: PromoTileProps) => {
-
-  const [url, setURL] = useState('');
-  const [htmlContent, setHTMLContent] = useState('');
-
-
-  useEffect(() => {
-    setHTMLContent(extractHTML(promoTile.content));
-  }, [promoTile]);
-
-    
-  const onProductClick = () => {    
-    // window.magentoStorefrontEvents?.publish.searchProductClick(
-    //   SEARCH_UNIT_ID,
-    //   product?.sku
-    // );
-  };
-
-  const extractHTML = (content: string): string => {
-    const div = document.createElement('div');
-    div.innerHTML = content;
-
-    const anchorTag = div.querySelector('a');
-
-    setURL(anchorTag?.getAttribute('href') || '');
-   
-    return anchorTag?.innerHTML || '';
-  }
-
     return (
       <>      
         <div
           className={`promo-tile relative rounded-md overflow-hidden}`}
         >
           <a
-            href={url}
-            onClick={onProductClick}
-            className="!text-primary hover:no-underline hover:text-primary"
-            dangerouslySetInnerHTML={{
-              __html: htmlContent,
-            }}
-            />
+            href={promoTile.destination}            
+            className="!text-primary hover:no-underline hover:text-primary"            
+            >
+            <img src={promoTile.image} alt={promoTile.title || ''}/>
+          </a>
         </div>        
       </>
     );

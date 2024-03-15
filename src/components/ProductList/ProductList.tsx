@@ -15,14 +15,14 @@ import './product-list.css';
 
 import { Alert } from '../../components/Alert';
 import { useProducts, useStore } from '../../context';
-import { Product, PromoTileConfiguration } from '../../types/interface';
+import { Product, PromoTileResponse } from '../../types/interface';
 import { classNames } from '../../utils/dom';
 import ProductItem from '../ProductItem';
 import PromoTile from '../PromoTile';
 
 export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   products: Array<Product> | null | undefined;
-  promoTiles: Array<PromoTileConfiguration> | null | undefined;
+  promoTiles?: Array<PromoTileResponse> | null | undefined;
   numberOfColumns: number;
   showFilters: boolean;
 }
@@ -91,28 +91,13 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
             {products?.map((product, index) => 
               {
-                const currentPositionPromoTile = promoTiles?.find(item => item.position === index+1);
-                if (currentPositionPromoTile) {
-                  return <Fragment key={product?.productView?.id}>
-                  <PromoTile
-                    setRoute={setRoute}
-                    promoTile={currentPositionPromoTile}
-                  />
-                  <ProductItem
-                    item={product}
-                    setError={setError}
-                    key={product?.productView?.id}
-                    currencySymbol={currencySymbol}
-                    currencyRate={currencyRate}
-                    setRoute={setRoute}
-                    refineProduct={refineProduct}
-                    setCartUpdated={setCartUpdated}
-                    setItemAdded={setItemAdded}
-                    addToCart={addToCart}
-                  />
-                  </Fragment>
-                }
-                return <ProductItem
+                const currentPositionPromoTile = promoTiles?.find(item => item.position === (index+1).toString()); 
+                return (<Fragment key={product?.productView?.id}>
+                {currentPositionPromoTile && <PromoTile
+                  setRoute={setRoute}
+                  promoTile={currentPositionPromoTile}
+                />}
+                <ProductItem
                   item={product}
                   setError={setError}
                   key={product?.productView?.id}
@@ -123,7 +108,8 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                   setCartUpdated={setCartUpdated}
                   setItemAdded={setItemAdded}
                   addToCart={addToCart}
-                />;
+                />
+                </Fragment>);                                
               }
             )}
           </div>
@@ -136,13 +122,12 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-2xl xl:gap-x-8"
         >
           {products?.map((product, index) => {            
-            const currentPositionPromoTile = promoTiles?.find(item => item.position === index+1);
-            if (currentPositionPromoTile) {
-              return <Fragment key={product?.productView?.id}>
-              <PromoTile
+            const currentPositionPromoTile = promoTiles?.find(item => item.position === (index+1).toString());            
+              return (<Fragment key={product?.productView?.id}>
+              {currentPositionPromoTile && <PromoTile
                 setRoute={setRoute}
                 promoTile={currentPositionPromoTile}
-               />
+               />}
               <ProductItem
                   item={product}
                   setError={setError}
@@ -156,20 +141,8 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                   addToCart={addToCart}
                 />
               </Fragment>
-            }            
-            return <ProductItem
-              item={product}
-              setError={setError}
-              key={product?.productView?.id}
-              currencySymbol={currencySymbol}
-              currencyRate={currencyRate}
-              setRoute={setRoute}
-              refineProduct={refineProduct}
-              setCartUpdated={setCartUpdated}
-              setItemAdded={setItemAdded}
-              addToCart={addToCart}
-            />
-          }
+            )
+              }
           )}
         </div>
       )}

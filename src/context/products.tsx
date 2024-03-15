@@ -11,7 +11,7 @@ import { createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
 import {getCategoryPromoTiles,getProductSearch, refineProductSearch} from '../api/search';
-import {Facet, FacetFilter, PageSizeOption, Product, ProductSearchQuery, PromoTileConfiguration,RedirectRouteFunc} from '../types/interface';
+import {Facet, FacetFilter, PageSizeOption, Product, ProductSearchQuery, PromoTileResponse,RedirectRouteFunc} from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,
   DEFAULT_MIN_QUERY_LENGTH,
@@ -39,8 +39,8 @@ const ProductsContext = createContext<{
   loading: boolean;
   items: Product[];
   setItems: (items: Product[]) => void;
-  promoTiles: PromoTileConfiguration[];
-  setPromoTiles: (promoTiles: PromoTileConfiguration[]) => void;
+  promoTiles: PromoTileResponse[];
+  setPromoTiles: (promoTiles: PromoTileResponse[]) => void;
   currentPage: number;
   setCurrentPage: (page: number) => void;
   pageSize: number;
@@ -143,7 +143,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
-  const [promoTiles, setPromoTiles] = useState<PromoTileConfiguration[]>([]);
+  const [promoTiles, setPromoTiles] = useState<PromoTileResponse[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -259,7 +259,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           categorySearch: !!categoryPath,
         });
 
-        let categoryPromoTiles: PromoTileConfiguration[] = [];;
+        let categoryPromoTiles: PromoTileResponse[] = [];;
         if (categoryPath) {          
           categoryPromoTiles = await getCategoryPromoTiles({
             categoryPath
@@ -267,15 +267,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           setPromoTiles(categoryPromoTiles);
         }
 
-        // // This logic is specifically for 
-        // const items = data?.productSearch?.items?.map((item, index) => {
-        //   if (index+1 === categoryPromoTiles?.[0].position) {  
-        //     console.log(categoryPromoTiles?.[0].content);          
-        //     item.product.name = "A promo here";
-        //     item.productView.name = "A promo here";
-        //   }
-        //   return item;
-        // });
         setItems(data?.productSearch?.items || []);        
         setFacets(data?.productSearch?.facets || []);
         setTotalCount(data?.productSearch?.total_count || 0);
