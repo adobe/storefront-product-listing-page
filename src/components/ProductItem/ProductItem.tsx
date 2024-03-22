@@ -90,6 +90,18 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     setCarouselIndex(0);
   };
 
+  /** TEMP FIX to show image of the first variant per product */
+  const loadProductImagesFromRefinedProduct = async (optionIds: string[], sku: string) => {
+    const data = await refineProduct(optionIds, sku);
+    setImagesFromRefinedProduct(data.refineProduct.images);
+  };
+
+  if (!productView.images?.length && !imagesFromRefinedProduct){
+    const optionId = productView.options?.[0]?.values?.[0]?.id || '';
+    loadProductImagesFromRefinedProduct([optionId], productView.sku);
+  }
+  /** END TEMP FIX to show image of the first variant per product */
+
   const isSelected = (id: string) => {
     const selected = selectedSwatch ? selectedSwatch === id : false;
     return selected;
@@ -340,7 +352,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </div>
 
-            {/* 
+            {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
