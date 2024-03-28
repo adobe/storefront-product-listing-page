@@ -1,3 +1,7 @@
+/* .ds-sdk-product-item {
+  border: 1px solid #e5e7eb;
+} */
+
 .ds-sdk-product-item--shimmer {
   margin: 0.625rem auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 0.5rem 1.5rem;

@@ -17,7 +17,8 @@
     "lint:fix": "eslint '*/**/*.{ts,tsx}' --fix",
     "prettier:fix": "prettier 'src/**/*.{ts,tsx,json,md}' --write",
     "test": "jest --passWithNoTests --color --silent",
-    "cleanup": "rimraf dist"
+    "cleanup": "rimraf dist",
+    "copy-build-search": "cp -r dist/search.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",

@@ -178,6 +178,9 @@
   --leading-8: '2em';
   --leading-9: '2.25em';
   --leading-10: '2.5em';
+
+  /* Colors Swatches Text */
+  --color-port-royale: #5128b1;
 }
 
 .font-display-1 {
@@ -264,4 +267,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.ds-sdk-product-item__product-swatch-item .swatch-color-port-royale {
+  background-color: var(--color-port-royale);
 }

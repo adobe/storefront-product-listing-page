@@ -37,6 +37,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
+  console.log('discount', discount);
   const translation = useContext(TranslationContext);
   let price;
 
@@ -59,21 +60,21 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
     return bundlePriceTranslationOrder.map((word: string, index: any) =>
       word === '{fromBundlePrice}' ? (
         <span
-          className="text-brand-600 font-headline-2-default mr-xs"
+          className="text-brand-600 font-headline-4-default mr-xs"
           key={index}
         >
           {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </span>
       ) : word === '{toBundlePrice}' ? (
         <span
-          className="text-brand-600 font-headline-2-default mr-xs"
+          className="text-brand-600 font-headline-4-default mr-xs"
           key={index}
         >
           {getProductPrice(item, currencySymbol, currencyRate, true, true)}
         </span>
       ) : (
         <span
-          className="text-brand-300 font-headline-2-default mr-xs"
+          className="text-brand-300 font-headline-4-default mr-xs"
           key={index}
         >
           {word}
@@ -112,7 +113,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
         <span className="line-through pr-2 text-brand-300">
           {getProductPrice(item, currencySymbol, currencyRate, false, false)}
         </span>
-        <span className="font-headline-2-strong">
+        <span className="font-headline-4-strong">
           {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </span>
       </>
@@ -122,18 +123,19 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
     const discountedPriceTranslation = translation.ProductCard.asLowAs;
     const discountedPriceTranslationOrder =
       discountedPriceTranslation.split('{discountPrice}');
-    return discountedPriceTranslationOrder.map((word: string, index: any) =>
-      word === '' ? (
-        discountPrice
-      ) : (
-        <span
-          className="text-brand-300 font-headline-2-default mr-xs"
-          key={index}
-        >
-          {word}
-        </span>
-      )
-    );
+    return discountPrice;
+    // return discountedPriceTranslationOrder.map((word: string, index: any) =>
+    //   word === '' ? (
+    //     discountPrice
+    //   ) : (
+    //     <span
+    //       className="text-brand-300 font-headline-4-default mr-xs"
+    //       key={index}
+    //     >
+    //       {word}
+    //     </span>
+    //   )
+    // );
   };
 
   return (
@@ -145,7 +147,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isConfigurable &&
             !isComplexProductView &&
             discount && (
-              <p className="ds-sdk-product-price--discount mt-xs font-headline-2-strong">
+              <p className="ds-sdk-product-price--discount mt-xs font-headline-4-strong">
                 <span className="line-through pr-2 text-brand-300">
                   {getProductPrice(
                     item,
@@ -173,7 +175,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isConfigurable &&
             !isComplexProductView &&
             !discount && (
-              <p className="ds-sdk-product-price--no-discount mt-xs font-headline-2-strong">
+              <p className="ds-sdk-product-price--no-discount mt-xs font-headline-4-strong">
                 {getProductPrice(
                   item,
                   currencySymbol,
@@ -186,20 +188,20 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
 
           {isBundle && (
             <div className="ds-sdk-product-price--bundle">
-              <p className="mt-xs font-headline-2-default">
+              <p className="mt-xs font-headline-4-default">
                 {getBundledPrice(item, currencySymbol, currencyRate)}
               </p>
             </div>
           )}
 
           {isGrouped && (
-            <p className="ds-sdk-product-price--grouped mt-xs font-headline-2-strong">
+            <p className="ds-sdk-product-price--grouped mt-xs font-headline-4-strong">
               {getPriceFormat(item, currencySymbol, currencyRate, false)}
             </p>
           )}
 
           {isGiftCard && (
-            <p className="ds-sdk-product-price--gift-card mt-xs font-headline-2-strong">
+            <p className="ds-sdk-product-price--gift-card mt-xs font-headline-4-strong">
               {getPriceFormat(item, currencySymbol, currencyRate, true)}
             </p>
           )}
@@ -207,7 +209,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
           {!isGrouped &&
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
-              <p className="ds-sdk-product-price--configurable mt-xs font-headline-2-strong">
+              <p className="ds-sdk-product-price--configurable mt-xs font-headline-4-strong">
                 {getDiscountedPrice(discount)}
               </p>
             )}

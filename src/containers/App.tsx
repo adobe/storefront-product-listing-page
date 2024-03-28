@@ -73,7 +73,7 @@ export const App: FunctionComponent = () => {
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
-                <SelectedFilters />
+                {/* <SelectedFilters /> */}
 
                 <ProductsContainer showFilters={showFilters} />
               </div>

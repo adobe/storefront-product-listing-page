@@ -82,8 +82,11 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div
         ref={sortOptionMenu}
-        class="ds-sdk-sort-dropdown relative inline-block text-left bg-neutral-50 h-[32px] z-9"
+        class="flex shrink-0 ds-sdk-sort-dropdown relative inline-block text-left bg-neutral-50 h-[32px] z-9"
       >
+        <label className="ds-sdk-input__label w-32 shrink-0 text-base font-normal text-neutral-900">
+          {translation.SortDropdown.title}:
+        </label>
         <button
           className="group flex justify-center items-center hover:cursor-pointer text-brand-700 border-brand-700 outline-brand-700 rounded-3 border-3 bg-background h-full w-full px-sm font-button-2"
           ref={sortOptionButton}
