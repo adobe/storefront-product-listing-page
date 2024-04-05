@@ -107,7 +107,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           style={{
             gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
           }}
-          className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-md xl:gap-x-6"
+          className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm xl:gap-x-6"
         >
           {products?.map((product) => (
             <ProductItem

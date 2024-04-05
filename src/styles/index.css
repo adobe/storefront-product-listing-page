@@ -891,6 +891,10 @@ video {
     -moz-column-gap: var(--spacing-md);
          column-gap: var(--spacing-md);
   }
+  .gap-x-sm {
+    -moz-column-gap: var(--spacing-sm);
+         column-gap: var(--spacing-sm);
+  }
   .gap-y-8 {
     row-gap: 2rem;
   }
