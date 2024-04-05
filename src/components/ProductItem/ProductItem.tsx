@@ -75,7 +75,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     config: { optimizeImages, imageBaseWidth, listview },
   } = useStore();
 
-  console.log('BIM!!');
   const { screenSize } = useSensor();
 
   const handleMouseOver = () => {
@@ -95,9 +94,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   
   /** TEMP FIX to show image of the first variant per product */
   const loadProductImagesFromRefinedProduct = async (optionIds: string[], sku: string) => {
-    console.log('loadProductImagesFromRefinedProduct', optionIds, sku);
     const data = await refineProduct(optionIds, sku);
-    setImagesFromRefinedProduct(data.refineProduct.images);
+    setImagesFromRefinedProduct(data.refineProduct?.images);
   };
 
   if (!productView.images?.length && !imagesFromRefinedProduct){
@@ -110,9 +108,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     const selected = selectedSwatch ? selectedSwatch === id : false;
     return selected;
   };
-
-  console.log('imagesFromRefinedProduct', imagesFromRefinedProduct);
-  console.log('productView.images', productView.images);
 
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
@@ -129,10 +124,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       imageBaseWidth ?? 200
     );
   }
-
-  console.log('optimizedImageArray', optimizedImageArray);
-  console.log('optimizedImageArray.length', optimizedImageArray.length);
-  console.log('productImageArray', productImageArray);
 
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = refinedProduct
@@ -356,12 +347,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           {productView?.options?.map(
             (swatches) => {
               if (swatches.title === SWATCH_COLORS) {
-                // // console.log('v', v);
-                // swatches.values?.forEach((v) => {
-                //   console.log('productView', productView.name);
-                //   console.log('v', v);
-                // });
-
                 return (
                   <SwatchButtonGroup
                     key={product?.sku}
@@ -374,17 +359,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   />
                 );
               } else if ([SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
-                console.log('swatches', swatches);
-                // console.log(swatches.values?.map((s) => s.id))
-                // console.log('product?.sku', refinedProduct?.refineProduct.sku);
-                  // const ddd = await refineProduct(swatches.values?.map((s) => s.id) || [], "WF40035$");
-                  // console.log('refineProduct data', ddd);
-
-                // swatches.values?.forEach((v) => {
-                //   console.log('productView', productView.name);
-                //   console.log('v', v);
-                // });
-
                 return (
                   <SwatchButtonGroup
                     key={product?.sku}
@@ -397,8 +371,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   />
                 );
               }
-
-
             }
           )}
         </div>
@@ -436,13 +408,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
         </div>
       </a>
-
-        {/* <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div> */}
     </div>
   );
 };
