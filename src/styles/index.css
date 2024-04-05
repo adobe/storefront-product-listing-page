@@ -1020,8 +1020,8 @@ video {
     --tw-bg-opacity: 1;
     background-color: rgb(254 252 232 / var(--tw-bg-opacity));
   }
-  .bg-contain {
-    background-size: contain;
+  .bg-cover {
+    background-size: cover;
   }
   .bg-no-repeat {
     background-repeat: no-repeat;
@@ -1513,6 +1513,10 @@ video {
   --color-port-royale: #5128b1;
 }
 
+.bg-position-center {
+  background-position: center;
+}
+
 .font-display-1 {
   font: var(--type-display-1-font);
   letter-spacing: var(--type-display-1-letter-spacing);
@@ -1617,6 +1621,11 @@ video {
 
 .ds-sdk-product-item__product-swatch-item .swatch-color-port-royale {
   background-color: var(--color-port-royale);
+}
+
+
+.ds-sdk-product-image-hover {
+  transition: background-image .5s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
 }
 
 .first\:ml-0:first-child {

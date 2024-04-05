@@ -12,7 +12,7 @@ import { useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
-import { useCart, useProducts, useStore } from '../../context';
+import { useCart, useProducts, useSensor, useStore } from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -68,7 +68,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     ProductViewMedia[] | null
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
-  // const [isHovering, setIsHovering] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
@@ -76,16 +76,15 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   } = useStore();
 
   console.log('BIM!!');
+  const { screenSize } = useSensor();
 
-  // const { screenSize } = useSensor();
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
 
-  // const handleMouseOver = () => {
-  //   setIsHovering(true);
-  // };
-
-  // const handleMouseOut = () => {
-  //   setIsHovering(false);
-  // };
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
 
   const handleSelection = async (optionIds: string[], sku: string) => {
     const data = await refineProduct(optionIds, sku);
@@ -319,8 +318,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       style={{
         'border-color': '#D5D5D5',
       }}
-      // onMouseEnter={handleMouseOver}
-      // onMouseLeave={handleMouseOut}
+      onMouseEnter={handleMouseOver}
+      onMouseLeave={handleMouseOut}
     >
       <a
         href={productUrl as string}
@@ -343,6 +342,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
               />
             )}
+            {<div className="absolute left-0 right-0 bottom-0 p-xs">
+          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+          {isHovering && screenSize.desktop && (
+            <AddToCartButton onClick={handleAddToCart} />
+          )}
+        </div>}
+
           </div>
 
       {productView?.options && productView.options?.length > 0 && (
