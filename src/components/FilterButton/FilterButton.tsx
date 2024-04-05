@@ -27,20 +27,20 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   return type == 'mobile' ? (
     <div className="ds-sdk-filter-button">
       <button
-        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm  outline outline-gray-200 hover:outline-gray-800 h-[32px]"
+        className="flex items-center bg-background ring-black ring-opacity-5 rounded-2 p-sm font-button-2 outline outline-brand-700 h-[32px]"
         onClick={displayFilter}
       >
         <AdjustmentsIcon className="w-md" />
-        {translation.Filter.title}
+        <span className="font-button-2">{translation.Filter.title}</span>
       </button>
     </div>
   ) : (
     <div className="ds-sdk-filter-button-desktop">
       <button
-        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]"
+        className="flex items-center bg-background ring-black ring-opacity-5 rounded-3 p-sm outline outline-brand-700 h-[32px]"
         onClick={displayFilter}
       >
-        {title}
+        <span className="font-button-2">{title}</span>
       </button>
     </div>
   );

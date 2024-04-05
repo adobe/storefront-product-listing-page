@@ -92,7 +92,7 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
         <input
           type="range"
           id="price-range"
-          class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700"
+          class="w-full h-3 bg-neutral-300 rounded-lg appearance-none cursor-pointer range-lg dark:bg-neutral-800"
           min={filterData.buckets[0].from}
           max={filterData.buckets[filterData.buckets.length - 1].to}
           value={selectedPrice}
@@ -111,7 +111,7 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
           </span>
         </div>
       </div>
-      <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
+      <div className="ds-sdk-input__border border-t mt-md border-neutral-300" />
     </>
   );
 };

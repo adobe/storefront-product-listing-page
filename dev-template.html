@@ -15,6 +15,11 @@
 
   <script
     type="text/javascript"
+    src="https://unpkg.com/@adobe/adobe-client-data-layer@2.0.2/dist/adobe-client-data-layer.min.js"
+  ></script>
+
+  <script
+    type="text/javascript"
     src="https://unpkg.com/@adobe/magento-storefront-events-sdk@qa/dist/index.js"
   ></script>
 
@@ -42,9 +47,9 @@
       --color-primary: black;
     }
 
-    .ds-sdk-product-item__product-name {
+    /* .ds-sdk-product-item__product-name {
       text-transform: uppercase;
-    }
+    } */
   </style>
 
   <script type="text/javascript" src="search.js"></script>
@@ -52,10 +57,10 @@
   <script type="text/javascript">
     const root = document.querySelector('div.search-plp-root');
     const storeDetails = {
-      environmentId: '',
-      websiteCode: '',
-      storeCode: '',
-      storeViewCode: '',
+      environmentId: '331e4848-1413-4428-8e26-75924f47a8b8',
+      websiteCode: 'wil_us',
+      storeCode: 'wil_us',
+      storeViewCode: 'wil_us_en',
       config: {
         minQueryLength: '2',
         pageSize: 8,
@@ -68,7 +73,8 @@
         displaySearchBox: true, // display search box
         displayOutOfStock: true,
         allowAllProducts: false,
-        // currentCategoryUrlPath?: '', // current category url path
+        // currentCategoryUrlPath?: '', // current category url path, please prefer using currentCategoryId
+        // currentCategoryId?: '', // current category id
         // categoryName: '', // name of category to display
         // displaySearchBox: false, // display search box
         // displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
@@ -84,7 +90,7 @@
         // addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action
       },
       context: {
-        customerGroup: '',
+        customerGroup: '0',
       },
       apiKey: '',
       environmentType: '',
@@ -102,44 +108,33 @@
       // Will result to `http://localhost:8081/v1/MT11`
     };
 
-    const mse = window.magentoStorefrontEvents;
-
-    mse.context.setMagentoExtension({
-      magentoExtensionVersion: '1.0.0',
-    });
-    mse.context.setSearchExtension({
-      version: '2.0.3',
-    });
-    mse.context.setShopper({ shopperId: 'logged-in' });
-
-    mse.context.setPage({
-      pageType: 'plp',
-      maxXOffset: 0,
-      maxYOffset: 0,
-      minXOffset: 0,
-      minYOffset: 0,
-      ping_interval: 5,
-      pings: 1,
-    });
-
-    mse.context.setStorefrontInstance({
-      environmentId: '',
-      instanceId: 'bbbbbb',
-      environment: 'ccccccc',
-      storeUrl: '',
-      websiteId: 123456,
-      websiteCode: '',
-      storeId: 123456,
-      storeCode: '',
-      storeViewId: 123456,
-      storeViewCode: '',
-      websiteName: '',
-      storeName: '',
-      storeViewName: '',
-      baseCurrencyCode: 'USD',
-      storeViewCurrencyCode: 'USD',
-      catalogExtensionVersion: '1.0.0',
-    });
+    window.adobeDataLayer = window.adobeDataLayer || [];
+    window.adobeDataLayer.push(
+      { 'magentoExtensionContext': { magentoExtensionVersion: '1.0.0' } },
+      { 'searchExtensionContext': { version: '2.0.3'} },
+      { 'shopperContext': { shopperId: 'logged-in' } },
+      { 'pageContext': { pageType: 'plp', maxXOffset: 0, maxYOffset: 0, minXOffset: 0, minYOffset: 0, ping_interval: 5, pings: 1 } },
+      {
+        'storefrontInstanceContext': {
+          environmentId: '',
+          instanceId: 'bbbbbb',
+          environment: 'ccccccc',
+          storeUrl: '',
+          websiteId: 123456,
+          websiteCode: '',
+          storeId: 123456,
+          storeCode: '',
+          storeViewId: 123456,
+          storeViewCode: '',
+          websiteName: '',
+          storeName: '',
+          storeViewName: '',
+          baseCurrencyCode: 'USD',
+          storeViewCurrencyCode: 'USD',
+          catalogExtensionVersion: '1.0.0',
+        }
+      }
+    );
 
     setTimeout(async () => {
       while (typeof window.LiveSearchPLP !== 'function') {

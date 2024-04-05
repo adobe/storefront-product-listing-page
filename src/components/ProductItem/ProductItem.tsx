@@ -27,7 +27,7 @@ import {
 } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { AddToCartButton } from '../AddToCartButton';
-import { ImageCarousel } from '../ImageCarousel';
+import ImageHover from '../ImageHover';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
 
@@ -47,6 +47,10 @@ export interface ProductProps {
   ) => Promise<void | undefined>;
 }
 
+const SWATCH_COLORS = 'Colors';
+const SWATCH_COLORS_TEAM = 'Colors / Team';
+const SWATCH_COLORS_TEAM_NAME = 'Colors / Team name';
+
 export const ProductItem: FunctionComponent<ProductProps> = ({
   item,
   currencySymbol,
@@ -59,7 +63,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   addToCart,
 }: ProductProps) => {
   const { product, productView } = item;
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
   const [imagesFromRefinedProduct, setImagesFromRefinedProduct] = useState<
     ProductViewMedia[] | null
@@ -69,7 +72,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
+    config: { optimizeImages, imageBaseWidth, listview },
   } = useStore();
 
   const { screenSize } = useSensor();
@@ -87,8 +90,19 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     setSelectedSwatch(optionIds[0]);
     setImagesFromRefinedProduct(data.refineProduct.images);
     setRefinedProduct(data);
-    setCarouselIndex(0);
   };
+  
+  /** TEMP FIX to show image of the first variant per product */
+  const loadProductImagesFromRefinedProduct = async (optionIds: string[], sku: string) => {
+    const data = await refineProduct(optionIds, sku);
+    setImagesFromRefinedProduct(data.refineProduct?.images);
+  };
+
+  if (!productView.images?.length && !imagesFromRefinedProduct){
+    const optionId = productView.options?.[0]?.values?.[0]?.id || '';
+    loadProductImagesFromRefinedProduct([optionId], productView.sku);
+  }
+  /** END TEMP FIX to show image of the first variant per product */
 
   const isSelected = (id: string) => {
     const selected = selectedSwatch ? selectedSwatch === id : false;
@@ -96,10 +110,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productImageArray = imagesFromRefinedProduct
-    ? getProductImageURLs(imagesFromRefinedProduct ?? [], imageCarousel ? 3 : 1)
+    ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
     : getProductImageURLs(
         productView.images ?? [],
-        imageCarousel ? 3 : 1, // number of images to display in carousel
+        2,
         product.image?.url ?? undefined
       );
   let optimizedImageArray: { src: string; srcset: any }[] = [];
@@ -128,10 +142,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
 
   const onProductClick = () => {
-    window.magentoStorefrontEvents?.publish.searchProductClick(
-      SEARCH_UNIT_ID,
-      product?.sku
-    );
+    window.adobeDataLayer.push((dl: any) => {
+      dl.push({
+        event: 'search-product-click',
+        eventInfo: {
+          ...dl.getState(),
+          sku: product?.sku,
+          searchUnitId: SEARCH_UNIT_ID,
+        },
+      });
+    });
   };
 
   const productUrl = setRoute
@@ -170,24 +190,22 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <>
         <div className="grid-container">
           <div
-            className={`product-image ds-sdk-product-item__image relative rounded-md overflow-hidden}`}
+            className={`product-image ds-sdk-product-item__image relative overflow-hidden}`}
           >
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-brand-700 hover:no-underline hover:text-brand-700"
             >
               {/* Image */}
               {productImageArray.length ? (
-                <ImageCarousel
+                <ImageHover
                   images={
                     optimizedImageArray.length
                       ? optimizedImageArray
                       : productImageArray
                   }
-                  productName={product.name}
-                  carouselIndex={carouselIndex}
-                  setCarouselIndex={setCarouselIndex}
+                  // productName={product.name}
                 />
               ) : (
                 <NoImage
@@ -197,37 +215,39 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             </a>
           </div>
           <div className="product-details">
-            <div className="flex flex-col w-1/3">
+            <div className="flex flex-col w-1/3 p-2">
               {/* Product name */}
               <a
                 href={productUrl as string}
                 onClick={onProductClick}
-                className="!text-primary hover:no-underline hover:text-primary"
+                className="!text-brand-700 hover:no-underline hover:text-brand-700"
               >
-                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-primary">
+                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-brand-700">
                   {product.name !== null && htmlStringDecode(product.name)}
                 </div>
-                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-primary">
+                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-brand-700">
                   SKU:
                   {product.sku !== null && htmlStringDecode(product.sku)}
                 </div>
               </a>
 
               {/* Swatch */}
-              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-brand-700 pb-6">
                 {productView?.options?.map(
-                  (swatches) =>
-                    swatches.id === 'color' && (
-                      <SwatchButtonGroup
-                        key={productView?.sku}
-                        isSelected={isSelected}
-                        swatches={swatches.values ?? []}
-                        showMore={onProductClick}
-                        productUrl={productUrl as string}
-                        onClick={handleSelection}
-                        sku={productView?.sku}
-                      />
-                    )
+                  (swatches) => {
+                      // swatches.id === 'color' && (
+                     return swatches.title === SWATCH_COLORS && (
+                        <SwatchButtonGroup
+                          key={productView?.sku}
+                          isSelected={isSelected}
+                          swatches={swatches.values ?? []}
+                          showMore={onProductClick}
+                          productUrl={productUrl as string}
+                          onClick={handleSelection}
+                          sku={productView?.sku}
+                        />
+                      )
+                  }
                 )}
               </div>
             </div>
@@ -236,7 +256,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-brand-700 hover:no-underline hover:text-brand-700"
             >
               <ProductPrice
                 item={refinedProduct ?? item}
@@ -251,11 +271,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </a>
           </div>
-          <div className="product-description text-sm text-primary mt-xs">
+          <div className="product-description text-sm text-brand-700 mt-xs">
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-brand-700 hover:no-underline hover:text-brand-700"
             >
               {product.short_description?.html ? (
                 <>
@@ -285,7 +305,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
     <div
-      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
+      className="ds-sdk-product-item group relative flex flex-col w-full justify-between h-full"
       style={{
         'border-color': '#D5D5D5',
       }}
@@ -295,30 +315,70 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <a
         href={productUrl as string}
         onClick={onProductClick}
-        className="!text-primary hover:no-underline hover:text-primary"
+        className="!text-brand-700 hover:no-underline hover:text-brand-700"
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+          <div className="ds-sdk-product-item__image relative w-full h-full h-[445px] overflow-hidden">
             {productImageArray.length ? (
-              <ImageCarousel
+              <ImageHover
                 images={
                   optimizedImageArray.length
                     ? optimizedImageArray
                     : productImageArray
                 }
-                productName={product.name}
-                carouselIndex={carouselIndex}
-                setCarouselIndex={setCarouselIndex}
+                // productName={product.name}
               />
             ) : (
               <NoImage
                 className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
               />
             )}
+            {<div className="absolute left-0 right-0 bottom-0 p-xs">
+          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+          {isHovering && screenSize.desktop && (
+            <AddToCartButton onClick={handleAddToCart} />
+          )}
+        </div>}
+
           </div>
-          <div className="flex flex-row">
+
+      {productView?.options && productView.options?.length > 0 && (
+        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-brand-700 p-2">
+          {productView?.options?.map(
+            (swatches) => {
+              if (swatches.title === SWATCH_COLORS) {
+                return (
+                  <SwatchButtonGroup
+                    key={product?.sku}
+                    isSelected={isSelected}
+                    swatches={swatches.values ?? []}
+                    showMore={onProductClick}
+                    productUrl={productUrl as string}
+                    onClick={handleSelection}
+                    sku={product?.sku}
+                  />
+                );
+              } else if ([SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
+                return (
+                  <SwatchButtonGroup
+                    key={product?.sku}
+                    isSelected={isSelected}
+                    swatches={swatches.values ?? []}
+                    showMore={onProductClick}
+                    productUrl={productUrl as string}
+                    onClick={handleSelection}
+                    sku={product?.sku}
+                  />
+                );
+              }
+            }
+          )}
+        </div>
+      )}
+
+          <div className="flex flex-row p-2">
             <div className="flex flex-col">
-              <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+              <div className="ds-sdk-product-item__product-name font-medium text-lg">
                 {product.name !== null && htmlStringDecode(product.name)}
               </div>
               <ProductPrice
@@ -334,7 +394,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </div>
 
-            {/* 
+            {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
@@ -348,31 +408,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
         </div>
       </a>
-
-      {productView?.options && productView.options?.length > 0 && (
-        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
-          {productView?.options?.map(
-            (swatches) =>
-              swatches.id == 'color' && (
-                <SwatchButtonGroup
-                  key={product?.sku}
-                  isSelected={isSelected}
-                  swatches={swatches.values ?? []}
-                  showMore={onProductClick}
-                  productUrl={productUrl as string}
-                  onClick={handleSelection}
-                  sku={product?.sku}
-                />
-              )
-          )}
-        </div>
-      )}
-        <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>
     </div>
   );
 };

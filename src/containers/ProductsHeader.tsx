@@ -62,7 +62,8 @@ export const ProductsHeader: FunctionComponent<Props> = ({
         translation,
         attributeMetadata?.sortable,
         storeCtx?.config?.displayOutOfStock,
-        storeCtx?.config?.currentCategoryUrlPath
+        storeCtx?.config?.currentCategoryUrlPath,
+        storeCtx?.config?.currentCategoryId
       )
     );
   }, [storeCtx, translation, attributeMetadata]);
@@ -71,7 +72,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     getSortOptions();
   }, [getSortOptions]);
 
-  const defaultSortOption = storeCtx.config?.currentCategoryUrlPath
+  const defaultSortOption = (storeCtx.config?.currentCategoryUrlPath || storeCtx.config?.currentCategoryId)
     ? 'position_ASC'
     : 'relevance_DESC';
   const sortFromUrl = getValueFromUrl('product_list_order');
@@ -87,34 +88,43 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
       <div
         className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between' : 'justify-end'
+          screenSize.mobile ? 'justify-between' : 'justify-between'
         }`}
       >
-        <div>
+        {/* <div> */}
           {screenSize.mobile
-            ? totalCount > 0 && (
+            && totalCount > 0 && (
                 <div className="pb-4">
                   <FilterButton
                     displayFilter={() => setShowMobileFacet(!showMobileFacet)}
                     type="mobile"
                   />
                 </div>
+              
               )
-            : storeCtx.config.displaySearchBox && (
-                <SearchBar
-                  phrase={searchCtx.phrase}
-                  onKeyPress={(e: any) => {
-                    if (e.key === 'Enter') {
-                      searchCtx.setPhrase(e?.target?.value);
-                    }
-                  }}
-                  onClear={() => searchCtx.setPhrase('')}
-                  placeholder={translation.SearchBar.placeholder}
-                />
-              )}
-        </div>
+            
+            // storeCtx.config.displaySearchBox && (
+              //     <SearchBar
+            //       phrase={searchCtx.phrase}
+            //       onKeyPress={(e: any) => {
+              //         if (e.key === 'Enter') {
+                //           searchCtx.setPhrase(e?.target?.value);
+            //         }
+            //       }}
+            //       onClear={() => searchCtx.setPhrase('')}
+            //       placeholder={translation.SearchBar.placeholder}
+            //     />
+            //   )}
+          }
+        {/* </div> */}
         {totalCount > 0 && (
           <>
+            <div>
+            {`${
+                totalCount > 0 ? `${totalCount}` : ''
+              } ${translation.CategoryFilters.results}`}
+            </div>
+
             {storeCtx?.config?.listview && <ViewSwitcher />}
 
             <SortDropdown
