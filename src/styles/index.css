@@ -731,14 +731,14 @@ video {
   .w-\[12px\] {
     width: 12px;
   }
+  .w-\[14px\] {
+    width: 14px;
+  }
   .w-\[15px\] {
     width: 15px;
   }
   .w-\[20px\] {
     width: 20px;
-  }
-  .w-\[24px\] {
-    width: 24px;
   }
   .w-fit {
     width: -moz-fit-content;
@@ -986,9 +986,6 @@ video {
     --tw-bg-opacity: 1;
     background-color: rgb(239 246 255 / var(--tw-bg-opacity));
   }
-  .bg-brand-500 {
-    background-color: var(--color-brand-500);
-  }
   .bg-gray-100 {
     --tw-bg-opacity: 1;
     background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -1044,9 +1041,6 @@ video {
   }
   .stroke-1 {
     stroke-width: var(--shape-icon-stroke-1);
-  }
-  .stroke-2 {
-    stroke-width: var(--shape-icon-stroke-2);
   }
   .object-cover {
     -o-object-fit: cover;
@@ -1137,9 +1131,6 @@ video {
   }
   .pr-2 {
     padding-right: 0.5rem;
-  }
-  .pr-4 {
-    padding-right: 1rem;
   }
   .pr-5 {
     padding-right: 1.25rem;
@@ -1260,10 +1251,6 @@ video {
   .text-red-800 {
     --tw-text-opacity: 1;
     color: rgb(153 27 27 / var(--tw-text-opacity));
-  }
-  .text-white {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
   .text-yellow-400 {
     --tw-text-opacity: 1;
@@ -1627,6 +1614,14 @@ video {
   background-color: var(--color-port-royale);
 }
 
+.ds-sdk-add-to-cart-button {
+  background-color: var(--color-neutral-50);
+  color: var(--color-brand-700);
+  padding: var(--spacing-xs);
+  font-size: var(--font-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+}
 
 .ds-sdk-product-image-hover {
   transition: background-image .5s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
