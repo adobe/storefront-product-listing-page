@@ -48,6 +48,7 @@ export interface StoreDetailsConfig {
   imageBaseWidth?: number;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
+  baseUrl?: string; // base URL for store view
   addToCart?: (
     sku: string,
     options: [],

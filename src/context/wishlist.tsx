@@ -41,7 +41,7 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [allWishlist, setAllWishlist] = useState<Wishlist[] | []>([]);
   const [wishlist, setWishlist] = useState<Wishlist>();
-  const { storeViewCode } = useStore();
+  const { storeViewCode, config } = useStore();
 
   useEffect(() => {
     getWishlists();
@@ -49,7 +49,12 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
 
   const getWishlists = async () => {
     const { data } =
-      (await getGraphQL(GET_CUSTOMER_WISHLISTS, {}, storeViewCode)) || {};
+      (await getGraphQL(
+        GET_CUSTOMER_WISHLISTS,
+        {},
+        storeViewCode,
+        config?.baseUrl
+      )) || {};
     const wishlistResponse: WishlistResponse = data?.customer;
     const isAuthorized = !!wishlistResponse;
 
@@ -69,10 +74,15 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
     wishlistItem: WishlistAddItemInput
   ) => {
     const { data } =
-      (await getGraphQL(ADD_TO_WISHLIST, {
-        wishlistId,
-        wishlistItems: [wishlistItem],
-      })) || {};
+      (await getGraphQL(
+        ADD_TO_WISHLIST,
+        {
+          wishlistId,
+          wishlistItems: [wishlistItem],
+        },
+        storeViewCode,
+        config?.baseUrl
+      )) || {};
     const wishlistResponse: Wishlist = data?.addProductsToWishlist.wishlist;
     setWishlist(wishlistResponse);
   };
@@ -82,10 +92,15 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
     wishlistItemsIds: string
   ) => {
     const { data } =
-      (await getGraphQL(REMOVE_FROM_WISHLIST, {
-        wishlistId,
-        wishlistItemsIds: [wishlistItemsIds],
-      })) || {};
+      (await getGraphQL(
+        REMOVE_FROM_WISHLIST,
+        {
+          wishlistId,
+          wishlistItemsIds: [wishlistItemsIds],
+        },
+        storeViewCode,
+        config?.baseUrl
+      )) || {};
     const wishlistResponse: Wishlist =
       data?.removeProductsFromWishlist.wishlist;
     setWishlist(wishlistResponse);
