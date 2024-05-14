@@ -39,7 +39,7 @@ npm run storybook
 npm run dev
 ```
 
-And open `localhost:8080/v1/index.html` in your favorite browser.
+And open `localhost:8080/v2/index.html` in your favorite browser.
 
 ### Unit Testing
 

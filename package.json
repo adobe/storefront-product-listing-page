@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@adobe/storefront-product-listing-page",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "license": "MIT",
   "typings": "./dist/@types/index.d.ts",
   "files": [
@@ -15,9 +15,9 @@
     "build:dev": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.dev.js",
     "build:coverage": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.coverage.js",
     "coverage:e2e": "nyc --reporter=text-summary cross-env NODE_ENV=test npm test:e2e",
-    "cover:integration": "nyc --reporter=text-summary cross-env NODE_ENV=test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test 'node server-test.js' http://localhost:8080/v1/ cy:run:chrome",
+    "cover:integration": "nyc --reporter=text-summary cross-env NODE_ENV=test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test 'node server-test.js' http://localhost:8080/v2/ cy:run:chrome",
     "cy:run:chrome": "CHOKIDAR_IGNORED='/node_modules/' NO_COLOR=1 NO_COLOR=1 cypress run --headless --browser chrome",
-    "start:coverage": "webpack-dev-server --config webpack.coverage.js & wait-on http://localhost:8080/v1 20",
+    "start:coverage": "webpack-dev-server --config webpack.coverage.js & wait-on http://localhost:8080/v2 20",
     "cover:report": "nyc report --reporter=lcov --reporter=text",
     "dev": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack-dev-server --config webpack.dev.js",
     "dev:coverage": "webpack serve --config webpack.coverage.js",
