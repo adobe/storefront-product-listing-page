@@ -37,6 +37,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
+  console.log('discount', discount);
   const translation = useContext(TranslationContext);
   let price;
 
@@ -58,11 +59,24 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       translation.ProductCard.bundlePrice.split(' ');
     return bundlePriceTranslationOrder.map((word: string, index: any) =>
       word === '{fromBundlePrice}' ? (
-        `${getProductPrice(item, currencySymbol, currencyRate, false, true)} `
+        <span
+          className="text-brand-600 font-headline-4-default mr-xs"
+          key={index}
+        >
+          {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+        </span>
       ) : word === '{toBundlePrice}' ? (
-        getProductPrice(item, currencySymbol, currencyRate, true, true)
+        <span
+          className="text-brand-600 font-headline-4-default mr-xs"
+          key={index}
+        >
+          {getProductPrice(item, currencySymbol, currencyRate, true, true)}
+        </span>
       ) : (
-        <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
+        <span
+          className="text-brand-300 font-headline-4-default mr-xs"
+          key={index}
+        >
           {word}
         </span>
       )
@@ -83,7 +97,10 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       word === '' ? (
         getProductPrice(item, currencySymbol, currencyRate, false, true)
       ) : (
-        <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
+        <span
+          className="text-brand-300 font-details-caption-3 mr-xs"
+          key={index}
+        >
           {word}
         </span>
       )
@@ -93,10 +110,10 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   const getDiscountedPrice = (discount: boolean | undefined) => {
     const discountPrice = discount ? (
       <>
-        <span className="line-through pr-2">
+        <span className="line-through pr-2 text-brand-300">
           {getProductPrice(item, currencySymbol, currencyRate, false, false)}
         </span>
-        <span className="text-secondary">
+        <span className="font-headline-4-strong">
           {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </span>
       </>
@@ -106,15 +123,19 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
     const discountedPriceTranslation = translation.ProductCard.asLowAs;
     const discountedPriceTranslationOrder =
       discountedPriceTranslation.split('{discountPrice}');
-    return discountedPriceTranslationOrder.map((word: string, index: any) =>
-      word === '' ? (
-        discountPrice
-      ) : (
-        <span className="text-gray-500 text-xs font-normal mr-xs" key={index}>
-          {word}
-        </span>
-      )
-    );
+    return discountPrice;
+    // return discountedPriceTranslationOrder.map((word: string, index: any) =>
+    //   word === '' ? (
+    //     discountPrice
+    //   ) : (
+    //     <span
+    //       className="text-brand-300 font-headline-4-default mr-xs"
+    //       key={index}
+    //     >
+    //       {word}
+    //     </span>
+    //   )
+    // );
   };
 
   return (
@@ -126,8 +147,8 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isConfigurable &&
             !isComplexProductView &&
             discount && (
-              <p className="ds-sdk-product-price--discount mt-xs text-sm font-medium text-gray-900 my-auto">
-                <span className="line-through pr-2">
+              <p className="ds-sdk-product-price--discount mt-xs font-headline-4-strong">
+                <span className="line-through pr-2 text-brand-300">
                   {getProductPrice(
                     item,
                     currencySymbol,
@@ -136,7 +157,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
                     false
                   )}
                 </span>
-                <span className="text-secondary">
+                <span className="text-brand-600">
                   {getProductPrice(
                     item,
                     currencySymbol,
@@ -154,7 +175,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isConfigurable &&
             !isComplexProductView &&
             !discount && (
-              <p className="ds-sdk-product-price--no-discount mt-xs text-sm font-medium text-gray-900 my-auto">
+              <p className="ds-sdk-product-price--no-discount mt-xs font-headline-4-strong">
                 {getProductPrice(
                   item,
                   currencySymbol,
@@ -167,20 +188,20 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
 
           {isBundle && (
             <div className="ds-sdk-product-price--bundle">
-              <p className="mt-xs text-sm font-medium text-gray-900 my-auto">
+              <p className="mt-xs font-headline-4-default">
                 {getBundledPrice(item, currencySymbol, currencyRate)}
               </p>
             </div>
           )}
 
           {isGrouped && (
-            <p className="ds-sdk-product-price--grouped mt-xs text-sm font-medium text-gray-900 my-auto">
+            <p className="ds-sdk-product-price--grouped mt-xs font-headline-4-strong">
               {getPriceFormat(item, currencySymbol, currencyRate, false)}
             </p>
           )}
 
           {isGiftCard && (
-            <p className="ds-sdk-product-price--gift-card mt-xs text-sm font-medium text-gray-900 my-auto">
+            <p className="ds-sdk-product-price--gift-card mt-xs font-headline-4-strong">
               {getPriceFormat(item, currencySymbol, currencyRate, true)}
             </p>
           )}
@@ -188,7 +209,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
           {!isGrouped &&
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
-              <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900 my-auto">
+              <p className="ds-sdk-product-price--configurable mt-xs font-headline-4-strong">
                 {getDiscountedPrice(discount)}
               </p>
             )}

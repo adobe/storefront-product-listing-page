@@ -198,7 +198,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
 
   return (
     <div className="ds-sdk-input pt-md">
-      <label className="ds-sdk-input__label text-base font-normal text-gray-900">
+      <label className="ds-sdk-input__label text-base font-normal text-neutral-800">
         {filterData.title}
       </label>
 
@@ -304,13 +304,13 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       </div>
 
       <div className={`price-range-display__${filterData.attribute} pb-3`}>
-        <span className="ml-sm block-display text-sm font-light text-gray-700">
+        <span className="ml-sm block-display text-sm font-light text-neutral-700">
           Between{' '}
-          <span className="min-price text-gray-900 font-semibold">
+          <span className="min-price text-neutral-800 font-semibold">
             {formatLabel(minVal)}
           </span>{' '}
           and{' '}
-          <span className="max-price text-gray-900 font-semibold">
+          <span className="max-price text-neutral-800 font-semibold">
             {formatLabel(maxVal)}
           </span>
         </span>

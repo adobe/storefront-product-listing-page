@@ -27,13 +27,13 @@ export const Shimmer: FunctionComponent = () => {
           <div className="ds-widgets_actions_header flex justify-between items-center mb-md" />
           <div className="flex pb-4 w-full h-full">
             <div className="ds-sdk-filter-button-desktop">
-              <button className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]">
+              <button className="flex items-center bg-neutral-200 ring-black ring-opacity-5 rounded-2 p-sm text-sm h-[32px]">
                 <ButtonShimmer />
               </button>
             </div>
           </div>
           <div className="ds-plp-facets flex flex-col">
-            <form className="ds-plp-facets__list border-t border-gray-200">
+            <form className="ds-plp-facets__list border-t border-neutral-300">
               {facetsArray.map((_, index) => (
                 <FacetsShimmer key={index} />
               ))}

@@ -9,7 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import CartIcon from '../../icons/cart.svg';
+import PlusIcon from '../../icons/plus.svg';
 
 export interface AddToCartButtonProps {
   onClick: (e: any) => any;
@@ -20,14 +20,11 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   return (
     <div className="ds-sdk-add-to-cart-button">
       <button
-        className="flex items-center justify-center text-white text-sm rounded-full h-[32px] w-full p-sm"
-        style={{
-          'background-color': `#464646`,
-        }}
+        className="flex items-center justify-center h-[32px] w-full p-sm"
         onClick={onClick}
       >
-        <CartIcon className="w-[24px] pr-4" />
-        Add To Cart
+        <PlusIcon className="w-[14px] mr-xs" />
+        Quick Add
       </button>
     </div>
   );

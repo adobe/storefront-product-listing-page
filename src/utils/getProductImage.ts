@@ -22,7 +22,11 @@ const getProductImageURLs = (
   for (const image of images) {
     const imageUrl = image.url?.replace(/^https?:\/\//, '');
     if (imageUrl) {
-      imageUrlArray.push(`${protocol}//${imageUrl}`);
+      if (image.roles?.includes('image')) {
+        topImageUrl = imageUrl;
+      } else {
+        imageUrlArray.push(`${protocol}//${imageUrl}`);
+      }
     }
   }
 

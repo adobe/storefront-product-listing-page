@@ -1,0 +1,32 @@
+import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
+import { ImageHover } from '../ImageHover';
+
+<Meta
+  title="PLP/ImageHover"
+  component={ImageHover}
+  parameters={{
+    layout: 'centered',
+  }}
+/>
+
+export const Template = (args) => <ImageHover {...args} />;
+
+# ImageHover
+
+```
+import { ImageHover } from '../ImageHover'
+```
+
+<Canvas>
+  <Story
+    name="Block"
+    args={{
+      images: [
+        'https://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
+        'http://master-7rqtwti-grxawiljl6f4y.us-4.magentosite.cloud/media/catalog/product/l/u/luma-foam-roller.jpg',
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

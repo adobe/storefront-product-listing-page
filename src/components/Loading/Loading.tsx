@@ -25,7 +25,7 @@ export const Loading: FunctionComponent<LoadingProps> = ({ label }) => {
         isMobile ? 'loading-spinner-on-mobile' : ''
       }`}
     >
-      <div className="ds-sdk-loading__spinner bg-gray-100 rounded-full p-xs flex w-fit my-lg outline-gray-200">
+      <div className="ds-sdk-loading__spinner bg-neutral-200 rounded-full p-xs flex w-fit my-lg outline-neutral-300">
         <LoadingIcon className="inline-block mr-xs ml-xs w-md animate-spin fill-primary" />
         <span className="ds-sdk-loading__spinner-label p-xs">{label}</span>
       </div>
