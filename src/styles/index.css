@@ -949,6 +949,9 @@ video {
   .border-t {
     border-top-width: 1px;
   }
+  .border-b {
+    border-bottom-width: 1px;
+  }
   .border-none {
     border-style: none;
   }
@@ -1107,6 +1110,10 @@ video {
   .py-xs {
     padding-top: var(--spacing-xs);
     padding-bottom: var(--spacing-xs);
+  }
+  .py-md {
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
   }
   .pb-2 {
     padding-bottom: 0.5rem;

@@ -37,7 +37,6 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencySymbol,
   currencyRate,
 }: ProductPriceProps) => {
-  console.log('discount', discount);
   const translation = useContext(TranslationContext);
   let price;
 

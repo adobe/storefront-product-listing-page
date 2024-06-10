@@ -8,6 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
+import { useState } from 'preact/compat';
 
 import useScalarFacet from '../../../hooks/useScalarFacet';
 import { Facet as FacetType, PriceFacet } from '../../../types/interface';
@@ -23,13 +24,15 @@ export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
   const { isSelected, onChange } = useScalarFacet(filterData);
 
   return (
-    <InputButtonGroup
-      title={filterData.title}
-      attribute={filterData.attribute}
-      buckets={filterData.buckets as any}
-      type={'checkbox'}
-      isSelected={isSelected}
-      onChange={(args) => onChange(args.value, args.selected)}
-    />
+    <>
+      <InputButtonGroup
+        title={filterData.title}
+        attribute={filterData.attribute}
+        buckets={filterData.buckets as any}
+        type={'checkbox'}
+        isSelected={isSelected}
+        onChange={(args) => onChange(args.value, args.selected)}
+      />
+    </>
   );
 };

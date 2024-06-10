@@ -60,6 +60,12 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
     buckets.length < numberOfOptionsShown
   );
 
+  const [showOptions, setShowOptions] = useState(false);
+
+  const handleOptions = () => {
+    setShowOptions(!showOptions)
+  }
+
   const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
 
   const onInputChange = (title: string, e: ChangeEvent<HTMLInputElement>) => {
@@ -112,54 +118,59 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   return (
-    <div className="ds-sdk-input pt-md">
+    <div className="ds-sdk-input py-md">
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-neutral-900 font-headline-1">
+        <label
+          className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold"
+          onClick={handleOptions}
+        >
           {title}
         </label>
       )}
-      <fieldset className="ds-sdk-input__options mt-md">
-        <div className="space-y-4">
-          {buckets.slice(0, numberOfOptions).map((option) => {
-            const checked = isSelected(option.title);
-            const noShowPriceBucketCount = option.__typename === 'RangeBucket';
-            return (
-              <LabelledInput
-                key={formatLabel(title, option)}
-                name={`${option.title}-${attribute}`}
-                attribute={attribute}
-                label={formatLabel(title, option)}
-                checked={!!checked}
-                value={option.title}
-                count={noShowPriceBucketCount ? null : option.count}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onInputChange(option.title, e)
-                }
-                type={type}
-              />
-            );
-          })}
-          {!showMore && buckets.length > numberOfOptionsShown && (
-            <div
-              className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
-              onClick={() => setShowMore(true)}
-            >
-              <PlusIcon className="h-md w-md fill-neutral-800" />
-              <button
-                type="button"
-                className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
+      {showOptions && (
+        <fieldset className="ds-sdk-input__options mt-md">
+          <div className="space-y-1">
+            {buckets.slice(0, numberOfOptions).map((option) => {
+              const checked = isSelected(option.title);
+              const noShowPriceBucketCount =
+                option.__typename === 'RangeBucket';
+              return (
+                <LabelledInput
+                  key={formatLabel(title, option)}
+                  name={`${option.title}-${attribute}`}
+                  attribute={attribute}
+                  label={formatLabel(title, option)}
+                  checked={!!checked}
+                  value={option.title}
+                  count={noShowPriceBucketCount ? null : option.count}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    onInputChange(option.title, e)
+                  }
+                  type={type}
+                />
+              );
+            })}
+            {!showMore && buckets.length > numberOfOptionsShown && (
+              <div
+                className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
+                onClick={() => setShowMore(true)}
               >
-                <span className="font-button-2">
-                  {translation.InputButtonGroup.showmore}
-                </span>
-              </button>
-            </div>
-          )}
-        </div>
-      </fieldset>
-      <div className="ds-sdk-input__border border-t mt-md border-neutral-500" />
+                <PlusIcon className="h-md w-md fill-neutral-800" />
+                <button
+                  type="button"
+                  className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
+                >
+                  <span className="font-button-2">
+                    {translation.InputButtonGroup.showmore}
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
+        </fieldset>
+      )}
     </div>
   );
 };

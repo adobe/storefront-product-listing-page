@@ -33,7 +33,6 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
 }: SwatchButtonGroupProps) => {
   const moreSwatches = swatches.length > MAX_SWATCHES;
   const numberOfOptions = moreSwatches ? MAX_SWATCHES - 1 : swatches.length;
-  console.log('SwatchButtonGroup', swatches, numberOfOptions, moreSwatches);
   return (
     <div className="ds-sdk-product-item__product-swatch-group flex column items-center space-x-2">
       {moreSwatches ? (

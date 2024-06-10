@@ -45,8 +45,10 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   const resultsTranslation = translation.CategoryFilters.products;
   const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
 
+  // sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col overflow-y-auto top-[6.4rem] right-0 bottom-[48px] left-0 box-content
+
   return (
-    <div class="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col overflow-y-auto top-[6.4rem] right-0 bottom-[48px] left-0 box-content">
+    <div className="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col">
       <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
         {title && <span className="font-display-3"> {title}</span>}
         {/* {!loading && (

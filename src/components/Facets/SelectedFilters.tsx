@@ -18,6 +18,8 @@ export const SelectedFilters: FunctionComponent = ({}) => {
   const productsCtx = useProducts();
   const translation = useTranslation();
 
+  console.log('productCtx', productsCtx)
+
   return (
     <div className="w-full h-full">
       {searchCtx.filters?.length > 0 && (
