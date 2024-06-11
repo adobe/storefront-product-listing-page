@@ -18,14 +18,15 @@ export const SelectedFilters: FunctionComponent = ({}) => {
   const productsCtx = useProducts();
   const translation = useTranslation();
 
-  console.log('productCtx', productsCtx)
-
   return (
     <div className="w-full h-full">
       {searchCtx.filters?.length > 0 && (
         <div className="ds-plp-facets__pills pb-6 sm:pb-6 flex flex-wrap mt-8 justify-start">
           {searchCtx.filters.map((filter) => (
-            <div key={filter.attribute}>
+            <div
+              key={filter.attribute}
+              className="flex items-center gap-[16px]"
+            >
               {filter.in?.map((option) => (
                 <Pill
                   key={formatBinaryLabel(
@@ -40,7 +41,7 @@ export const SelectedFilters: FunctionComponent = ({}) => {
                     searchCtx.categoryNames,
                     productsCtx.categoryPath
                   )}
-                  type="transparent"
+                  type="filter"
                   onClick={() => searchCtx.updateFilterOptions(filter, option)}
                 />
               ))}
@@ -62,10 +63,10 @@ export const SelectedFilters: FunctionComponent = ({}) => {
           <div className="py-1">
             <button
               className="ds-plp-facets__header__clear-all border-none bg-transparent hover:border-none	hover:bg-transparent
-              focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm px-4"
+              focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none px-4"
               onClick={() => searchCtx.clearFilters()}
             >
-              <span className="font-button-2">
+              <span className="font-button-2 text-md underline hover:no-underline">
                 {translation.Filter.clearAll}
               </span>
             </button>

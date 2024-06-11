@@ -162,7 +162,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
                   type="button"
                   className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
                 >
-                  <span className="font-button-2">
+                  <span className="font-button-2 text-[12px]">
                     {translation.InputButtonGroup.showmore}
                   </span>
                 </button>

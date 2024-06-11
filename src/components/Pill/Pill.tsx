@@ -20,7 +20,7 @@ export interface PillProps {
 }
 
 const defaultIcon = (
-  <CloseIcon className="h-[12px] w-[12px] rotate-45 inline-block ml-sm cursor-pointer  fill-neutral-800" />
+  <CloseIcon className="h-[20px] w-[20px] rotate-45 inline-block ml-sm cursor-pointer  fill-neutral-800" />
 );
 
 // TODO: add support later to pass classes to the container div
@@ -30,21 +30,20 @@ export const Pill: FunctionComponent<PillProps> = ({
   CTA = defaultIcon,
   type,
 }) => {
-  return type === 'transparent' ? (
-    <div
-      key={label}
-      className="ds-sdk-pill inline-flex justify-content items-center rounded-full w-fit min-h-[32px] px-4 py-1"
-    >
-      <span className="ds-sdk-pill__label font-normal text-sm">{label}</span>
-      <span className="ds-sdk-pill__cta" onClick={onClick}>
-        {CTA}
-      </span>
-    </div>
-  ) : (
-    <div
-      key={label}
-      className="ds-sdk-pill inline-flex justify-content items-center bg-neutral-200 rounded-full w-fit outline outline-neutral-300 min-h-[32px] px-4 py-1"
-    >
+  const typeStyles: { [key in NonNullable<PillProps['type']>]: string } = {
+    transparent: 'rounded-full px-4 py-1',
+    filter: 'border border-black-50 px-2 py-1',
+  };
+
+  const baseStyles =
+    'ds-sdk-pill inline-flex justify-content items-center w-fit min-h-[32px]';
+
+  const typeClass = type
+    ? typeStyles[type]
+    : 'rounded-full outline outline-gray-200 px-4 py-1';
+
+  return (
+    <div key={label} className={`${baseStyles} ${typeClass}`}>
       <span className="ds-sdk-pill__label font-normal text-sm">{label}</span>
       <span className="ds-sdk-pill__cta" onClick={onClick}>
         {CTA}

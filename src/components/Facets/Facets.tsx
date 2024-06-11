@@ -27,8 +27,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     config: { priceSlider },
   } = useStore();
 
-  console.log('this is searchFacets', searchFacets);
-
   return (
     <div className="ds-plp-facets flex flex-col">
       <form className="ds-plp-facets__list border-t border-b border-neutral-500 flex gap-x-2">
