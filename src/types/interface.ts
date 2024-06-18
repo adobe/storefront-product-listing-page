@@ -364,6 +364,16 @@ export interface Facet {
   buckets: Array<RangeBucket | ScalarBucket | StatsBucket | CategoryView>;
 }
 
+export type Bucket = {
+  title: string;
+  id?: string;
+  count: number;
+  to?: number;
+  from?: number;
+  name?: string;
+  __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
+};
+
 export interface RangeBucket {
   __typename: 'RangeBucket';
   title: string;

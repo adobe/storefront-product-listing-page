@@ -8,9 +8,12 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
+import { useState } from 'react';
+import useScalarFacet from 'src/hooks/useScalarFacet';
 
 import { useStore } from '../../context';
 import { Facet as FacetType, PriceFacet } from '../../types/interface';
+import FilterSelectionGroup from '../FilterSelectionGroup';
 import SliderDoubleControl from '../SliderDoubleControl';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
@@ -27,6 +30,19 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     config: { priceSlider },
   } = useStore();
 
+  const [selectedFacet, setSelectedFacet] = useState<FacetType | null>(null);
+
+  const handleTesting = (facet: FacetType) => {
+    setSelectedFacet((prevFacet) => {
+      if (!prevFacet || prevFacet.title !== facet.title) {
+        return facet;
+      }
+      return null;
+    });
+  };
+
+  const { isSelected, onChange } = useScalarFacet(selectedFacet);
+
   return (
     <div className="ds-plp-facets flex flex-col">
       <form className="ds-plp-facets__list border-t border-b border-neutral-500 flex gap-x-2">
@@ -34,7 +50,13 @@ export const Facets: FunctionComponent<FacetsProps> = ({
           const bucketType = facet?.buckets[0]?.__typename;
           switch (bucketType) {
             case 'ScalarBucket':
-              return <ScalarFacet key={facet.attribute} filterData={facet} />;
+              return (
+                <ScalarFacet
+                  key={facet.attribute}
+                  filterData={facet}
+                  handleFilter={() => handleTesting(facet)}
+                />
+              );
             case 'RangeBucket':
               return priceSlider ? (
                 <SliderDoubleControl filterData={facet as PriceFacet} />
@@ -45,12 +67,30 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                 />
               );
             case 'CategoryView':
-              return <ScalarFacet key={facet.attribute} filterData={facet} />;
+              return (
+                <ScalarFacet
+                  key={facet.attribute}
+                  filterData={facet}
+                  handleFilter={() => handleTesting(facet)}
+                />
+              );
             default:
               return null;
           }
         })}
       </form>
+      {selectedFacet && (
+        <div>
+          <FilterSelectionGroup
+            title={selectedFacet.title}
+            attribute={selectedFacet.attribute}
+            buckets={selectedFacet.buckets as any}
+            isSelected={isSelected}
+            onChange={(args) => onChange(args.value, args.selected)}
+            type={'checkbox'}
+          />
+        </div>
+      )}
       <SelectedFilters />
     </div>
   );

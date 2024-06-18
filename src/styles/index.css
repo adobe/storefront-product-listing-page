@@ -525,9 +525,6 @@ video {
   .bottom-0 {
     bottom: 0px;
   }
-  .bottom-\[48px\] {
-    bottom: 48px;
-  }
   .left-0 {
     left: 0px;
   }
@@ -536,9 +533,6 @@ video {
   }
   .right-0 {
     right: 0px;
-  }
-  .top-\[6\.4rem\] {
-    top: 6.4rem;
   }
   .z-20 {
     z-index: 20;
@@ -631,9 +625,6 @@ video {
   }
   .mt-xs {
     margin-top: var(--spacing-xs);
-  }
-  .box-content {
-    box-sizing: content-box;
   }
   .inline-block {
     display: inline-block;

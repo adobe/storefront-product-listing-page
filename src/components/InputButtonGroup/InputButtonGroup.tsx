@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* tslint:disable:no-unused-variable */
 /*
 Copyright 2024 Adobe
 All Rights Reserved.
@@ -41,6 +43,7 @@ export interface InputButtonGroupProps {
   onChange: InputButtonGroupOnChange;
   type: 'radio' | 'checkbox';
   inputGroupTitleSlot?: InputButtonGroupTitleSlot;
+  handleFilter?: () => void;
 }
 
 const numberOfOptionsShown = 5;
@@ -52,6 +55,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   onChange,
   type,
   inputGroupTitleSlot,
+  handleFilter,
 }) => {
   const translation = useTranslation();
   const productsCtx = useProducts();
@@ -63,8 +67,9 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   const [showOptions, setShowOptions] = useState(false);
 
   const handleOptions = () => {
-    setShowOptions(!showOptions)
-  }
+    setShowOptions(!showOptions);
+    handleFilter?.();
+  };
 
   const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
 
@@ -129,7 +134,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           {title}
         </label>
       )}
-      {showOptions && (
+      {/* {showOptions && (
         <fieldset className="ds-sdk-input__options mt-md">
           <div className="space-y-1">
             {buckets.slice(0, numberOfOptions).map((option) => {
@@ -170,7 +175,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
             )}
           </div>
         </fieldset>
-      )}
+      )} */}
     </div>
   );
 };

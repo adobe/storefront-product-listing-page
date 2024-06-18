@@ -21,7 +21,7 @@ export const SelectedFilters: FunctionComponent = ({}) => {
   return (
     <div className="w-full h-full">
       {searchCtx.filters?.length > 0 && (
-        <div className="ds-plp-facets__pills pb-6 sm:pb-6 flex flex-wrap mt-8 justify-start">
+        <div className="ds-plp-facets__pills sm:pb-6 py-md flex flex-wrap justify-start items-center">
           {searchCtx.filters.map((filter) => (
             <div
               key={filter.attribute}
@@ -66,7 +66,7 @@ export const SelectedFilters: FunctionComponent = ({}) => {
               focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none px-4"
               onClick={() => searchCtx.clearFilters()}
             >
-              <span className="font-button-2 text-md underline hover:no-underline">
+              <span className="font-button-2 text-sm underline hover:no-underline">
                 {translation.Filter.clearAll}
               </span>
             </button>

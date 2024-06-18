@@ -14,8 +14,16 @@ import {
   PriceFacet,
 } from '../types/interface';
 
-export const useScalarFacet = (facet: FacetType | PriceFacet) => {
+export const useScalarFacet = (facet: FacetType | PriceFacet | null) => {
   const searchCtx = useSearch();
+
+  if (!facet) {
+    return {
+      isSelected: () => false,
+      onChange: () => {},
+    };
+  }
+
   const filter = searchCtx?.filters?.find(
     (e: FacetFilter) => e.attribute === facet.attribute
   );
