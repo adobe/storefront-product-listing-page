@@ -2,19 +2,21 @@ import { FunctionComponent } from 'preact';
 
 import PlusIcon from '../../icons/plus.svg';
 
-
-export type InputButtonGroupTitleSlot = (label: string) => FunctionComponent;
+export type FilterSelectionTitleSlot = (label: string) => FunctionComponent;
 
 export interface FilterSelectionProps {
   title: string;
-  inputGroupTitleSlot?: InputButtonGroupTitleSlot;
+  attribute?: string;
+  filterSelectionTitleSlot?: FilterSelectionTitleSlot;
   handleFilter?: () => void;
+  selectedNumber?: number;
 }
 
 export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
   title,
-  inputGroupTitleSlot,
+  filterSelectionTitleSlot,
   handleFilter,
+  selectedNumber,
 }) => {
   const handleOptions = () => {
     handleFilter?.();
@@ -22,15 +24,18 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
 
   return (
     <div className="ds-sdk-input py-md">
-      {inputGroupTitleSlot ? (
-        inputGroupTitleSlot(title)
+      {filterSelectionTitleSlot ? (
+        filterSelectionTitleSlot(title)
       ) : (
         <div
           className="flex items-center gap-x-1 cursor-pointer"
           onClick={handleOptions}
         >
           <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer">
-            {title}
+            {title}{' '}
+            {!!selectedNumber && (
+              <span className="font-normal text-neutral-700">{`${selectedNumber} Selected`}</span>
+            )}
           </label>
           <PlusIcon className="h-sm w-sm fill-neutral-800" />
         </div>

@@ -11,7 +11,7 @@ import { FunctionComponent } from 'preact';
 import { useState } from 'react';
 import useScalarFacet from 'src/hooks/useScalarFacet';
 
-import { useStore } from '../../context';
+import { useSearch, useStore } from '../../context';
 import { Facet as FacetType, PriceFacet } from '../../types/interface';
 import FilterSelectionGroup from '../FilterSelection';
 import SliderDoubleControl from '../SliderDoubleControl';
@@ -21,14 +21,18 @@ import { SelectedFilters } from './SelectedFilters';
 
 interface FacetsProps {
   searchFacets: FacetType[];
+  totalCount?: number;
 }
 
 export const Facets: FunctionComponent<FacetsProps> = ({
   searchFacets,
+  totalCount
 }: FacetsProps) => {
   const {
     config: { priceSlider },
   } = useStore();
+
+  const searchCtx = useSearch();
 
   const [selectedFacet, setSelectedFacet] = useState<FacetType | null>(null);
 
@@ -39,6 +43,12 @@ export const Facets: FunctionComponent<FacetsProps> = ({
       }
       return null;
     });
+  };
+
+  const getSelectedFilters = (facet: FacetType) => {
+    const { attribute } = facet;
+    const categoryFiltered = searchCtx.filters.find(item => item.attribute === attribute);
+    return categoryFiltered?.in?.length ?? 0;
   };
 
   const { isSelected, onChange } = useScalarFacet(selectedFacet);
@@ -55,6 +65,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                   key={facet.attribute}
                   filterData={facet}
                   handleFilter={() => handleTesting(facet)}
+                  selectedNumber={getSelectedFilters(facet)}
                 />
               );
             case 'RangeBucket':
@@ -72,6 +83,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                   key={facet.attribute}
                   filterData={facet}
                   handleFilter={() => handleTesting(facet)}
+                  selectedNumber={getSelectedFilters(facet)}
                 />
               );
             default:
@@ -91,7 +103,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
           />
         </div>
       )}
-      <SelectedFilters />
+      <SelectedFilters totalCount={totalCount}/>
     </div>
   );
 };

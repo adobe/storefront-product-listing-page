@@ -16,11 +16,11 @@ import Shimmer from 'src/components/Shimmer';
 import { CategoryFilters } from '../components/CategoryFilters';
 import { SelectedFilters } from '../components/Facets';
 import {
-    useProducts,
-    useSearch,
-    useSensor,
-    useStore,
-    useTranslation,
+  useProducts,
+  useSearch,
+  useSensor,
+  useStore,
+  useTranslation,
 } from '../context';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
@@ -63,18 +63,12 @@ export const App: FunctionComponent = () => {
                 setShowFilters={setShowFilters}
                 filterCount={searchCtx.filterCount}
               />
-              <div
-                className={`ds-widgets_results flex flex-col items-center ${
-                  productsCtx.categoryName ? 'pt-16' : 'pt-28'
-                } flex-[75]`}
-              >
+              <div className={`ds-widgets_results flex flex-col items-center flex-[75] `}>
                 <ProductsHeader
                   facets={productsCtx.facets}
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
-                {/* <SelectedFilters /> */}
-
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>

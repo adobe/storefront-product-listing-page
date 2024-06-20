@@ -100,9 +100,9 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                     type="mobile"
                   />
                 </div>
-              
+
               )
-            
+
             // storeCtx.config.displaySearchBox && (
               //     <SearchBar
             //       phrase={searchCtx.phrase}
@@ -119,11 +119,11 @@ export const ProductsHeader: FunctionComponent<Props> = ({
         {/* </div> */}
         {totalCount > 0 && (
           <>
-            <div>
+            {/* <div>
             {`${
                 totalCount > 0 ? `${totalCount}` : ''
               } ${translation.CategoryFilters.results}`}
-            </div>
+            </div> */}
 
             {storeCtx?.config?.listview && <ViewSwitcher />}
 

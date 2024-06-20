@@ -65,7 +65,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
               }`}
             /> */}
           </div>
-          <Facets searchFacets={facets} />
+          <Facets searchFacets={facets} totalCount={totalCount}/>
         </>
       )}
     </div>
