@@ -73,9 +73,16 @@ const generateOptimizedImages = (
   baseImageWidth: number
 ): { src: string; srcset: any }[] => {
   const baseOptions = {
-    fit: 'cover',
-    crop: false,
+    fit: 'bounds',
     dpi: 1,
+    orient: 1,
+    quality: 95,
+    optimize: 'high',
+    format: 'pjpeg',
+    auto: 'webp',
+    enable: 'upscale',
+    canvas: '9:11',
+    'bg-color': 'E8E4DA'
   };
 
   const imageUrlArray: Array<{ src: string; srcset: any }> = [];
