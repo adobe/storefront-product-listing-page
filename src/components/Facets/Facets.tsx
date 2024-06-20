@@ -13,7 +13,7 @@ import useScalarFacet from 'src/hooks/useScalarFacet';
 
 import { useStore } from '../../context';
 import { Facet as FacetType, PriceFacet } from '../../types/interface';
-import FilterSelectionGroup from '../FilterSelectionGroup';
+import FilterSelectionGroup from '../FilterSelection';
 import SliderDoubleControl from '../SliderDoubleControl';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
@@ -45,7 +45,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
 
   return (
     <div className="ds-plp-facets flex flex-col">
-      <form className="ds-plp-facets__list border-t border-b border-neutral-500 flex gap-x-2">
+      <form className="ds-plp-facets__list border-t border-b border-neutral-500 flex gap-x-6">
         {searchFacets?.map((facet) => {
           const bucketType = facet?.buckets[0]?.__typename;
           switch (bucketType) {

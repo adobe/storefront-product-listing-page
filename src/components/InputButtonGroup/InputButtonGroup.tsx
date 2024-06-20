@@ -1,14 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* tslint:disable:no-unused-variable */
-/*
-Copyright 2024 Adobe
-All Rights Reserved.
-
-NOTICE: Adobe permits you to use, modify, and distribute this file in
-accordance with the terms of the Adobe license agreement accompanying
-it.
-*/
-
 import { FunctionComponent } from 'preact';
 import { ChangeEvent, useState } from 'preact/compat';
 
@@ -43,7 +32,6 @@ export interface InputButtonGroupProps {
   onChange: InputButtonGroupOnChange;
   type: 'radio' | 'checkbox';
   inputGroupTitleSlot?: InputButtonGroupTitleSlot;
-  handleFilter?: () => void;
 }
 
 const numberOfOptionsShown = 5;
@@ -55,7 +43,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   onChange,
   type,
   inputGroupTitleSlot,
-  handleFilter,
 }) => {
   const translation = useTranslation();
   const productsCtx = useProducts();
@@ -63,13 +50,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   const [showMore, setShowMore] = useState(
     buckets.length < numberOfOptionsShown
   );
-
-  const [showOptions, setShowOptions] = useState(false);
-
-  const handleOptions = () => {
-    setShowOptions(!showOptions);
-    handleFilter?.();
-  };
 
   const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
 
@@ -123,59 +103,54 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   return (
-    <div className="ds-sdk-input py-md">
+    <div className="ds-sdk-input pt-md">
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label
-          className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold"
-          onClick={handleOptions}
-        >
+        <label className="ds-sdk-input__label text-neutral-900 font-headline-1">
           {title}
         </label>
       )}
-      {/* {showOptions && (
-        <fieldset className="ds-sdk-input__options mt-md">
-          <div className="space-y-1">
-            {buckets.slice(0, numberOfOptions).map((option) => {
-              const checked = isSelected(option.title);
-              const noShowPriceBucketCount =
-                option.__typename === 'RangeBucket';
-              return (
-                <LabelledInput
-                  key={formatLabel(title, option)}
-                  name={`${option.title}-${attribute}`}
-                  attribute={attribute}
-                  label={formatLabel(title, option)}
-                  checked={!!checked}
-                  value={option.title}
-                  count={noShowPriceBucketCount ? null : option.count}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onInputChange(option.title, e)
-                  }
-                  type={type}
-                />
-              );
-            })}
-            {!showMore && buckets.length > numberOfOptionsShown && (
-              <div
-                className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
-                onClick={() => setShowMore(true)}
+      <fieldset className="ds-sdk-input__options mt-md">
+        <div className="space-y-4">
+          {buckets.slice(0, numberOfOptions).map((option) => {
+            const checked = isSelected(option.title);
+            const noShowPriceBucketCount = option.__typename === 'RangeBucket';
+            return (
+              <LabelledInput
+                key={formatLabel(title, option)}
+                name={`${option.title}-${attribute}`}
+                attribute={attribute}
+                label={formatLabel(title, option)}
+                checked={!!checked}
+                value={option.title}
+                count={noShowPriceBucketCount ? null : option.count}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  onInputChange(option.title, e)
+                }
+                type={type}
+              />
+            );
+          })}
+          {!showMore && buckets.length > numberOfOptionsShown && (
+            <div
+              className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
+              onClick={() => setShowMore(true)}
+            >
+              <PlusIcon className="h-md w-md fill-neutral-800" />
+              <button
+                type="button"
+                className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
               >
-                <PlusIcon className="h-md w-md fill-neutral-800" />
-                <button
-                  type="button"
-                  className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
-                >
-                  <span className="font-button-2 text-[12px]">
-                    {translation.InputButtonGroup.showmore}
-                  </span>
-                </button>
-              </div>
-            )}
-          </div>
-        </fieldset>
-      )} */}
+                <span className="font-button-2">
+                  {translation.InputButtonGroup.showmore}
+                </span>
+              </button>
+            </div>
+          )}
+        </div>
+      </fieldset>
+      <div className="ds-sdk-input__border border-t mt-md border-neutral-500" />
     </div>
   );
 };

@@ -8,4 +8,5 @@ it.
 */
 
 export * from './FilterSelectionGroup';
+export * from './FilterSelection';
 export { FilterSelectionGroup as default } from './FilterSelectionGroup';

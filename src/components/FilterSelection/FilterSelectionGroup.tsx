@@ -99,10 +99,8 @@ export const FilterSelectionGroup: FunctionComponent<
 
   return (
     <div className="ds-sdk-input py-md">
-      {/* {numberOfOptionsShown}
-      {JSON.stringify(buckets)} */}
-      <fieldset className="ds-sdk-input__options mt-md">
-        <div className="space-y-1">
+      <fieldset className="ds-sdk-input__options">
+        <div className="">
           {buckets.slice(0, numberOfOptions).map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';

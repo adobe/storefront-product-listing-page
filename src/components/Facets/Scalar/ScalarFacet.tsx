@@ -7,33 +7,24 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 import { FunctionComponent } from 'preact';
+import { FilterSelection } from 'src/components/FilterSelection';
 
-import useScalarFacet from '../../../hooks/useScalarFacet';
 import { Facet as FacetType, PriceFacet } from '../../../types/interface';
-import { InputButtonGroup } from '../../InputButtonGroup';
-
 export type HandleFilterType = () => void;
 
 interface ScalarFacetProps {
   filterData: FacetType | PriceFacet;
-  handleFilter?: any;
+  handleFilter?: HandleFilterType;
 }
 
 export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
   filterData,
   handleFilter
 }) => {
-  const { isSelected, onChange } = useScalarFacet(filterData);
-
   return (
     <>
-      <InputButtonGroup
+      <FilterSelection
         title={filterData.title}
-        attribute={filterData.attribute}
-        buckets={filterData.buckets as any}
-        type={'checkbox'}
-        isSelected={isSelected}
-        onChange={(args) => onChange(args.value, args.selected)}
         handleFilter={handleFilter}
       />
     </>
