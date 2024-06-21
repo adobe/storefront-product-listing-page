@@ -24,12 +24,14 @@ export const ImageHover: FunctionComponent<ImageCarouselProps> = ({
         {images.length > 1 && (
           <link rel="preload" as="image" href={typeof images[1] === 'object' ? images[1].src : images[1]} />
         )}
-        <div class="ds-sdk-product-image-hover h-[250px] max-w-2xl m-auto bg-cover bg-no-repeat bg-position-center"
-            style={{
-              '--image-url': `url('${typeof images[0] === 'object' ? images[0].src : images[0]}')`,
-              '--hover-url': `url('${typeof images[1] === 'object' ? images[1].src : images[1]}')`,
-            }}
-          />
+        <div class="relative w-full pb-[122.22%]">
+          <div class="ds-sdk-product-image-hover absolute h-full w-full m-auto bg-cover bg-no-repeat bg-position-center"
+              style={{
+                '--image-url': `url('${typeof images[0] === 'object' ? images[0].src : images[0]}')`,
+                '--hover-url': `url('${typeof images[1] === 'object' ? images[1].src : images[1]}')`,
+              }}
+            />
+        </div>
       </>
     );
 };

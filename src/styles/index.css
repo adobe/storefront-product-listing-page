@@ -674,9 +674,6 @@ video {
   .h-\[20px\] {
     height: 20px;
   }
-  .h-\[250px\] {
-    height: 250px;
-  }
   .h-\[32px\] {
     height: 32px;
   }
@@ -1122,6 +1119,9 @@ video {
   }
   .pb-6 {
     padding-bottom: 1.5rem;
+  }
+  .pb-\[122\.22\%\] {
+    padding-bottom: 122.22%;
   }
   .pl-3 {
     padding-left: 0.75rem;
