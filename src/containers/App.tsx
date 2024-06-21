@@ -64,11 +64,11 @@ export const App: FunctionComponent = () => {
                 filterCount={searchCtx.filterCount}
               />
               <div className={`ds-widgets_results flex flex-col items-center flex-[75] `}>
-                <ProductsHeader
+                {/* <ProductsHeader
                   facets={productsCtx.facets}
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
-                />
+                /> */}
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>

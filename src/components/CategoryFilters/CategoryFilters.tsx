@@ -36,37 +36,11 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   // setShowFilters,
   // filterCount,
 }) => {
-  const translation = useTranslation();
-  const title = translation.Filter.title; // categoryName || '';
-  // if (phrase) {
-  //   const text = translation.CategoryFilters.results;
-  //   title = text.replace('{phrase}', `"${phrase}"`);
-  // }
-  const resultsTranslation = translation.CategoryFilters.products;
-  const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
 
   return (
     <div className="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col">
-      {/* <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
-        {title && <span className="font-display-3"> {title}</span>}
-        {!loading && (
-          <span className="text-brand-700 font-button-2">{results}</span>
-        )}
-      </div> */}
-
       {!pageLoading && facets.length > 0 && (
-        <>
-          <div className="flex pb-4">
-            {/* <FilterButton
-              displayFilter={() => setShowFilters(false)}
-              type="desktop"
-              title={`${translation.Filter.hideTitle}${
-                filterCount > 0 ? ` (${filterCount})` : ''
-              }`}
-            /> */}
-          </div>
-          <Facets searchFacets={facets} totalCount={totalCount}/>
-        </>
+        <Facets searchFacets={facets} totalCount={totalCount} />
       )}
     </div>
   );

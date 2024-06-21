@@ -126,7 +126,6 @@ export const ProductsHeader: FunctionComponent<Props> = ({
             </div> */}
 
             {storeCtx?.config?.listview && <ViewSwitcher />}
-
             <SortDropdown
               sortOptions={sortOptions}
               value={sortBy}
