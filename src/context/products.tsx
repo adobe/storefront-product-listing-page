@@ -79,7 +79,7 @@ const ProductsContext = createContext<{
   refreshCart?: () => void;
   addToCart?: (
     sku: string,
-    options: [],
+    options: string[],
     quantity: number
   ) => Promise<void | undefined>;
 }>({

@@ -20,7 +20,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   return (
     <div className="ds-sdk-add-to-cart-button">
       <button
-        className="flex items-center justify-center h-[32px] w-full p-sm"
+        className="flex items-center justify-center h-[100%] w-full px-big py-[10px]"
         onClick={onClick}
       >
         <PlusIcon className="w-[14px] mr-xs" />

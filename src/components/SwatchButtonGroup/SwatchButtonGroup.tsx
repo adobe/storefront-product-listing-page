@@ -19,6 +19,7 @@ export interface SwatchButtonGroupProps {
   productUrl: string;
   onClick: (optionIds: string[], sku: string) => any;
   sku: string;
+  maxSwatches?: number;
 }
 
 const MAX_SWATCHES = 4;
@@ -30,20 +31,21 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
   productUrl,
   onClick,
   sku,
+  maxSwatches = MAX_SWATCHES,
 }: SwatchButtonGroupProps) => {
-  const moreSwatches = swatches.length > MAX_SWATCHES;
-  const numberOfOptions = moreSwatches ? MAX_SWATCHES - 1 : swatches.length;
-  console.log('SwatchButtonGroup', swatches, numberOfOptions, moreSwatches);
+  const moreSwatches = swatches.length > maxSwatches;
+  const numberOfOptions = moreSwatches ? maxSwatches - 1 : swatches.length;
+  
   return (
     <div className="ds-sdk-product-item__product-swatch-group flex column items-center space-x-2">
       {moreSwatches ? (
         <div className="flex">
           {swatches.slice(0, numberOfOptions).map((swatch) => {
             const checked = isSelected(swatch.id);
+            const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''}`;
+
             return (
-              swatch &&
-              swatch.type == 'TEXT' && (
-                <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700">
+              <div className={wrapperClasses} key={swatch.id}>
                   <SwatchButton
                     id={swatch.id}
                     value={swatch.value}
@@ -52,19 +54,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
                     onClick={() => onClick([swatch.id], sku)}
                   />
                 </div>
-              ) ||
-                swatch.type == 'COLOR_HEX' && (
-                <div className="ds-sdk-product-item__product-swatch-item mr-2 text-sm text-brand-700">
-                  <SwatchButton
-                    id={swatch.id}
-                    value={swatch.value}
-                    type={swatch.type}
-                    checked={!!checked}
-                    onClick={() => onClick([swatch.id], sku)}
-                  />
-                </div>
-              )
-            );
+              );
           })}
           <a href={productUrl as string} className="hover:no-underline">
             <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700">
@@ -82,29 +72,15 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
         swatches.slice(0, numberOfOptions).map((swatch) => {
           const checked = isSelected(swatch.id);
           return (
-            swatch &&
-            swatch.type == 'TEXT' && (
-              <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700">
-                <SwatchButton
-                  id={swatch.id}
-                  value={swatch.value}
-                  type={swatch.type}
-                  checked={!!checked}
-                  onClick={() => onClick([swatch.id], sku)}
-                />
-              </div>
-            ) ||
-            swatch.type == 'COLOR_HEX' && (
-              <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700">
-                <SwatchButton
-                  id={swatch.id}
-                  value={swatch.value}
-                  type={swatch.type}
-                  checked={!!checked}
-                  onClick={() => onClick([swatch.id], sku)}
-                />
-              </div>
-            )
+            <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700" key={swatch.id}>
+              <SwatchButton
+                id={swatch.id}
+                value={swatch.value}
+                type={swatch.type}
+                checked={!!checked}
+                onClick={() => onClick([swatch.id], sku)}
+              />
+            </div>
           );
         })
       )}

@@ -280,10 +280,11 @@
 .ds-sdk-add-to-cart-button {
   background-color: var(--color-neutral-50);
   color: var(--color-brand-700);
-  padding: var(--spacing-xs);
   font-size: var(--font-sm);
   font-weight: var(--font-medium);
   cursor: pointer;
+  padding: 0;
+  height: 100%;
 }
 
 .ds-sdk-product-image-hover {

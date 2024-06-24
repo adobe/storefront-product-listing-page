@@ -19,6 +19,7 @@ import {
   ProductViewMedia,
   RedirectRouteFunc,
   RefinedProduct,
+  SwatchValues
 } from '../../types/interface';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import {
@@ -42,7 +43,7 @@ export interface ProductProps {
   setError: (error: boolean) => void;
   addToCart?: (
     sku: string,
-    options: [],
+    options: string[],
     quantity: number
   ) => Promise<void | undefined>;
 }
@@ -50,6 +51,7 @@ export interface ProductProps {
 const SWATCH_COLORS = 'Colors';
 const SWATCH_COLORS_TEAM = 'Colors / Team';
 const SWATCH_COLORS_TEAM_NAME = 'Colors / Team name';
+const SWATCH_SIZE = 'Size';
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
   item,
@@ -69,6 +71,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
+  const [showSizes, setShowSizes] = useState(false);
+
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
@@ -158,15 +162,15 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey })
     : product?.canonical_url;
 
-  const handleAddToCart = async () => {
+  const updateCart = async (selectedVariants: string[] = []) => {
     setError(false);
     if (isSimple) {
       if (addToCart) {
         //Custom add to cart function passed in
-        await addToCart(productView.sku, [], 1);
+        await addToCart(productView.sku, selectedVariants, 1);
       } else {
         // Add to cart using GraphQL & Luma extension
-        const response = await addToCartGraphQL(productView.sku);
+        const response = await addToCartGraphQL(productView.sku, selectedVariants);
 
         if (
           response?.errors ||
@@ -183,6 +187,30 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     } else if (productUrl) {
       window.open(productUrl, '_self');
     }
+  }
+
+  const handleAddToCart = async (evt: any) => {
+    evt.preventDefault();
+
+    const hasSizeOptions = productView?.options?.some((swatches) => swatches.title === SWATCH_SIZE);
+    if ((!listview || viewType !== 'listview') && hasSizeOptions) {
+      setShowSizes(true);
+      return;
+    }
+
+    const selectedVariants = selectedSwatch ? [selectedSwatch] : [];
+    updateCart(selectedVariants);
+  };
+
+  const handleSizeSelection = async (optionIds: string[]) => {
+    setShowSizes(false);
+
+    let selectedVariants = selectedSwatch ? [selectedSwatch] : [];
+    if (optionIds) {
+      selectedVariants = [...selectedVariants, ...optionIds];
+    }
+
+    updateCart(selectedVariants);
   };
 
   if (listview && viewType === 'listview') {
@@ -333,78 +361,82 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
               />
             )}
-            {<div className="absolute left-0 right-0 bottom-0 p-xs">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>}
+            <div className="add-to-cart-overlay absolute left-0 right-0 bottom-0 p-xsmall h-[56px]">
+              {!screenSize.desktop && !showSizes && <AddToCartButton onClick={handleAddToCart} />}
+              {isHovering && screenSize.desktop && !showSizes && (
+                <AddToCartButton onClick={handleAddToCart} />
+              )}
+              {showSizes && productView?.options?.map((swatches) => {
+                if (swatches.title === SWATCH_SIZE) {
+                  const swatchItems: SwatchValues[] = (swatches.values ?? []).map((swatch) => ({
+                    ...swatch,
+                    type: 'SIZE',
+                  }));
 
-          </div>
-
-      {productView?.options && productView.options?.length > 0 && (
-        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-brand-700 p-2">
-          {productView?.options?.map(
-            (swatches) => {
-              if (swatches.title === SWATCH_COLORS) {
-                return (
-                  <SwatchButtonGroup
-                    key={product?.sku}
-                    isSelected={isSelected}
-                    swatches={swatches.values ?? []}
-                    showMore={onProductClick}
-                    productUrl={productUrl as string}
-                    onClick={handleSelection}
-                    sku={product?.sku}
-                  />
-                );
-              } else if ([SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
-                return (
-                  <SwatchButtonGroup
-                    key={product?.sku}
-                    isSelected={isSelected}
-                    swatches={swatches.values ?? []}
-                    showMore={onProductClick}
-                    productUrl={productUrl as string}
-                    onClick={handleSelection}
-                    sku={product?.sku}
-                  />
-                );
-              }
-            }
-          )}
-        </div>
-      )}
-
-          <div className="flex flex-row p-2">
-            <div className="flex flex-col">
-              <div className="ds-sdk-product-item__product-name font-medium text-lg">
-                {product.name !== null && htmlStringDecode(product.name)}
-              </div>
-              <ProductPrice
-                item={refinedProduct ?? item}
-                isBundle={isBundle}
-                isGrouped={isGrouped}
-                isGiftCard={isGiftCard}
-                isConfigurable={isConfigurable}
-                isComplexProductView={isComplexProductView}
-                discount={discount}
-                currencySymbol={currencySymbol}
-                currencyRate={currencyRate}
-              />
+                  return (
+                    <SwatchButtonGroup
+                      key={product?.sku}
+                      isSelected={isSelected}
+                      swatches={swatchItems}
+                      showMore={onProductClick}
+                      productUrl={productUrl as string}
+                      onClick={handleSizeSelection}
+                      sku={product?.sku}
+                      maxSwatches={swatchItems.length}
+                    />
+                  );
+                }
+              })}
             </div>
-
-            {/*
-            //TODO: Wishlist button to be added later
-            {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
-              // TODO: Remove flag during phase 3 MSRCH-4278
-              <div className="ds-sdk-wishlist ml-auto mt-md">
-                <WishlistButton
-                  productSku={item.product.sku}
-                  type={widgetConfig.addToWishlist.placement}
-                />
+          </div>
+          <div className="flex flex-col px-xsmall py-small gap-2">
+            {productView?.options && productView.options?.length > 0 && (
+              <div className="ds-sdk-product-item__product-swatch flex flex-row text-sm text-brand-700">
+                {productView?.options?.map(
+                  (swatches) => {
+                    if (swatches.title === SWATCH_COLORS) {
+                      return (
+                        <SwatchButtonGroup
+                          key={product?.sku}
+                          isSelected={isSelected}
+                          swatches={swatches.values ?? []}
+                          showMore={onProductClick}
+                          productUrl={productUrl as string}
+                          onClick={handleSelection}
+                          sku={product?.sku}
+                        />
+                      );
+                    } else if ([SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
+                      return (
+                        <SwatchButtonGroup
+                          key={product?.sku}
+                          isSelected={isSelected}
+                          swatches={swatches.values ?? []}
+                          showMore={onProductClick}
+                          productUrl={productUrl as string}
+                          onClick={handleSelection}
+                          sku={product?.sku}
+                        />
+                      );
+                    }
+                  }
+                )}
               </div>
-            )} */}
+            )}
+            <div className="ds-sdk-product-item__product-name font-medium text-lg">
+              {product.name !== null && htmlStringDecode(product.name)}
+            </div>
+            <ProductPrice
+              item={refinedProduct ?? item}
+              isBundle={isBundle}
+              isGrouped={isGrouped}
+              isGiftCard={isGiftCard}
+              isConfigurable={isConfigurable}
+              isComplexProductView={isComplexProductView}
+              discount={discount}
+              currencySymbol={currencySymbol}
+              currencyRate={currencyRate}
+            />
           </div>
         </div>
       </a>
