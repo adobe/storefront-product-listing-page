@@ -9,10 +9,10 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { useTranslation } from '../../context/translation';
+// import { useTranslation } from '../../context/translation';
 import { Facet } from '../../types/interface';
 import { Facets } from '../Facets';
-import { FilterButton } from '../FilterButton';
+// import { FilterButton } from '../FilterButton';
 
 interface CategoryFiltersProps {
   loading: boolean;
