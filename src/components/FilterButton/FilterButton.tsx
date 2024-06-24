@@ -31,7 +31,7 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
         onClick={displayFilter}
       >
         <AdjustmentsIcon className="w-md" />
-        <span className="font-button-2 text-sm">{translation.Filter.title}</span>
+        <span className="font-button-2 text-sm uppercase">{translation.Filter.title}</span>
       </button>
     </div>
   ) : (

@@ -1318,6 +1318,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .underline-offset-4 {
     text-underline-offset: 4px;
   }
+  .uppercase {
+    text-transform: uppercase;
+  }
   .accent-neutral-800 {
     accent-color: var(--color-neutral-800);
   }
