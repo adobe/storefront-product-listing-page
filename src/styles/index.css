@@ -712,6 +712,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .w-1\/3 {
     width: 33.333333%;
   }
+  .w-1\/2 {
+    width: 50%;
+  }
   .w-28 {
     width: 7rem;
   }
@@ -975,6 +978,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .border-t {
     border-top-width: 1px;
   }
+  .border-r {
+    border-right-width: 1px;
+  }
   .border-none {
     border-style: none;
   }
@@ -998,6 +1004,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .border-neutral-300 {
     border-color: var(--color-neutral-300);
+  }
+  .border-neutral-400 {
+    border-color: var(--color-neutral-400);
   }
   .border-neutral-500 {
     border-color: var(--color-neutral-500);

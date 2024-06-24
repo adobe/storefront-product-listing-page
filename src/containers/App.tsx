@@ -22,6 +22,7 @@ import {
   useStore,
   useTranslation,
 } from '../context';
+import { MobileFilterHeader } from './MobileFilterHeader';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
 
@@ -63,7 +64,9 @@ export const App: FunctionComponent = () => {
                 setShowFilters={setShowFilters}
                 filterCount={searchCtx.filterCount}
               />
-              <div className={`ds-widgets_results flex flex-col items-center flex-[75] `}>
+              <div
+                className={`ds-widgets_results flex flex-col items-center flex-[75] `}
+              >
                 {/* <ProductsHeader
                   facets={productsCtx.facets}
                   totalCount={productsCtx.totalCount}
@@ -116,8 +119,8 @@ export const App: FunctionComponent = () => {
                   )
                 ) : (
                   <>
-                    <div className="flex w-full h-full">
-                      <ProductsHeader
+                    <div className="flex w-full h-full testing">
+                      <MobileFilterHeader
                         facets={productsCtx.facets}
                         totalCount={productsCtx.totalCount}
                         screenSize={screenSize}
