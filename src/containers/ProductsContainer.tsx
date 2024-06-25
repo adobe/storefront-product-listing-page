@@ -7,19 +7,16 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionalComponent, FunctionComponent } from 'preact';
+import {  FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { ProductCardShimmer } from 'src/components/ProductCardShimmer';
 import { useProducts, useSensor, useTranslation } from 'src/context';
-import { PageSizeOption } from 'src/types/interface';
 import {
-  handleUrlPageSize,
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
 
 import { Alert } from '../components/Alert';
 import { Pagination } from '../components/Pagination';
-import { PerPagePicker, PerPagePickerProps } from '../components/PerPagePicker';
 import { ProductList } from '../components/ProductList';
 
 interface Props {
@@ -37,13 +34,11 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     items,
     setCurrentPage,
     currentPage,
-    setPageSize,
     pageSize,
     totalPages,
     totalCount,
     minQueryLength,
     minQueryLengthReached,
-    pageSizeOptions,
     loading,
   } = productsCtx;
 
@@ -62,34 +57,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     }
   };
 
-  const onPageSizeChange = (pageSizeOption: number) => {
-    setPageSize(pageSizeOption);
-    handleUrlPageSize(pageSizeOption);
-  };
   const translation = useTranslation();
-
-  const getPageSizeTranslation = (
-    pageSize: number,
-    pageSizeOptions: PageSizeOption[],
-    PerPagePicker: FunctionalComponent<PerPagePickerProps>
-  ) => {
-    const pageSizeTranslation = translation.ProductContainers.pagePicker;
-    const pageSizeTranslationOrder = pageSizeTranslation.split(' ');
-    return pageSizeTranslationOrder.map((word: string, index: any) =>
-      word === '{pageSize}' ? (
-        <PerPagePicker
-          pageSizeOptions={pageSizeOptions}
-          value={pageSize}
-          onChange={onPageSizeChange}
-          key={index}
-        />
-      ) : (
-        <span className="font-body-1-default" key={index}>
-          {word}{' '}
-        </span>
-      )
-    );
-  };
 
   if (!minQueryLengthReached) {
     const templateMinQueryText = translation.ProductContainers.minquery;
@@ -137,13 +105,13 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         />
       )}
       <div
-        className={`flex flex-row justify-between max-w-full ${
+        className={`flex ${screenSize.desktop ? 'flex-row' : 'flex-col gap-4'} justify-between max-w-full ${
           showFilters ? 'mx-auto' : 'mr-auto'
-        } w-full h-full`}
+        } w-full h-full text-[14px] font-normal`}
       >
-        <div>
-          {getPageSizeTranslation(pageSize, pageSizeOptions, PerPagePicker)}
-        </div>
+        <span className="flex items-center justify-center text-neutral-700">
+          {`${Math.max((currentPage-1)*pageSize, 1)}-${currentPage*pageSize}`} of {totalCount}
+        </span>
         {totalPages > 1 && (
           <Pagination
             currentPage={currentPage}

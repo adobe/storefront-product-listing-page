@@ -9,6 +9,8 @@ it.
 
 import { useMemo } from 'preact/compat';
 
+import { useSensor } from './../context';
+
 export const ELLIPSIS = '...';
 
 const getRange = (start: number, end: number) => {
@@ -27,6 +29,7 @@ export const usePagination = ({
   totalPages,
   siblingCount = 1,
 }: PaginationType) => {
+  const { screenSize } = useSensor();
   const paginationRange: (string | number)[] | undefined = useMemo(() => {
     const firstPageIndex = 1;
     const lastPageIndex = totalPages;
@@ -37,6 +40,10 @@ export const usePagination = ({
     // We do not show the left/right dots(...) if there is just one page left to be inserted between the extremes of sibling and the page limits.
     const showLeftDots = leftSiblingIndex > 2;
     const showRightDots = rightSiblingIndex < totalPages - 2;
+
+    if (!screenSize.desktop) {
+      return getRange(leftSiblingIndex, rightSiblingIndex);
+    }
 
     // Case 1 - the total page count is less than the page pills we want to show.
     // < 1 2 3 4 5 6 >
