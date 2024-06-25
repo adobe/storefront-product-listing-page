@@ -9,6 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
+import { Drawer } from 'src/components/Drawer/Drawer';
 import MobileFacets from 'src/components/MobileFacets';
 import ViewSwitcher from 'src/components/ViewSwitcher';
 
@@ -98,17 +99,25 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
         )}
 
         {totalCount > 0 && (
-          <div className="flex justify-center w-1/2">
+          <div className="flex justify-center w-1/2 py-md">
             {storeCtx?.config?.listview && <ViewSwitcher />}
             <SortDropdown
               sortOptions={sortOptions}
               value={sortBy}
               onChange={onSortChange}
+              mobile
             />
           </div>
         )}
       </div>
-      {screenSize.mobile && showMobileFacet && <MobileFacets searchFacets={facets} />}
+      {screenSize.mobile && (
+        <Drawer
+          isOpen={showMobileFacet}
+          onClose={() => setShowMobileFacet(!showMobileFacet)}
+        >
+          <MobileFacets searchFacets={facets} />
+        </Drawer>
+      )}
     </div>
   );
 };

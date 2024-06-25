@@ -25,8 +25,10 @@ export const MobileFacets: FunctionComponent<FacetsProps> = ({
   const {
     config: { priceSlider },
   } = useStore();
+
   return (
     <div className="ds-plp-facets flex flex-col">
+      <h1>Filter Products</h1>
       <form className="ds-plp-facets__list border-t border-neutral-500">
         {searchFacets?.map((facet) => {
           const bucketType = facet?.buckets[0]?.__typename;

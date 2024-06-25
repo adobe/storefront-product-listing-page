@@ -19,13 +19,17 @@ export interface SortDropdownProps {
   value: string;
   sortOptions: SortOption[];
   onChange: (sortBy: string) => void;
+  mobile?: boolean;
 }
 
 export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   value,
   sortOptions,
   onChange,
+  mobile
 }: SortDropdownProps) => {
+  console.log(mobile)
+
   const sortOptionButton = useRef<HTMLButtonElement | null>(null);
   const sortOptionMenu = useRef<HTMLDivElement | null>(null);
 
@@ -81,11 +85,11 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div
         ref={sortOptionMenu}
-        class="ds-sdk-sort-dropdown flex items-center gap-x-2 shrink-0 relative inline-block text-left bg-neutral-50 h-[32px] z-9"
+        class="ds-sdk-sort-dropdown flex items-center gap-x-2 shrink-0 relative inline-block text-left bg-neutral-50 z-9"
       >
-        <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
+        {!mobile && <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
           {translation.SortDropdown.title}
-        </label>
+        </label>}
         <button
           className="group flex justify-center items-center gap-x-1 hover:cursor-pointer bg-background h-full"
           ref={sortOptionButton}
@@ -93,7 +97,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
           onFocus={() => setIsFocus(false)}
           onBlur={() => setIsFocus(false)}
         >
-          <span className="font-headline-1 text-sm text-neutral-700">
+          <span className={`font-headline-1 text-sm ${!mobile ? 'text-neutral-700' : ''}`}>
             {selectedOption ? sortOption : translation.SortDropdown.title}
           </span>
           <Chevron
