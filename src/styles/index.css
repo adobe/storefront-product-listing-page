@@ -527,6 +527,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .relative {
     position: relative;
   }
+  .fixed {
+    position: fixed;
+  }
   .bottom-0 {
     bottom: 0px;
   }
@@ -541,6 +544,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .z-20 {
     z-index: 20;
+  }
+  .z-50 {
+    z-index: 50;
   }
   .m-4 {
     margin: 1rem;
@@ -622,14 +628,17 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .mt-8 {
     margin-top: 2rem;
   }
-  .mt-md {
-    margin-top: var(--spacing-md);
+  .mt-auto {
+    margin-top: auto;
+  }
+  .mt-xs {
+    margin-top: var(--spacing-xs);
   }
   .mt-sm {
     margin-top: var(--spacing-sm);
   }
-  .mt-xs {
-    margin-top: var(--spacing-xs);
+  .mt-md {
+    margin-top: var(--spacing-md);
   }
   .inline-block {
     display: inline-block;
@@ -654,6 +663,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .h-28 {
     height: 7rem;
+  }
+  .h-80 {
+    height: 80%;
   }
   .h-3 {
     height: 0.75rem;
@@ -687,6 +699,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .h-full {
     height: 100%;
+  }
+  .min-h-screen {
+    min-height: 100vh;
   }
   .h-md {
     height: var(--spacing-md);
@@ -945,6 +960,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .overflow-y-auto {
     overflow-y: auto;
   }
+  .overflow-auto {
+    overflow: auto;
+  }
   .whitespace-nowrap {
     white-space: nowrap;
   }
@@ -991,6 +1009,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .border-brand-700 {
     border-color: var(--color-brand-700);
   }
+  .bg-black {
+    background-color: var(--color-black);
+  }
+
+  .bg-opacity-50 {
+    opacity: 0.5;
+  }
+
   .border-gray-200 {
     --tw-border-opacity: 1;
     border-color: rgb(229 231 235 / var(--tw-border-opacity));
@@ -1402,6 +1428,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   /* font-size: 1.6rem; */
   /* Elsie base design */
+  --color-black: #15191d;
   --color-brand-300: #6d6d6d;
   --color-brand-500: #454545;
   --color-brand-600: #383838;
@@ -1801,11 +1828,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   opacity: 1;
 }
 
-/* Testing Drawer Classes */
-.fixed {
-  position: fixed;
-}
-
+/* Drawer Classes */
 .inset-0 {
   top: 0;
   right: 0;
@@ -1813,44 +1836,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   left: 0;
 }
 
-.z-50 {
-  z-index: 50;
-}
-
-.mt-auto {
-  margin-top: auto;
-}
-
-.h-80 {
-  height: 80%; /* Adjust height as needed */
-}
-
 .shadow-lg {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-.overflow-auto {
-  overflow: auto;
-}
-
-.text-white {
-  color: white;
-}
-
-.bg-black {
-  background-color: black;
-}
-
-.bg-opacity-50 {
-  opacity: 0.5;
-}
-
-.min-h-screen {
-  min-height: 100vh;
-}
-
-.bg-gray-100 {
-  background-color: #f7fafc;
 }
 
 /* Slide transitions */
@@ -1878,6 +1865,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .slide-down {
   animation: slideDown 0.3s ease-out forwards;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 @media (min-width: 640px) {
