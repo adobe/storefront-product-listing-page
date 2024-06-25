@@ -87,6 +87,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const handleMouseOut = () => {
     setIsHovering(false);
+    setShowSizes(false);
   };
 
   const handleSelection = async (optionIds: string[], sku: string) => {
@@ -164,28 +165,24 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const updateCart = async (selectedVariants: string[] = []) => {
     setError(false);
-    if (isSimple) {
-      if (addToCart) {
-        //Custom add to cart function passed in
-        await addToCart(productView.sku, selectedVariants, 1);
-      } else {
-        // Add to cart using GraphQL & Luma extension
-        const response = await addToCartGraphQL(productView.sku, selectedVariants);
+    if (addToCart) {
+      //Custom add to cart function passed in
+      await addToCart(productView.sku, selectedVariants, 1);
+    } else {
+      // Add to cart using GraphQL & Luma extension
+      const response = await addToCartGraphQL(productView.sku, selectedVariants);
 
-        if (
-          response?.errors ||
-          response?.data?.addProductsToCart?.user_errors.length > 0
-        ) {
-          setError(true);
-          return;
-        }
-
-        setItemAdded(product.name);
-        refreshCart && refreshCart();
-        setCartUpdated(true);
+      if (
+        response?.errors ||
+        response?.data?.addProductsToCart?.user_errors.length > 0
+      ) {
+        setError(true);
+        return;
       }
-    } else if (productUrl) {
-      window.open(productUrl, '_self');
+
+      setItemAdded(product.name);
+      refreshCart && refreshCart();
+      setCartUpdated(true);
     }
   }
 
@@ -394,19 +391,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               <div className="ds-sdk-product-item__product-swatch flex flex-row text-sm text-brand-700">
                 {productView?.options?.map(
                   (swatches) => {
-                    if (swatches.title === SWATCH_COLORS) {
-                      return (
-                        <SwatchButtonGroup
-                          key={product?.sku}
-                          isSelected={isSelected}
-                          swatches={swatches.values ?? []}
-                          showMore={onProductClick}
-                          productUrl={productUrl as string}
-                          onClick={handleSelection}
-                          sku={product?.sku}
-                        />
-                      );
-                    } else if ([SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
+                    if ([SWATCH_COLORS, SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
                       return (
                         <SwatchButtonGroup
                           key={product?.sku}
