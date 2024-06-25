@@ -9,11 +9,10 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
+import MobileFacets from 'src/components/MobileFacets';
 import ViewSwitcher from 'src/components/ViewSwitcher';
 
-import Facets from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
-import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
 import {
   useAttributeMetadata,
@@ -109,7 +108,7 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
           </div>
         )}
       </div>
-      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
+      {screenSize.mobile && showMobileFacet && <MobileFacets searchFacets={facets} />}
     </div>
   );
 };

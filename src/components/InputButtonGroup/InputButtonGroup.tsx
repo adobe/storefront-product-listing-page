@@ -61,44 +61,44 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   const formatLabel = (title: string, bucket: Bucket) => {
+    const {
+      currencyRate = '1',
+      currencySymbol = '$',
+      categoryPath,
+    } = productsCtx;
+
+    const formatPrice = (value: number) =>
+      (parseFloat(currencyRate) * value).toFixed(2);
+
     if (bucket.__typename === 'RangeBucket') {
-      const currencyRate = productsCtx.currencyRate
-        ? productsCtx.currencyRate
-        : '1';
-      const currencySymbol = productsCtx.currencySymbol
-        ? productsCtx.currencySymbol
-        : '$';
-      const label = `${currencySymbol}${
-        bucket?.from &&
-        parseFloat(currencyRate) * parseInt(bucket.from.toFixed(0), 10)
-          ? (
-              parseFloat(currencyRate) * parseInt(bucket.from.toFixed(0), 10)
-            ).toFixed(2)
-          : 0
-      }${
-        bucket?.to &&
-        parseFloat(currencyRate) * parseInt(bucket.to.toFixed(0), 10)
-          ? ` - ${currencySymbol}${(
-              parseFloat(currencyRate) * parseInt(bucket.to.toFixed(0), 10)
-            ).toFixed(2)}`
-          : translation.InputButtonGroup.priceRange
-      }`;
-      return label;
-    } else if (bucket.__typename === 'CategoryView') {
-      return productsCtx.categoryPath
-        ? bucket.name ?? bucket.title
-        : bucket.title;
-    } else if (bucket.title === BOOLEAN_YES) {
-      return title;
-    } else if (bucket.title === BOOLEAN_NO) {
-      const excludedMessageTranslation =
-        translation.InputButtonGroup.priceExcludedMessage;
-      const excludedMessage = excludedMessageTranslation.replace(
-        '{title}',
-        `${title}`
-      );
-      return excludedMessage;
+      const fromPrice = bucket.from
+        ? `${currencySymbol}${formatPrice(
+            parseInt(bucket.from.toFixed(0), 10)
+          )}`
+        : '0';
+      const toPrice = bucket.to
+        ? ` - ${currencySymbol}${formatPrice(
+            parseInt(bucket.to.toFixed(0), 10)
+          )}`
+        : translation.InputButtonGroup.priceRange;
+      return `${fromPrice}${toPrice}`;
     }
+
+    if (bucket.__typename === 'CategoryView') {
+      return categoryPath ? bucket.name ?? bucket.title : bucket.title;
+    }
+
+    if (bucket.title === BOOLEAN_YES) {
+      return title;
+    }
+
+    if (bucket.title === BOOLEAN_NO) {
+      return translation.InputButtonGroup.priceExcludedMessage.replace(
+        '{title}',
+        title
+      );
+    }
+
     return bucket.title;
   };
 
@@ -107,7 +107,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-neutral-900 font-headline-1">
+        <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
           {title}
         </label>
       )}
@@ -142,7 +142,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
                 type="button"
                 className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
               >
-                <span className="font-button-2">
+                <span className="font-button-2 text-[12px]">
                   {translation.InputButtonGroup.showmore}
                 </span>
               </button>
