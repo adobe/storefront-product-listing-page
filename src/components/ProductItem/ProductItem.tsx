@@ -139,7 +139,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         product?.price_range?.minimum_price?.final_price?.value ||
       productView?.price?.regular?.amount?.value >
         productView?.price?.final?.amount?.value;
-  const isSimple = product?.__typename === 'SimpleProduct';
+
   const isComplexProductView = productView?.__typename === 'ComplexProductView';
   const isBundle = product?.__typename === 'BundleProduct';
   const isGrouped = product?.__typename === 'GroupedProduct';
@@ -188,6 +188,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const handleAddToCart = async (evt: any) => {
     evt.preventDefault();
+    evt.stopPropagation();
 
     const hasSizeOptions = productView?.options?.some((swatches) => swatches.title === SWATCH_SIZE);
     if ((!listview || viewType !== 'listview') && hasSizeOptions) {

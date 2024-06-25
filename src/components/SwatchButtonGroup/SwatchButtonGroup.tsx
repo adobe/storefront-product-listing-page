@@ -43,6 +43,12 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
           {swatches.slice(0, numberOfOptions).map((swatch) => {
             const checked = isSelected(swatch.id);
             const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''}`;
+            const handleClick = (evt: Event) => {
+              evt.preventDefault();
+              evt.stopPropagation();
+
+              onClick([swatch.id], sku);
+            }
 
             return (
               <div className={wrapperClasses} key={swatch.id}>
@@ -51,7 +57,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
                     value={swatch.value}
                     type={swatch.type}
                     checked={!!checked}
-                    onClick={() => onClick([swatch.id], sku)}
+                    onClick={handleClick}
                   />
                 </div>
               );
@@ -78,7 +84,12 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
                 value={swatch.value}
                 type={swatch.type}
                 checked={!!checked}
-                onClick={() => onClick([swatch.id], sku)}
+                onClick={(evt: Event) => {
+                  evt.preventDefault();
+                  evt.stopPropagation();
+
+                  onClick([swatch.id], sku);
+                }}
               />
             </div>
           );
