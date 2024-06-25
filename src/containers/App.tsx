@@ -126,7 +126,6 @@ export const App: FunctionComponent = () => {
                         screenSize={screenSize}
                       />
                     </div>
-                    <SelectedFilters />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />

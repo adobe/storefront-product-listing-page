@@ -111,7 +111,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           {title}
         </label>
       )}
-      <fieldset className="ds-sdk-input__options mt-md">
+      <fieldset className="ds-sdk-input__options">
         <div className="space-y-4">
           {buckets.slice(0, numberOfOptions).map((option) => {
             const checked = isSelected(option.title);
