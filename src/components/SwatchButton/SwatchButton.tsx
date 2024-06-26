@@ -9,10 +9,12 @@ it.
 
 import { FunctionComponent } from 'preact';
 
+import { SwatchType } from '../../types/interface';
+
 export interface SwatchButtonProps {
   id: string;
   value: string;
-  type: 'COLOR_HEX' | 'IMAGE' | 'TEXT';
+  type: SwatchType;
   checked: boolean;
   onClick: (e: any) => any;
 }
@@ -90,7 +92,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   }
 
   // assume TEXT type
-  const className = `flex items-center bg-white rounded-full p-sm border border-[1.5px]h-[32px] ${outlineColor} outline-transparent`;
+  const className = `flex items-center bg-white p-sm border border-[1.5px]h-[32px] ${outlineColor} outline-transparent`;
   return (
     <div className={`ds-sdk-swatch-button_${value}`}>
       <button

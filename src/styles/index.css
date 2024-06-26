@@ -665,6 +665,9 @@ video {
   .h-5 {
     height: 1.25rem;
   }
+  .h-\[100\%\] {
+    height: 100%;
+  }
   .h-\[12px\] {
     height: 12px;
   }
@@ -685,6 +688,9 @@ video {
   }
   .h-\[44px\] {
     height: 44px;
+  }
+  .h-\[56px\] {
+    height: 56px;
   }
   .h-auto {
     height: auto;
@@ -872,6 +878,9 @@ video {
   }
   .justify-between {
     justify-content: space-between;
+  }
+  .gap-2 {
+    gap: 0.5rem;
   }
   .gap-\[10px\] {
     gap: 10px;
@@ -1065,6 +1074,9 @@ video {
   .p-xs {
     padding: var(--spacing-xs);
   }
+  .p-xsmall {
+    padding: var(--spacing-xsmall);
+  }
   .px-1 {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
@@ -1077,6 +1089,10 @@ video {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .px-big {
+    padding-left: var(--spacing-big);
+    padding-right: var(--spacing-big);
+  }
   .px-md {
     padding-left: var(--spacing-md);
     padding-right: var(--spacing-md);
@@ -1084,6 +1100,10 @@ video {
   .px-sm {
     padding-left: var(--spacing-sm);
     padding-right: var(--spacing-sm);
+  }
+  .px-xsmall {
+    padding-left: var(--spacing-xsmall);
+    padding-right: var(--spacing-xsmall);
   }
   .py-1 {
     padding-top: 0.25rem;
@@ -1097,9 +1117,17 @@ video {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
+  .py-\[10px\] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   .py-sm {
     padding-top: var(--spacing-sm);
     padding-bottom: var(--spacing-sm);
+  }
+  .py-small {
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-small);
   }
   .py-xs {
     padding-top: var(--spacing-xs);
@@ -1617,14 +1645,15 @@ video {
 .ds-sdk-add-to-cart-button {
   background-color: var(--color-neutral-50);
   color: var(--color-brand-700);
-  padding: var(--spacing-xs);
   font-size: var(--font-sm);
   font-weight: var(--font-medium);
   cursor: pointer;
+  padding: 0;
+  height: 100%;
 }
 
 .ds-sdk-product-image-hover {
-  transition: background-image .5s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
+  transition: background-image .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
 }
 
 .first\:ml-0:first-child {

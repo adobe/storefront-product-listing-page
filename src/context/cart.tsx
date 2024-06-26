@@ -19,7 +19,7 @@ import { useStore } from './store';
 export interface CartAttributesContext {
   cart: CartProps;
   initializeCustomerCart: () => Promise<string>;
-  addToCartGraphQL: (sku: string) => Promise<any>;
+  addToCartGraphQL: (sku: string, options: string[]) => Promise<any>;
   refreshCart?: () => void;
 }
 
@@ -50,7 +50,7 @@ const CartProvider: FunctionComponent = ({ children }) => {
     return cartId;
   };
 
-  const addToCartGraphQL = async (sku: string) => {
+  const addToCartGraphQL = async (sku: string, options: string[] ) => {
     let cartId = cart.cartId;
     if (!cartId) {
       cartId = await initializeCustomerCart();
@@ -59,6 +59,7 @@ const CartProvider: FunctionComponent = ({ children }) => {
       {
         quantity: 1,
         sku,
+        selected_options: options
       },
     ];
 
