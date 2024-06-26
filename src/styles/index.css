@@ -1288,6 +1288,9 @@ video {
     --tw-text-opacity: 1;
     color: rgb(22 101 52 / var(--tw-text-opacity));
   }
+  .text-neutral-600 {
+    color: var(--color-neutral-600);
+  }
   .text-neutral-700 {
     color: var(--color-neutral-700);
   }

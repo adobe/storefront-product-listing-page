@@ -80,7 +80,7 @@ export const usePagination = ({
         lastPageIndex,
       ];
     }
-  }, [currentPage, totalPages, siblingCount]);
+  }, [currentPage, totalPages, siblingCount, screenSize.desktop]);
 
   return paginationRange;
 };

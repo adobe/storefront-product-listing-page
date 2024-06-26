@@ -76,36 +76,35 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   return (
     <ul className="ds-plp-pagination flex justify-center items-center list-none gap-[6px] h-[36px] text-[14px] font-normal">
       <li className="border border-solid border-[#ddd] h-[100%]">
-        <a 
+        <a
           href="?p=1"
-          className="flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall"
+          className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall 
+            ${currentPage === 1 ? 'cursor-not-allowed text-neutral-600' : ''}`
+          }
           onClick={onFirst}>
           <Guillemet
             className={`h-small w-small transform ${
-              currentPage === 1
-                ? 'stroke-neutral-600 cursor-not-allowed'
-                : 'stroke-brand-700 cursor-pointer'
+              currentPage === 1 ? 'stroke-neutral-600' : 'stroke-brand-700'
             }`}
           />
           {screenSize.desktop && <span>First</span>}
         </a>
       </li>
       <li className="border border-solid border-[#ddd] h-[100%]">
-        <a 
-          className="flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall"
+        <a
+          className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall
+            ${currentPage === 1 ? 'cursor-not-allowed text-neutral-600' : ''}`
+          }
           href={`?p=${currentPage - 1}`}
           onClick={onPrevious}>
           <Chevron
             className={`h-sm w-sm transform rotate-90 ${
-              currentPage === 1
-                ? 'stroke-neutral-600 cursor-not-allowed'
-                : 'stroke-brand-700 cursor-pointer'
+              currentPage === 1 ? 'stroke-neutral-600' : 'stroke-brand-700'
             }`}
           />
           {screenSize.desktop && <span>Back</span>}
         </a>
       </li>
-      
 
       {paginationRange?.map((page: number | string) => {
         if (page === ELLIPSIS) {
@@ -128,7 +127,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
                 : ''
             }`}
           >
-            <a 
+            <a
               href={`?p=${currentPage}`}
               className="flex items-center jupx-[12px] px-[12px] py-xsmall h-[100%]"
               onClick={(evt: Event) => {
@@ -141,16 +140,16 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
         );
       })}
       <li className="border border-solid border-[#ddd] h-[100%]">
-        <a 
+        <a
           href={`?p=${currentPage + 1}`}
-          className="flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall"
+          className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall 
+            ${currentPage === totalPages ? 'cursor-not-allowed text-neutral-600' : ''}`
+          }
           onClick={onNext}>
           {screenSize.desktop && <span>Next</span>}
           <Chevron
             className={`h-sm w-sm transform -rotate-90 ${
-              currentPage === totalPages
-                ? 'stroke-neutral-600 cursor-not-allowed'
-                : 'stroke-brand-700 cursor-pointer'
+              currentPage === totalPages ? 'stroke-neutral-600' : 'stroke-brand-700'
             }`}
           />
         </a>
@@ -158,14 +157,14 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       <li className="border border-solid border-[#ddd] h-[100%]">
         <a
           href={`?p=${totalPages}`}
-          className="flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall"
+          className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall
+            ${currentPage === totalPages ? 'cursor-not-allowed text-neutral-600' : ''}`
+          }
           onClick={onLast}>
           {screenSize.desktop && <span>Last</span>}
           <Guillemet
             className={`h-small w-small transform rotate-180 ${
-              currentPage === totalPages
-                ? 'stroke-neutral-600 cursor-not-allowed'
-                : 'stroke-brand-700 cursor-pointer'
+              currentPage === totalPages ? 'stroke-neutral-600' : 'stroke-brand-700'
             }`}
           />
         </a>
