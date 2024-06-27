@@ -14,7 +14,6 @@ import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
 
 import { CategoryFilters } from '../components/CategoryFilters';
-import { SelectedFilters } from '../components/Facets';
 import {
   useProducts,
   useSearch,
@@ -24,7 +23,7 @@ import {
 } from '../context';
 import { MobileFilterHeader } from './MobileFilterHeader';
 import { ProductsContainer } from './ProductsContainer';
-import { ProductsHeader } from './ProductsHeader';
+
 
 export const App: FunctionComponent = () => {
   const searchCtx = useSearch();

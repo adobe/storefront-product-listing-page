@@ -521,14 +521,17 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .invisible {
     visibility: hidden;
   }
+  .fixed {
+    position: fixed;
+  }
   .absolute {
     position: absolute;
   }
   .relative {
     position: relative;
   }
-  .fixed {
-    position: fixed;
+  .inset-0 {
+    inset: 0px;
   }
   .bottom-0 {
     bottom: 0px;
@@ -613,9 +616,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .mr-auto {
     margin-right: auto;
   }
-  .mr-sm {
-    margin-right: var(--spacing-sm);
-  }
   .mr-xs {
     margin-right: var(--spacing-xs);
   }
@@ -631,14 +631,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .mt-auto {
     margin-top: auto;
   }
-  .mt-xs {
-    margin-top: var(--spacing-xs);
+  .mt-md {
+    margin-top: var(--spacing-md);
   }
   .mt-sm {
     margin-top: var(--spacing-sm);
   }
-  .mt-md {
-    margin-top: var(--spacing-md);
+  .mt-xs {
+    margin-top: var(--spacing-xs);
   }
   .inline-block {
     display: inline-block;
@@ -664,14 +664,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .h-28 {
     height: 7rem;
   }
-  .h-80 {
-    height: 80%;
-  }
   .h-3 {
     height: 0.75rem;
   }
   .h-5 {
     height: 1.25rem;
+  }
+  .h-[80%] {
+    height: 80%;
   }
   .h-\[15px\] {
     height: 15px;
@@ -700,9 +700,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .h-full {
     height: 100%;
   }
-  .min-h-screen {
-    min-height: 100vh;
-  }
   .h-md {
     height: var(--spacing-md);
   }
@@ -711,9 +708,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .h-sm {
     height: var(--spacing-sm);
-  }
-  .h-max-content {
-    height: max-content;
   }
   .max-h-\[250px\] {
     max-height: 250px;
@@ -724,17 +718,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .min-h-\[32px\] {
     min-height: 32px;
   }
-  .w-1\/3 {
-    width: 33.333333%;
-  }
   .w-1\/2 {
     width: 50%;
   }
+  .w-1\/3 {
+    width: 33.333333%;
+  }
   .w-28 {
     width: 7rem;
-  }
-  .w-32 {
-    width: 8rem;
   }
   .w-5 {
     width: 1.25rem;
@@ -905,9 +896,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .gap-\[16px\] {
     gap: 16px;
   }
-  .gap-\[24px\] {
-    gap: 24px;
-  }
   .gap-x-1 {
     -moz-column-gap: 0.25rem;
     column-gap: 0.25rem;
@@ -919,10 +907,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .gap-x-2\.5 {
     -moz-column-gap: 0.625rem;
     column-gap: 0.625rem;
-  }
-  .gap-x-4 {
-    -moz-column-gap: 1rem;
-    column-gap: 1rem;
   }
   .gap-x-6 {
     -moz-column-gap: 1.5rem;
@@ -949,19 +933,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     margin-right: calc(0.75rem * var(--tw-space-x-reverse));
     margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
   }
-  .space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  .space-y-4 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-y-reverse: 0;
-    margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+    margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+  }
+  .overflow-auto {
+    overflow: auto;
   }
   .overflow-hidden {
     overflow: hidden;
   }
   .overflow-y-auto {
     overflow-y: auto;
-  }
-  .overflow-auto {
-    overflow: auto;
   }
   .whitespace-nowrap {
     white-space: nowrap;
@@ -993,11 +977,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .border-b {
     border-bottom-width: 1px;
   }
-  .border-t {
-    border-top-width: 1px;
-  }
   .border-r {
     border-right-width: 1px;
+  }
+  .border-t {
+    border-top-width: 1px;
   }
   .border-none {
     border-style: none;
@@ -1009,14 +993,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .border-brand-700 {
     border-color: var(--color-brand-700);
   }
-  .bg-black {
-    background-color: var(--color-black);
-  }
-
-  .bg-opacity-50 {
-    opacity: 0.5;
-  }
-
   .border-gray-200 {
     --tw-border-opacity: 1;
     border-color: rgb(229 231 235 / var(--tw-border-opacity));
@@ -1042,6 +1018,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .bg-background {
     background-color: var(--background-color);
+  }
+  .bg-black {
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   }
   .bg-blue-50 {
     --tw-bg-opacity: 1;
@@ -1081,6 +1061,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .bg-yellow-50 {
     --tw-bg-opacity: 1;
     background-color: rgb(254 252 232 / var(--tw-bg-opacity));
+  }
+  .bg-opacity-50 {
+    --tw-bg-opacity: 0.5;
   }
   .bg-cover {
     background-size: cover;
@@ -1206,9 +1189,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .pt-16 {
     padding-top: 4rem;
   }
-  .pt-28 {
-    padding-top: 7rem;
-  }
   .pt-\[15px\] {
     padding-top: 15px;
   }
@@ -1251,6 +1231,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   .font-semibold {
     font-weight: var(--font-semibold);
+  }
+  .uppercase {
+    text-transform: uppercase;
   }
   .\!text-brand-700 {
     color: var(--color-brand-700) !important;
@@ -1344,9 +1327,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .underline-offset-4 {
     text-underline-offset: 4px;
   }
-  .uppercase {
-    text-transform: uppercase;
-  }
   .accent-neutral-800 {
     accent-color: var(--color-neutral-800);
   }
@@ -1356,6 +1336,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .shadow-2xl {
     --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+      0 4px 6px -4px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
       var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
@@ -1428,7 +1416,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
   /* font-size: 1.6rem; */
   /* Elsie base design */
-  --color-black: #15191d;
   --color-brand-300: #6d6d6d;
   --color-brand-500: #454545;
   --color-brand-600: #383838;
@@ -1826,49 +1813,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
-}
-
-/* Drawer Classes */
-.inset-0 {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.shadow-lg {
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Slide transitions */
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(100%);
-  }
-}
-
-.slide-up {
-  animation: slideUp 0.3s ease-out forwards;
-}
-
-.slide-down {
-  animation: slideDown 0.3s ease-out forwards;
-}
-
-.no-scroll {
-  overflow: hidden;
 }
 
 @media (min-width: 640px) {
