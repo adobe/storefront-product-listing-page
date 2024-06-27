@@ -29,7 +29,7 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
             className="fixed inset-0 bg-black bg-opacity-50"
             onClick={onClose}
           />
-          <div className="relative mt-auto w-full bg-white h-[80%] shadow-lg overflow-auto slide-up">
+          <div className="relative mt-auto w-full bg-white h-[80%] shadow-lg overflow-auto animate-slideUp">
             <div className="flex items-center justify-between p-4">
               <CloseIcon
                 className="h-[20px] w-[20px] rotate-45 inline-block ml-sm cursor-pointer fill-neutral-800"
