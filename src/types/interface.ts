@@ -51,7 +51,7 @@ export interface StoreDetailsConfig {
   refreshCart?: () => void;
   addToCart?: (
     sku: string,
-    options: [],
+    options: string[],
     quantity: number
   ) => Promise<void | undefined>;
 }
@@ -332,10 +332,12 @@ export interface ProductViewMedia {
   roles: ImageRoles[];
 }
 
+export type SwatchType = 'COLOR_HEX' | 'IMAGE' | 'TEXT' | 'SIZE';
+
 export interface SwatchValues {
   title: string;
   id: string;
-  type: string;
+  type: SwatchType;
   value: string;
 }
 

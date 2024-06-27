@@ -109,10 +109,10 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   const getDiscountedPrice = (discount: boolean | undefined) => {
     const discountPrice = discount ? (
       <>
-        <span className="line-through pr-2 text-brand-300">
+        <span className="line-through text-black">
           {getProductPrice(item, currencySymbol, currencyRate, false, false)}
         </span>
-        <span className="font-headline-4-strong">
+        <span className="font-headline-4-strong text-neutral-700 ml-2">
           {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </span>
       </>
@@ -146,7 +146,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isConfigurable &&
             !isComplexProductView &&
             discount && (
-              <p className="ds-sdk-product-price--discount mt-xs font-headline-4-strong">
+              <p className="ds-sdk-product-price--discount font-headline-4-strong">
                 <span className="line-through pr-2 text-brand-300">
                   {getProductPrice(
                     item,
@@ -174,7 +174,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isConfigurable &&
             !isComplexProductView &&
             !discount && (
-              <p className="ds-sdk-product-price--no-discount mt-xs font-headline-4-strong">
+              <p className="ds-sdk-product-price--no-discount font-headline-4-strong">
                 {getProductPrice(
                   item,
                   currencySymbol,
@@ -194,13 +194,13 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
           )}
 
           {isGrouped && (
-            <p className="ds-sdk-product-price--grouped mt-xs font-headline-4-strong">
+            <p className="ds-sdk-product-price--grouped font-headline-4-strong">
               {getPriceFormat(item, currencySymbol, currencyRate, false)}
             </p>
           )}
 
           {isGiftCard && (
-            <p className="ds-sdk-product-price--gift-card mt-xs font-headline-4-strong">
+            <p className="ds-sdk-product-price--gift-card font-headline-4-strong">
               {getPriceFormat(item, currencySymbol, currencyRate, true)}
             </p>
           )}
@@ -208,7 +208,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
           {!isGrouped &&
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
-              <p className="ds-sdk-product-price--configurable mt-xs font-headline-4-strong">
+              <p className="ds-sdk-product-price--configurable font-headline-4-strong">
                 {getDiscountedPrice(discount)}
               </p>
             )}
