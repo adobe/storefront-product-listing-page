@@ -110,7 +110,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         } w-full h-full text-[14px] font-normal`}
       >
         <span className="flex items-center justify-center text-neutral-700">
-          {`${Math.max((currentPage-1)*pageSize, 1)}-${currentPage*pageSize}`} of {totalCount}
+          {`${Math.max((currentPage-1)*pageSize, 1)}-${Math.min(currentPage*pageSize, totalCount)}`} of {totalCount}
         </span>
         {totalPages > 1 && (
           <Pagination
