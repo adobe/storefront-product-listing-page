@@ -7,7 +7,8 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { ProductViewMedia } from '../types/interface';
+import { Product, ProductViewMedia } from '../types/interface';
+import { isSportsWear } from './productUtils';
 
 const getProductImageURLs = (
   images: ProductViewMedia[],
@@ -107,4 +108,50 @@ const generateOptimizedImages = (
   return imageUrlArray;
 };
 
-export { generateOptimizedImages, getProductImageURLs };
+function getProductImagesFromQuery(item: Product) {
+  const { productView } = item;
+  const attributeId = productView?.options?.[0].id;
+  if (!attributeId) {
+    return [];
+  }
+
+  const imageAttributes = productView?.attributes?.find(({ name }) => name === 'eds_images');
+  if (imageAttributes) {
+    const options = JSON.parse(imageAttributes.value);
+    const defaultOption = options.find((option: any) => option.attribute_id === attributeId);
+    if (!defaultOption) {
+      return [];
+    }
+
+    const variantId = productView?.options?.[0].values?.[0].id;
+    if (isSportsWear(item) && defaultOption.images) {
+      const imageConfig = defaultOption.images.find((image: any) => image.id === variantId);
+      return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
+    }
+
+    if (defaultOption && defaultOption.images.length > 0) {
+      const imageConfig = defaultOption.images[0];
+      return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
+    } 
+  }
+
+  return [];
+}
+
+function getAbsoluteImageUrl(item: Product, urls: string[]) {
+  return urls.map((url) => {
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    if (url.startsWith('/')) {
+      url = url.slice(1);
+    }
+
+    const { productView } = item;
+    const baseUrl = productView?.url?.replace(productView?.urlKey || '', '');
+    return baseUrl + url;
+  });
+}
+
+export { generateOptimizedImages, getProductImageURLs, getProductImagesFromQuery };

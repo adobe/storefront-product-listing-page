@@ -46,10 +46,10 @@ const useSensor = () => {
 export const ResizeChangeContext = createContext({} as DisplayChangeContext);
 
 const getColumn = (screenSize: DisplayChange): number => {
-  if (screenSize.desktop) {
+  if (window.matchMedia('screen and (min-width: 1281px)').matches) {
     return PRODUCT_COLUMNS.desktop;
   }
-  if (screenSize.tablet) {
+  if (window.matchMedia('screen and (min-width: 768px) and (max-width: 1280px)').matches) {
     return PRODUCT_COLUMNS.tablet;
   }
   if (screenSize.mobile) {
