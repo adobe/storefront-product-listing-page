@@ -108,7 +108,19 @@ const generateOptimizedImages = (
   return imageUrlArray;
 };
 
-function getProductImagesFromQuery(item: Product) {
+/*
+* New attribute i.e. "eds_images" for product images were introduced to get around catalog service sync issue
+* Ref: https://adobe-dx-support.slack.com/archives/C04CQH83BME/p1719261375238899
+*
+* Following steps are taken to get the images:
+* 1. Get the attribute id from the product options by selecting the first option
+* 2. Find the attribute with name "eds_images"
+* 3. Parse the value of the attribute
+* 4. Find the option with the same attribute id as found in step 1
+* 6. If the product is sports wear, get the images from the option with same the variant id as in product view options found in step 1.
+* 7. If the product is not sports wear, get the images from the first option.
+*/
+function getProductImagesFromAttribute(item: Product) {
   const { productView } = item;
   const attributeId = productView?.options?.[0].id;
   if (!attributeId) {
@@ -154,4 +166,4 @@ function getAbsoluteImageUrl(item: Product, urls: string[]) {
   });
 }
 
-export { generateOptimizedImages, getProductImageURLs, getProductImagesFromQuery };
+export { generateOptimizedImages, getProductImageURLs, getProductImagesFromAttribute };

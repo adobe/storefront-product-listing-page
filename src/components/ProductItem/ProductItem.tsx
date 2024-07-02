@@ -24,7 +24,7 @@ import {
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import {
   generateOptimizedImages,
-  getProductImagesFromQuery,
+  getProductImagesFromAttribute,
   getProductImageURLs
 } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
@@ -106,7 +106,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
-    : getProductImagesFromQuery(item);
+    : getProductImagesFromAttribute(item);
     
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
