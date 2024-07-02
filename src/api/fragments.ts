@@ -44,6 +44,12 @@ const ProductView = `
             inStock
             url
             urlKey
+            attributes(roles: ["visible_in_plp"]) {
+              label
+              name
+              roles
+              value
+            }
             images {
                 label
                 url

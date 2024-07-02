@@ -24,9 +24,11 @@ import {
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import {
   generateOptimizedImages,
-  getProductImageURLs,
+  getProductImagesFromAttribute,
+  getProductImageURLs
 } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
+import { isSportsWear } from '../../utils/productUtils';
 import { AddToCartButton } from '../AddToCartButton';
 import ImageHover from '../ImageHover';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
@@ -96,18 +98,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     setImagesFromRefinedProduct(data.refineProduct.images);
     setRefinedProduct(data);
   };
-  
-  /** TEMP FIX to show image of the first variant per product */
-  const loadProductImagesFromRefinedProduct = async (optionIds: string[], sku: string) => {
-    const data = await refineProduct(optionIds, sku);
-    setImagesFromRefinedProduct(data.refineProduct?.images);
-  };
-
-  if (!productView.images?.length && !imagesFromRefinedProduct){
-    const optionId = productView.options?.[0]?.values?.[0]?.id || '';
-    loadProductImagesFromRefinedProduct([optionId], productView.sku);
-  }
-  /** END TEMP FIX to show image of the first variant per product */
 
   const isSelected = (id: string) => {
     const selected = selectedSwatch ? selectedSwatch === id : false;
@@ -116,11 +106,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
-    : getProductImageURLs(
-        productView.images ?? [],
-        2,
-        product.image?.url ?? undefined
-      );
+    : getProductImagesFromAttribute(item);
+    
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
   if (optimizeImages) {
@@ -145,6 +132,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGrouped = product?.__typename === 'GroupedProduct';
   const isGiftCard = product?.__typename === 'GiftCardProduct';
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
+  const shouldShowAddToBagButton = isSportsWear(item) && (!screenSize.desktop || isHovering) && !showSizes;
 
   const onProductClick = () => {
     window.adobeDataLayer.push((dl: any) => {
@@ -360,10 +348,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             )}
             <div className="add-to-cart-overlay absolute left-0 right-0 bottom-0 p-xsmall h-[56px]">
-              {!screenSize.desktop && !showSizes && <AddToCartButton onClick={handleAddToCart} />}
-              {isHovering && screenSize.desktop && !showSizes && (
-                <AddToCartButton onClick={handleAddToCart} />
-              )}
+              {shouldShowAddToBagButton && <AddToCartButton onClick={handleAddToCart} />}
               {showSizes && productView?.options?.map((swatches) => {
                 if (swatches.title === SWATCH_SIZE) {
                   const swatchItems: SwatchValues[] = (swatches.values ?? []).map((swatch) => ({

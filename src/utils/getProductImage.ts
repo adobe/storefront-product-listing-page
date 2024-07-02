@@ -7,7 +7,8 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { ProductViewMedia } from '../types/interface';
+import { Product, ProductViewMedia } from '../types/interface';
+import { isSportsWear } from './productUtils';
 
 const getProductImageURLs = (
   images: ProductViewMedia[],
@@ -107,4 +108,62 @@ const generateOptimizedImages = (
   return imageUrlArray;
 };
 
-export { generateOptimizedImages, getProductImageURLs };
+/*
+* New attribute i.e. "eds_images" for product images were introduced to get around catalog service sync issue
+* Ref: https://adobe-dx-support.slack.com/archives/C04CQH83BME/p1719261375238899
+*
+* Following steps are taken to get the images:
+* 1. Get the attribute id from the product options by selecting the first option
+* 2. Find the attribute with name "eds_images"
+* 3. Parse the value of the attribute
+* 4. Find the option with the same attribute id as found in step 1
+* 6. If the product is sports wear, get the images from the option with same the variant id as in product view options found in step 1.
+* 7. If the product is not sports wear, get the images from the first option.
+*/
+function getProductImagesFromAttribute(item: Product) {
+  const { productView } = item;
+  const attributeId = productView?.options?.[0].id;
+  if (!attributeId) {
+    return [];
+  }
+
+  const imageAttributes = productView?.attributes?.find(({ name }) => name === 'eds_images');
+  if (imageAttributes) {
+    const options = JSON.parse(imageAttributes.value);
+    const defaultOption = options.find((option: any) => option.attribute_id === attributeId);
+    if (!defaultOption) {
+      return [];
+    }
+
+    const variantId = productView?.options?.[0].values?.[0].id;
+    if (isSportsWear(item) && defaultOption.images) {
+      const imageConfig = defaultOption.images.find((image: any) => image.id === variantId);
+      return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
+    }
+
+    if (defaultOption && defaultOption.images.length > 0) {
+      const imageConfig = defaultOption.images[0];
+      return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
+    } 
+  }
+
+  return [];
+}
+
+function getAbsoluteImageUrl(item: Product, urls: string[]) {
+  return urls.map((url) => {
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    if (url.startsWith('/')) {
+      url = url.slice(1);
+    }
+
+    const { productView } = item;
+    const baseUrl = productView?.url?.replace(productView?.urlKey || '', '');
+    return baseUrl + url;
+  });
+}
+
+export { generateOptimizedImages, getProductImageURLs, getProductImagesFromAttribute };

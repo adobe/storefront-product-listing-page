@@ -71,6 +71,17 @@ export const sampleProductNoImage: Product = {
     new_to_date: null,
     created_at: null,
     updated_at: null,
+    attributes: [
+      {
+        label: "Bazaarvoice average rating",
+        name: "bv_rating_average",
+        roles: [
+            "visible_in_pdp",
+            "visible_in_plp"
+        ],
+        value: "4.500000"
+      },
+    ],
     price: {
       final: {
         amount: {
@@ -216,6 +227,17 @@ export const sampleProductDiscounted: Product = {
     meta_title: null,
     meta_keyword: null,
     meta_description: null,
+    attributes: [
+      {
+        label: "Bazaarvoice average rating",
+        name: "bv_rating_average",
+        roles: [
+            "visible_in_pdp",
+            "visible_in_plp"
+        ],
+        value: "4.500000"
+      },
+    ],
     images: [
       {
         url: 'http://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
@@ -388,6 +410,17 @@ export const sampleProductNotDiscounted: Product = {
     meta_title: null,
     meta_keyword: null,
     meta_description: null,
+    attributes: [
+      {
+        label: "Bazaarvoice average rating",
+        name: "bv_rating_average",
+        roles: [
+            "visible_in_pdp",
+            "visible_in_plp"
+        ],
+        value: "4.500000"
+      },
+    ],
     images: [
       {
         url: 'http://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
