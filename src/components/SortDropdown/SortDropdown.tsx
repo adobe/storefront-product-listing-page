@@ -28,8 +28,6 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   onChange,
   mobile
 }: SortDropdownProps) => {
-  console.log(mobile)
-
   const sortOptionButton = useRef<HTMLButtonElement | null>(null);
   const sortOptionMenu = useRef<HTMLDivElement | null>(null);
 

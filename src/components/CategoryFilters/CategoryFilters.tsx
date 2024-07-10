@@ -9,10 +9,8 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-// import { useTranslation } from '../../context/translation';
 import { Facet } from '../../types/interface';
 import { Facets } from '../Facets';
-// import { FilterButton } from '../FilterButton';
 
 interface CategoryFiltersProps {
   loading: boolean;
@@ -27,14 +25,9 @@ interface CategoryFiltersProps {
 }
 
 export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
-  // loading,
   pageLoading,
   totalCount,
   facets,
-  // categoryName,
-  // phrase,
-  // setShowFilters,
-  // filterCount,
 }) => {
 
   return (
