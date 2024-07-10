@@ -10,6 +10,7 @@ it.
 import { FunctionComponent } from 'preact';
 
 import PlusIcon from '../../icons/plus.svg';
+import { useSensor } from '../../context';
 
 export interface AddToCartButtonProps {
   onClick: (e: any) => any;
@@ -17,14 +18,16 @@ export interface AddToCartButtonProps {
 export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   onClick,
 }: AddToCartButtonProps) => {
+  const { screenSize } = useSensor();
+
   return (
-    <div className="ds-sdk-add-to-cart-button">
+    <div className={`ds-sdk-add-to-cart-button ${screenSize.desktop ? 'h-[100%] w-full' : 'h-[40px] w-[40px]'}`}>
       <button
-        className="flex items-center justify-center h-[100%] w-full px-big py-[10px]"
+        className={`flex items-center justify-center h-[100%] w-full gap-2 ${screenSize.desktop ? 'px-big py-[10px]': ''}`}
         onClick={onClick}
       >
-        <PlusIcon className="w-[14px] mr-xs" />
-        Quick Add
+        <PlusIcon className="w-[14px]" />
+        {screenSize.desktop && 'Quick Add'}
       </button>
     </div>
   );
