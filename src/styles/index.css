@@ -1107,13 +1107,13 @@ video {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .px-big {
-    padding-left: var(--spacing-big);
-    padding-right: var(--spacing-big);
-  }
   .px-\[12px\] {
     padding-left: 12px;
     padding-right: 12px;
+  }
+  .px-big {
+    padding-left: var(--spacing-big);
+    padding-right: var(--spacing-big);
   }
   .px-md {
     padding-left: var(--spacing-md);
@@ -1333,6 +1333,9 @@ video {
   }
   .no-underline {
     text-decoration-line: none;
+  }
+  .underline-offset-4 {
+    text-underline-offset: 4px;
   }
   .accent-neutral-800 {
     accent-color: var(--color-neutral-800);
@@ -1719,6 +1722,10 @@ video {
 
 .hover\:text-neutral-900:hover {
   color: var(--color-neutral-900);
+}
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
 }
 
 .hover\:no-underline:hover {
