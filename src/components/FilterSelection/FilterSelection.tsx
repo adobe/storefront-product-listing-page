@@ -1,6 +1,8 @@
 import { FunctionComponent } from 'preact';
 
+import MinusIcon from '../../icons/minus.svg';
 import PlusIcon from '../../icons/plus.svg';
+import { Facet as FacetType, PriceFacet } from '../../types/interface';
 
 export type FilterSelectionTitleSlot = (label: string) => FunctionComponent;
 
@@ -10,6 +12,7 @@ export interface FilterSelectionProps {
   filterSelectionTitleSlot?: FilterSelectionTitleSlot;
   handleFilter?: () => void;
   selectedNumber?: number;
+  selectedFacet?: FacetType | PriceFacet | null;
 }
 
 export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
@@ -17,10 +20,13 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
   filterSelectionTitleSlot,
   handleFilter,
   selectedNumber,
+  selectedFacet,
 }) => {
   const handleOptions = () => {
     handleFilter?.();
   };
+
+  const isSelected = title === selectedFacet?.title;
 
   return (
     <div className="ds-sdk-input py-md">
@@ -37,7 +43,11 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
               <span className="font-normal text-neutral-700">{`${selectedNumber} Selected`}</span>
             )}
           </label>
-          <PlusIcon className="h-sm w-sm fill-neutral-800" />
+          {isSelected ? (
+            <MinusIcon className="h-sm w-sm fill-neutral-800" />
+          ) : (
+            <PlusIcon className="h-sm w-sm fill-neutral-800" />
+          )}
         </div>
       )}
     </div>

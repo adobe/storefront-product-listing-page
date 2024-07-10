@@ -110,6 +110,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                     filterData={facet}
                     handleFilter={() => handleTesting(facet)}
                     selectedNumber={getSelectedFilters(facet)}
+                    selectedFacet={selectedFacet}
                   />
                 );
               case 'RangeBucket':
@@ -128,6 +129,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                     filterData={facet}
                     handleFilter={() => handleTesting(facet)}
                     selectedNumber={getSelectedFilters(facet)}
+                    selectedFacet={selectedFacet}
                   />
                 );
               default:
