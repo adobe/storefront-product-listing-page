@@ -75,7 +75,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
 
   return (
     <ul className="ds-plp-pagination flex justify-center items-center list-none gap-[6px] h-[36px] text-[14px] font-normal">
-      <li className="border border-solid border-[#ddd] h-[100%]">
+      <li className="border border-solid border-[#ddd] h-[100%] hover:underline underline-offset-4">
         <a
           href="?p=1"
           className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall 
@@ -90,7 +90,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
           {screenSize.desktop && <span>First</span>}
         </a>
       </li>
-      <li className="border border-solid border-[#ddd] h-[100%]">
+      <li className="border border-solid border-[#ddd] h-[100%] hover:underline underline-offset-4">
         <a
           className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall
             ${currentPage === 1 ? 'cursor-not-allowed text-neutral-600' : ''}`
@@ -102,7 +102,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
               currentPage === 1 ? 'stroke-neutral-600' : 'stroke-brand-700'
             }`}
           />
-          {screenSize.desktop && <span>Back</span>}
+          {screenSize.desktop && <span>Previous</span>}
         </a>
       </li>
 
@@ -121,7 +121,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
         return (
           <li
             key={page}
-            className={`ds-plp-pagination__item text-brand-700 h-[100%] border border-solid border-[#ddd] ${
+            className={`ds-plp-pagination__item text-brand-700 h-[100%] border border-solid border-[#ddd] hover:underline underline-offset-4 ${
               currentPage === page
                 ? 'ds-plp-pagination__item--current bg-black text-white'
                 : ''
@@ -134,12 +134,12 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
                 evt.preventDefault();
                 onPageChange(page)
               }}>
-              {page}
+              <span>{page}</span>
             </a>
           </li>
         );
       })}
-      <li className="border border-solid border-[#ddd] h-[100%]">
+      <li className="border border-solid border-[#ddd] h-[100%] hover:underline underline-offset-4">
         <a
           href={`?p=${currentPage + 1}`}
           className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall 
@@ -154,7 +154,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
           />
         </a>
       </li>
-      <li className="border border-solid border-[#ddd] h-[100%]">
+      <li className="border border-solid border-[#ddd] h-[100%] hover:underline underline-offset-4">
         <a
           href={`?p=${totalPages}`}
           className={`flex items-center justify-center px-[12px] py-xsmall h-[100%] gap-xxsmall
