@@ -39,8 +39,8 @@
     body {
       margin: 0 auto;
       max-width: 1280px;
-      padding-left: 20px;
-      padding-right: 20px;
+      /* padding-left: 20px;
+      padding-right: 20px; */
       font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -76,9 +76,9 @@
         displaySearchBox: true, // display search box
         displayOutOfStock: true,
         allowAllProducts: false,
-        // currentCategoryUrlPath?: '', // current category url path, please prefer using currentCategoryId
-        // currentCategoryId?: '', // current category id
-        // categoryName: '', // name of category to display
+        // currentCategoryUrlPath: 'baseball', // current category url path, please prefer using currentCategoryId
+        // currentCategoryId: '107', // current category id
+        // categoryName: 'Baseball', // name of category to display
         // displaySearchBox: false, // display search box
         // displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
         // displayMode: '', // "" for search || "PAGE" for category search
@@ -95,7 +95,7 @@
       context: {
         customerGroup: '0',
       },
-      apiKey: '',
+      apiKey: '95689dc242b0433da022462d27547b30',
       environmentType: '',
       // searchQuery: 'search_query', // Optional: providing searchQuery will override 'q' query param
       // route: ({ sku, urlKey  }) => {

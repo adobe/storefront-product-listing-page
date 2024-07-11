@@ -14,16 +14,16 @@ import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
 
 import { CategoryFilters } from '../components/CategoryFilters';
-import { SelectedFilters } from '../components/Facets';
 import {
-    useProducts,
-    useSearch,
-    useSensor,
-    useStore,
-    useTranslation,
+  useProducts,
+  useSearch,
+  useSensor,
+  useStore,
+  useTranslation,
 } from '../context';
+import { MobileFilterHeader } from './MobileFilterHeader';
 import { ProductsContainer } from './ProductsContainer';
-import { ProductsHeader } from './ProductsHeader';
+
 
 export const App: FunctionComponent = () => {
   const searchCtx = useSearch();
@@ -51,7 +51,7 @@ export const App: FunctionComponent = () => {
       {!(displayMode === 'PAGE') &&
         (!screenSize.mobile && showFilters && productsCtx.facets.length > 0 ? (
           <div className="ds-widgets bg-body py-2">
-            <div className="flex">
+            <div className="flex flex-col">
               <CategoryFilters
                 loading={productsCtx.loading}
                 pageLoading={productsCtx.pageLoading}
@@ -64,17 +64,13 @@ export const App: FunctionComponent = () => {
                 filterCount={searchCtx.filterCount}
               />
               <div
-                className={`ds-widgets_results flex flex-col items-center ${
-                  productsCtx.categoryName ? 'pt-16' : 'pt-28'
-                } flex-[75]`}
+                className={`ds-widgets_results flex flex-col items-center flex-[75] `}
               >
-                <ProductsHeader
+                {/* <ProductsHeader
                   facets={productsCtx.facets}
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
-                />
-                {/* <SelectedFilters /> */}
-
+                /> */}
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
@@ -122,14 +118,13 @@ export const App: FunctionComponent = () => {
                   )
                 ) : (
                   <>
-                    <div className="flex w-full h-full">
-                      <ProductsHeader
+                    <div className="flex w-full h-full testing">
+                      <MobileFilterHeader
                         facets={productsCtx.facets}
                         totalCount={productsCtx.totalCount}
                         screenSize={screenSize}
                       />
                     </div>
-                    <SelectedFilters />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />

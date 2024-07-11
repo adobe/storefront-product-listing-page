@@ -50,7 +50,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
       />
       <label
         htmlFor={name}
-        className="ds-sdk-labelled-input__label ml-sm block-display text-neutral-800 font-body-1-default cursor-pointer"
+        className="ds-sdk-labelled-input__label ml-sm block-display h-max-content text-neutral-800 font-body-1-default text-[12px] cursor-pointer"
       >
         {label}
         {count && (

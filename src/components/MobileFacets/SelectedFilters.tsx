@@ -13,26 +13,17 @@ import { useProducts, useSearch, useTranslation } from '../../context';
 import Pill from '../Pill';
 import { formatBinaryLabel, formatRangeLabel } from './format';
 
-interface SelectedFiltersProps {
-  totalCount?: number;
-}
-
-export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
-  totalCount,
-}) => {
+export const SelectedFilters: FunctionComponent = ({}) => {
   const searchCtx = useSearch();
   const productsCtx = useProducts();
   const translation = useTranslation();
 
   return (
-    <div className="w-full h-full flex justify-between items-center sm:pb-6 py-md">
+    <div className="w-full h-full">
       {searchCtx.filters?.length > 0 && (
-        <div className="ds-plp-facets__pills flex flex-wrap justify-start items-center gap-[16px]">
+        <div className="ds-plp-facets__pills pb-6 sm:pb-6 flex flex-wrap mt-8 justify-start">
           {searchCtx.filters.map((filter) => (
-            <div
-              key={filter.attribute}
-              className="flex items-center gap-[16px]"
-            >
+            <div key={filter.attribute}>
               {filter.in?.map((option) => (
                 <Pill
                   key={formatBinaryLabel(
@@ -47,7 +38,7 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
                     searchCtx.categoryNames,
                     productsCtx.categoryPath
                   )}
-                  type="filter"
+                  type="transparent"
                   onClick={() => searchCtx.updateFilterOptions(filter, option)}
                 />
               ))}
@@ -69,17 +60,16 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
           <div className="py-1">
             <button
               className="ds-plp-facets__header__clear-all border-none bg-transparent hover:border-none	hover:bg-transparent
-              focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
+              focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm px-4"
               onClick={() => searchCtx.clearFilters()}
             >
-              <span className="font-button-2 text-sm underline hover:no-underline">
+              <span className="font-button-2">
                 {translation.Filter.clearAll}
               </span>
             </button>
           </div>
         </div>
       )}
-      {searchCtx.filters?.length > 0 && <p>{totalCount} Results</p>}
     </div>
   );
 };

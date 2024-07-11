@@ -9,11 +9,11 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
+import { Drawer } from 'src/components/Drawer/Drawer';
+import MobileFacets from 'src/components/MobileFacets';
 import ViewSwitcher from 'src/components/ViewSwitcher';
 
-import Facets from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
-import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
 import {
   useAttributeMetadata,
@@ -40,7 +40,7 @@ interface Props {
     columns: number;
   };
 }
-export const ProductsHeader: FunctionComponent<Props> = ({
+export const MobileFilterHeader: FunctionComponent<Props> = ({
   facets,
   totalCount,
   screenSize,
@@ -72,9 +72,11 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     getSortOptions();
   }, [getSortOptions]);
 
-  const defaultSortOption = (storeCtx.config?.currentCategoryUrlPath || storeCtx.config?.currentCategoryId)
-    ? 'position_ASC'
-    : 'relevance_DESC';
+  const defaultSortOption =
+    storeCtx.config?.currentCategoryUrlPath ||
+    storeCtx.config?.currentCategoryId
+      ? 'position_ASC'
+      : 'relevance_DESC';
   const sortFromUrl = getValueFromUrl('product_list_order');
   const sortByDefault = sortFromUrl ? sortFromUrl : defaultSortOption;
   const [sortBy, setSortBy] = useState<string>(sortByDefault);
@@ -86,55 +88,36 @@ export const ProductsHeader: FunctionComponent<Props> = ({
 
   return (
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-      <div
-        className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between' : 'justify-between'
-        }`}
-      >
-        {/* <div> */}
-          {screenSize.mobile
-            && totalCount > 0 && (
-                <div className="pb-4">
-                  <FilterButton
-                    displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                    type="mobile"
-                  />
-                </div>
+      <div className="flex border-t border-b border-neutral-400">
+        {screenSize.mobile && totalCount > 0 && (
+          <div className="flex justify-center w-1/2 py-md border-r border-neutral-400">
+            <FilterButton
+              displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+              type="mobile"
+            />
+          </div>
+        )}
 
-              )
-
-            // storeCtx.config.displaySearchBox && (
-              //     <SearchBar
-            //       phrase={searchCtx.phrase}
-            //       onKeyPress={(e: any) => {
-              //         if (e.key === 'Enter') {
-                //           searchCtx.setPhrase(e?.target?.value);
-            //         }
-            //       }}
-            //       onClear={() => searchCtx.setPhrase('')}
-            //       placeholder={translation.SearchBar.placeholder}
-            //     />
-            //   )}
-          }
-        {/* </div> */}
         {totalCount > 0 && (
-          <>
-            {/* <div>
-            {`${
-                totalCount > 0 ? `${totalCount}` : ''
-              } ${translation.CategoryFilters.results}`}
-            </div> */}
-
+          <div className="flex justify-center w-1/2 py-md">
             {storeCtx?.config?.listview && <ViewSwitcher />}
             <SortDropdown
               sortOptions={sortOptions}
               value={sortBy}
               onChange={onSortChange}
+              mobile
             />
-          </>
+          </div>
         )}
       </div>
-      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
+      {screenSize.mobile && (
+        <Drawer
+          isOpen={showMobileFacet}
+          onClose={() => setShowMobileFacet(!showMobileFacet)}
+        >
+          <MobileFacets searchFacets={facets} />
+        </Drawer>
+      )}
     </div>
   );
 };

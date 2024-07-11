@@ -1,49 +1,44 @@
+/*
+Copyright 2024 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
+
 import { FunctionComponent } from 'preact';
 import { ChangeEvent, useState } from 'preact/compat';
+import { Bucket } from 'src/types/interface';
 
 import { useProducts, useTranslation } from '../../context';
 import PlusIcon from '../../icons/plus.svg';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
 
-export type InputButtonGroupOnChangeProps = {
+export type FilterSelectionGroupOnChangeProps = {
   value: string;
   selected?: boolean;
 };
 
-export type InputButtonGroupOnChange = (
-  arg0: InputButtonGroupOnChangeProps
+export type FilterSelectionGroupOnChange = (
+  arg0: FilterSelectionGroupOnChangeProps
 ) => void;
-export type InputButtonGroupTitleSlot = (label: string) => FunctionComponent;
-export type Bucket = {
-  title: string;
-  id?: string;
-  count: number;
-  to?: number;
-  from?: number;
-  name?: string;
-  __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
-};
-export interface InputButtonGroupProps {
+
+export interface FilterSelectionGroupProps {
   title: string;
   attribute: string;
   buckets: Bucket[];
   isSelected: (title: string) => boolean | undefined;
-  onChange: InputButtonGroupOnChange;
+  onChange: FilterSelectionGroupOnChange;
   type: 'radio' | 'checkbox';
-  inputGroupTitleSlot?: InputButtonGroupTitleSlot;
 }
 
 const numberOfOptionsShown = 5;
-export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
-  title,
-  attribute,
-  buckets,
-  isSelected,
-  onChange,
-  type,
-  inputGroupTitleSlot,
-}) => {
+
+export const FilterSelectionGroup: FunctionComponent<
+  FilterSelectionGroupProps
+> = ({ title, attribute, buckets, isSelected, onChange, type }) => {
   const translation = useTranslation();
   const productsCtx = useProducts();
 
@@ -103,16 +98,9 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   return (
-    <div className="ds-sdk-input pt-md">
-      {inputGroupTitleSlot ? (
-        inputGroupTitleSlot(title)
-      ) : (
-        <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
-          {title}
-        </label>
-      )}
+    <div className="ds-sdk-input py-md">
       <fieldset className="ds-sdk-input__options">
-        <div className="space-y-4">
+        <div>
           {buckets.slice(0, numberOfOptions).map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';
@@ -150,7 +138,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           )}
         </div>
       </fieldset>
-      <div className="ds-sdk-input__border border-t mt-md border-neutral-500" />
     </div>
   );
 };

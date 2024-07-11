@@ -6,30 +6,34 @@ NOTICE: Adobe permits you to use, modify, and distribute this file in
 accordance with the terms of the Adobe license agreement accompanying
 it.
 */
-
 import { FunctionComponent } from 'preact';
+import { FilterSelection } from 'src/components/FilterSelection';
 
-import useScalarFacet from '../../../hooks/useScalarFacet';
 import { Facet as FacetType, PriceFacet } from '../../../types/interface';
-import { InputButtonGroup } from '../../InputButtonGroup';
+export type HandleFilterType = () => void;
 
 interface ScalarFacetProps {
   filterData: FacetType | PriceFacet;
+  handleFilter?: HandleFilterType;
+  selectedNumber?: number;
+  selectedFacet?: FacetType | PriceFacet | null;
 }
 
 export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
   filterData,
+  handleFilter,
+  selectedNumber,
+  selectedFacet
 }) => {
-  const { isSelected, onChange } = useScalarFacet(filterData);
-
   return (
-    <InputButtonGroup
-      title={filterData.title}
-      attribute={filterData.attribute}
-      buckets={filterData.buckets as any}
-      type={'checkbox'}
-      isSelected={isSelected}
-      onChange={(args) => onChange(args.value, args.selected)}
-    />
+    <>
+      <FilterSelection
+        title={filterData.title}
+        attribute={filterData.attribute}
+        handleFilter={handleFilter}
+        selectedNumber={selectedNumber}
+        selectedFacet={selectedFacet}
+      />
+    </>
   );
 };

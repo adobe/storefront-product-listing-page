@@ -13,19 +13,20 @@ import { useEffect, useRef } from 'preact/hooks';
 import { useTranslation } from '../../context/translation';
 import { useAccessibleDropdown } from '../../hooks/useAccessibleDropdown';
 import Chevron from '../../icons/chevron.svg';
-import SortIcon from '../../icons/sort.svg';
 import { SortOption } from '../../types/interface';
 
 export interface SortDropdownProps {
   value: string;
   sortOptions: SortOption[];
   onChange: (sortBy: string) => void;
+  mobile?: boolean;
 }
 
 export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   value,
   sortOptions,
   onChange,
+  mobile
 }: SortDropdownProps) => {
   const sortOptionButton = useRef<HTMLButtonElement | null>(null);
   const sortOptionMenu = useRef<HTMLDivElement | null>(null);
@@ -82,25 +83,24 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div
         ref={sortOptionMenu}
-        class="flex shrink-0 ds-sdk-sort-dropdown relative inline-block text-left bg-neutral-50 h-[32px] z-9"
+        class="ds-sdk-sort-dropdown flex items-center gap-x-2 shrink-0 relative inline-block text-left bg-neutral-50 z-9"
       >
-        <label className="ds-sdk-input__label w-32 shrink-0 text-base font-normal text-neutral-900">
-          {translation.SortDropdown.title}:
-        </label>
+        {!mobile && <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
+          {translation.SortDropdown.title}
+        </label>}
         <button
-          className="group flex justify-center items-center hover:cursor-pointer text-brand-700 border-brand-700 outline-brand-700 rounded-3 border-3 bg-background h-full w-full px-sm font-button-2"
+          className="group flex justify-center items-center gap-x-1 hover:cursor-pointer bg-background h-full"
           ref={sortOptionButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
           onBlur={() => setIsFocus(false)}
         >
-          <SortIcon className="h-md w-md mr-sm stroke-brand-700 m-auto" />
-          <span className="font-button-2">
+          <span className={`font-headline-1 text-sm ${!mobile ? 'text-neutral-700' : ''}`}>
             {selectedOption ? sortOption : translation.SortDropdown.title}
           </span>
           <Chevron
-            className={`flex-shrink-0 m-auto ml-sm h-md w-md stroke-1 stroke-brand-700 ${
-              isDropdownOpen ? '' : 'rotate-180'
+            className={`flex-shrink-0 h-sm w-sm stroke-1 stroke-brand-700 ${
+              isDropdownOpen ? 'rotate-180' : ''
             }`}
           />
         </button>
