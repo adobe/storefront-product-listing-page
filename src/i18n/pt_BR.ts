@@ -10,7 +10,7 @@ it.
 export const pt_BR = {
   Filter: {
     title: 'Filtros',
-    showTitle: 'Mostrar filtros',
+    showTitle: 'Filtros',
     hideTitle: 'Ocultar filtros',
     clearAll: 'Limpar tudo',
   },
@@ -32,10 +32,17 @@ export const pt_BR = {
     subheading: 'Tente novamente...',
   },
   SortDropdown: {
-    title: 'Classificar por',
-    option: 'Classificar por: {selectedOption}',
+    title: 'Ordenar',
+    option: 'Ordenar',
     relevanceLabel: 'Mais relevantes',
     positionLabel: 'Posição',
+    sortAttributeASC: '{label}: menor para maior',
+    sortAttributeDESC: '{label}: maior para menor',
+    sortASC: 'Preço: menor para maior',
+    sortDESC: 'Preço: maior para menor',
+    productName: 'Nome do produto',
+    productInStock: 'Em estoque',
+    productLowStock: 'Baixo estoque',
   },
   CategoryFilters: {
     results: 'resultados para {phrase}',

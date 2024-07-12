@@ -14,6 +14,7 @@ import { Facet as FacetType, PriceFacet } from '../../types/interface';
 import SliderDoubleControl from '../SliderDoubleControl';
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
+import { SelectedFilters } from '../Facets';
 
 interface FacetsProps {
   searchFacets: FacetType[];
@@ -27,6 +28,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   } = useStore();
   return (
     <div className="ds-plp-facets flex flex-col">
+      <SelectedFilters />
       <form className="ds-plp-facets__list border-t border-gray-200">
         {searchFacets?.map((facet) => {
           const bucketType = facet?.buckets[0]?.__typename;
