@@ -108,7 +108,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
           <ul
             ref={listRef}
             tabIndex={-1}
-            className="ds-sdk-sort-dropdown__items origin-top-right absolute hover:cursor-pointer right-0 w-full rounded-2 shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
+            className="ds-sdk-sort-dropdown__items top-full absolute hover:cursor-pointer right-0 w-full rounded-2 shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
           >
             {sortOptions.map((option, i) => (
               <li

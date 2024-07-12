@@ -45,6 +45,17 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   const attributeMetadata = useAttributeMetadata();
   const translation = useTranslation();
 
+  const attributesToFilter = [
+    'featured',
+    'new',
+    'pcm_publication_date',
+    'price',
+  ];
+
+  const filteredAttributes = attributeMetadata?.sortable.filter((item) =>
+    attributesToFilter.includes(item.attribute)
+  );
+
   const [selectedFacet, setSelectedFacet] = useState<FacetType | null>(null);
   const [sortOptions, setSortOptions] = useState(defaultSortOptions());
 
@@ -52,7 +63,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     setSortOptions(
       getSortOptionsfromMetadata(
         translation,
-        attributeMetadata?.sortable,
+        filteredAttributes,
         config?.displayOutOfStock,
         config?.currentCategoryUrlPath,
         config?.currentCategoryId
