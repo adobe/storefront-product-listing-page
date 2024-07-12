@@ -48,7 +48,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   const attributesToFilter = [
     'featured',
     'new',
-    'pcm_publication_date',
     'price',
   ];
 

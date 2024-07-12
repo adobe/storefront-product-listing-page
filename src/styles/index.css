@@ -528,9 +528,6 @@ video {
   .inset-0 {
     inset: 0px;
   }
-  .top-full {
-    top: 100%;
-  }
   .bottom-0 {
     bottom: 0px;
   }
@@ -542,6 +539,9 @@ video {
   }
   .right-0 {
     right: 0px;
+  }
+  .top-full {
+    top: 100%;
   }
   .z-20 {
     z-index: 20;
