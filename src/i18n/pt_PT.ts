@@ -32,8 +32,8 @@ export const pt_PT = {
     subheading: 'Tente novamente...',
   },
   SortDropdown: {
-    title: 'Ordenar por',
-    option: 'Ordenar por: {selectedOption}',
+    title: 'Ordenar',
+    option: 'Ordenar',
     relevanceLabel: 'Mais Relevantes',
     positionLabel: 'Posição',
   },

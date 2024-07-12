@@ -53,11 +53,11 @@ const getSortOptionsfromMetadata = (
       ) {
         if (e.numeric && e.attribute.includes('price')) {
           sortOptions.push({
-            label: `${e.label}: Low to High`,
+            label: `${e.label}: menor para maior`,
             value: `${e.attribute}_ASC`,
           });
           sortOptions.push({
-            label: `${e.label}: High to Low`,
+            label: `${e.label}: maior para menor`,
             value: `${e.attribute}_DESC`,
           });
         } else {
