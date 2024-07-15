@@ -119,7 +119,55 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     : product?.price_range?.minimum_price?.regular_price?.value >
         product?.price_range?.minimum_price?.final_price?.value ||
       productView?.price?.regular?.amount?.value >
-        productView?.price?.final?.amount?.value;
+        productView?.price?.final?.amount?.value;  
+
+  const getLabels = () => {
+    const attributes = productView?.attributes || [];
+
+    let labels = attributes.find((attribute) => attribute.name === "labels");    
+
+    return labels ? JSON.parse(labels.value) : [];
+
+  };
+
+  const labelsHtml = () => {
+    const labels = getLabels();   
+    
+    return labels.map((label:any) => {
+      let cssPosition = "position:absolute; z-index:1;";      
+      
+      switch(label.position){
+        case 'top-left':
+          cssPosition += "top:0px; left: 0px;";
+          break;
+        case 'top-center':
+          cssPosition += "top: 0px; left: 50%; tranform: translate(-50%,-50%)";
+          break;
+        case 'top-right':
+          cssPosition += "top:0px; right: 0px;";
+          break;
+        case 'bottom-left':
+          cssPosition += "bottom:0px; left: 0px;";
+          break;
+        case 'bottom-center':
+          cssPosition += "bottom: 0px; left: 50%; tranform: translate(-50%,-50%)";
+          break;
+        case 'bottom-right':
+          cssPosition += "bottom:0px; right: 0px;";
+          break;
+        default:
+          cssPosition += "";
+      }
+
+      const content = label.image ? <img src={label.image} alt={label.alt_tag} /> : label.txt;
+
+      return <div style={cssPosition}><div style={label.style}>{content}</div></div>
+    });
+  }
+
+  
+  
+
   const isSimple = product?.__typename === 'SimpleProduct';
   const isComplexProductView = productView?.__typename === 'ComplexProductView';
   const isBundle = product?.__typename === 'BundleProduct';
@@ -211,25 +259,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   SKU:
                   {product.sku !== null && htmlStringDecode(product.sku)}
                 </div>
-              </a>
-
-              {/* Swatch */}
-              <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
-                {productView?.options?.map(
-                  (swatches) =>
-                    swatches.id === 'color' && (
-                      <SwatchButtonGroup
-                        key={productView?.sku}
-                        isSelected={isSelected}
-                        swatches={swatches.values ?? []}
-                        showMore={onProductClick}
-                        productUrl={productUrl as string}
-                        onClick={handleSelection}
-                        sku={productView?.sku}
-                      />
-                    )
-                )}
-              </div>
+              </a>              
             </div>
           </div>
           <div className="product-price">
@@ -272,12 +302,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
 
           {/* TO BE ADDED LATER */}
-          <div className="product-ratings" />
-          <div className="product-add-to-cart">
-            <div className="pb-4 h-[38px] w-96">
-              <AddToCartButton onClick={handleAddToCart} />
-            </div>
-          </div>
+          <div className="product-ratings" />          
         </div>
       </>
     );
@@ -291,7 +316,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       }}
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
-    >
+    >            
       <a
         href={productUrl as string}
         onClick={onProductClick}
@@ -299,7 +324,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
           <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
-            {productImageArray.length ? (
+            {labelsHtml()}
+            {productImageArray.length ? (              
               <ImageCarousel
                 images={
                   optimizedImageArray.length
@@ -348,31 +374,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
         </div>
       </a>
-
-      {productView?.options && productView.options?.length > 0 && (
-        <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
-          {productView?.options?.map(
-            (swatches) =>
-              swatches.id == 'color' && (
-                <SwatchButtonGroup
-                  key={product?.sku}
-                  isSelected={isSelected}
-                  swatches={swatches.values ?? []}
-                  showMore={onProductClick}
-                  productUrl={productUrl as string}
-                  onClick={handleSelection}
-                  sku={product?.sku}
-                />
-              )
-          )}
-        </div>
-      )}
-        <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>
     </div>
   );
 };

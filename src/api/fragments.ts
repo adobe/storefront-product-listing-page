@@ -44,6 +44,10 @@ const ProductView = `
             inStock
             url
             urlKey
+            attributes{
+                name
+                value
+            }
             images {
                 label
                 url

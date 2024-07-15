@@ -203,6 +203,7 @@ export interface Product {
     uid: string;
     name: string;
     sku: string;
+    attributes: null | Array<Attributes>;
     description: null | ComplexTextValue;
     short_description: null | ComplexTextValue;
     attribute_set_id: null | number;
@@ -242,7 +243,7 @@ export interface Product {
           values: null | SwatchValues[];
         }[];
   };
-  highlights: Array<Highlights>;
+  highlights: Array<Highlights>;  
 }
 
 export interface RefinedProduct {
@@ -346,6 +347,11 @@ export interface Highlights {
   attribute: string;
   value: string;
   matched_words: Array<string>;
+}
+
+export interface Attributes {  
+  value: string;
+  name: string;
 }
 
 export interface PageInfo {

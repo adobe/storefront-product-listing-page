@@ -71,6 +71,7 @@ export const sampleProductNoImage: Product = {
     new_to_date: null,
     created_at: null,
     updated_at: null,
+    attributes: null,
     price: {
       final: {
         amount: {
@@ -216,6 +217,7 @@ export const sampleProductDiscounted: Product = {
     meta_title: null,
     meta_keyword: null,
     meta_description: null,
+    attributes: null,
     images: [
       {
         url: 'http://master-7rqtwti-eragxvhtzr4am.us-4.magentosite.cloud/media/catalog/product/l/u/luma-yoga-brick.jpg',
@@ -380,6 +382,7 @@ export const sampleProductNotDiscounted: Product = {
     uid: '21',
     name: 'Sprite Foam Yoga Brick',
     sku: '24-WG084',
+    attributes: null,
     description: {
       html: '<p>Our top-selling yoga prop, the 4-inch, high-quality Sprite Foam Yoga Brick is popular among yoga novices and studio professionals alike. An essential yoga accessory, the yoga brick is a critical tool for finding balance and alignment in many common yoga poses. Choose from 5 color options.</p>\n<ul>\n<li>Standard Large Size: 4" x 6" x 9".\n<li>Beveled edges for ideal contour grip.\n<li>Durable and soft, scratch-proof foam.\n<li>Individually wrapped.\n<li>Ten color choices.\n</ul> ',
     },
