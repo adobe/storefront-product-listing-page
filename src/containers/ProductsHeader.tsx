@@ -87,7 +87,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
       <div
         className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between' : 'justify-end'
+          screenSize.mobile ? 'justify-between' : 'justify-between'
         }`}
       >
         <div>
