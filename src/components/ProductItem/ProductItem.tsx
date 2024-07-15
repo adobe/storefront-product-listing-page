@@ -285,10 +285,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
     <div
-      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
-      style={{
-        'border-color': '#D5D5D5',
-      }}
+      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full border-solid border-offset-2"
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
     >
@@ -367,12 +364,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-        <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>
     </div>
   );
 };
