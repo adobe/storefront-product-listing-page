@@ -16,13 +16,17 @@ export interface SwatchButtonProps {
   value: string;
   type: SwatchType;
   checked: boolean;
-  onClick: (e: any) => any;
+  onClick?: (e: Event) => any;
+  onMouseEnter?: (e: Event) => any;
+  onMouseLeave?: (e: Event) => any;
 }
 export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   id,
   value,
   type,
   checked,
+  onMouseEnter,
+  onMouseLeave,
   onClick,
 }: SwatchButtonProps) => {
   const outlineColor = checked
@@ -38,7 +42,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
     const className = `min-w-[44px] p-sm border border-[1.5px] ${outlineColor} h-[44px] outline-transparent`;
     const isWhite = color === '#ffffff' || color === '#fff';
     return (
-      <div className={`ds-sdk-swatch-button_${id}`}>
+      <div className={`ds-sdk-swatch-button_${id} colors-neutral-700 h-full`}>
         <button
           title={value}
           key={id}
@@ -47,9 +51,11 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
             backgroundColor: id === 'show-more' ? null : mockColor,
             border: !checked && isWhite ? '1px solid #ccc' : undefined,
           }}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
           onClick={onClick}
           checked={checked}
-        >{id === 'show-more' ? '+' : ''}</button>
+        >{id === 'show-more' ? value : ''}</button>
       </div>
     );
   }
@@ -68,6 +74,8 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
             backgroundColor: color,
             border: !checked && isWhite ? '1px solid #ccc' : undefined,
           }}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
           onClick={onClick}
           checked={checked}
         />
@@ -79,11 +87,13 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
     const className = `object-cover object-center min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
     const style = `background: url(${value}) no-repeat center; background-size: initial`;
     return (
-      <div className={`ds-sdk-swatch-button_${value}`}>
+      <div className={`ds-sdk-swatch-button_${value} w-[100%] h-[100%]`}>
         <button
           key={id}
           className={className}
           style={style}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
           onClick={onClick}
           checked={checked}
         />
@@ -98,6 +108,8 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
       <button
         key={id}
         className={className}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         onClick={onClick}
         checked={checked}
       >

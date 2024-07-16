@@ -20,6 +20,8 @@ export interface SwatchButtonGroupProps {
   onClick: (optionIds: string[], sku: string) => any;
   sku: string;
   maxSwatches?: number;
+  onMouseEnter?: (optionIds: string[], sku: string) => void;
+  onMouseLeave?: () => void;
 }
 
 const MAX_SWATCHES = 4;
@@ -29,6 +31,8 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
   swatches,
   showMore,
   productUrl,
+  onMouseEnter,
+  onMouseLeave,
   onClick,
   sku,
   maxSwatches = MAX_SWATCHES,
@@ -39,15 +43,21 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
   return (
     <div className="ds-sdk-product-item__product-swatch-group flex column items-center space-x-2">
       {moreSwatches ? (
-        <div className="flex">
+        <div className="flex h-full w-full">
           {swatches.slice(0, numberOfOptions).map((swatch) => {
             const checked = isSelected(swatch.id);
-            const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''}`;
+            const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''} ${checked ? 'selected' : ''}`;
             const handleClick = (evt: Event) => {
               evt.preventDefault();
               evt.stopPropagation();
 
               onClick([swatch.id], sku);
+            }
+
+            const handleMouseEnter = () => {
+              if (onMouseEnter) {
+                onMouseEnter([swatch.id], sku);
+              }
             }
 
             return (
@@ -57,6 +67,8 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
                     value={swatch.value}
                     type={swatch.type}
                     checked={!!checked}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={onMouseLeave}
                     onClick={handleClick}
                   />
                 </div>
@@ -66,7 +78,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
             <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700">
               <SwatchButton
                 id={'show-more'}
-                value={`+${swatches.length - numberOfOptions}`}
+                value={`+ ${swatches.length - numberOfOptions} more`}
                 type={'TEXT'}
                 checked={false}
                 onClick={showMore}
@@ -77,19 +89,29 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
       ) : (
         swatches.slice(0, numberOfOptions).map((swatch) => {
           const checked = isSelected(swatch.id);
+          const handleClick = (evt: Event) => {
+            evt.preventDefault();
+            evt.stopPropagation();
+
+            onClick([swatch.id], sku);
+          }
+
+          const handleMouseEnter = () => {
+            if (onMouseEnter) {
+              onMouseEnter([swatch.id], sku);
+            }
+          }
+
           return (
-            <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700" key={swatch.id}>
+            <div className={`ds-sdk-product-item__product-swatch-item text-sm text-brand-700 ${checked ? 'selected' : ''}`} key={swatch.id}>
               <SwatchButton
                 id={swatch.id}
                 value={swatch.value}
                 type={swatch.type}
                 checked={!!checked}
-                onClick={(evt: Event) => {
-                  evt.preventDefault();
-                  evt.stopPropagation();
-
-                  onClick([swatch.id], sku);
-                }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={onMouseLeave}
+                onClick={handleClick}
               />
             </div>
           );
