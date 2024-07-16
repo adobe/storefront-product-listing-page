@@ -122,11 +122,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         productView?.price?.final?.amount?.value;  
 
   const getLabels = () => {
-    const attributes = productView?.attributes || [];
+    try {
+      const attributes = productView?.attributes || [];
 
-    let labels = attributes.find((attribute) => attribute.name === "labels");    
+      let labels = attributes.find((attribute) => attribute.name === "labels");    
 
-    return labels ? JSON.parse(labels.value) : [];
+      return labels ? JSON.parse(labels.value) : [];
+    } catch (e){
+      console.log("e", e);      
+      return [];
+    }
+    
 
   };
 
@@ -159,7 +165,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           cssPosition += "";
       }
 
-      const content = label.image ? <img src={label.image} alt={label.alt_tag} /> : label.txt;
+      const content = label.image ? <img src={"/" + label.image} alt={label.alt_tag} /> : label.txt;
 
       return <div style={cssPosition}><div style={label.style}>{content}</div></div>
     });
@@ -310,10 +316,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
     <div
-      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
-      style={{
-        'border-color': '#D5D5D5',
-      }}
+      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full border-solid border-offset-2"
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
     >            
