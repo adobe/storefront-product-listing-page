@@ -8,9 +8,8 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useContext } from 'preact/hooks';
 
-import { TranslationContext } from '../../context/translation';
+import { useTranslation } from '../../context/translation';
 import AdjustmentsIcon from '../../icons/adjustments.svg';
 
 export interface FilterButtonProps {
@@ -23,7 +22,8 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   type,
   title,
 }: FilterButtonProps) => {
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
+
   return type == 'mobile' ? (
     <div className="ds-sdk-filter-button">
       <button

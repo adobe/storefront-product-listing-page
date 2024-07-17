@@ -12,6 +12,7 @@ export const en_US = {
     title: 'Filters',
     showTitle: 'Show filters',
     hideTitle: 'Hide filters',
+    clearAll: 'Clear all',
   },
   InputButtonGroup: {
     title: 'Categories',
@@ -19,7 +20,7 @@ export const en_US = {
     customPrice: 'Custom Price',
     priceIncluded: 'yes',
     priceExcluded: 'no',
-    priceExcludedMessage: 'Not ',
+    priceExcludedMessage: 'Not {title}',
     priceRange: ' and above',
     showmore: 'Show more',
   },
@@ -32,25 +33,38 @@ export const en_US = {
   },
   SortDropdown: {
     title: 'Sort by',
+    option: 'Sort by: {selectedOption}',
     relevanceLabel: 'Most Relevant',
     positionLabel: 'Position',
+    sortAttributeASC: '{label}: Low to High',
+    sortAttributeDESC: '{label}: High to Low',
+    sortASC: 'Price: Low to High',
+    sortDESC: 'Price: High to Low',
+    productName: 'Product Name',
+    productInStock: 'In Stock',
+    productLowStock: 'Low Stock',
   },
   CategoryFilters: {
     results: 'results for {phrase}',
-    products: 'products',
+    products: '{totalCount} products',
   },
   ProductCard: {
-    asLowAs: 'As low as',
+    asLowAs: 'As low as {discountPrice}',
+    startingAt: 'Starting at {productPrice}',
+    bundlePrice: 'From {fromBundlePrice} To {toBundlePrice}',
+    from: 'From {productPrice}',
   },
   ProductContainers: {
     minquery:
       'Your search term {variables.phrase} has not reached the minimum of {minQueryLength} characters.',
     noresults: 'Your search returned no results.',
-    show: 'Show ',
-    perPage: 'per page',
+    pagePicker: 'Show {pageSize} per page',
     showAll: 'all',
   },
   SearchBar: {
     placeholder: 'Search...',
+  },
+  ListView: {
+    viewDetails: 'View details',
   },
 };

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@adobe/storefront-product-listing-page",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "typings": "./dist/@types/index.d.ts",
   "engines": {

@@ -1,6 +1,5 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { InputButtonGroup } from "../InputButtonGroup";
-import { action } from "@storybook/addon-actions";
 import { TextWithTooltip } from "../../examples/inputGroupTitleSlot/TextWithTooltip";
 
 <Meta
@@ -32,7 +31,7 @@ import { InputButtonGroup } from '../InputButtonGroup'
                 { title: "Alpha Centauri Proxima Centauri" },
             ],
             isSelected: () => Math.floor(Math.random() * 10) % 2 === 0,
-            onChange: action("onChange"),
+            onChange: () => {},
             type: "checkbox",
         }}
     >

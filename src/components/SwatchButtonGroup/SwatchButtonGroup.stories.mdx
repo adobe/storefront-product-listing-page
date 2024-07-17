@@ -1,6 +1,5 @@
 import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
-import { action } from "@storybook/addon-actions"
 
 <Meta
   title="PLP/SwatchButtonGroup"
@@ -22,7 +21,7 @@ import { SwatchButtonGroup } from '../SwatchButtonGroup'
   <Story
     name="SwatchButtonGroup"
     args={{
-      isSelected: action('isSelected'),
+      isSelected: () => Math.floor(Math.random() * 10) % 2 === 0,
       swatches: [
         {
           title: 'Black',
@@ -37,14 +36,14 @@ import { SwatchButtonGroup } from '../SwatchButtonGroup'
           value: '#eb6703',
         },
         {
-          title: 'Red',
+          title: 'White',
           id: 'test3',
           type: 'COLOR_HEX',
-          value: 'red',
+          value: '#ffffff',
         },
       ],
-      showMore: action('showMore'),
-      onClick: action('onClick'),
+      showMore: 'false',
+      onClick: () => {},
       skue: 'test',
     }}
   >

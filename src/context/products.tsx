@@ -35,7 +35,8 @@ import {
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
-import { TranslationContext } from './translation';
+import { useTranslation } from './translation';
+
 interface WithChildrenProps {
   children?: any;
 }
@@ -70,6 +71,17 @@ const ProductsContext = createContext<{
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
   categoryPath: string | undefined;
+  viewType: string;
+  setViewType: (viewType: string) => void;
+  listViewType: string;
+  setListViewType: (viewType: string) => void;
+  resolveCartId?: () => Promise<string | undefined>;
+  refreshCart?: () => void;
+  addToCart?: (
+    sku: string,
+    options: [],
+    quantity: number
+  ) => Promise<void | undefined>;
 }>({
   variables: {
     phrase: '',
@@ -102,6 +114,13 @@ const ProductsContext = createContext<{
   pageLoading: false,
   setPageLoading: () => {},
   categoryPath: undefined,
+  viewType: '',
+  setViewType: () => {},
+  listViewType: '',
+  setListViewType: () => {},
+  resolveCartId: () => Promise.resolve(''),
+  refreshCart: () => {},
+  addToCart: () => Promise.resolve(),
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -120,7 +139,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     ? Number(pageSizeValue)
     : defaultPageSizeOption;
 
-  const translation = useContext(TranslationContext);
+  const translation = useTranslation();
+
   const showAllLabel = translation.ProductContainers.showAll;
 
   const [loading, setLoading] = useState(true);
@@ -147,6 +167,12 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     return storeCtx?.config?.minQueryLength || DEFAULT_MIN_QUERY_LENGTH;
   }, [storeCtx?.config.minQueryLength]);
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
+
+  const viewTypeFromUrl = getValueFromUrl('view_type');
+  const [viewType, setViewType] = useState<string>(
+    viewTypeFromUrl ? viewTypeFromUrl : 'gridView'
+  );
+  const [listViewType, setListViewType] = useState<string>('default');
 
   const variables = useMemo(() => {
     return {
@@ -206,6 +232,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     pageLoading,
     setPageLoading,
     categoryPath,
+    viewType,
+    setViewType,
+    listViewType,
+    setListViewType,
+    cartId: storeCtx.config.resolveCartId,
+    refreshCart: storeCtx.config.refreshCart,
+    resolveCartId: storeCtx.config.resolveCartId,
+    addToCart: storeCtx.config.addToCart,
   };
 
   const searchProducts = async () => {
@@ -250,7 +284,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     if (
       !storeCtx.config?.currentCategoryUrlPath &&
       searchCtx.phrase.trim().length <
-        (storeCtx.config.minQueryLength || DEFAULT_MIN_QUERY_LENGTH)
+        (Number(storeCtx.config.minQueryLength) || DEFAULT_MIN_QUERY_LENGTH)
     ) {
       setItems([]);
       setFacets([]);
@@ -276,7 +310,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       });
     });
 
-    if (storeCtx?.config?.allowAllProducts) {
+    if (storeCtx?.config?.allowAllProducts == '1') {
+      // '==' is intentional for conversion
       optionsArray.push({
         label: showAllLabel,
         value: totalCount !== null ? (totalCount > 500 ? 500 : totalCount) : 0,

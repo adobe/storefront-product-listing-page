@@ -21,7 +21,7 @@ const defaultSortOptions = (): SortOption[] => {
 const getSortOptionsfromMetadata = (
   translation: Language,
   sortMetadata: SortMetadata[],
-  displayOutOfStock?: string,
+  displayOutOfStock?: string | boolean,
   categoryPath?: string
 ): SortOption[] => {
   const sortOptions = categoryPath
@@ -37,7 +37,7 @@ const getSortOptionsfromMetadata = (
           value: 'relevance_DESC',
         },
       ];
-  const displayInStockOnly = displayOutOfStock !== '1';
+  const displayInStockOnly = displayOutOfStock != '1'; // '!=' is intentional for conversion
 
   if (sortMetadata && sortMetadata.length > 0) {
     sortMetadata.forEach((e) => {
@@ -45,7 +45,7 @@ const getSortOptionsfromMetadata = (
         !e.attribute.includes('relevance') &&
         !(e.attribute.includes('inStock') && displayInStockOnly) &&
         !e.attribute.includes('position')
-        /* conditions for which we don't display the sorting option: 
+        /* conditions for which we don't display the sorting option:
                 1) if the option attribute is relevance
                 2) if the option attribute is "inStock" and display out of stock products is set to no
                 3) if the option attribute is "position" and there is not a categoryPath (we're not in category browse mode) -> the conditional part is handled in setting sortOptions

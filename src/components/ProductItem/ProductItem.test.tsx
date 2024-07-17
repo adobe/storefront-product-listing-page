@@ -13,6 +13,17 @@ import { StoreContextProvider } from '../../context';
 import { sampleProductNotDiscounted } from './MockData';
 import ProductItem from './ProductItem';
 
+beforeEach(() => {
+  // IntersectionObserver isn't available in test environment
+  const mockIntersectionObserver = jest.fn();
+  mockIntersectionObserver.mockReturnValue({
+    observe: () => null,
+    unobserve: () => null,
+    disconnect: () => null,
+  });
+  window.IntersectionObserver = mockIntersectionObserver;
+});
+
 describe('WidgetSDK - UIKit/ProductItem', () => {
   test('renders', () => {
     const context = {
@@ -40,6 +51,9 @@ describe('WidgetSDK - UIKit/ProductItem', () => {
           currencyRate="USD"
           setRoute={undefined}
           refineProduct={() => {}}
+          setItemAdded={() => 'test'}
+          setCartUpdated={() => true}
+          setError={() => ''}
         />
       </StoreContextProvider>
     );

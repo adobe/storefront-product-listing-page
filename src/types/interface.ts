@@ -29,20 +29,30 @@ export interface ClientProps {
 }
 
 export interface StoreDetailsConfig {
-  allowAllProducts?: boolean;
+  allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
-  minQueryLength?: number;
+  minQueryLength?: string | number; // string if used on magento, number if used on data-service-graphql
   pageSize?: number;
   currencySymbol?: string;
   currencyRate?: string;
   currentCategoryUrlPath?: string;
   categoryName?: string;
   displaySearchBox?: boolean;
-  displayOutOfStock?: string;
+  displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayMode?: string;
   locale?: string;
-  optimizeImages?: boolean; // Using Fastly Image Optimizer
+  priceSlider?: boolean;
+  imageCarousel?: boolean;
+  listview?: boolean;
+  optimizeImages?: boolean;
   imageBaseWidth?: number;
+  resolveCartId?: () => Promise<string | undefined>;
+  refreshCart?: () => void;
+  addToCart?: (
+    sku: string,
+    options: [],
+    quantity: number
+  ) => Promise<void | undefined>;
 }
 
 // Types
@@ -52,7 +62,13 @@ export type BucketTypename =
   | 'StatsBucket'
   | 'CategoryView';
 
-export type RedirectRouteFunc = ({ sku, urlKey }: { sku: string, urlKey: null | string }) => string;
+export type RedirectRouteFunc = ({
+  sku,
+  urlKey,
+}: {
+  sku: string;
+  urlKey: null | string;
+}) => string;
 
 export interface MagentoHeaders {
   environmentId: string;
@@ -68,7 +84,7 @@ export interface ProductSearchQuery {
   phrase: string;
   pageSize?: number;
   currentPage?: number;
-  displayOutOfStock?: string;
+  displayOutOfStock?: string | boolean;
   filter?: SearchClauseInput[];
   sort?: ProductSearchSortInput[];
   xRequestId?: string;

@@ -9,41 +9,38 @@ it.
 
 import { ProductViewMedia } from '../types/interface';
 
-type ImageTypes = {
-  thumbnail?: string | null;
-  small_image?: string | null;
-  image?: string | null;
-  main?: string | null;
-};
-
-const getProductImageURL = (images: ProductViewMedia[]): string => {
-  const imageTypes: ImageTypes = {};
+const getProductImageURLs = (
+  images: ProductViewMedia[],
+  amount: number = 3,
+  topImageUrl?: string
+): string[] => {
+  const imageUrlArray: Array<string> = [];
   const url = new URL(window.location.href);
   const protocol = url.protocol;
 
-  if (images?.length) {
-    for (const image of images) {
-      if (image.roles?.includes('thumbnail')) {
-        imageTypes.thumbnail = image.url?.replace(/^https?:\/\//, '');
-      } else if (image.roles?.includes('small_image')) {
-        imageTypes.small_image = image.url?.replace(/^https?:\/\//, '');
-      } else if (image.roles?.includes('image')) {
-        imageTypes.image = image.url?.replace(/^https?:\/\//, '');
-      } else if (image.url?.includes('main')) {
-        imageTypes.main = image.url?.replace(/^https?:\/\//, '');
-      }
+  // const topImageUrl = "http://master-7rqtwti-wdxwuaerh4gbm.eu-4.magentosite.cloud/media/catalog/product/3/1/31t0a-sopll._ac_.jpg";
+  for (const image of images) {
+    const imageUrl = image.url?.replace(/^https?:\/\//, '');
+    if (imageUrl) {
+      imageUrlArray.push(`${protocol}//${imageUrl}`);
     }
   }
 
-  const imageUrl =
-    imageTypes.thumbnail ??
-    imageTypes.small_image ??
-    imageTypes.image ??
-    imageTypes.main ??
-    '';
+  if (topImageUrl) {
+    const topImageUrlFormatted = `${protocol}//${topImageUrl.replace(
+      /^https?:\/\//,
+      ''
+    )}`;
+    const index = topImageUrlFormatted.indexOf(topImageUrlFormatted);
+    if (index > -1) {
+      imageUrlArray.splice(index, 1);
+    }
 
-  return imageUrl ? `${protocol}//${imageUrl}` : '';
-}
+    imageUrlArray.unshift(topImageUrlFormatted);
+  }
+
+  return imageUrlArray.slice(0, amount);
+};
 
 export interface ResolveImageUrlOptions {
   width: number;
@@ -54,7 +51,7 @@ export interface ResolveImageUrlOptions {
   fit?: string;
 }
 
-const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions) : string => {
+const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions): string => {
   const [base, query] = url.split('?');
   const params = new URLSearchParams(query);
 
@@ -65,22 +62,38 @@ const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions) : string => 
   });
 
   return `${base}?${params.toString()}`;
-}
+};
 
-const generateOptimizedImages = (imageUrl: string, baseImageWidth: number): [string, string[]] => {
+const generateOptimizedImages = (
+  imageUrls: string[],
+  baseImageWidth: number
+): { src: string; srcset: any }[] => {
   const baseOptions = {
     fit: 'cover',
     crop: false,
     dpi: 1,
   };
 
-  const src = resolveImageUrl(imageUrl, { ...baseOptions, width: baseImageWidth });
-  const dpiSet = [1, 2, 3];
-  const srcset = dpiSet.map((dpi) => {
-    return `${resolveImageUrl(imageUrl, { ...baseOptions, auto: 'webp', quality: 80, width: baseImageWidth * dpi })} ${dpi}x`;
-  });
+  const imageUrlArray: Array<{ src: string; srcset: any }> = [];
 
-  return [src, srcset];
-}
+  for (const imageUrl of imageUrls) {
+    const src = resolveImageUrl(imageUrl, {
+      ...baseOptions,
+      width: baseImageWidth,
+    });
+    const dpiSet = [1, 2, 3];
+    const srcset = dpiSet.map((dpi) => {
+      return `${resolveImageUrl(imageUrl, {
+        ...baseOptions,
+        auto: 'webp',
+        quality: 80,
+        width: baseImageWidth * dpi,
+      })} ${dpi}x`;
+    });
+    imageUrlArray.push({ src, srcset });
+  }
 
-export { getProductImageURL, generateOptimizedImages };
+  return imageUrlArray;
+};
+
+export { generateOptimizedImages, getProductImageURLs };
