@@ -22,6 +22,7 @@ function getColorSwatcheConfigFromAttribute(item: Product) {
   try {
     options = JSON.parse(imageAttributes.value);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Error parsing image attributes', e);
     return null;
   }

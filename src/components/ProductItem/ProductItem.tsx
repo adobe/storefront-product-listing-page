@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect,useRef, useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
@@ -74,6 +74,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
+  const prevSelectedSwatch = useRef<string | null>(null);
 
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
@@ -82,6 +83,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   } = useStore();
 
   const { screenSize } = useSensor();
+
+  useEffect(() => {
+    prevSelectedSwatch.current = selectedSwatch;
+  }, [selectedSwatch]);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -93,10 +98,28 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const handleSelection = async (optionIds: string[], sku: string) => {
-    const data = await refineProduct(optionIds, sku);
-    setSelectedSwatch(optionIds[0]);
-    setImagesFromRefinedProduct(data.refineProduct.images);
-    setRefinedProduct(data);
+    const selectedSwatchBeforeUdpate = selectedSwatch;
+    const nextSelectedSwatch = optionIds[0];
+    setSelectedSwatch(nextSelectedSwatch);
+
+    try {
+      const data = await refineProduct(optionIds, sku);
+      // If different swatch is selected before the data is fetched, do not update the state
+      if (prevSelectedSwatch.current !== nextSelectedSwatch) {
+        return;
+      }
+
+      setImagesFromRefinedProduct(data.refineProduct.images);
+      setRefinedProduct(data);
+    } catch (error) {
+      // Reset the selected swatch if there is an error
+      if (prevSelectedSwatch.current === nextSelectedSwatch) {
+        setSelectedSwatch(selectedSwatchBeforeUdpate);
+      }
+
+      // eslint-disable-next-line no-console
+      console.error('Error fetching refined product', error);
+    }
   };
 
   const handleSwatchMouseOut = () => {
@@ -384,7 +407,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                       productUrl={productUrl as string}
                       onClick={handleSizeSelection}
                       sku={product?.sku}
-                      maxSwatches={swatchItems.length}
                     />
                   );
                 }
