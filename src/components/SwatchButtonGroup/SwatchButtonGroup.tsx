@@ -51,8 +51,12 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
 
     updateVisibleCount();
 
-    window.addEventListener('resize', updateVisibleCount);
-    return () => window.removeEventListener('resize', updateVisibleCount);
+    const resizeObserver = new ResizeObserver(() => updateVisibleCount());
+    if (swatchButtonContainerRef.current) {
+      resizeObserver.observe(swatchButtonContainerRef.current);
+    }
+
+    return () => resizeObserver.disconnect();
   }, []);
 
   const moreSwatches = visibleCount === null ? false : swatches.length > visibleCount;
