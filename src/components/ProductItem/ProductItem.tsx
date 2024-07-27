@@ -298,8 +298,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                           showMore={onProductClick}
                           productUrl={productUrl as string}
                           onClick={handleSelection}
-                          onMouseEnter={handleSelection}
-                          onMouseLeave={handleSwatchMouseOut}
                           sku={productView?.sku}
                         />
                       )

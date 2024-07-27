@@ -92,6 +92,12 @@ const ProductView = `
                     values {
                         id
                         title
+                        ... on ProductViewOptionValueSwatch {
+                            id
+                            inStock
+                            type
+                            value
+                        }
                     }
                 }
             }
