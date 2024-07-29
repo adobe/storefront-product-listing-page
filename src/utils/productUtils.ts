@@ -63,10 +63,12 @@ function getColorSwatchesFromAttribute(item: Product) {
   const productOptions = productView?.options?.filter((option) => option.id?.startsWith('pim_axis'));
   const colorOptions = productOptions?.[0];
   return colorOptions?.values?.map((option) => {
-    const imagConfig = colorOptionsFromAttribute.images.find((image: any) => image.id === option.id);
+    const imagConfig = colorOptionsFromAttribute.images && colorOptionsFromAttribute.images.find((image: any) => image.id === option.id);
+    const defaultImage = colorOptionsFromAttribute.images?.[0]?.swatch_image || '/en-us/media/image/media_1ccf88b21200e64fed7e7e93e0cf2d0a76fa007a8.png';
+    let swatchImage = (imagConfig && imagConfig.swatch_image) || defaultImage
     return {
       ...option,
-      image: imagConfig?.swatch_image,
+      image: swatchImage,
     };
   });
 }

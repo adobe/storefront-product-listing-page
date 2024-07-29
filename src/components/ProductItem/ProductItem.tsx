@@ -79,7 +79,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, listview },
+    config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor },
   } = useStore();
 
   const { screenSize } = useSensor();
@@ -142,7 +142,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   if (optimizeImages) {
     optimizedImageArray = generateOptimizedImages(
       productImageArray,
-      imageBaseWidth ?? 200
+      imageBaseWidth ?? 200,
+      imageBackgroundColor || ''
     );
   }
 
@@ -169,7 +170,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     colorSwatches = colorSwatchesFromAttribute.map((swatch) => ({
       id: swatch.id,
       type: 'IMAGE',
-      value: `${swatch.image}?width=44&height=44&bg-color=E8E4DA`,
+      value: `${swatch.image}?width=44&height=44&bg-color=${imageBackgroundColor}`,
       title: swatch.title,
     }));
   }
