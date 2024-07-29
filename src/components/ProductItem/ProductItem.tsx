@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect,useRef, useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
@@ -28,7 +28,7 @@ import {
   getProductImageURLs
 } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
-import { isSportsWear } from '../../utils/productUtils';
+import { getColorSwatchesFromAttribute, getDefaultColorSwatchId, isSportsWear } from '../../utils/productUtils';
 import { AddToCartButton } from '../AddToCartButton';
 import ImageHover from '../ImageHover';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
@@ -51,8 +51,6 @@ export interface ProductProps {
 }
 
 const SWATCH_COLORS = 'Colors';
-const SWATCH_COLORS_TEAM = 'Colors / Team';
-const SWATCH_COLORS_TEAM_NAME = 'Colors / Team name';
 const SWATCH_SIZE = 'Size';
 
 export const ProductItem: FunctionComponent<ProductProps> = ({
@@ -67,21 +65,28 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   addToCart,
 }: ProductProps) => {
   const { product, productView } = item;
-  const [selectedSwatch, setSelectedSwatch] = useState('');
+  const defaultColorSwatchId = getDefaultColorSwatchId(item);
+
+  const [selectedSwatch, setSelectedSwatch] = useState(defaultColorSwatchId);
   const [imagesFromRefinedProduct, setImagesFromRefinedProduct] = useState<
     ProductViewMedia[] | null
   >();
   const [refinedProduct, setRefinedProduct] = useState<RefinedProduct>();
   const [isHovering, setIsHovering] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
+  const prevSelectedSwatch = useRef<string | null>(null);
 
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, listview },
+    config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor },
   } = useStore();
 
   const { screenSize } = useSensor();
+
+  useEffect(() => {
+    prevSelectedSwatch.current = selectedSwatch;
+  }, [selectedSwatch]);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -93,11 +98,35 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const handleSelection = async (optionIds: string[], sku: string) => {
-    const data = await refineProduct(optionIds, sku);
-    setSelectedSwatch(optionIds[0]);
-    setImagesFromRefinedProduct(data.refineProduct.images);
-    setRefinedProduct(data);
+    const selectedSwatchBeforeUdpate = selectedSwatch;
+    const nextSelectedSwatch = optionIds[0];
+    setSelectedSwatch(nextSelectedSwatch);
+
+    try {
+      const data = await refineProduct(optionIds, sku);
+      // If different swatch is selected before the data is fetched, do not update the state
+      if (prevSelectedSwatch.current !== nextSelectedSwatch) {
+        return;
+      }
+
+      setImagesFromRefinedProduct(data.refineProduct.images);
+      setRefinedProduct(data);
+    } catch (error) {
+      // Reset the selected swatch if there is an error
+      if (prevSelectedSwatch.current === nextSelectedSwatch) {
+        setSelectedSwatch(selectedSwatchBeforeUdpate);
+      }
+
+      // eslint-disable-next-line no-console
+      console.error('Error fetching refined product', error);
+    }
   };
+
+  const handleSwatchMouseOut = () => {
+    setSelectedSwatch(defaultColorSwatchId);
+    setImagesFromRefinedProduct(null);
+    setRefinedProduct(undefined);
+  }
 
   const isSelected = (id: string) => {
     const selected = selectedSwatch ? selectedSwatch === id : false;
@@ -113,7 +142,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   if (optimizeImages) {
     optimizedImageArray = generateOptimizedImages(
       productImageArray,
-      imageBaseWidth ?? 200
+      imageBaseWidth ?? 200,
+      imageBackgroundColor || ''
     );
   }
 
@@ -133,6 +163,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGiftCard = product?.__typename === 'GiftCardProduct';
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
   const shouldShowAddToBagButton = isSportsWear(item) && (!screenSize.desktop || isHovering) && !showSizes;
+
+  const colorSwatchesFromAttribute = getColorSwatchesFromAttribute(item);
+  let colorSwatches: SwatchValues[] = [];
+  if (colorSwatchesFromAttribute && colorSwatchesFromAttribute.length > 0) {
+    colorSwatches = colorSwatchesFromAttribute.map((swatch) => ({
+      id: swatch.id,
+      type: 'IMAGE',
+      value: `${swatch.image}?width=44&height=44&bg-color=${imageBackgroundColor}`,
+      title: swatch.title,
+    }));
+  }
 
   const onProductClick = () => {
     window.adobeDataLayer.push((dl: any) => {
@@ -365,7 +406,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                       productUrl={productUrl as string}
                       onClick={handleSizeSelection}
                       sku={product?.sku}
-                      maxSwatches={swatchItems.length}
                     />
                   );
                 }
@@ -373,25 +413,19 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             </div>
           </div>
           <div className="flex flex-col px-xsmall py-small gap-2">
-            {productView?.options && productView.options?.length > 0 && (
+            {colorSwatches && colorSwatches.length > 0 && (
               <div className="ds-sdk-product-item__product-swatch flex flex-row text-sm text-brand-700">
-                {productView?.options?.map(
-                  (swatches) => {
-                    if ([SWATCH_COLORS, SWATCH_COLORS_TEAM, SWATCH_COLORS_TEAM_NAME].includes(swatches.title || '')) {
-                      return (
-                        <SwatchButtonGroup
-                          key={product?.sku}
-                          isSelected={isSelected}
-                          swatches={swatches.values ?? []}
-                          showMore={onProductClick}
-                          productUrl={productUrl as string}
-                          onClick={handleSelection}
-                          sku={product?.sku}
-                        />
-                      );
-                    }
-                  }
-                )}
+                 <SwatchButtonGroup
+                    key={product?.sku}
+                    isSelected={isSelected}
+                    swatches={colorSwatches}
+                    showMore={onProductClick}
+                    productUrl={productUrl as string}
+                    onMouseEnter={handleSelection}
+                    onMouseLeave={handleSwatchMouseOut}
+                    onClick={handleSelection}
+                    sku={product?.sku}
+                  />
               </div>
             )}
             <div className="ds-sdk-product-item__product-name font-medium text-lg">

@@ -90,6 +90,7 @@ const ProductView = `
                     id
                     title
                     values {
+                        id
                         title
                         ... on ProductViewOptionValueSwatch {
                             id

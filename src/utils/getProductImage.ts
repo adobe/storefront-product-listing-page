@@ -71,7 +71,8 @@ const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions): string => {
 
 const generateOptimizedImages = (
   imageUrls: string[],
-  baseImageWidth: number
+  baseImageWidth: number,
+  imageBackgroundColor: string,
 ): { src: string; srcset: any }[] => {
   const baseOptions = {
     fit: 'bounds',
@@ -83,7 +84,7 @@ const generateOptimizedImages = (
     auto: 'webp',
     enable: 'upscale',
     canvas: '9:11',
-    'bg-color': 'E8E4DA'
+    'bg-color': imageBackgroundColor,
   };
 
   const imageUrlArray: Array<{ src: string; srcset: any }> = [];

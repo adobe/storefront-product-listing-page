@@ -7,6 +7,35 @@ function isSportsWear(product: Product) {
   return department?.value.includes('Sportswear');
 }
 
+function getColorSwatcheConfigFromAttribute(item: Product) {
+  if (isSportsWear(item)) {
+    return null;
+  }
+
+  const { productView } = item;
+  const imageAttributes = productView?.attributes?.find(({ name }) => name === 'eds_images');
+  if (!imageAttributes) {
+    return null;
+  }
+
+  let options;
+  try {
+    options = JSON.parse(imageAttributes.value);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Error parsing image attributes', e);
+    return null;
+  }
+
+  const productOptions = productView?.options?.filter((option) => option.id?.startsWith('pim_axis'));
+  const colorOptions =  productOptions?.[0];
+  const attributeId = colorOptions?.id;
+  
+  return options.find((option: any) => option.attribute_id === attributeId 
+    && option.attribute_type === 'visual' 
+    && option.show_swatches);
+}
+
 /*
 * New attribute i.e. "eds_images" for product images were introduced to get around catalog service sync issue
 * Ref: https://adobe-dx-support.slack.com/archives/C04CQH83BME/p1719261375238899
@@ -22,25 +51,32 @@ function isSportsWear(product: Product) {
 */
 function getColorSwatchesFromAttribute(item: Product) {
   if (isSportsWear(item)) {
-    return [];
+    return null;
+  }
+
+  const colorOptionsFromAttribute = getColorSwatcheConfigFromAttribute(item);
+  if (!colorOptionsFromAttribute) {
+    return null;
   }
 
   const { productView } = item;
-  const attributeId = productView?.options?.[0].id;
-  const imageAttributes = productView?.attributes?.find(({ name }) => name === 'eds_images');
-  if (imageAttributes) {
-    const options = JSON.parse(imageAttributes.value);
-    const colorOption = options.find((option: any) => option.attribute_id === attributeId 
-      && option.attribute_type === 'visual' 
-      && option.show_swatches);
-    if (!colorOption) {
-      return [];
-    }
-
-    return colorOption.images;
-  }
-
-  return [];
+  const productOptions = productView?.options?.filter((option) => option.id?.startsWith('pim_axis'));
+  const colorOptions = productOptions?.[0];
+  return colorOptions?.values?.map((option) => {
+    const imagConfig = colorOptionsFromAttribute.images && colorOptionsFromAttribute.images.find((image: any) => image.id === option.id);
+    const defaultImage = colorOptionsFromAttribute.images?.[0]?.swatch_image || '/en-us/media/image/media_1ccf88b21200e64fed7e7e93e0cf2d0a76fa007a8.png';
+    let swatchImage = (imagConfig && imagConfig.swatch_image) || defaultImage
+    return {
+      ...option,
+      image: swatchImage,
+    };
+  });
 }
 
-export { isSportsWear, getColorSwatchesFromAttribute };
+function getDefaultColorSwatchId(item: Product) {
+  const colorOptionsFromAttribute = getColorSwatcheConfigFromAttribute(item);
+
+  return colorOptionsFromAttribute?.images?.[0]?.id;
+}
+
+export { isSportsWear, getColorSwatchesFromAttribute, getDefaultColorSwatchId };

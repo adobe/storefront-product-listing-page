@@ -47,6 +47,7 @@ export interface StoreDetailsConfig {
   listview?: boolean;
   optimizeImages?: boolean;
   imageBaseWidth?: number;
+  imageBackgroundColor?: string;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
   addToCart?: (

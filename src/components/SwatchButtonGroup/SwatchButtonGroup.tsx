@@ -8,6 +8,8 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
+import { useRef } from 'preact/hooks';
+import { useEffect, useState } from 'react';
 
 import { SwatchValues } from '../../types/interface';
 import { SwatchButton } from '../SwatchButton';
@@ -19,54 +21,88 @@ export interface SwatchButtonGroupProps {
   productUrl: string;
   onClick: (optionIds: string[], sku: string) => any;
   sku: string;
-  maxSwatches?: number;
+  onMouseEnter?: (optionIds: string[], sku: string) => void;
+  onMouseLeave?: () => void;
 }
-
-const MAX_SWATCHES = 4;
 
 export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
   isSelected,
   swatches,
   showMore,
   productUrl,
+  onMouseEnter,
+  onMouseLeave,
   onClick,
-  sku,
-  maxSwatches = MAX_SWATCHES,
+  sku
 }: SwatchButtonGroupProps) => {
-  const moreSwatches = swatches.length > maxSwatches;
-  const numberOfOptions = moreSwatches ? maxSwatches - 1 : swatches.length;
+  const [visibleCount, setVisibleCount] = useState<number|null>(null);
+  const swatchButtonContainerRef = useRef<HTMLDivElement>(null);
+  const swatchButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (swatchButtonContainerRef.current && swatchButtonRef.current) {
+        const containerWidth = swatchButtonContainerRef.current.offsetWidth;
+        const swatchWidth = swatchButtonRef.current.offsetWidth;
+        const visibleSwatches = Math.floor(containerWidth / swatchWidth);
+        setVisibleCount(visibleSwatches); 
+      }
+    };
+
+    updateVisibleCount();
+
+    const resizeObserver = new ResizeObserver(() => updateVisibleCount());
+    if (swatchButtonContainerRef.current) {
+      resizeObserver.observe(swatchButtonContainerRef.current);
+    }
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  const moreSwatches = visibleCount === null ? false : swatches.length > visibleCount;
+  const numberOfOptions = moreSwatches && visibleCount !== null ? visibleCount - 1 : swatches.length;
+
+  const swatchButtons = swatches.slice(0, numberOfOptions).map((swatch, index) => {
+    const handleClick = (evt: Event) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      onClick([swatch.id], sku);
+    }
+
+    const handleMouseEnter = () => {
+      if (onMouseEnter) {
+        onMouseEnter([swatch.id], sku);
+      }
+    }
+
+    const checked = isSelected(swatch.id);
+    const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''} ${checked ? 'selected' : ''}`;
+    return (
+      <div className={wrapperClasses} key={swatch.id} ref={index === 0  ? swatchButtonRef : null}>
+          <SwatchButton
+            id={swatch.id}
+            value={swatch.value}
+            type={swatch.type}
+            checked={!!checked}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={onMouseLeave}
+            onClick={handleClick}
+          />
+        </div>
+      );
+  });
 
   return (
-    <div className="ds-sdk-product-item__product-swatch-group flex column items-center space-x-2">
+    <div className="ds-sdk-product-item__product-swatch-group flex column items-center space-x-2" ref={swatchButtonContainerRef}>
       {moreSwatches ? (
-        <div className="flex">
-          {swatches.slice(0, numberOfOptions).map((swatch) => {
-            const checked = isSelected(swatch.id);
-            const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''}`;
-            const handleClick = (evt: Event) => {
-              evt.preventDefault();
-              evt.stopPropagation();
-
-              onClick([swatch.id], sku);
-            }
-
-            return (
-              <div className={wrapperClasses} key={swatch.id}>
-                  <SwatchButton
-                    id={swatch.id}
-                    value={swatch.value}
-                    type={swatch.type}
-                    checked={!!checked}
-                    onClick={handleClick}
-                  />
-                </div>
-              );
-          })}
+        <div className="flex h-full w-full">
+          {swatchButtons}
           <a href={productUrl as string} className="hover:no-underline">
             <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700">
               <SwatchButton
                 id={'show-more'}
-                value={`+${swatches.length - numberOfOptions}`}
+                value={`+${swatches.length - numberOfOptions} more`}
                 type={'TEXT'}
                 checked={false}
                 onClick={showMore}
@@ -74,27 +110,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
             </div>
           </a>
         </div>
-      ) : (
-        swatches.slice(0, numberOfOptions).map((swatch) => {
-          const checked = isSelected(swatch.id);
-          return (
-            <div className="ds-sdk-product-item__product-swatch-item text-sm text-brand-700" key={swatch.id}>
-              <SwatchButton
-                id={swatch.id}
-                value={swatch.value}
-                type={swatch.type}
-                checked={!!checked}
-                onClick={(evt: Event) => {
-                  evt.preventDefault();
-                  evt.stopPropagation();
-
-                  onClick([swatch.id], sku);
-                }}
-              />
-            </div>
-          );
-        })
-      )}
+      ) : swatchButtons}
     </div>
   );
 };
