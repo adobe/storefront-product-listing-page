@@ -20,9 +20,12 @@ import {
   SearchProvider,
   StoreContextProvider,
   StoreDetailsProps,
+  WishlistProvider,
 } from './context/';
 import Resize from './context/displayChange';
+import { SentryProvider } from './context/sentry';
 import Translation from './context/translation';
+import { FloodgateProvider } from './utils/Floodgate';
 import { validateStoreDetailsKeys } from './utils/validateStoreDetails';
 
 type MountSearchPlpProps = {
@@ -49,21 +52,31 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   };
 
   render(
-    <StoreContextProvider {...validateStoreDetailsKeys(updatedStoreDetails)}>
-      <AttributeMetadataProvider>
-        <SearchProvider>
-          <Resize>
-            <Translation>
-              <ProductsContextProvider>
-                <CartProvider>
-                  <App />
-                </CartProvider>
-              </ProductsContextProvider>
-            </Translation>
-          </Resize>
-        </SearchProvider>
-      </AttributeMetadataProvider>
-    </StoreContextProvider>,
+    <SentryProvider>
+      <FloodgateProvider>
+        <StoreContextProvider
+          {...validateStoreDetailsKeys(updatedStoreDetails)}
+        >
+          {/* <WidgetConfigContextProvider> //Deprioritized for now */}
+          <AttributeMetadataProvider>
+            <SearchProvider>
+              <Resize>
+                <Translation>
+                  <ProductsContextProvider>
+                    <CartProvider>
+                      <WishlistProvider>
+                        <App />
+                      </WishlistProvider>
+                    </CartProvider>
+                  </ProductsContextProvider>
+                </Translation>
+              </Resize>
+            </SearchProvider>
+          </AttributeMetadataProvider>
+          {/* </WidgetConfigContextProvider> */}
+        </StoreContextProvider>
+      </FloodgateProvider>
+    </SentryProvider>,
     root
   );
 };

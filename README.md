@@ -59,7 +59,7 @@ npm run dev
 
 note: for styles to update you must run `npm run tailwind:build`
 
-And open `localhost:8080/v1/index.html` in your favorite browser.
+And open `localhost:8080/v2/index.html` in your favorite browser.
 
 ### Unit Testing
 
@@ -122,20 +122,6 @@ const storeDetails = {
         displaySearchBox: true,
         displayOutOfStock: true,
         allowAllProducts: false,
-        currentCategoryUrlPath?: string;
-        categoryName: '', // name of category to display
-        displaySearchBox: false, // display search box
-        displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
-        displayMode: '', // "" for search || "PAGE" for category search
-        locale: '', //add locale for translations
-        priceSlider: false, //enable slider for price - EXPERIMENTAL, default is false
-        imageCarousel: false, //enable multiple image carousel - EXPERIMENTAL, default is false
-        listview: false; //add listview as an option - EXPERIMENTAL, default is false
-        optimizeImages: true, // optimize images with Fastly
-        imageBaseWidth: 200,
-        resolveCartId?: resolveCartId // Luma specific addToCart method. Enabled with the extension
-        refreshCart?: refreshCart // Luma specific addToCart method. Enabled with the extension
-        addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action
       },
       context: {
         customerGroup: 'CUSTOMER_GROUP_CODE',
@@ -159,6 +145,7 @@ setTimeout(async () => {
 ```
 
 You can see the example in [dev-template.html](./dev-template.html)
+
 
 ### Theming and Styling
 
