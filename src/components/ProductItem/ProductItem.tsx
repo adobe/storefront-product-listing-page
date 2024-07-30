@@ -122,12 +122,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     }
   };
 
-  const handleSwatchMouseOut = () => {
-    setSelectedSwatch(defaultColorSwatchId);
-    setImagesFromRefinedProduct(null);
-    setRefinedProduct(undefined);
-  }
-
   const isSelected = (id: string) => {
     const selected = selectedSwatch ? selectedSwatch === id : false;
     return selected;
@@ -189,7 +183,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productUrl = setRoute
-    ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey })
+    ? setRoute({ 
+        sku: productView?.sku, 
+        urlKey: productView?.urlKey, 
+        optionsUIDs: selectedSwatch ? [selectedSwatch] : null,
+      })
     : product?.canonical_url;
 
   const updateCart = async (selectedVariants: string[] = []) => {
@@ -421,8 +419,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                     swatches={colorSwatches}
                     showMore={onProductClick}
                     productUrl={productUrl as string}
-                    onMouseEnter={handleSelection}
-                    onMouseLeave={handleSwatchMouseOut}
                     onClick={handleSelection}
                     sku={product?.sku}
                   />

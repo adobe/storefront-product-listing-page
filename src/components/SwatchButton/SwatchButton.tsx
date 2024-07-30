@@ -17,16 +17,12 @@ export interface SwatchButtonProps {
   type: SwatchType;
   checked: boolean;
   onClick?: (e: Event) => any;
-  onMouseEnter?: (e: Event) => any;
-  onMouseLeave?: (e: Event) => any;
 }
 export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   id,
   value,
   type,
   checked,
-  onMouseEnter,
-  onMouseLeave,
   onClick,
 }: SwatchButtonProps) => {
   const outlineColor = checked
@@ -51,8 +47,6 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
             backgroundColor: id === 'show-more' ? null : mockColor,
             border: !checked && isWhite ? '1px solid #ccc' : undefined,
           }}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
           onClick={onClick}
           checked={checked}
         >{id === 'show-more' ? value : ''}</button>
@@ -74,8 +68,6 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
             backgroundColor: color,
             border: !checked && isWhite ? '1px solid #ccc' : undefined,
           }}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
           onClick={onClick}
           checked={checked}
         />
@@ -92,8 +84,6 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
           key={id}
           className={className}
           style={style}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
           onClick={onClick}
           checked={checked}
         />
@@ -108,8 +98,6 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
       <button
         key={id}
         className={className}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         onClick={onClick}
         checked={checked}
       >

@@ -21,8 +21,6 @@ export interface SwatchButtonGroupProps {
   productUrl: string;
   onClick: (optionIds: string[], sku: string) => any;
   sku: string;
-  onMouseEnter?: (optionIds: string[], sku: string) => void;
-  onMouseLeave?: () => void;
 }
 
 export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
@@ -30,8 +28,6 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
   swatches,
   showMore,
   productUrl,
-  onMouseEnter,
-  onMouseLeave,
   onClick,
   sku
 }: SwatchButtonGroupProps) => {
@@ -70,12 +66,6 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
       onClick([swatch.id], sku);
     }
 
-    const handleMouseEnter = () => {
-      if (onMouseEnter) {
-        onMouseEnter([swatch.id], sku);
-      }
-    }
-
     const checked = isSelected(swatch.id);
     const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''} ${checked ? 'selected' : ''}`;
     return (
@@ -85,8 +75,6 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
             value={swatch.value}
             type={swatch.type}
             checked={!!checked}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={onMouseLeave}
             onClick={handleClick}
           />
         </div>
