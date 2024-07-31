@@ -77,9 +77,9 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
 
   if (type === 'IMAGE' && value) {
     const className = `object-cover object-center min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
-    const style = `background: url(${value}) no-repeat center; background-size: initial`;
+    const style = `background: url(${value}) no-repeat center; background-size: contain;`;
     return (
-      <div className={`ds-sdk-swatch-button_${value} w-[100%] h-[100%]`}>
+      <div className="w-full h-full">
         <button
           key={id}
           className={className}

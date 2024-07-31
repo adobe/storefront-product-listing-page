@@ -161,12 +161,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const colorSwatchesFromAttribute = getColorSwatchesFromAttribute(item);
   let colorSwatches: SwatchValues[] = [];
   if (colorSwatchesFromAttribute && colorSwatchesFromAttribute.length > 0) {
-    colorSwatches = colorSwatchesFromAttribute.map((swatch) => ({
-      id: swatch.id,
-      type: 'IMAGE',
-      value: `${swatch.image}?width=44&height=44&bg-color=${imageBackgroundColor}`,
-      title: swatch.title,
-    }));
+    colorSwatches = colorSwatchesFromAttribute.map((swatch) => {
+      let imageUrl = generateOptimizedImages([swatch.image], 44, imageBackgroundColor || '', '1:1')[0]?.src;
+      imageUrl = `${imageUrl}&dpr=${Math.round(window.devicePixelRatio)}`;
+
+      return {
+        id: swatch.id,
+        type: 'IMAGE',
+        value: imageUrl,
+        title: swatch.title,
+      };
+    });
   }
 
   const onProductClick = () => {
