@@ -64,7 +64,7 @@ function getColorSwatchesFromAttribute(item: Product) {
   const colorOptions = productOptions?.[0];
   return colorOptions?.values?.map((option) => {
     const imagConfig = colorOptionsFromAttribute.images && colorOptionsFromAttribute.images.find((image: any) => image.id === option.id);
-    const defaultImage = colorOptionsFromAttribute.images?.[0]?.swatch_image || '/en-us/media/image/media_1ccf88b21200e64fed7e7e93e0cf2d0a76fa007a8.png';
+    const defaultImage = '/en-us/media/image/media_1ccf88b21200e64fed7e7e93e0cf2d0a76fa007a8.png';
     const swatchImage = (imagConfig && imagConfig.swatch_image) || defaultImage
     return {
       ...option,
