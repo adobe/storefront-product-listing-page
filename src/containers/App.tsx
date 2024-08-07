@@ -12,6 +12,7 @@ import { useState } from 'preact/hooks';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
+import Enrichment from 'src/components/Enrichment';
 
 import { CategoryFilters } from '../components/CategoryFilters';
 import {
@@ -51,6 +52,7 @@ export const App: FunctionComponent = () => {
       {!(displayMode === 'PAGE') &&
         (!screenSize.mobile && showFilters && productsCtx.facets.length > 0 ? (
           <div className="ds-widgets bg-body py-2">
+            <Enrichment position={'below-title'} />
             <div className="flex flex-col">
               <CategoryFilters
                 loading={productsCtx.loading}
@@ -63,6 +65,7 @@ export const App: FunctionComponent = () => {
                 setShowFilters={setShowFilters}
                 filterCount={searchCtx.filterCount}
               />
+              <Enrichment position={'above-grid'} />
               <div
                 className={`ds-widgets_results flex flex-col items-center flex-[75] `}
               >
@@ -77,6 +80,7 @@ export const App: FunctionComponent = () => {
           </div>
         ) : (
           <div className="ds-widgets bg-body py-2">
+            <Enrichment position={'below-title'} />
             <div className="flex flex-col">
               <div className="flex flex-col items-center w-full h-full">
                 <div className="justify-start w-full h-full">
@@ -92,6 +96,7 @@ export const App: FunctionComponent = () => {
                   </div>
                 </div>
               </div>
+              <Enrichment position={'above-grid'} />
               <div className="ds-widgets_results flex flex-col items-center flex-[75]">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
