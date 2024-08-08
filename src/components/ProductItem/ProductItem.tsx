@@ -367,12 +367,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-        <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>
+      <div className="pb-4 mt-sm">
+        {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+        {isHovering && screenSize.desktop && (
+          <AddToCartButton onClick={handleAddToCart} />
+        )}
+      </div>
     </div>
   );
 };

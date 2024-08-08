@@ -193,10 +193,33 @@ const GET_CUSTOMER_CART = `
     }
 `;
 
+const GET_CUSTOMER_WISHLISTS = `
+    query customer {
+      customer {
+        wishlists {
+          id
+          name
+          items_count
+          items_v2 {
+            items {
+            id
+              product {
+              uid
+              name
+              sku
+              }
+            }
+          }
+        }
+      }
+    }
+`;
+
 export {
   ATTRIBUTE_METADATA_QUERY,
-  GET_CUSTOMER_CART,
   PRODUCT_SEARCH_QUERY,
   QUICK_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
+  GET_CUSTOMER_CART,
+  GET_CUSTOMER_WISHLISTS,
 };

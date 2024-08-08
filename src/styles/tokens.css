@@ -4,6 +4,8 @@
   @import 'tailwindcss/components';
   @import 'tailwindcss/utilities';
 
+  font-size: 1.6rem;
+
   /* Colors */
   --color-body: #fff;
   --color-on-body: #222;

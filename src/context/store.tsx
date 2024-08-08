@@ -74,10 +74,12 @@ const StoreContextProvider = ({
         userViewHistory: context?.userViewHistory ?? [],
       },
       apiUrl: environmentType?.toLowerCase() === 'testing' ? TEST_URL : API_URL,
-      apiKey:
-        environmentType?.toLowerCase() === 'testing' && !apiKey
-          ? SANDBOX_KEY
-          : apiKey,
+      apiKey: environmentType?.toLowerCase() === 'testing' ? API_KEY : apiKey,
+      //This is for the publix repo setup
+      // apiKey:
+      //   environmentType?.toLowerCase() === 'testing' && !apiKey
+      //     ? SANDBOX_KEY
+      //     : apiKey,
       route,
       searchQuery,
     }),

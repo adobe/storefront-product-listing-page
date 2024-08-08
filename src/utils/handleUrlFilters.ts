@@ -42,7 +42,7 @@ const addUrlFilter = (filter: SearchClauseInput) => {
       }
     });
   }
-  window.history.pushState({}, '', `${url.pathname}?${params}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const removeUrlFilter = (name: string, option?: string) => {
@@ -54,7 +54,7 @@ const removeUrlFilter = (name: string, option?: string) => {
     allValues.splice(allValues.indexOf(option), 1);
     allValues.forEach((val) => params.append(name, val));
   }
-  window.history.pushState({}, '', `${url.pathname}?${params}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const removeAllUrlFilters = () => {
@@ -66,21 +66,21 @@ const removeAllUrlFilters = () => {
       params.delete(key);
     }
   }
-  window.history.pushState({}, '', `${url.pathname}?${params.toString()}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const handleUrlSort = (sortOption: string) => {
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.searchParams);
   params.set('product_list_order', sortOption);
-  window.history.pushState({}, '', `${url.pathname}?${params}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const handleViewType = (viewType: string) => {
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.searchParams);
   params.set('view_type', viewType);
-  window.history.pushState({}, '', `${url.pathname}?${params}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const handleUrlPageSize = (pageSizeOption: number) => {
@@ -91,7 +91,7 @@ const handleUrlPageSize = (pageSizeOption: number) => {
   } else {
     params.set('page_size', pageSizeOption.toString());
   }
-  window.history.pushState({}, '', `${url.pathname}?${params}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const handleUrlPagination = (pageNumber: number) => {
@@ -102,7 +102,7 @@ const handleUrlPagination = (pageNumber: number) => {
   } else {
     params.set('p', pageNumber.toString());
   }
-  window.history.pushState({}, '', `${url.pathname}?${params}`);
+  setWindowHistory(url.pathname, params);
 };
 
 const getFiltersFromUrl = (
@@ -153,6 +153,14 @@ const getValueFromUrl = (param: string) => {
 const getSearchParams = () => {
   const search = window.location.search;
   return new URLSearchParams(search);
+};
+
+const setWindowHistory = (pathname: string, params: URLSearchParams) => {
+  if(params.toString() === '') {
+    window.history.pushState({}, '', `${pathname}`);
+  } else {
+    window.history.pushState({}, '', `${pathname}?${params.toString()}`);
+  }
 };
 
 export {
