@@ -362,7 +362,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   }
 
   return (
-    <div
+    <div itemScope itemType="http://schema.org/Product"
       className="ds-sdk-product-item group relative flex flex-col w-full justify-between h-full"
       style={{
         'border-color': '#D5D5D5',
@@ -370,7 +370,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
     >
-      <a
+      <a itemProp="url"
         href={productUrl as string}
         onClick={onProductClick}
         className="!text-brand-700 hover:no-underline hover:text-brand-700"
@@ -429,7 +429,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   />
               </div>
             )}
-            <div className="ds-sdk-product-item__product-name font-medium text-lg">
+            <div itemProp="name" className="ds-sdk-product-item__product-name font-medium text-lg">
               {product.name !== null && htmlStringDecode(product.name)}
             </div>
             <ProductPrice
