@@ -86,6 +86,13 @@ const getProductSearch = async ({
     eq: 'true',
   };
 
+  const discontinuedFilter = {
+    attribute: 'pcm_product_salability',
+    in: ['STANDARD','COMING_SOON','DRAW_CAMPAIGN','EARLY_ACCESS','SOLD_OUT','PRE_ORDER','NOT_SOLD_ONLINE'],
+  };
+
+  variables.filter?.push(discontinuedFilter);
+
   if (displayInStockOnly) {
     variables.filter.push(inStockFilter);
   }
