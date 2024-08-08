@@ -7,6 +7,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const lumaPort = 8081;
 const PORT = process.env.PORT || lumaPort;
 
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const banner = `${pkg.name}@v${pkg.version}`;
 const MAJOR_VERSION = `v${pkg.version.split('.')[0]}`;
 
@@ -15,6 +18,11 @@ const publicPaths = {
   QA: ``,
   PROD: ``,
 };
+const openWindow = [
+  PORT === lumaPort
+    ? 'https://magento2.test/'
+    : publicPaths.DEV,
+];
 
 const commonConfig = {
   experiments: {
@@ -44,7 +52,7 @@ const commonConfig = {
       'Access-Control-Allow-Headers':
         'X-Requested-With, content-type, Authorization',
     },
-    open: publicPaths.DEV,
+    open: openWindow,
     allowedHosts: ['all'],
     watchFiles: ['src/**/*', 'public/**/*', 'dist/**/*'],
     hot: true,
@@ -102,11 +110,16 @@ const commonConfig = {
         /* options: */
         configFile: 'tsconfig.json',
       }),
-
     ],
   },
   plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: process.env.ANALYZE ? 'server' : 'disabled',
+    }),
     new webpack.BannerPlugin(banner),
+    new webpack.DefinePlugin({
+      FLOODGATE_API_KEY: JSON.stringify('ds-live-search-mfe'),
+    }),
   ],
   optimization: {
     minimizer: [

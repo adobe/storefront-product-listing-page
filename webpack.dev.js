@@ -17,6 +17,7 @@ module.exports = merge(commonConfig, {
         'https://catalog-service-sandbox.adobe.io/graphql'
       ),
       SANDBOX_KEY: JSON.stringify('storefront-widgets'),
+      FLOODGATE_CLIENT_ID: JSON.stringify('ds-live-search-mfe-dev'),
     }),
     new HtmlWebpackPlugin({
       title: 'LiveSearch PLP',
