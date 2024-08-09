@@ -24,6 +24,7 @@ export interface ProductPriceProps {
   discount: boolean | undefined;
   currencySymbol: string;
   currencyRate?: string;
+  inStock?: boolean | undefined;
 }
 
 export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
@@ -36,6 +37,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   discount,
   currencySymbol,
   currencyRate,
+  inStock
 }: ProductPriceProps) => {
   const translation = useContext(TranslationContext);
   let price;
@@ -165,6 +167,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       {price && (
           <div className="ds-sdk-product-price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <meta itemProp="priceCurrency" content="USD"/>
+            <meta itemProp="availability" content={inStock ? 'InStock' : 'OutOfStock'}/>
             {!isBundle &&
                 !isGrouped &&
                 !isConfigurable &&
