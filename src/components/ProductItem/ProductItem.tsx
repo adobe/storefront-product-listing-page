@@ -141,6 +141,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     );
   }
 
+  // Rating data
+  const ratingValue = parseFloat(productView?.attributes?.filter((attr) => attr?.name === 'bv_rating_average')[0]?.value) || 0;
+  const ratingCount = parseInt(productView?.attributes?.filter((attr) => attr?.name === 'bv_rating_count')[0]?.value, 10) || 0;
+
   // will have to figure out discount logic for amount_off and percent_off still
   const discount: boolean = refinedProduct
     ? refinedProduct.refineProduct?.priceRange?.minimum?.regular?.amount
@@ -362,7 +366,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   }
 
   return (
-    <div
+    <div itemScope itemType="http://schema.org/Product"
       className="ds-sdk-product-item group relative flex flex-col w-full justify-between h-full"
       style={{
         'border-color': '#D5D5D5',
@@ -370,7 +374,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
     >
-      <a
+      <meta itemProp="sku" content={product?.sku} />
+      <meta itemProp="description" content={product?.short_description?.html} />
+      <meta itemProp="availability" content={productView?.inStock ? 'InStock' : 'OutOfStock'} />
+      {ratingCount > 0 ? (
+        <div itemprop="aggregateRating"
+             itemscope itemtype="https://schema.org/AggregateRating">
+          <meta itemprop="ratingValue" content={ratingValue.toFixed(2).toString()}/>
+          <meta itemprop="ratingCount" content={ratingCount.toString()}/>
+        </div>
+      ) : ''}
+      <a itemProp="url"
         href={productUrl as string}
         onClick={onProductClick}
         className="!text-brand-700 hover:no-underline hover:text-brand-700"
@@ -429,7 +443,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   />
               </div>
             )}
-            <div className="ds-sdk-product-item__product-name font-medium text-lg">
+            <div itemProp="name" className="ds-sdk-product-item__product-name font-medium text-lg">
               {product.name !== null && htmlStringDecode(product.name)}
             </div>
             <ProductPrice
@@ -442,6 +456,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               discount={discount}
               currencySymbol={currencySymbol}
               currencyRate={currencyRate}
+              inStock={productView?.inStock}
             />
           </div>
         </div>

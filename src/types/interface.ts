@@ -208,6 +208,7 @@ export interface Product {
     uid: string;
     name: string;
     sku: string;
+    inStock: null | boolean;
     description: null | ComplexTextValue;
     short_description: null | ComplexTextValue;
     attribute_set_id: null | number;

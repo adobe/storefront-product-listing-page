@@ -12,7 +12,7 @@ import { useContext } from 'preact/hooks';
 
 import { TranslationContext } from '../../context/translation';
 import { Product, RefinedProduct } from '../../types/interface';
-import { getProductPrice } from '../../utils/getProductPrice';
+import { getProductPrice, getOnlyProductPrice } from '../../utils/getProductPrice';
 
 export interface ProductPriceProps {
   isComplexProductView: boolean;
@@ -24,6 +24,7 @@ export interface ProductPriceProps {
   discount: boolean | undefined;
   currencySymbol: string;
   currencyRate?: string;
+  inStock?: boolean | undefined;
 }
 
 export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
@@ -36,6 +37,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   discount,
   currencySymbol,
   currencyRate,
+  inStock
 }: ProductPriceProps) => {
   const translation = useContext(TranslationContext);
   let price;
@@ -58,24 +60,34 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       translation.ProductCard.bundlePrice.split(' ');
     return bundlePriceTranslationOrder.map((word: string, index: any) =>
       word === '{fromBundlePrice}' ? (
-        <span
-          className="text-brand-600 font-headline-4-default mr-xs"
-          key={index}
-        >
-          {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+          <span
+              className="text-brand-600 font-headline-4-default mr-xs"
+              key={index}
+          >
+          <meta itemProp="price" content={getOnlyProductPrice(
+              item,
+              currencyRate,
+              false,
+              true)}/>
+            {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </span>
       ) : word === '{toBundlePrice}' ? (
-        <span
-          className="text-brand-600 font-headline-4-default mr-xs"
-          key={index}
-        >
-          {getProductPrice(item, currencySymbol, currencyRate, true, true)}
+          <span
+              className="text-brand-600 font-headline-4-default mr-xs"
+              key={index}
+          >
+            <meta itemProp="price" content={getOnlyProductPrice(
+                item,
+                currencyRate,
+                true,
+                true)}/>
+            {getProductPrice(item, currencySymbol, currencyRate, true, true)}
         </span>
       ) : (
-        <span
-          className="text-brand-300 font-headline-4-default mr-xs"
-          key={index}
-        >
+          <span
+              className="text-brand-300 font-headline-4-default mr-xs"
+              key={index}
+          >
           {word}
         </span>
       )
@@ -113,12 +125,25 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
           {getProductPrice(item, currencySymbol, currencyRate, false, false)}
         </span>
         <span className="font-headline-4-strong text-neutral-700 ml-2">
+          <meta itemProp="price" content={getOnlyProductPrice(
+            item,
+            currencyRate,
+            false,
+            true)}/>
           {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </span>
       </>
     ) : (
-      getProductPrice(item, currencySymbol, currencyRate, false, true)
-    );
+        <>
+        <meta itemProp="price" content={getOnlyProductPrice(
+            item,
+            currencyRate,
+            false,
+            true)}/>
+    {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+        </>
+  )
+    ;
     const discountedPriceTranslation = translation.ProductCard.asLowAs;
     const discountedPriceTranslationOrder =
       discountedPriceTranslation.split('{discountPrice}');
@@ -140,79 +165,91 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   return (
     <>
       {price && (
-        <div className="ds-sdk-product-price">
-          {!isBundle &&
-            !isGrouped &&
-            !isConfigurable &&
-            !isComplexProductView &&
-            discount && (
-              <p className="ds-sdk-product-price--discount font-headline-4-strong">
+          <div className="ds-sdk-product-price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD"/>
+            <meta itemProp="availability" content={inStock ? 'InStock' : 'OutOfStock'}/>
+            {!isBundle &&
+                !isGrouped &&
+                !isConfigurable &&
+                !isComplexProductView &&
+                discount && (
+                    <p className="ds-sdk-product-price--discount font-headline-4-strong">
                 <span className="line-through pr-2 text-brand-300">
                   {getProductPrice(
-                    item,
-                    currencySymbol,
-                    currencyRate,
-                    false,
-                    false
+                      item,
+                      currencySymbol,
+                      currencyRate,
+                      false,
+                      false
                   )}
                 </span>
-                <span className="text-brand-600">
-                  {getProductPrice(
-                    item,
-                    currencySymbol,
-                    currencyRate,
-                    false,
-                    true
-                  )}
+                      <span className="text-brand-600">
+                        <meta itemProp="price" content={getOnlyProductPrice(
+                            item,
+                            currencyRate,
+                            false,
+                            true)}/>
+                        {getProductPrice(
+                            item,
+                            currencySymbol,
+                            currencyRate,
+                            false,
+                            true
+                        )}
                 </span>
-              </p>
-            )}
-
-          {!isBundle &&
-            !isGrouped &&
-            !isGiftCard &&
-            !isConfigurable &&
-            !isComplexProductView &&
-            !discount && (
-              <p className="ds-sdk-product-price--no-discount font-headline-4-strong">
-                {getProductPrice(
-                  item,
-                  currencySymbol,
-                  currencyRate,
-                  false,
-                  true
+                    </p>
                 )}
-              </p>
+
+            {!isBundle &&
+                !isGrouped &&
+                !isGiftCard &&
+                !isConfigurable &&
+                !isComplexProductView &&
+                !discount && (
+                    <p className="ds-sdk-product-price--no-discount font-headline-4-strong">
+                      <meta itemProp="price" content={getOnlyProductPrice(
+                          item,
+                          currencyRate,
+                          false,
+                          true)}/>
+                      {getProductPrice(
+                          item,
+                          currencySymbol,
+                          currencyRate,
+                          false,
+                          true
+                      )}
+                    </p>
+                )}
+
+            {isBundle && (
+                <div className="ds-sdk-product-price--bundle">
+                  <p className="mt-xs font-headline-4-default">
+                    {getBundledPrice(item, currencySymbol, currencyRate)}
+                  </p>
+                </div>
             )}
 
-          {isBundle && (
-            <div className="ds-sdk-product-price--bundle">
-              <p className="mt-xs font-headline-4-default">
-                {getBundledPrice(item, currencySymbol, currencyRate)}
-              </p>
-            </div>
-          )}
-
-          {isGrouped && (
-            <p className="ds-sdk-product-price--grouped font-headline-4-strong">
-              {getPriceFormat(item, currencySymbol, currencyRate, false)}
-            </p>
-          )}
-
-          {isGiftCard && (
-            <p className="ds-sdk-product-price--gift-card font-headline-4-strong">
-              {getPriceFormat(item, currencySymbol, currencyRate, true)}
-            </p>
-          )}
-
-          {!isGrouped &&
-            !isBundle &&
-            (isConfigurable || isComplexProductView) && (
-              <p className="ds-sdk-product-price--configurable font-headline-4-strong">
-                {getDiscountedPrice(discount)}
-              </p>
+            {isGrouped && (
+                <p className="ds-sdk-product-price--grouped font-headline-4-strong">
+                  {getPriceFormat(item, currencySymbol, currencyRate, false)}
+                </p>
             )}
-        </div>
+
+            {isGiftCard && (
+                <p className="ds-sdk-product-price--gift-card font-headline-4-strong">
+                  {getPriceFormat(item, currencySymbol, currencyRate, true)}
+                </p>
+            )}
+
+            {!isGrouped &&
+                !isBundle &&
+                (isConfigurable || isComplexProductView) && (
+                    <p className="ds-sdk-product-price--configurable font-headline-4-strong">
+                      {getDiscountedPrice(discount)}
+                    </p>
+                )}
+          </div>
       )}
     </>
   );
