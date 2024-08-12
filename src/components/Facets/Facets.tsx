@@ -31,6 +31,8 @@ import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 import { SelectedFilters } from './SelectedFilters';
 
+import '../Facets/Facets.css';
+
 interface FacetsProps {
   searchFacets: FacetType[];
   totalCount?: number;
@@ -119,53 +121,55 @@ export const Facets: FunctionComponent<FacetsProps> = ({
 
   return (
     <div className="ds-plp-facets flex flex-col">
-      <div className="border-t border-b border-neutral-500 flex justify-between items-center">
-        <form className="ds-plp-facets__list flex gap-x-6">
-          {searchFacets?.map((facet) => {
-            const bucketType = facet?.buckets[0]?.__typename;
-            switch (bucketType) {
-              case 'ScalarBucket':
-                return (
-                  <ScalarFacet
-                    key={facet.attribute}
-                    filterData={facet}
-                    handleFilter={() => handleTesting(facet)}
-                    selectedNumber={getSelectedFilters(facet)}
-                    selectedFacet={selectedFacet}
-                  />
-                );
-              case 'RangeBucket':
-                return config?.priceSlider ? (
-                  <SliderDoubleControl filterData={facet as PriceFacet} />
-                ) : (
-                  <RangeFacet
-                    key={facet.attribute}
-                    filterData={facet as PriceFacet}
-                  />
-                );
-              case 'CategoryView':
-                return (
-                  <ScalarFacet
-                    key={facet.attribute}
-                    filterData={facet}
-                    handleFilter={() => handleTesting(facet)}
-                    selectedNumber={getSelectedFilters(facet)}
-                    selectedFacet={selectedFacet}
-                  />
-                );
-              default:
-                return null;
-            }
-          })}
-        </form>
-        <SortDropdown
-          sortOptions={sortOptions}
-          value={sortBy}
-          onChange={onSortChange}
-        />
+      <div className="border-t border-b border-neutral-500">
+        <div className="ds-plp-facets__center-container flex justify-between items-center">
+          <form className="ds-plp-facets__list flex gap-x-6">
+            {searchFacets?.map((facet) => {
+              const bucketType = facet?.buckets[0]?.__typename;
+              switch (bucketType) {
+                case 'ScalarBucket':
+                  return (
+                    <ScalarFacet
+                      key={facet.attribute}
+                      filterData={facet}
+                      handleFilter={() => handleTesting(facet)}
+                      selectedNumber={getSelectedFilters(facet)}
+                      selectedFacet={selectedFacet}
+                    />
+                  );
+                case 'RangeBucket':
+                  return config?.priceSlider ? (
+                    <SliderDoubleControl filterData={facet as PriceFacet} />
+                  ) : (
+                    <RangeFacet
+                      key={facet.attribute}
+                      filterData={facet as PriceFacet}
+                    />
+                  );
+                case 'CategoryView':
+                  return (
+                    <ScalarFacet
+                      key={facet.attribute}
+                      filterData={facet}
+                      handleFilter={() => handleTesting(facet)}
+                      selectedNumber={getSelectedFilters(facet)}
+                      selectedFacet={selectedFacet}
+                    />
+                  );
+                default:
+                  return null;
+              }
+            })}
+          </form>
+          <SortDropdown
+            sortOptions={sortOptions}
+            value={sortBy}
+            onChange={onSortChange}
+          />
+        </div>
       </div>
       {selectedFacet && (
-        <div>
+        <div className="ds-plp-facets__center-container">
           <FilterSelectionGroup
             title={selectedFacet.title}
             attribute={selectedFacet.attribute}

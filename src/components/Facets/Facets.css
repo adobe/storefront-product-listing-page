@@ -1,0 +1,11 @@
+.ds-plp-facets__center-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+@media (width > 1024px) {
+  .ds-plp-facets__center-container {
+    padding: 0 48px;
+  }
+}

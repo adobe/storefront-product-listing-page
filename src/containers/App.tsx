@@ -67,7 +67,7 @@ export const App: FunctionComponent = () => {
               )}
               <Enrichment position={'above-grid'} />
               <div
-                className={`ds-widgets_results flex flex-col items-center flex-[75] `}
+                className={`ds-widgets_results flex flex-col items-center flex-[75] ds-widgets-results__center-container `}
               >
                 <ProductsContainer showFilters={showFilters} />
               </div>

@@ -943,8 +943,14 @@ video {
     -moz-column-gap: var(--spacing-sm);
          column-gap: var(--spacing-sm);
   }
+  .gap-x-9 {
+     column-gap: 2.4rem;
+   }
   .gap-y-8 {
     row-gap: 2rem;
+  }
+  .gap-y-9 {
+    row-gap: 2.4rem;
   }
   .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
@@ -1593,6 +1599,16 @@ video {
   @media (min-width: 768px) {
     .md\:justify-between {
       justify-content: space-between;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:gap-x-9 {
+      column-gap: 2.4rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:gap-y-9 {
+      row-gap: 2.4rem;
     }
   }
   @media (min-width: 1024px) {
