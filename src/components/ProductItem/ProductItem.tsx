@@ -367,7 +367,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
     <div itemScope itemType="http://schema.org/Product"
-      className="ds-sdk-product-item group relative flex flex-col w-full h-full"
+      className="ds-sdk-product-item group relative flex flex-col w-full justify-between h-full"
       style={{
         'border-color': '#D5D5D5',
       }}
@@ -378,7 +378,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <meta itemProp="description" content={product?.short_description?.html} />
       <meta itemProp="availability" content={productView?.inStock ? 'InStock' : 'OutOfStock'} />
       {ratingCount > 0 ? (
-        <div itemprop="aggregateRating"
+        <div itemprop="aggregateRating" style="display:none"
              itemscope itemtype="https://schema.org/AggregateRating">
           <meta itemprop="ratingValue" content={ratingValue.toFixed(2).toString()}/>
           <meta itemprop="ratingCount" content={ratingCount.toString()}/>
