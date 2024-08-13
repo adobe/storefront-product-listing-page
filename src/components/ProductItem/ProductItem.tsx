@@ -130,7 +130,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
     : getProductImagesFromAttribute(item);
-    
+
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
   if (optimizeImages) {
@@ -192,9 +192,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productUrl = setRoute
-    ? setRoute({ 
-        sku: productView?.sku, 
-        urlKey: productView?.urlKey, 
+    ? setRoute({
+        sku: productView?.sku,
+        urlKey: productView?.urlKey,
         optionsUIDs: selectedSwatch ? [selectedSwatch] : null,
       })
     : product?.canonical_url;
@@ -367,7 +367,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
     <div itemScope itemType="http://schema.org/Product"
-      className="ds-sdk-product-item group relative flex flex-col w-full justify-between h-full"
+      className="ds-sdk-product-item group relative flex flex-col w-full h-full"
       style={{
         'border-color': '#D5D5D5',
       }}
