@@ -60,7 +60,8 @@ export const en_US = {
   ProductContainers: {
     minquery:
       'Your search term {variables.phrase} has not reached the minimum of {minQueryLength} characters.',
-    noresults: 'Your search returned no results.',
+    resultsText: 'Results',
+    noresults: 'We couldn\'t find any products that match your search. Here are a few other destinations that might help.',
     pagePicker: 'Show {pageSize} per page',
     showAll: 'all',
   },

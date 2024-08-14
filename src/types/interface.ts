@@ -49,6 +49,10 @@ export interface StoreDetailsConfig {
   optimizeImages?: boolean;
   imageBaseWidth?: number;
   imageBackgroundColor?: string;
+  noResultsLinks?: Array<{
+    text: string;
+    url: string;
+  }>;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
   addToCart: (

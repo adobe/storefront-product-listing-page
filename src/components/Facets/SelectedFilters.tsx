@@ -26,46 +26,46 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
 
   return (
     <div className="w-full h-full flex justify-between items-center sm:pb-6 py-md">
-      {searchCtx.filters?.length > 0 && (
-        <div className="ds-plp-facets__pills flex flex-wrap justify-start items-center gap-[16px]">
-          {searchCtx.filters.map((filter) => (
-            <div
-              key={filter.attribute}
-              className="flex items-center gap-[16px]"
-            >
-              {filter.in?.map((option) => (
-                <Pill
-                  key={formatBinaryLabel(
-                    filter,
-                    option,
-                    searchCtx.categoryNames,
-                    productsCtx.categoryPath
-                  )}
-                  label={formatBinaryLabel(
-                    filter,
-                    option,
-                    searchCtx.categoryNames,
-                    productsCtx.categoryPath
-                  )}
-                  type="filter"
-                  onClick={() => searchCtx.updateFilterOptions(filter, option)}
-                />
-              ))}
-              {filter.range && (
-                <Pill
-                  label={formatRangeLabel(
-                    filter,
-                    productsCtx.currencyRate,
-                    productsCtx.currencySymbol
-                  )}
-                  type="transparent"
-                  onClick={() => {
-                    searchCtx.removeFilter(filter.attribute);
-                  }}
-                />
-              )}
-            </div>
-          ))}
+      <div className="ds-plp-facets__pills flex flex-wrap justify-start items-center gap-[16px]">
+        {searchCtx.filters?.length > 0 && searchCtx.filters.map((filter) => (
+          <div
+            key={filter.attribute}
+            className="flex items-center gap-[16px]"
+          >
+            {filter.in?.map((option) => (
+              <Pill
+                key={formatBinaryLabel(
+                  filter,
+                  option,
+                  searchCtx.categoryNames,
+                  productsCtx.categoryPath
+                )}
+                label={formatBinaryLabel(
+                  filter,
+                  option,
+                  searchCtx.categoryNames,
+                  productsCtx.categoryPath
+                )}
+                type="filter"
+                onClick={() => searchCtx.updateFilterOptions(filter, option)}
+              />
+            ))}
+            {filter.range && (
+              <Pill
+                label={formatRangeLabel(
+                  filter,
+                  productsCtx.currencyRate,
+                  productsCtx.currencySymbol
+                )}
+                type="transparent"
+                onClick={() => {
+                  searchCtx.removeFilter(filter.attribute);
+                }}
+              />
+            )}
+          </div>
+        ))}
+        {searchCtx.filters?.length > 0 && (
           <div className="py-1">
             <button
               className="ds-plp-facets__header__clear-all border-none bg-transparent hover:border-none	hover:bg-transparent
@@ -77,9 +77,9 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
               </span>
             </button>
           </div>
-        </div>
-      )}
-      {searchCtx.filters?.length > 0 && <p>{totalCount} Results</p>}
+        )}
+      </div>
+      <p className="result-count">{totalCount} Results</p>
     </div>
   );
 };
