@@ -71,6 +71,7 @@ const ProductsContext = createContext<{
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
   categoryPath: string | undefined;
+  categoryConfig: Record<string, any> | undefined;
   viewType: string;
   setViewType: (viewType: string) => void;
   listViewType: string;
@@ -114,6 +115,7 @@ const ProductsContext = createContext<{
   pageLoading: false,
   setPageLoading: () => {},
   categoryPath: undefined,
+  categoryConfig: undefined,
   viewType: '',
   setViewType: () => {},
   listViewType: '',
@@ -168,6 +170,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   }, [storeCtx?.config.minQueryLength]);
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
   const categoryId = storeCtx.config?.currentCategoryId;
+  const categoryConfig = storeCtx.config?.categoryConfig;
 
   const viewTypeFromUrl = getValueFromUrl('view_type');
   const [viewType, setViewType] = useState<string>(
@@ -234,6 +237,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     setPageLoading,
     categoryPath,
     categoryId,
+    categoryConfig,
     viewType,
     setViewType,
     listViewType,

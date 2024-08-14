@@ -34,6 +34,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const {
     currencySymbol,
     currencyRate,
+    categoryConfig,
     setRoute,
     refineProduct,
     refreshCart,
@@ -93,6 +94,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                 key={product?.productView?.id}
                 currencySymbol={currencySymbol}
                 currencyRate={currencyRate}
+                categoryConfig={categoryConfig}
                 setRoute={setRoute}
                 refineProduct={refineProduct}
                 setCartUpdated={setCartUpdated}
@@ -116,6 +118,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
               key={product?.productView?.id}
               currencySymbol={currencySymbol}
               currencyRate={currencyRate}
+              categoryConfig={categoryConfig}
               setRoute={setRoute}
               refineProduct={refineProduct}
               setCartUpdated={setCartUpdated}

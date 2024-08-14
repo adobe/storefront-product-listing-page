@@ -9,10 +9,10 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
+import Enrichment from 'src/components/Enrichment';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
-import Enrichment from 'src/components/Enrichment';
 
 import { CategoryFilters } from '../components/CategoryFilters';
 import {
