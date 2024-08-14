@@ -64,8 +64,9 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     getSortOptions();
   }, [getSortOptions]);
 
+  const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;
   const defaultSortOption =
-    config?.currentCategoryUrlPath || config?.currentCategoryId
+    isCategory
       ? 'position_ASC'
       : 'relevance_DESC';
   const sortFromUrl = getValueFromUrl('product_list_order');
@@ -160,7 +161,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
             buckets={selectedFacet.buckets as any}
             isSelected={isSelected}
             onChange={(args) => onFacetChange(args.value, args.selected)}
-            type={selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
+            type={isCategory && selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
           />
         </div>
       )}
