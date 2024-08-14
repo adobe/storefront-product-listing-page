@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from "preact/compat";
+import { useState } from 'preact/compat';
 import { Bucket } from 'src/types/interface';
 
 import { useProducts, useTranslation } from '../../context';
