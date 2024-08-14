@@ -2,6 +2,13 @@
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
+  padding: 0 12px;
+}
+
+@media (width > 768px) {
+  .ds-plp-facets__center-container {
+    padding: 0 24px;
+  }
 }
 
 @media (width > 1024px) {

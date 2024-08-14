@@ -168,19 +168,19 @@ export const Facets: FunctionComponent<FacetsProps> = ({
           />
         </div>
       </div>
+      <div className="ds-plp-facets__center-container">
       {selectedFacet && (
-        <div className="ds-plp-facets__center-container">
-          <FilterSelectionGroup
-            title={selectedFacet.title}
-            attribute={selectedFacet.attribute}
-            buckets={selectedFacet.buckets as any}
-            isSelected={isSelected}
-            onChange={(args) => onFacetChange(args.value, args.selected, args.type)}
-            type={isCategory && selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
-          />
-        </div>
+        <FilterSelectionGroup
+          title={selectedFacet.title}
+          attribute={selectedFacet.attribute}
+          buckets={selectedFacet.buckets as any}
+          isSelected={isSelected}
+          onChange={(args) => onFacetChange(args.value, args.selected, args.type)}
+          type={isCategory && selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
+        />
       )}
       <SelectedFilters totalCount={totalCount} />
+      </div>
     </div>
   );
 };
