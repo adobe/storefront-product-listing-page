@@ -375,6 +375,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
               name: bucket.name,
               value: bucket.title,
               attribute: facet.attribute,
+              path: bucket.path
             };
         });
         searchCtx.setCategoryNames(names);

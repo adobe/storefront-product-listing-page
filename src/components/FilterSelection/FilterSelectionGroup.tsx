@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { ChangeEvent, useState } from 'preact/compat';
+import { useState } from "preact/compat";
 import { Bucket } from 'src/types/interface';
 
 import { useProducts, useTranslation } from '../../context';
@@ -19,6 +19,7 @@ import { LabelledInput } from '../LabelledInput';
 export type FilterSelectionGroupOnChangeProps = {
   value: string;
   selected?: boolean;
+  type?: string;
 };
 
 export type FilterSelectionGroupOnChange = (
@@ -31,7 +32,7 @@ export interface FilterSelectionGroupProps {
   buckets: Bucket[];
   isSelected: (title: string) => boolean | undefined;
   onChange: FilterSelectionGroupOnChange;
-  type: 'radio' | 'checkbox';
+  type: 'radio' | 'checkbox' | 'link';
 }
 
 const numberOfOptionsShown = 5;
@@ -47,13 +48,6 @@ export const FilterSelectionGroup: FunctionComponent<
   );
 
   const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
-
-  const onInputChange = (title: string, e: ChangeEvent<HTMLInputElement>) => {
-    onChange({
-      value: title,
-      selected: (e?.target as HTMLInputElement)?.checked,
-    });
-  };
 
   const formatLabel = (title: string, bucket: Bucket) => {
     const {
@@ -113,9 +107,7 @@ export const FilterSelectionGroup: FunctionComponent<
                 checked={!!checked}
                 value={option.title}
                 count={noShowPriceBucketCount ? null : option.count}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onInputChange(option.title, e)
-                }
+                onChange={onChange}
                 type={type}
               />
             );

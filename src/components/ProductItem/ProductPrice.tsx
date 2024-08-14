@@ -119,7 +119,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   };
 
   const getDiscountedPrice = (discount: boolean | undefined) => {
-    const productSalability = item.productView.attributes.find((attr: { id: string; }) =>
+    const productSalability = item.productView?.attributes?.find((attr) =>
         attr.name === 'pcm_product_salability')?.value;
     if (productSalability === 'SOLD_OUT') {
       return (

@@ -96,6 +96,15 @@ export const Facets: FunctionComponent<FacetsProps> = ({
 
   const { isSelected, onChange } = useScalarFacet(selectedFacet);
 
+  const onFacetChange = (value: string, selected?: boolean, type?: string) => {
+    if (type?.includes('link')) {
+      if (config?.onCategoryChange) {
+        config.onCategoryChange(value);
+      }
+    }
+    onChange(value, selected);
+  }
+
   return (
     <div className="ds-plp-facets flex flex-col">
       <div className="border-t border-b border-neutral-500 flex justify-between items-center">
@@ -150,8 +159,8 @@ export const Facets: FunctionComponent<FacetsProps> = ({
             attribute={selectedFacet.attribute}
             buckets={selectedFacet.buckets as any}
             isSelected={isSelected}
-            onChange={(args) => onChange(args.value, args.selected)}
-            type={'checkbox'}
+            onChange={(args) => onFacetChange(args.value, args.selected)}
+            type={selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
           />
         </div>
       )}

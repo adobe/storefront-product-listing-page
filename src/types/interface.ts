@@ -55,6 +55,7 @@ export interface StoreDetailsConfig {
     options: string[],
     quantity: number
   ) => Promise<void | undefined>;
+  onCategoryChange?: (categoryPath: string) => void;
 }
 
 // Types
@@ -208,7 +209,7 @@ export interface Product {
     uid: string;
     name: string;
     sku: string;
-    inStock: null | boolean;
+    inStock?: boolean | undefined;
     description: null | ComplexTextValue;
     short_description: null | ComplexTextValue;
     attribute_set_id: null | number;
@@ -301,6 +302,14 @@ export interface RefinedProduct {
           title: null | string;
           values: null | SwatchValues[];
         }[];
+  };
+  productView: {
+    attributes: Array<{
+      label: string
+      name: string
+      roles: string[]
+      value: string
+    }>;
   };
   highlights: Array<Highlights>;
 }
