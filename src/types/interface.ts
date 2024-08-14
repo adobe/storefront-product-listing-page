@@ -51,11 +51,11 @@ export interface StoreDetailsConfig {
   imageBackgroundColor?: string;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
-  addToCart?: (
+  addToCart: (
     sku: string,
     options: string[],
     quantity: number
-  ) => Promise<void | undefined>;
+  ) => Promise<{ user_errors: any[]; }>;
   onCategoryChange?: (categoryPath: string) => void;
 }
 
@@ -394,6 +394,7 @@ export type Bucket = {
   to?: number;
   from?: number;
   name?: string;
+  path?: string;
   __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
 

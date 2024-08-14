@@ -98,6 +98,7 @@ export const FilterSelectionGroup: FunctionComponent<
           {buckets.slice(0, numberOfOptions).map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';
+            const value: string = option.__typename === 'CategoryView' && type === 'link' ? option.path || '' : option.title;
             return (
               <LabelledInput
                 key={formatLabel(title, option)}
@@ -105,7 +106,7 @@ export const FilterSelectionGroup: FunctionComponent<
                 attribute={attribute}
                 label={formatLabel(title, option)}
                 checked={!!checked}
-                value={option.title}
+                value={value}
                 count={noShowPriceBucketCount ? null : option.count}
                 onChange={onChange}
                 type={type}

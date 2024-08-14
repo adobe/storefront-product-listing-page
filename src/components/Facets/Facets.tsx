@@ -101,6 +101,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     if (type?.includes('link')) {
       if (config?.onCategoryChange) {
         config.onCategoryChange(value);
+        return;
       }
     }
     onChange(value, selected);
@@ -160,7 +161,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
             attribute={selectedFacet.attribute}
             buckets={selectedFacet.buckets as any}
             isSelected={isSelected}
-            onChange={(args) => onFacetChange(args.value, args.selected)}
+            onChange={(args) => onFacetChange(args.value, args.selected, args.type)}
             type={isCategory && selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
           />
         </div>

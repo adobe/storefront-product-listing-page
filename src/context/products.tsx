@@ -78,11 +78,11 @@ const ProductsContext = createContext<{
   setListViewType: (viewType: string) => void;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
-  addToCart?: (
+  addToCart: (
     sku: string,
     options: string[],
     quantity: number
-  ) => Promise<void | undefined>;
+  ) => Promise<{user_errors: any[];}>;
 }>({
   variables: {
     phrase: '',
@@ -122,7 +122,7 @@ const ProductsContext = createContext<{
   setListViewType: () => {},
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
-  addToCart: () => Promise.resolve(),
+  addToCart: () => Promise.resolve({user_errors: []}),
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {

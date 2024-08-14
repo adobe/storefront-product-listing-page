@@ -40,7 +40,10 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
   return(
     type === 'link' ? (
             <div className="ds-sdk-labelled-input flex items-center">
-        <a href={label} onClick={(e) => {e.preventDefault(); return {value: label, type}}}>
+        <a href={value} onClick={(e) => {
+            e.preventDefault();
+            onChange({value, type})
+        }}>
             {label}
             {count && (
                 <span className="text-[12px] text-neutral-800 ml-1 font-details-overline">
