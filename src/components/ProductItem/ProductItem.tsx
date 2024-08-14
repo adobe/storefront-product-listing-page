@@ -130,7 +130,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
     : getProductImagesFromAttribute(item);
-    
+
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
   if (optimizeImages) {
@@ -192,9 +192,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productUrl = setRoute
-    ? setRoute({ 
-        sku: productView?.sku, 
-        urlKey: productView?.urlKey, 
+    ? setRoute({
+        sku: productView?.sku,
+        urlKey: productView?.urlKey,
         optionsUIDs: selectedSwatch ? [selectedSwatch] : null,
       })
     : product?.canonical_url;
@@ -378,7 +378,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <meta itemProp="description" content={product?.short_description?.html} />
       <meta itemProp="availability" content={productView?.inStock ? 'InStock' : 'OutOfStock'} />
       {ratingCount > 0 ? (
-        <div itemprop="aggregateRating"
+        <div itemprop="aggregateRating" style="display:none"
              itemscope itemtype="https://schema.org/AggregateRating">
           <meta itemprop="ratingValue" content={ratingValue.toFixed(2).toString()}/>
           <meta itemprop="ratingCount" content={ratingCount.toString()}/>
