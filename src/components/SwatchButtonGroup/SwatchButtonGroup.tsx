@@ -67,7 +67,9 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
     }
 
     const checked = isSelected(swatch.id);
-    const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''} ${checked ? 'selected' : ''}`;
+    const selectedClass = checked ? 'selected' : '';
+    const outOfStockClass = swatch.inStock ? '' : 'out-of-stock';
+    const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''} ${selectedClass} ${outOfStockClass}`;
     return (
       <div className={wrapperClasses} key={swatch.id} ref={index === 0  ? swatchButtonRef : null}>
           <SwatchButton

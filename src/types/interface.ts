@@ -38,6 +38,7 @@ export interface StoreDetailsConfig {
   currentCategoryUrlPath?: string;
   currentCategoryId?: string;
   categoryName?: string;
+  categoryConfig?: Record<string, any>;
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayMode?: string;
@@ -358,6 +359,7 @@ export interface SwatchValues {
   id: string;
   type: SwatchType;
   value: string;
+  inStock?: boolean;
 }
 
 export interface CustomAttribute {

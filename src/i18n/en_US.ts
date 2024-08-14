@@ -53,6 +53,9 @@ export const en_US = {
     startingAt: 'Starting at {productPrice}',
     bundlePrice: 'From {fromBundlePrice} To {toBundlePrice}',
     from: 'From {productPrice}',
+    quickAdd: 'Quick Add',
+    quickAddSuccess: 'Added to your bag',
+    quickAddError: 'Error. Can\'t add to bag',
   },
   ProductContainers: {
     minquery:
