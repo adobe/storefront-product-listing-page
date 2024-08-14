@@ -8,15 +8,20 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { ChangeEvent } from 'preact/compat';
+
+export type LabelledInputOnChangeProps = {
+    value: string;
+    selected?: boolean;
+    type?: string;
+};
 
 // Maybe someday extend the `type` field to allow more inputs like `range` or `time`
 export interface LabelledInputProps {
   checked: boolean;
   name: string;
   attribute: string;
-  type: 'checkbox' | 'radio';
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  type: 'checkbox' | 'radio' | 'link';
+  onChange: (e: LabelledInputOnChangeProps) => void;
   label: string;
   value: string;
   count?: number | null;
@@ -32,8 +37,23 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
   value,
   count,
 }) => {
-  return (
-    <div className="ds-sdk-labelled-input flex items-center">
+  return(
+    type === 'link' ? (
+            <div className="ds-sdk-labelled-input flex items-center">
+        <a href={value} onClick={(e) => {
+            e.preventDefault();
+            onChange({value, type})
+        }}>
+            {label}
+            {count && (
+                <span className="text-[12px] text-neutral-800 ml-1 font-details-overline">
+                {`(${count})`}
+                </span>
+            )}
+        </a>
+            </div>
+        ) : (
+            <div className="ds-sdk-labelled-input flex items-center">
       <input
         id={name}
         name={
@@ -45,7 +65,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
         className="ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-neutral-800 min-w-[16px]"
         checked={checked}
         aria-checked={checked}
-        onInput={onChange}
+        onInput={(e) => onChange({ value, selected: e.currentTarget.checked, type })}
         value={value}
       />
       <label
@@ -59,6 +79,5 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
           </span>
         )}
       </label>
-    </div>
-  );
+            </div>));
 };

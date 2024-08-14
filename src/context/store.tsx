@@ -42,7 +42,9 @@ const StoreContext = createContext<StoreDetailsProps>({
   storeViewCode: '',
   apiUrl: '',
   apiKey: '',
-  config: {},
+  config: {
+    addToCart: () => Promise.resolve({user_errors: []})
+  },
   context: {},
   route: undefined,
   searchQuery: 'q',

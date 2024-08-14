@@ -64,8 +64,9 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     getSortOptions();
   }, [getSortOptions]);
 
+  const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;
   const defaultSortOption =
-    config?.currentCategoryUrlPath || config?.currentCategoryId
+    isCategory
       ? 'position_ASC'
       : 'relevance_DESC';
   const sortFromUrl = getValueFromUrl('product_list_order');
@@ -95,6 +96,16 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   };
 
   const { isSelected, onChange } = useScalarFacet(selectedFacet);
+
+  const onFacetChange = (value: string, selected?: boolean, type?: string) => {
+    if (type?.includes('link')) {
+      if (config?.onCategoryChange) {
+        config.onCategoryChange(value);
+        return;
+      }
+    }
+    onChange(value, selected);
+  }
 
   return (
     <div className="ds-plp-facets flex flex-col">
@@ -150,8 +161,8 @@ export const Facets: FunctionComponent<FacetsProps> = ({
             attribute={selectedFacet.attribute}
             buckets={selectedFacet.buckets as any}
             isSelected={isSelected}
-            onChange={(args) => onChange(args.value, args.selected)}
-            type={'checkbox'}
+            onChange={(args) => onFacetChange(args.value, args.selected, args.type)}
+            type={isCategory && selectedFacet?.buckets[0]?.__typename  === 'CategoryView' ? 'link' : 'checkbox'}
           />
         </div>
       )}

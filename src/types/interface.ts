@@ -51,11 +51,12 @@ export interface StoreDetailsConfig {
   imageBackgroundColor?: string;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
-  addToCart?: (
+  addToCart: (
     sku: string,
     options: string[],
     quantity: number
-  ) => Promise<void | undefined>;
+  ) => Promise<{ user_errors: any[]; }>;
+  onCategoryChange?: (categoryPath: string) => void;
 }
 
 // Types
@@ -209,7 +210,7 @@ export interface Product {
     uid: string;
     name: string;
     sku: string;
-    inStock: null | boolean;
+    inStock?: boolean | undefined;
     description: null | ComplexTextValue;
     short_description: null | ComplexTextValue;
     attribute_set_id: null | number;
@@ -303,6 +304,14 @@ export interface RefinedProduct {
           values: null | SwatchValues[];
         }[];
   };
+  productView: {
+    attributes: Array<{
+      label: string
+      name: string
+      roles: string[]
+      value: string
+    }>;
+  };
   highlights: Array<Highlights>;
 }
 
@@ -385,6 +394,7 @@ export type Bucket = {
   to?: number;
   from?: number;
   name?: string;
+  path?: string;
   __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
 
