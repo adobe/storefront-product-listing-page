@@ -147,7 +147,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const {displayFranchises } = useSearch();
 
   const className = showFilters
-    ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
+    ? 'ds-sdk-product-list bg-body max-w-full pb-2xl sm:pb-24'
     : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
 
   useEffect(() => {

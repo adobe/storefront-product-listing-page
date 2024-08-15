@@ -117,7 +117,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         />
       )}
       <div
-        className={`flex ${screenSize.desktop ? 'flex-row' : 'flex-col gap-4'} justify-between max-w-full ${
+        className={`flex ${screenSize.desktop ? 'flex-row' : 'flex-col gap-4'} pb-24 justify-between max-w-full ${
           showFilters ? 'mx-auto' : 'mr-auto'
         } w-full h-full text-[14px] font-normal`}
       >

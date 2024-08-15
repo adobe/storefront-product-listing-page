@@ -84,7 +84,6 @@ export const App: FunctionComponent = () => {
             )}
             <Enrichment position={'below-title'} />
             <div className="flex flex-col">
-              <Enrichment position={'above-grid'} />
               <div className="ds-widgets_results flex flex-col items-center flex-[75]">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
@@ -121,6 +120,7 @@ export const App: FunctionComponent = () => {
                     {displayByFranchise && (
                       <FranchiseViewSelector />
                     )}
+                    <Enrichment position={'above-grid'} />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />

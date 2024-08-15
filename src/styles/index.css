@@ -1236,6 +1236,9 @@ video {
   .pb-\[122\.22\%\] {
     padding-bottom: 122.22%;
   }
+  .pb-24 {
+    padding-bottom: 2.4rem;
+  }
   .pl-3 {
     padding-left: 0.75rem;
   }
