@@ -18,6 +18,7 @@ import {
   Product,
   ProductSearchQuery,
   RedirectRouteFunc,
+  SearchClauseInput,
 } from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,
@@ -395,10 +396,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
   useEffect(() => {
     if (attributeMetadataCtx.filterableInSearch) {
+      const filtersFromConfig = [];
+      if(storeCtx?.config?.preCheckedFilters) {
+        filtersFromConfig.push(...getFiltersFromConfig(attributeMetadataCtx.filterableInSearch, storeCtx.config.preCheckedFilters));
+      }
       const filtersFromUrl = getFiltersFromUrl(
         attributeMetadataCtx.filterableInSearch
-      );
-      searchCtx.setFilters(filtersFromUrl);
+      )
+      searchCtx.setFilters([...filtersFromConfig, ...filtersFromUrl]);
     }
   }, [attributeMetadataCtx.filterableInSearch]);
 
@@ -413,6 +418,39 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       {children}
     </ProductsContext.Provider>
   );
+};
+
+const getFiltersFromConfig = (
+  filterableAttributes: string[],
+  preCheckedFilters: Array <{
+    key: string,
+    value: string,
+  }>
+): SearchClauseInput[] => {
+  const filters: FacetFilter[] = [];
+  preCheckedFilters.forEach(({key, value}) => {
+    if (filterableAttributes.includes(key)) {
+      if (value.includes('--')) {
+        const range = value.split('--');
+        const filter = {
+          attribute: key,
+          range: { from: Number(range[0]), to: Number(range[1]) },
+        };
+        filters.push(filter);
+      } else {
+        const attributeIndex = filters.findIndex(
+          (filter) => filter.attribute == key
+        );
+        if (attributeIndex !== -1) {
+          filters[attributeIndex].in?.push(value);
+        } else {
+          const filter = { attribute: key, in: [value] };
+          filters.push(filter);
+        }
+      }
+    }
+  });
+  return filters;
 };
 
 const useProducts = () => {
