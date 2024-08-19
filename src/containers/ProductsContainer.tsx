@@ -41,6 +41,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
     minQueryLength,
     minQueryLengthReached,
     loading,
+    franchises,
   } = productsCtx;
 
   useEffect(() => {
@@ -71,6 +72,18 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       </div>
     );
   }
+
+  // if (storeCtx.config.displayByFranchise && franchises) {
+  //   return (
+  //     <div>
+  //       {Object.keys(franchises).map((franchise) => (
+  //         <div key={franchise}>
+  //           <h2>{franchises[franchise].name}</h2>
+  //         </div>
+  //       ))}
+  //     </div>
+  //   );
+  // }
 
   if (!totalCount) {
     return (
@@ -109,6 +122,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       ) : (
         <ProductList
           products={items}
+          franchises={franchises}
           numberOfColumns={screenSize.columns}
           showFilters={showFilters}
         />

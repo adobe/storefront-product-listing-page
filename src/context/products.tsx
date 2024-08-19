@@ -10,7 +10,7 @@ it.
 import { createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
-import { getProductSearch, refineProductSearch } from '../api/search';
+import {getFranchiseSearch, getProductSearch, refineProductSearch} from '../api/search';
 import {
   Facet,
   FacetFilter,
@@ -46,6 +46,7 @@ const ProductsContext = createContext<{
   loading: boolean;
   items: Product[];
   setItems: (items: Product[]) => void;
+  franchises: any;
   currentPage: number;
   setCurrentPage: (page: number) => void;
   pageSize: number;
@@ -148,6 +149,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
+  const [franchises, setFranchises] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -246,7 +248,32 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     refreshCart: storeCtx.config.refreshCart,
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
+    displayByFranchise: storeCtx.config.displayByFranchise,
+    franchises,
   };
+
+  const handleFranchiseSearch = async (data) => {
+    const categories = data.productSearch.facets.find((facet) => facet.attribute === 'categories')?.buckets;
+
+    console.log(categories)
+
+    const result = await getFranchiseSearch({
+      ...variables,
+      ...storeCtx,
+      apiUrl: storeCtx.apiUrl,
+      categories: categories.map((c) => c.title),
+    });
+
+    Object.keys(result).forEach((key) => {
+      const category = categories.find((c) => c.title.replaceAll('-', '').endsWith(key));
+      result[key] = {
+        ...category,
+        ...result[key],
+      }
+    });
+
+    setFranchises(result);
+  }
 
   const searchProducts = async () => {
     try {
@@ -273,6 +300,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         handleCategoryNames(data?.productSearch?.facets || []);
 
         getPageSizeOptions(data?.productSearch?.total_count);
+
+        if (storeCtx.config.displayByFranchise) {
+          await handleFranchiseSearch(data);
+        }
 
         paginationCheck(
           data?.productSearch?.total_count,

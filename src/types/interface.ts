@@ -53,6 +53,7 @@ export interface StoreDetailsConfig {
     text: string;
     url: string;
   }>;
+  displayByFranchise?: boolean;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
   addToCart: (

@@ -22,10 +22,11 @@ import {
 import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
   ATTRIBUTE_METADATA_QUERY,
-  CATEGORY_QUERY,
+  CATEGORY_QUERY, FranchiseQueryFragment,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 } from './queries';
+import {Product, ProductView} from "./fragments";
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {
@@ -39,6 +40,58 @@ const getHeaders = (headers: MagentoHeaders) => {
     'Magento-Customer-Group': headers.customerGroup,
   };
 };
+
+const getFranchiseSearch = async ({
+  environmentId,
+  websiteCode,
+  storeCode,
+  storeViewCode,
+  apiKey,
+  apiUrl,
+  xRequestId = uuidv4(),
+  context,
+  categories = [],
+}) => {
+  const headers = getHeaders({
+    environmentId,
+    websiteCode,
+    storeCode,
+    storeViewCode,
+    apiKey,
+    xRequestId,
+    customerGroup: context?.customerGroup ?? '',
+  });
+
+  const query = `
+    query getFranchises {
+      ${categories.map((category) => `
+        ${category.split('/').at(-1).replaceAll('-', '')}: productSearch(
+          phrase: "",
+          filter: [
+            { attribute: "categoryPath", eq: "${category}" }
+          ]
+        ) {
+          items {
+            ... FRANCHISE_QUERY
+          }
+        }
+      `).join(' ')}
+    }
+    ${Product}
+    ${ProductView}
+    ${FranchiseQueryFragment}
+  `;
+
+  const results = await fetch(apiUrl, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
+    }),
+  }).then((res) => res.json());
+
+  return results?.data;
+}
 
 const getProductSearch = async ({
   environmentId,
@@ -226,4 +279,4 @@ const refineProductSearch = async ({
   return results?.data;
 };
 
-export { getAttributeMetadata, getProductSearch, refineProductSearch };
+export { getAttributeMetadata, getProductSearch, refineProductSearch, getFranchiseSearch };

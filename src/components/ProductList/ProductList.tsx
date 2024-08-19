@@ -7,29 +7,31 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
-import { HTMLAttributes } from 'preact/compat';
-import { useEffect, useState } from 'preact/hooks';
+import {FunctionComponent} from 'preact';
+import {HTMLAttributes} from 'preact/compat';
+import {useEffect, useState} from 'preact/hooks';
 
 import './product-list.css';
 
-import { Alert } from '../../components/Alert';
-import { useProducts, useStore } from '../../context';
-import { Product } from '../../types/interface';
-import { classNames } from '../../utils/dom';
+import {Alert} from '../../components/Alert';
+import {useProducts, useStore} from '../../context';
+import {Product} from '../../types/interface';
+import {classNames} from '../../utils/dom';
 import ProductItem from '../ProductItem';
 
 export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   products: Array<Product> | null | undefined;
   numberOfColumns: number;
   showFilters: boolean;
+  franchises: any;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({
-  products,
-  numberOfColumns,
-  showFilters,
-}) => {
+                                                                   products,
+                                                                   numberOfColumns,
+                                                                   showFilters,
+                                                                   franchises,
+                                                                 }) => {
   const productsCtx = useProducts();
   const {
     currencySymbol,
@@ -42,10 +44,10 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   } = productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
-  const { viewType } = useProducts();
+  const {viewType} = useProducts();
   const [error, setError] = useState<boolean>(false);
   const {
-    config: { listview },
+    config: {listview},
   } = useStore();
 
   const className = showFilters
@@ -83,6 +85,36 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           />
         </div>
       )}
+
+      {
+        franchises && (<div className="w-full">
+          {Object.keys(franchises).map((franchise) => (
+            <div key={franchise}>
+              <h2>{franchises[franchise].name}</h2>
+              <div style={{
+                gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
+              }}
+                   className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm xl:gap-x-6">
+                {franchises[franchise].items.slice(0, 4).map((item) => (
+                  <ProductItem
+                    item={item}
+                    setError={setError}
+                    key={item?.productView?.id}
+                    currencySymbol={currencySymbol}
+                    currencyRate={currencyRate}
+                    categoryConfig={categoryConfig}
+                    setRoute={setRoute}
+                    refineProduct={refineProduct}
+                    setCartUpdated={setCartUpdated}
+                    setItemAdded={setItemAdded}
+                    addToCart={addToCart}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>)
+      }
 
       {listview && viewType === 'listview' ? (
         <div className="w-full">
