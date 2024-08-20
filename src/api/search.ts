@@ -51,6 +51,16 @@ const getFranchiseSearch = async ({
   xRequestId = uuidv4(),
   context,
   categories = [],
+}: {
+  environmentId: string;
+  websiteCode: string;
+  storeCode: string;
+  storeViewCode: string;
+  apiKey: string;
+  apiUrl: string;
+  xRequestId?: string;
+  context?: any;
+  categories: string[];
 }) => {
   const headers = getHeaders({
     environmentId,
@@ -65,7 +75,7 @@ const getFranchiseSearch = async ({
   const query = `
     query getFranchises {
       ${categories.map((category) => `
-        ${category.split('/').at(-1).replaceAll('-', '')}: productSearch(
+        ${category.split('/').at(-1)?.replaceAll('-', '')}: productSearch(
           phrase: "",
           filter: [
             { attribute: "categoryPath", eq: "${category}" }

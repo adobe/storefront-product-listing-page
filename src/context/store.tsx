@@ -15,6 +15,7 @@ import {
   RedirectRouteFunc,
   StoreDetailsConfig,
 } from '../types/interface';
+import {useState} from "react";
 
 interface WithChildrenProps {
   children?: any;

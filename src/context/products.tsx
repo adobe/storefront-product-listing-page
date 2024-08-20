@@ -12,11 +12,12 @@ import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
 import {getFranchiseSearch, getProductSearch, refineProductSearch} from '../api/search';
 import {
+  CategoryView,
   Facet,
   FacetFilter,
   PageSizeOption,
   Product,
-  ProductSearchQuery,
+  ProductSearchQuery, ProductSearchResponse,
   RedirectRouteFunc,
 } from '../types/interface';
 import {
@@ -36,10 +37,15 @@ import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
 import { useTranslation } from './translation';
+import store from "store2";
 
 interface WithChildrenProps {
   children?: any;
 }
+
+type Franchise = {
+  items: Product[];
+} & CategoryView;
 
 const ProductsContext = createContext<{
   variables: ProductSearchQuery;
@@ -124,6 +130,7 @@ const ProductsContext = createContext<{
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
   addToCart: () => Promise.resolve({user_errors: []}),
+  franchises: null,
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -149,7 +156,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
-  const [franchises, setFranchises] = useState<any>(null);
+  const [franchises, setFranchises] = useState<Record<string, Franchise> | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -252,10 +259,12 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     franchises,
   };
 
-  const handleFranchiseSearch = async (data) => {
-    const categories = data.productSearch.facets.find((facet) => facet.attribute === 'categories')?.buckets;
+  const handleFranchiseSearch = async (data: ProductSearchResponse['data']) => {
+    const categories = data.productSearch.facets?.find((facet) => facet.attribute === 'categories')?.buckets as CategoryView[];
 
-    console.log(categories)
+    if (!categories) {
+      return;
+    }
 
     const result = await getFranchiseSearch({
       ...variables,
@@ -301,7 +310,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
         getPageSizeOptions(data?.productSearch?.total_count);
 
-        if (storeCtx.config.displayByFranchise) {
+        if (searchCtx.displayFranchises) {
           await handleFranchiseSearch(data);
         }
 

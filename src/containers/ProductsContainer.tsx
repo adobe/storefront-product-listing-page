@@ -10,7 +10,7 @@ it.
 import {  FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 import { ProductCardShimmer } from 'src/components/ProductCardShimmer';
-import { useProducts, useSensor, useStore,useTranslation } from 'src/context';
+import {useProducts, useSearch, useSensor, useStore, useTranslation} from 'src/context';
 import {
   handleUrlPagination,
 } from 'src/utils/handleUrlFilters';
@@ -28,6 +28,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
 }) => {
   const storeCtx = useStore();
   const productsCtx = useProducts();
+  const { displayFranchises } = useSearch();
   const { screenSize } = useSensor();
 
   const {
@@ -72,18 +73,6 @@ export const ProductsContainer: FunctionComponent<Props> = ({
       </div>
     );
   }
-
-  // if (storeCtx.config.displayByFranchise && franchises) {
-  //   return (
-  //     <div>
-  //       {Object.keys(franchises).map((franchise) => (
-  //         <div key={franchise}>
-  //           <h2>{franchises[franchise].name}</h2>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // }
 
   if (!totalCount) {
     return (
@@ -135,7 +124,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
         <span className="flex items-center justify-center text-neutral-700">
           {`${Math.max((currentPage-1)*pageSize, 1)}-${Math.min(currentPage*pageSize, totalCount)}`} of {totalCount}
         </span>
-        {totalPages > 1 && (
+        {!displayFranchises && totalPages > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

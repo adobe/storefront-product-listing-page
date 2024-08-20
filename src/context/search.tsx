@@ -25,6 +25,7 @@ import {
 } from '../utils/handleUrlFilters';
 import { generateGQLSortInput } from '../utils/sort';
 import { useStore } from './store';
+import store from "store2";
 
 interface SearchContextProps {
   phrase: string;
@@ -43,6 +44,7 @@ interface SearchContextProps {
   updateFilterOptions(filter: FacetFilter, option: string): void;
   removeFilter: (name: string, option?: string) => void;
   clearFilters: () => void;
+  displayFranchises: boolean;
 }
 
 export const SearchContext = createContext({} as SearchContextProps);
@@ -132,6 +134,11 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     setFilterCount(count);
   }, [filters]);
 
+  const displayFranchises = (storeCtx.config.displayByFranchise || false)
+    && (filters.length === 0)
+    && (sort.length === 1)
+    && (sort[0].attribute === 'relevance');
+
   const context: SearchContextProps = {
     phrase,
     categoryPath,
@@ -149,6 +156,7 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     updateFilterOptions,
     removeFilter,
     clearFilters,
+    displayFranchises,
   };
 
   return (

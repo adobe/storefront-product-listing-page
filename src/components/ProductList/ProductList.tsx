@@ -14,7 +14,7 @@ import {useEffect, useState} from 'preact/hooks';
 import './product-list.css';
 
 import {Alert} from '../../components/Alert';
-import {useProducts, useStore} from '../../context';
+import {useProducts, useSearch, useStore} from '../../context';
 import {Product} from '../../types/interface';
 import {classNames} from '../../utils/dom';
 import ProductItem from '../ProductItem';
@@ -49,6 +49,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const {
     config: {listview},
   } = useStore();
+  const { displayFranchises } = useSearch();
 
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
@@ -86,8 +87,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
         </div>
       )}
 
-      {
-        franchises && (<div className="w-full">
+      {displayFranchises && franchises && (<div className="w-full">
           {Object.keys(franchises).map((franchise) => (
             <div key={franchise}>
               <h2>{franchises[franchise].name}</h2>
@@ -95,7 +95,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                 gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
               }}
                    className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm xl:gap-x-6">
-                {franchises[franchise].items.slice(0, 4).map((item) => (
+                {franchises[franchise].items.slice(0, 4).map((item: Product) => (
                   <ProductItem
                     item={item}
                     setError={setError}
@@ -116,7 +116,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
         </div>)
       }
 
-      {listview && viewType === 'listview' ? (
+      {!displayFranchises && (listview && viewType === 'listview' ? (
         <div className="w-full">
           <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
             {products?.map((product) => (
@@ -159,7 +159,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
             />
           ))}
         </div>
-      )}
+      ))}
     </div>
   );
 };
