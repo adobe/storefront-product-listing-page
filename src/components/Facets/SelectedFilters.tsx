@@ -79,7 +79,9 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
           </div>
         )}
       </div>
-      <p className="result-count">{totalCount} Results</p>
+      {!searchCtx.displayFranchises && (
+        <p className="result-count">{totalCount} Results</p>
+      )}
     </div>
   );
 };
