@@ -84,6 +84,7 @@ const ProductsContext = createContext<{
     options: string[],
     quantity: number
   ) => Promise<{user_errors: any[];}>;
+  disableAllPurchases?: boolean;
 }>({
   variables: {
     phrase: '',
@@ -124,6 +125,7 @@ const ProductsContext = createContext<{
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
   addToCart: () => Promise.resolve({user_errors: []}),
+  disableAllPurchases: false,
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -247,6 +249,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     refreshCart: storeCtx.config.refreshCart,
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
+    disableAllPurchases: storeCtx.config.disableAllPurchases,
   };
 
   const searchProducts = async () => {

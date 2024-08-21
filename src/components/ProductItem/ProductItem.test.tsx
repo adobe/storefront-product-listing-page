@@ -36,6 +36,7 @@ describe('WidgetSDK - UIKit/ProductItem', () => {
         setCartUpdated={() => true}
         setError={() => ''}
         addToCart={()=>Promise.resolve({user_errors: []})}
+        disableAllPurchases={false}
       />
     );
 
