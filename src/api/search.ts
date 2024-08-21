@@ -22,10 +22,11 @@ import {
 import { SEARCH_UNIT_ID } from '../utils/constants';
 import {
   ATTRIBUTE_METADATA_QUERY,
-  CATEGORY_QUERY,
+  CATEGORY_QUERY, FranchiseQueryFragment,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 } from './queries';
+import {Product, ProductView} from "./fragments";
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {
@@ -39,6 +40,68 @@ const getHeaders = (headers: MagentoHeaders) => {
     'Magento-Customer-Group': headers.customerGroup,
   };
 };
+
+const getFranchiseSearch = async ({
+  environmentId,
+  websiteCode,
+  storeCode,
+  storeViewCode,
+  apiKey,
+  apiUrl,
+  xRequestId = uuidv4(),
+  context,
+  categories = [],
+}: {
+  environmentId: string;
+  websiteCode: string;
+  storeCode: string;
+  storeViewCode: string;
+  apiKey: string;
+  apiUrl: string;
+  xRequestId?: string;
+  context?: any;
+  categories: string[];
+}) => {
+  const headers = getHeaders({
+    environmentId,
+    websiteCode,
+    storeCode,
+    storeViewCode,
+    apiKey,
+    xRequestId,
+    customerGroup: context?.customerGroup ?? '',
+  });
+
+  const query = `
+    query getFranchises {
+      ${categories.map((category) => `
+        ${category.split('/').at(-1)?.replaceAll('-', '')}: productSearch(
+          phrase: "",
+          filter: [
+            { attribute: "categoryPath", eq: "${category}" }
+          ]
+        ) {
+          items {
+            ... FRANCHISE_QUERY
+          }
+        }
+      `).join(' ')}
+    }
+    ${Product}
+    ${ProductView}
+    ${FranchiseQueryFragment}
+  `;
+
+  const results = await fetch(apiUrl, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
+    }),
+  }).then((res) => res.json());
+
+  return results?.data;
+}
 
 const getProductSearch = async ({
   environmentId,
@@ -57,6 +120,7 @@ const getProductSearch = async ({
   context,
   categorySearch = false,
   categoryId,
+  route,
 }: ProductSearchQuery & ClientProps): Promise<
   ProductSearchResponse['data']
 > => {
@@ -123,17 +187,23 @@ const getProductSearch = async ({
     sort
   );
 
-  window.adobeDataLayer.push((dl : any) => {
-    dl.push({ event: 'search-request-sent', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
-  })
+  window.adobeDataLayer.push((dl: any) => {
+    dl.push({
+      event: 'search-request-sent',
+      eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID },
+    });
+  });
   // ======  end of data collection =====
 
-  const query = categorySearch && categoryId ? CATEGORY_QUERY : PRODUCT_SEARCH_QUERY;
+  const query =
+    categorySearch && categoryId ? CATEGORY_QUERY : PRODUCT_SEARCH_QUERY;
   const results = await fetch(apiUrl, {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
+      query: query
+        .replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ')
+        .replace(/\s\s+/g, ' '),
       variables: { ...variables },
     }),
   }).then((res) => res.json());
@@ -142,21 +212,31 @@ const getProductSearch = async ({
   updateSearchResultsCtx(
     SEARCH_UNIT_ID,
     searchRequestId,
-    results?.data?.productSearch
+    results?.data?.productSearch,
+    route
   );
 
-  window.adobeDataLayer.push((dl : any) => {
-    dl.push({ event: 'search-response-received', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+  window.adobeDataLayer.push((dl: any) => {
+    dl.push({
+      event: 'search-response-received',
+      eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID },
+    });
   });
 
   if (categorySearch && categoryId) {
-    window.adobeDataLayer.push((dl : any) => {
+    window.adobeDataLayer.push((dl: any) => {
       dl.push({ categoryContext: results?.data?.categories?.[0] });
-      dl.push({ event: 'category-results-view', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+      dl.push({
+        event: 'category-results-view',
+        eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID },
+      });
     });
   } else {
-    window.adobeDataLayer.push((dl : any) => {
-      dl.push({ event: 'search-results-view', eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID } })
+    window.adobeDataLayer.push((dl: any) => {
+      dl.push({
+        event: 'search-results-view',
+        eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID },
+      });
     });
   }
   // ======  end of data collection =====
@@ -233,4 +313,4 @@ const refineProductSearch = async ({
   return results?.data;
 };
 
-export { getAttributeMetadata, getProductSearch, refineProductSearch };
+export { getAttributeMetadata, getProductSearch, refineProductSearch, getFranchiseSearch };

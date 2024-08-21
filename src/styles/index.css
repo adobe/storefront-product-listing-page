@@ -540,6 +540,9 @@ video {
   .right-0 {
     right: 0px;
   }
+  .top-full {
+    top: 100%;
+  }
   .z-20 {
     z-index: 20;
   }
@@ -1184,6 +1187,10 @@ video {
   .py-2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+  .py-\[10px\] {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .py-md {
     padding-top: var(--spacing-md);
@@ -1933,6 +1940,104 @@ video {
   height: 100%;
 }
 
+.ds-sdk-product-image-hover {
+  transition: background-image .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
+}
+
+.first\:ml-0:first-child {
+  margin-left: 0px;
+}
+
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.hover\:border-none:hover {
+  border-style: none;
+}
+
+.hover\:bg-green-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-neutral-200:hover {
+  background-color: var(--color-neutral-200);
+}
+
+.hover\:bg-transparent:hover {
+  background-color: transparent;
+}
+
+.hover\:text-blue-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
+.hover\:text-brand-700:hover {
+  color: var(--color-brand-700);
+  font-size: var(--font-sm);
+  font-weight: var(--font-medium);
+}
+
+.hover\:text-neutral-900:hover {
+  color: var(--color-neutral-900);
+}
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
+}
+
+.hover\:no-underline:hover {
+  text-decoration-line: none;
+}
+
+.focus\:border-none:focus {
+  border-style: none;
+}
+
+.focus\:bg-transparent:focus {
+  background-color: transparent;
+}
+
+.focus\:no-underline:focus {
+  text-decoration-line: none;
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:ring-0:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus\:ring-2:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus\:ring-green-600:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(22 163 74 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-offset-2:focus {
+  --tw-ring-offset-width: 2px;
+}
+
+.focus\:ring-offset-green-50:focus {
+  --tw-ring-offset-color: #f0fdf4;
+}
+
+.active\:border-none:active {
+  border-style: none;
+}
+
 .add-to-cart-overlay .status-container {
   background-color: var(--color-neutral-50);
   color: var(--color-brand-700);
@@ -1991,4 +2096,16 @@ video {
 
 .ds-sdk-product-image-hover {
   transition: background-image .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
+}
+
+@media (min-width: 1280px) {
+  .xl\:gap-x-4 {
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+  }
+
+  .xl\:gap-x-6 {
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
+  }
 }

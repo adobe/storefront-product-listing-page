@@ -53,6 +53,7 @@ export interface StoreDetailsConfig {
     text: string;
     url: string;
   }>;
+  displayByFranchise?: boolean;
   preCheckedFilters?: Array<{
     key: string;
     value: string;
@@ -82,7 +83,7 @@ export type RedirectRouteFunc = ({
 }: {
   sku: string;
   urlKey: null | string;
-  optionsUIDs: null | string[];
+  optionsUIDs?: null | string[];
 }) => string;
 
 export interface MagentoHeaders {
@@ -107,6 +108,7 @@ export interface ProductSearchQuery {
   data?: QueryData;
   categorySearch?: boolean;
   categoryId?: string;
+  route?: RedirectRouteFunc;
 }
 
 export interface RefineProductQuery {
