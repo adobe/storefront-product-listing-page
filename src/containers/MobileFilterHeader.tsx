@@ -50,6 +50,16 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
   const productsCtx = useProducts();
   const translation = useTranslation();
 
+  const attributesToFilter = [
+    'featured',
+    'new',
+    'price',
+  ];
+
+  const filteredAttributes = attributeMetadata?.sortable.filter((item) =>
+    attributesToFilter.includes(item.attribute)
+  );
+
   const [showMobileFacet, setShowMobileFacet] = useState(
     !!productsCtx.variables.filter?.length
   );
@@ -59,7 +69,7 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
     setSortOptions(
       getSortOptionsfromMetadata(
         translation,
-        attributeMetadata?.sortable,
+        filteredAttributes,
         storeCtx?.config?.displayOutOfStock,
         storeCtx?.config?.currentCategoryUrlPath,
         storeCtx?.config?.currentCategoryId
