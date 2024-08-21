@@ -353,9 +353,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         eq: categoryPath,
       };
       filters.push(categoryFilter);
-    }
-
-    if (categoryId) {
+    } else if (categoryId) {
       const categoryIdFilter = {
         attribute: 'categoryIds',
         eq: categoryId,

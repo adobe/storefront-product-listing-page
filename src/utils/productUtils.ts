@@ -3,7 +3,7 @@ import { Product } from '../types/interface';
 function isSportsWear(product: Product) {
   const { productView } = product;
   const department = productView?.attributes?.find(({ name }) => name === 'pim_department_name');
-  
+
   return department?.value.includes('Sportswear');
 }
 
@@ -30,9 +30,9 @@ function getColorSwatcheConfigFromAttribute(item: Product) {
   const productOptions = productView?.options?.filter((option) => option.id?.startsWith('pim_axis'));
   const colorOptions =  productOptions?.[0];
   const attributeId = colorOptions?.id;
-  
-  return options.find((option: any) => option.attribute_id === attributeId 
-    && option.attribute_type === 'visual' 
+
+  return options.find((option: any) => option.attribute_id === attributeId
+    && option.attribute_type === 'visual'
     && option.show_swatches);
 }
 
@@ -59,10 +59,17 @@ function getColorSwatchesFromAttribute(item: Product) {
     return null;
   }
 
+  const categoryId = '3197';
   const { productView } = item;
   const productOptions = productView?.options?.filter((option) => option.id?.startsWith('pim_axis'));
   const colorOptions = productOptions?.[0];
-  return colorOptions?.values?.map((option) => {
+  if (!colorOptions) {
+    return null;
+  }
+  const segmentedOptions = getSegmentedOptions(item, colorOptions.id, categoryId);
+
+  return colorOptions?.values?.filter((option: any) => !segmentedOptions || segmentedOptions.includes(option.id))
+    .map((option: any) => {
     const imagConfig = colorOptionsFromAttribute.images && colorOptionsFromAttribute.images.find((image: any) => image.id === option.id);
     const defaultImage = '/en-us/media/image/media_1ccf88b21200e64fed7e7e93e0cf2d0a76fa007a8.png';
     const swatchImage = (imagConfig && imagConfig.swatch_image) || defaultImage
@@ -72,6 +79,23 @@ function getColorSwatchesFromAttribute(item: Product) {
     };
   });
 }
+
+function getSegmentedOptions(item: Product, optionId: string | null, categoryId: string) {
+  const edsSegmentation = item.productView?.attributes?.find(({name}) => name === 'eds_segmentation')?.value;
+  if (!edsSegmentation) {
+    return null;
+  }
+
+  const parsedSegmentation = JSON.parse(edsSegmentation);
+  if (parsedSegmentation?.['attribute_code'] === optionId) {
+    const segmentedOptions = parsedSegmentation.options
+        .filter((option: any) => option?.categories?.split()?.includes(categoryId))
+        .map((option:any) => option.id);
+    return segmentedOptions.length > 0 ? segmentedOptions : null;
+  }
+  return null;
+}
+
 
 function getDefaultColorSwatchId(item: Product) {
   const colorOptionsFromAttribute = getColorSwatcheConfigFromAttribute(item);
