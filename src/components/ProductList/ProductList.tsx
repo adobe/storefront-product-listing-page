@@ -73,7 +73,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
         ))}
       </div>
       {page * numberOfColumns < franchises[franchise].items.length &&
-        <button onClick={() => setPage((p) => p + 1)} className="button secondary">Load More</button>
+        <button onClick={() => setPage((p) => p + 1)} className="button secondary load-more">Load More</button>
       }
 
     </div>

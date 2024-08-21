@@ -11,7 +11,7 @@
   border-bottom: 1px solid #DDDDDD;
 }
 
-.ds-sdk-product-list .franchises button {
+.ds-sdk-product-list .franchises button.load-more {
   border: 1px solid #DDDDDD;
   display: block;
   margin: 25px auto auto;
