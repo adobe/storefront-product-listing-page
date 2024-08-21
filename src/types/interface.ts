@@ -102,6 +102,7 @@ export interface ProductSearchQuery {
   data?: QueryData;
   categorySearch?: boolean;
   categoryId?: string;
+  route?: RedirectRouteFunc;
 }
 
 export interface RefineProductQuery {
