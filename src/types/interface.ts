@@ -49,6 +49,7 @@ export interface StoreDetailsConfig {
   imageBaseWidth?: number;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
+  baseUrl?: string; // base URL for store view
   addToCart?: (
     sku: string,
     options: [],
@@ -433,3 +434,34 @@ export interface GQLSortInput {
   direction: 'ASC' | 'DESC';
   attribute: string;
 }
+
+export interface WishlistItem {
+  id: string;
+  product: {
+    uid: string;
+    name: string;
+    sku: string;
+  };
+}
+
+export interface Wishlist {
+  id: string;
+  name: string;
+  items_count: number;
+  items_v2: {
+    items: WishlistItem[];
+  };
+}
+
+export interface WishlistResponse {
+  wishlists: Array<Wishlist>;
+}
+
+export interface WishlistAddItemInput {
+  quantity: number;
+  sku: string;
+  parent_sku?: string;
+  selected_options?: string[];
+}
+
+export { WidgetConfigOptions } from './widgetConfig.interface';

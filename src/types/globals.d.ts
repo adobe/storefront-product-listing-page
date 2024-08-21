@@ -18,7 +18,9 @@ declare global {
   const API_URL: string;
   const WIDGET_CONFIG_URL: string;
   const LS_API_URL: string;
-  const TEST_URL: string;
   const API_KEY: string;
   const SANDBOX_KEY: string;
+  const TEST_URL: string;
+  const FLOODGATE_CLIENT_ID: string;
+  const FLOODGATE_API_KEY: string;
 }
