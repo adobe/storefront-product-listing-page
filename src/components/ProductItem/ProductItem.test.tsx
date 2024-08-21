@@ -44,18 +44,17 @@ describe('WidgetSDK - UIKit/ProductItem', () => {
     };
 
     const { container } = render(
-      <StoreContextProvider {...context}>
-        <ProductItem
-          item={sampleProductNotDiscounted}
-          currencySymbol="$"
-          currencyRate="USD"
-          setRoute={undefined}
-          refineProduct={() => {}}
-          setItemAdded={() => 'test'}
-          setCartUpdated={() => true}
-          setError={() => ''}
-        />
-      </StoreContextProvider>
+      <ProductItem
+        item={sampleProductNotDiscounted}
+        currencySymbol="$"
+        currencyRate="USD"
+        setRoute={undefined}
+        refineProduct={() => {}}
+        setItemAdded={() => 'test'}
+        setCartUpdated={() => true}
+        setError={() => ''}
+        addToCart={()=>Promise.resolve({user_errors: []})}
+      />
     );
 
     const elem = container.querySelector('.ds-sdk-product-item');

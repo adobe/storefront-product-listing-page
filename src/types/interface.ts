@@ -77,7 +77,7 @@ export type RedirectRouteFunc = ({
 }: {
   sku: string;
   urlKey: null | string;
-  optionsUIDs: null | string[];
+  optionsUIDs?: null | string[];
 }) => string;
 
 export interface MagentoHeaders {
