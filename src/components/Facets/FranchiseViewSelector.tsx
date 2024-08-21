@@ -10,10 +10,10 @@ export const FranchiseViewSelector: FunctionComponent = () => {
 
   return (
     <div className="flex gap-[10px] franchise-selector">
-      <button disabled={searchCtx.displayFranchises} onClick={searchCtx.toggleFranchiseView}>
+      <button disabled={searchCtx.displayFranchises} onClick={() => searchCtx.toggleFranchiseView(true)}>
         <FranchiseView/>
       </button>
-      <button disabled={!searchCtx.displayFranchises} onClick={searchCtx.toggleFranchiseView}>
+      <button disabled={!searchCtx.displayFranchises} onClick={() => searchCtx.toggleFranchiseView(false)}>
         <PlpView/>
       </button>
     </div>

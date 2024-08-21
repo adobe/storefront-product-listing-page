@@ -45,7 +45,7 @@ interface SearchContextProps {
   removeFilter: (name: string, option?: string) => void;
   clearFilters: () => void;
   displayFranchises: boolean;
-  toggleFranchiseView: () => void;
+  toggleFranchiseView: (showFranchise: boolean) => void;
 }
 
 export const SearchContext = createContext({} as SearchContextProps);
@@ -142,11 +142,11 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     && (sort[0].attribute === 'relevance')
     && preferFranchiseView;
 
-  const toggleFranchiseView = useCallback(() => {
+  const toggleFranchiseView = useCallback(async (showFranchise: boolean) => {
     setFilters([]);
     setSort(SEARCH_SORT_DEFAULT);
     window.history.pushState({}, '', `${window.location.pathname}`);
-    setPreferFranchiseView((p) => !p);
+    setPreferFranchiseView(showFranchise);
   }, []);
 
   const context: SearchContextProps = {
