@@ -57,6 +57,13 @@ const QUICK_SEARCH_QUERY = `
     ${Product}
 `;
 
+export const FranchiseQueryFragment = `
+  fragment FRANCHISE_QUERY on ProductSearchItem {
+    ...Product
+    ...ProductView
+  }
+`;
+
 const ProductSearchQueryFragment = `
     fragment PRODUCT_SEARCH on Query {
         productSearch(

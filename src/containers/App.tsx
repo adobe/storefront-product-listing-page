@@ -24,6 +24,7 @@ import {
 } from '../context';
 import { MobileFilterHeader } from './MobileFilterHeader';
 import { ProductsContainer } from './ProductsContainer';
+import {FranchiseViewSelector} from "../components/Facets/FranchiseViewSelector";
 
 
 export const App: FunctionComponent = () => {
@@ -31,7 +32,7 @@ export const App: FunctionComponent = () => {
   const productsCtx = useProducts();
   const { screenSize } = useSensor();
   const translation = useTranslation();
-  const { displayMode } = useStore().config;
+  const { displayMode, displayByFranchise } = useStore().config;
   const [showFilters, setShowFilters] = useState(true);
 
   const loadingLabel = translation.Loading.title;
@@ -116,6 +117,9 @@ export const App: FunctionComponent = () => {
                         screenSize={screenSize}
                       />
                     </div>
+                    {displayByFranchise && (
+                      <FranchiseViewSelector />
+                    )}
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />

@@ -1,5 +1,44 @@
 /* https://cssguidelin.es/#bem-like-naming */
-.sfsdk-product-list {
+.ds-sdk-product-list .franchises h2 {
+  font-size: var(--heading-font-size-l);
+  font-family: var(--ff-gt-america-expanded-bold);
+  margin-bottom: 0;
+}
+
+.ds-sdk-product-list .franchises {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.ds-sdk-product-list .franchises button.load-more {
+  border: 1px solid #DDDDDD;
+  display: block;
+  margin: 25px auto auto;
+}
+
+.ds-sdk-product-list .franchises .franchise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.ds-sdk-product-list .franchises .franchise-header a {
+  text-decoration: underline;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .ds-sdk-product-list .franchises .franchise-header {
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 30px;
+  }
+
+  .ds-sdk-product-list .franchises h2 {
+    margin-bottom: 10px;
+  }
 }
 
 /* Extra small devices (phones, 600px and down) */
