@@ -53,6 +53,10 @@ export interface StoreDetailsConfig {
     text: string;
     url: string;
   }>;
+  preCheckedFilters?: Array<{
+    key: string;
+    value: string;
+  }>;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
   addToCart: (
