@@ -9,9 +9,11 @@ it.
 
 import { FunctionComponent } from 'preact';
 
-import { useProducts, useSearch, useTranslation } from '../../context';
+import {useProducts, useSearch, useStore, useTranslation} from '../../context';
 import Pill from '../Pill';
 import { formatBinaryLabel, formatRangeLabel } from './format';
+import "./filters.css";
+import {FranchiseViewSelector} from "./FranchiseViewSelector";
 
 interface SelectedFiltersProps {
   totalCount?: number;
@@ -22,6 +24,7 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
 }) => {
   const searchCtx = useSearch();
   const productsCtx = useProducts();
+  const storeCtx = useStore();
   const translation = useTranslation();
 
   return (
@@ -81,6 +84,9 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
       </div>
       {!searchCtx.displayFranchises && (
         <p className="result-count">{totalCount} Results</p>
+      )}
+      {storeCtx.config.displayByFranchise && (
+        <FranchiseViewSelector />
       )}
     </div>
   );

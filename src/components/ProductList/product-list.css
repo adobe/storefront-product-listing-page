@@ -24,6 +24,23 @@
   margin-bottom: 50px;
 }
 
+.ds-sdk-product-list .franchises .franchise-header a {
+  text-decoration: underline;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .ds-sdk-product-list .franchises .franchise-header {
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 30px;
+  }
+
+  .ds-sdk-product-list .franchises h2 {
+    margin-bottom: 10px;
+  }
+}
+
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) { } */
 

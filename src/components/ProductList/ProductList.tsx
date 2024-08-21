@@ -25,7 +25,7 @@ type FranchiseProps = Omit<ProductProps, "item"> & {
   numberOfColumns: number;
 };
 
-const Franchise : FunctionComponent<FranchiseProps> = ({
+const Franchises : FunctionComponent<FranchiseProps> = ({
    currencySymbol,
    currencyRate,
    categoryConfig,
@@ -151,7 +151,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
 
       {displayFranchises && franchises && (<div className="w-full">
           {Object.keys(franchises).map((franchise) => (
-            <Franchise
+            <Franchises
               numberOfColumns={numberOfColumns}
               franchises={franchises}
               franchise={franchise}
