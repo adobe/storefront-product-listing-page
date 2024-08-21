@@ -16,7 +16,7 @@ export interface SwatchButtonProps {
   value: string;
   type: SwatchType;
   checked: boolean;
-  onClick: (e: any) => any;
+  onClick?: (e: Event) => any;
 }
 export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   id,
@@ -38,7 +38,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
     const className = `min-w-[44px] p-sm border border-[1.5px] ${outlineColor} h-[44px] outline-transparent`;
     const isWhite = color === '#ffffff' || color === '#fff';
     return (
-      <div className={`ds-sdk-swatch-button_${id}`}>
+      <div className={`ds-sdk-swatch-button_${id} colors-neutral-700 h-full`}>
         <button
           title={value}
           key={id}
@@ -49,7 +49,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
           }}
           onClick={onClick}
           checked={checked}
-        >{id === 'show-more' ? '+' : ''}</button>
+        >{id === 'show-more' ? value : ''}</button>
       </div>
     );
   }
@@ -77,9 +77,9 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
 
   if (type === 'IMAGE' && value) {
     const className = `object-cover object-center min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
-    const style = `background: url(${value}) no-repeat center; background-size: initial`;
+    const style = `background: url(${value}) no-repeat center; background-size: contain;`;
     return (
-      <div className={`ds-sdk-swatch-button_${value}`}>
+      <div className="w-full h-full">
         <button
           key={id}
           className={className}

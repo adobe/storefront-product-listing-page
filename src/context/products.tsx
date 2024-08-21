@@ -18,6 +18,7 @@ import {
   Product,
   ProductSearchQuery,
   RedirectRouteFunc,
+  SearchClauseInput,
 } from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,
@@ -71,17 +72,18 @@ const ProductsContext = createContext<{
   pageLoading: boolean;
   setPageLoading: (loading: boolean) => void;
   categoryPath: string | undefined;
+  categoryConfig: Record<string, any> | undefined;
   viewType: string;
   setViewType: (viewType: string) => void;
   listViewType: string;
   setListViewType: (viewType: string) => void;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
-  addToCart?: (
+  addToCart: (
     sku: string,
     options: string[],
     quantity: number
-  ) => Promise<void | undefined>;
+  ) => Promise<{user_errors: any[];}>;
 }>({
   variables: {
     phrase: '',
@@ -114,13 +116,14 @@ const ProductsContext = createContext<{
   pageLoading: false,
   setPageLoading: () => {},
   categoryPath: undefined,
+  categoryConfig: undefined,
   viewType: '',
   setViewType: () => {},
   listViewType: '',
   setListViewType: () => {},
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
-  addToCart: () => Promise.resolve(),
+  addToCart: () => Promise.resolve({user_errors: []}),
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -168,6 +171,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   }, [storeCtx?.config.minQueryLength]);
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
   const categoryId = storeCtx.config?.currentCategoryId;
+  const categoryConfig = storeCtx.config?.categoryConfig;
 
   const viewTypeFromUrl = getValueFromUrl('view_type');
   const [viewType, setViewType] = useState<string>(
@@ -234,6 +238,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     setPageLoading,
     categoryPath,
     categoryId,
+    categoryConfig,
     viewType,
     setViewType,
     listViewType,
@@ -375,6 +380,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
               name: bucket.name,
               value: bucket.title,
               attribute: facet.attribute,
+              path: bucket.path
             };
         });
         searchCtx.setCategoryNames(names);
@@ -390,10 +396,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
   useEffect(() => {
     if (attributeMetadataCtx.filterableInSearch) {
+      const filtersFromConfig = [];
+      if(storeCtx?.config?.preCheckedFilters) {
+        filtersFromConfig.push(...getFiltersFromConfig(attributeMetadataCtx.filterableInSearch, storeCtx.config.preCheckedFilters));
+      }
       const filtersFromUrl = getFiltersFromUrl(
         attributeMetadataCtx.filterableInSearch
-      );
-      searchCtx.setFilters(filtersFromUrl);
+      )
+      searchCtx.setFilters([...filtersFromConfig, ...filtersFromUrl]);
     }
   }, [attributeMetadataCtx.filterableInSearch]);
 
@@ -408,6 +418,39 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       {children}
     </ProductsContext.Provider>
   );
+};
+
+const getFiltersFromConfig = (
+  filterableAttributes: string[],
+  preCheckedFilters: Array <{
+    key: string,
+    value: string,
+  }>
+): SearchClauseInput[] => {
+  const filters: FacetFilter[] = [];
+  preCheckedFilters.forEach(({key, value}) => {
+    if (filterableAttributes.includes(key)) {
+      if (value.includes('--')) {
+        const range = value.split('--');
+        const filter = {
+          attribute: key,
+          range: { from: Number(range[0]), to: Number(range[1]) },
+        };
+        filters.push(filter);
+      } else {
+        const attributeIndex = filters.findIndex(
+          (filter) => filter.attribute == key
+        );
+        if (attributeIndex !== -1) {
+          filters[attributeIndex].in?.push(value);
+        } else {
+          const filter = { attribute: key, in: [value] };
+          filters.push(filter);
+        }
+      }
+    }
+  });
+  return filters;
 };
 
 const useProducts = () => {

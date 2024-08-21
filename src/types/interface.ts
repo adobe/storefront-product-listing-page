@@ -38,6 +38,7 @@ export interface StoreDetailsConfig {
   currentCategoryUrlPath?: string;
   currentCategoryId?: string;
   categoryName?: string;
+  categoryConfig?: Record<string, any>;
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayMode?: string;
@@ -47,13 +48,23 @@ export interface StoreDetailsConfig {
   listview?: boolean;
   optimizeImages?: boolean;
   imageBaseWidth?: number;
+  imageBackgroundColor?: string;
+  noResultsLinks?: Array<{
+    text: string;
+    url: string;
+  }>;
+  preCheckedFilters?: Array<{
+    key: string;
+    value: string;
+  }>;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
-  addToCart?: (
+  addToCart: (
     sku: string,
     options: string[],
     quantity: number
-  ) => Promise<void | undefined>;
+  ) => Promise<{ user_errors: any[]; }>;
+  onCategoryChange?: (categoryPath: string) => void;
 }
 
 // Types
@@ -66,9 +77,11 @@ export type BucketTypename =
 export type RedirectRouteFunc = ({
   sku,
   urlKey,
+  optionsUIDs,
 }: {
   sku: string;
   urlKey: null | string;
+  optionsUIDs: null | string[];
 }) => string;
 
 export interface MagentoHeaders {
@@ -205,6 +218,7 @@ export interface Product {
     uid: string;
     name: string;
     sku: string;
+    inStock?: boolean | undefined;
     description: null | ComplexTextValue;
     short_description: null | ComplexTextValue;
     attribute_set_id: null | number;
@@ -298,6 +312,14 @@ export interface RefinedProduct {
           values: null | SwatchValues[];
         }[];
   };
+  productView: {
+    attributes: Array<{
+      label: string
+      name: string
+      roles: string[]
+      value: string
+    }>;
+  };
   highlights: Array<Highlights>;
 }
 
@@ -345,6 +367,7 @@ export interface SwatchValues {
   id: string;
   type: SwatchType;
   value: string;
+  inStock?: boolean;
 }
 
 export interface CustomAttribute {
@@ -379,6 +402,7 @@ export type Bucket = {
   to?: number;
   from?: number;
   name?: string;
+  path?: string;
   __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
 

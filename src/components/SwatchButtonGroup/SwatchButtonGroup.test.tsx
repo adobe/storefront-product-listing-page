@@ -11,6 +11,20 @@ import { render } from '@testing-library/preact';
 
 import { SwatchButtonGroup, SwatchButtonGroupProps } from './SwatchButtonGroup';
 
+class ResizeObserver {
+  constructor() {
+  }
+
+  observe() {
+  }
+  unobserve() {
+  }
+  disconnect() {
+  }
+}
+
+global.ResizeObserver = ResizeObserver;
+
 const mockButtonGroup: SwatchButtonGroupProps = {
   swatches: [
     {

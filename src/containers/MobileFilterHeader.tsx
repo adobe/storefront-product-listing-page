@@ -11,7 +11,6 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { Drawer } from 'src/components/Drawer/Drawer';
 import MobileFacets from 'src/components/MobileFacets';
-import ViewSwitcher from 'src/components/ViewSwitcher';
 
 import { FilterButton } from '../components/FilterButton';
 import { SortDropdown } from '../components/SortDropdown';
@@ -96,10 +95,14 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
     handleUrlSort(sortOption);
   };
 
+  if (totalCount === 0) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
       <div className="flex border-t border-b border-neutral-400">
-        {screenSize.mobile && totalCount > 0 && (
+        {screenSize.mobile && (
           <div className="flex justify-center w-1/2 py-md border-r border-neutral-400">
             <FilterButton
               displayFilter={() => setShowMobileFacet(!showMobileFacet)}
@@ -108,17 +111,14 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
           </div>
         )}
 
-        {totalCount > 0 && (
-          <div className="flex justify-center w-1/2 py-md">
-            {storeCtx?.config?.listview && <ViewSwitcher />}
-            <SortDropdown
-              sortOptions={sortOptions}
-              value={sortBy}
-              onChange={onSortChange}
-              mobile
-            />
-          </div>
-        )}
+        <div className="flex justify-center w-1/2 py-md">
+          <SortDropdown
+            sortOptions={sortOptions}
+            value={sortBy}
+            onChange={onSortChange}
+            mobile
+          />
+        </div>
       </div>
       {screenSize.mobile && (
         <Drawer

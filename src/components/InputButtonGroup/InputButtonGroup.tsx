@@ -125,9 +125,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
                 checked={!!checked}
                 value={option.title}
                 count={noShowPriceBucketCount ? null : option.count}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onInputChange(option.title, e)
-                }
+                onChange={onChange}
                 type={type}
               />
             );

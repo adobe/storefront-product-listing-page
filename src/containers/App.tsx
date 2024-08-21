@@ -9,6 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
+import Enrichment from 'src/components/Enrichment';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
@@ -35,63 +36,53 @@ export const App: FunctionComponent = () => {
 
   const loadingLabel = translation.Loading.title;
 
-  let title = productsCtx.categoryName || '';
-  if (productsCtx.variables.phrase) {
-    const text = translation.CategoryFilters.results;
-    title = text.replace('{phrase}', `"${productsCtx.variables.phrase ?? ''}"`);
-  }
-  const getResults = (totalCount: number) => {
-    const resultsTranslation = translation.CategoryFilters.products;
-    const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
-    return results;
-  };
-
   return (
     <>
       {!(displayMode === 'PAGE') &&
         (!screenSize.mobile && showFilters && productsCtx.facets.length > 0 ? (
           <div className="ds-widgets bg-body py-2">
+            {searchCtx.phrase && (
+              <div className="product-list-page-header flex flex-col gap-4 justify-center items-center h-[180px] lg:h-[248px]">
+                <h1 className="text-center capitalize">
+                  {searchCtx.phrase}
+                </h1>
+              </div>
+            )}
+            <Enrichment position={'below-title'} />
             <div className="flex flex-col">
-              <CategoryFilters
-                loading={productsCtx.loading}
-                pageLoading={productsCtx.pageLoading}
-                facets={productsCtx.facets}
-                totalCount={productsCtx.totalCount}
-                categoryName={productsCtx.categoryName ?? ''}
-                phrase={productsCtx.variables.phrase ?? ''}
-                showFilters={showFilters}
-                setShowFilters={setShowFilters}
-                filterCount={searchCtx.filterCount}
-              />
+              {productsCtx.totalCount && (
+                <CategoryFilters
+                  loading={productsCtx.loading}
+                  pageLoading={productsCtx.pageLoading}
+                  facets={productsCtx.facets}
+                  totalCount={productsCtx.totalCount}
+                  categoryName={productsCtx.categoryName ?? ''}
+                  phrase={productsCtx.variables.phrase ?? ''}
+                  showFilters={showFilters}
+                  setShowFilters={setShowFilters}
+                  filterCount={searchCtx.filterCount}
+                />
+              )}
+              <Enrichment position={'above-grid'} />
               <div
                 className={`ds-widgets_results flex flex-col items-center flex-[75] `}
               >
-                {/* <ProductsHeader
-                  facets={productsCtx.facets}
-                  totalCount={productsCtx.totalCount}
-                  screenSize={screenSize}
-                /> */}
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
           </div>
         ) : (
           <div className="ds-widgets bg-body py-2">
-            <div className="flex flex-col">
-              <div className="flex flex-col items-center w-full h-full">
-                <div className="justify-start w-full h-full">
-                  <div class="hidden sm:flex ds-widgets-_actions relative max-w-[21rem] w-full h-full px-2 flex-col overflow-y-auto">
-                    <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
-                      {title && <span> {title}</span>}
-                      {!productsCtx.loading && (
-                        <span className="text-brand-700 text-sm">
-                          {getResults(productsCtx.totalCount)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+            {searchCtx.phrase && (
+              <div className="product-list-page-header flex flex-col gap-4 justify-center items-center h-[180px] lg:h-[248px]">
+                <h1 className="text-center capitalize">
+                  {searchCtx.phrase}
+                </h1>
               </div>
+            )}
+            <Enrichment position={'below-title'} />
+            <div className="flex flex-col">
+              <Enrichment position={'above-grid'} />
               <div className="ds-widgets_results flex flex-col items-center flex-[75]">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&

@@ -125,6 +125,7 @@ const storeDetails = {
         currentCategoryUrlPath?: string;
         currentCategoryId?: string;
         categoryName: '', // name of category to display
+        categoryConfig: {} // Custom category config
         displaySearchBox: false, // display search box
         displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
         displayMode: '', // "" for search || "PAGE" for category search
@@ -134,6 +135,7 @@ const storeDetails = {
         listview: false; //add listview as an option - EXPERIMENTAL, default is false
         optimizeImages: true, // optimize images with Fastly
         imageBaseWidth: 200,
+        imageBackgroundColor: #fff // Background color for PLP product images
         resolveCartId?: resolveCartId // Luma specific addToCart method. Enabled with the extension
         refreshCart?: refreshCart // Luma specific addToCart method. Enabled with the extension
         addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action

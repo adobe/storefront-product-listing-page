@@ -87,6 +87,7 @@ describe('test validating storeDetails.', () => {
         allowAllProducts: false,
         optimizeImages: true,
         imageBaseWidth: 200,
+        addToCart: () => Promise.resolve({user_errors: []}),
       },
       context: {
         customerGroup: 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c',
@@ -115,6 +116,7 @@ describe('test validating storeDetails.', () => {
         allowAllProducts: false,
         optimizeImages: true,
         imageBaseWidth: 200,
+        addToCart: () => Promise.resolve({user_errors: []}),
       },
       context: {
         customerGroup: 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c',

@@ -53,11 +53,15 @@ export const en_US = {
     startingAt: 'Starting at {productPrice}',
     bundlePrice: 'From {fromBundlePrice} To {toBundlePrice}',
     from: 'From {productPrice}',
+    quickAdd: 'Quick Add',
+    quickAddSuccess: 'Added to your bag',
+    quickAddError: 'Error. Can\'t add to bag',
   },
   ProductContainers: {
     minquery:
       'Your search term {variables.phrase} has not reached the minimum of {minQueryLength} characters.',
-    noresults: 'Your search returned no results.',
+    resultsText: 'Results',
+    noresults: 'We couldn\'t find any products that match your search. Here are a few other destinations that might help.',
     pagePicker: 'Show {pageSize} per page',
     showAll: 'all',
   },

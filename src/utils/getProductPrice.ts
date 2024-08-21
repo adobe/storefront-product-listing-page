@@ -9,15 +9,13 @@ it.
 
 import getSymbolFromCurrency from 'currency-symbol-map';
 
-import { Product, RefinedProduct } from '../types/interface';
+import { Product, RefinedProduct, Money } from '../types/interface';
 
-const getProductPrice = (
-  product: Product | RefinedProduct,
-  currencySymbol: string,
-  currencyRate: string | undefined,
-  useMaximum = false,
-  useFinal = false
-): string => {
+const computeProductPrice = (
+    product: Product | RefinedProduct,
+    useMaximum = false,
+    useFinal = false
+): Money => {
   let priceType;
   let price;
   if ('product' in product) {
@@ -33,8 +31,8 @@ const getProductPrice = (
     }
   } else {
     priceType =
-      product?.refineProduct?.priceRange?.minimum ??
-      product?.refineProduct?.price;
+        product?.refineProduct?.priceRange?.minimum ??
+        product?.refineProduct?.price;
 
     if (useMaximum) {
       priceType = product?.refineProduct?.priceRange?.maximum;
@@ -45,6 +43,18 @@ const getProductPrice = (
       price = priceType?.final?.amount;
     }
   }
+
+  return price;
+};
+
+const getProductPrice = (
+  product: Product | RefinedProduct,
+  currencySymbol: string,
+  currencyRate: string | undefined,
+  useMaximum = false,
+  useFinal = false
+): string => {
+  const price =  computeProductPrice(product, useMaximum, useFinal);
 
   // if currency symbol is configurable within Commerce, that symbol is used
   let currency = price?.currency;
@@ -62,4 +72,19 @@ const getProductPrice = (
   return convertedPrice ? `${currency}${convertedPrice.toFixed(2)}` : '';
 };
 
-export { getProductPrice };
+const getOnlyProductPrice = (
+    product: Product | RefinedProduct,
+    currencyRate: string | undefined,
+    useMaximum = false,
+    useFinal = false
+): string => {
+    const price = computeProductPrice(product, useMaximum, useFinal);
+
+    const convertedPrice = currencyRate
+        ? price?.value * parseFloat(currencyRate)
+        : price?.value;
+
+    return convertedPrice ? convertedPrice.toFixed() : '';
+}
+
+export { getProductPrice, getOnlyProductPrice };
