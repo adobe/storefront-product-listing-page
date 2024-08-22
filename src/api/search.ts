@@ -20,13 +20,13 @@ import {
   RefineProductQuery,
 } from '../types/interface';
 import { SEARCH_UNIT_ID } from '../utils/constants';
+import {Product, ProductView} from "./fragments";
 import {
   ATTRIBUTE_METADATA_QUERY,
   CATEGORY_QUERY, FranchiseQueryFragment,
   PRODUCT_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
 } from './queries';
-import {Product, ProductView} from "./fragments";
 
 const getHeaders = (headers: MagentoHeaders) => {
   return {

@@ -9,10 +9,11 @@ it.
 
 import { FunctionComponent } from 'preact';
 
+import "./filters.css";
+
 import {useProducts, useSearch, useStore, useTranslation} from '../../context';
 import Pill from '../Pill';
 import { formatBinaryLabel, formatRangeLabel } from './format';
-import "./filters.css";
 import {FranchiseViewSelector} from "./FranchiseViewSelector";
 
 interface SelectedFiltersProps {
