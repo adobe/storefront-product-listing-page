@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useEffect,useRef, useState } from 'preact/hooks';
+import { useEffect,useMemo,useRef, useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
@@ -87,7 +87,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const prevSelectedSwatch = useRef<string | null>(null);
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor },
+    config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor, currentCategoryId },
   } = useStore();
 
   const { screenSize } = useSensor();
@@ -177,10 +177,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     && !showSizes
     && quickAddStatus === QUICK_ADD_STATUS_IDLE;
 
-  const colorSwatchesFromAttribute = getColorSwatchesFromAttribute(item);
+  const colorSwatchesFromAttribute = useMemo(() => getColorSwatchesFromAttribute(item, currentCategoryId), [item]);
   let colorSwatches: SwatchValues[] = [];
   if (colorSwatchesFromAttribute && colorSwatchesFromAttribute.length > 0) {
-    colorSwatches = colorSwatchesFromAttribute.map((swatch) => {
+    colorSwatches = colorSwatchesFromAttribute.map((swatch: any) => {
       let imageUrl = generateOptimizedImages([swatch.image], 44, imageBackgroundColor || '', '1:1')[0]?.src;
       imageUrl = `${imageUrl}&dpr=${Math.round(window.devicePixelRatio)}`;
 
