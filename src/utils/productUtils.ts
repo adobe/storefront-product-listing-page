@@ -49,7 +49,7 @@ function getColorSwatcheConfigFromAttribute(item: Product) {
 * 6. Validate if the option has the attribute type as "visual" and show_swatches is true
 * 7. If the above condition is met, return the image options
 */
-function getColorSwatchesFromAttribute(item: Product) {
+function getColorSwatchesFromAttribute(item: Product, categoryId?: string) {
   if (isSportsWear(item)) {
     return null;
   }
@@ -59,14 +59,13 @@ function getColorSwatchesFromAttribute(item: Product) {
     return null;
   }
 
-  const categoryId = '3197';
   const { productView } = item;
   const productOptions = productView?.options?.filter((option) => option.id?.startsWith('pim_axis'));
   const colorOptions = productOptions?.[0];
   if (!colorOptions) {
     return null;
   }
-  const segmentedOptions = getSegmentedOptions(item, colorOptions.id, categoryId);
+  const segmentedOptions = categoryId ? getSegmentedOptions(item, colorOptions.id, categoryId) : null;
 
   return colorOptions?.values?.filter((option: any) => !segmentedOptions || segmentedOptions.includes(option.id))
     .map((option: any) => {
@@ -80,6 +79,23 @@ function getColorSwatchesFromAttribute(item: Product) {
   });
 }
 
+/**
+ * When product has attribute `eds_segmentation`.
+ * eds_segmentation contains an array of optionUID:categoryIDs pairs.
+ * This enables a given option of the product for a one or more categories.
+ *
+ * if the categoryId is found in at least one of the optionUIDs, only
+ * the swatches matching the optionUIDs enabled for that categoryId should be displayed.
+ * If the categoryId is not found in any of the optionUIDs all swatches should be displayed
+ *
+ * @param item Product Item
+ * @param optionId id of the option
+ * @param categoryId id of the current category
+ * @returns array of optionUIDs(swatches) that must be displayed for current product in the current category,
+ * or null if all optionUIDs(swatches) must be shown for the current product in the current category.
+ *
+ * For more information see https://amersports.atlassian.net/browse/WAF-116
+ */
 function getSegmentedOptions(item: Product, optionId: string | null, categoryId: string) {
   const edsSegmentation = item.productView?.attributes?.find(({name}) => name === 'eds_segmentation')?.value;
   if (!edsSegmentation) {
