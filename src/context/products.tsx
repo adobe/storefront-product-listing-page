@@ -10,14 +10,16 @@ it.
 import { createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
-import { getProductSearch, refineProductSearch } from '../api/search';
+import {getFranchiseSearch, getProductSearch, refineProductSearch} from '../api/search';
 import {
+  CategoryView,
   Facet,
   FacetFilter,
   PageSizeOption,
   Product,
-  ProductSearchQuery,
+  ProductSearchQuery, ProductSearchResponse,
   RedirectRouteFunc,
+  SearchClauseInput,
 } from '../types/interface';
 import {
   CATEGORY_SORT_DEFAULT,
@@ -36,16 +38,22 @@ import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
 import { useTranslation } from './translation';
+import store from "store2";
 
 interface WithChildrenProps {
   children?: any;
 }
+
+type Franchise = {
+  items: Product[];
+} & CategoryView;
 
 const ProductsContext = createContext<{
   variables: ProductSearchQuery;
   loading: boolean;
   items: Product[];
   setItems: (items: Product[]) => void;
+  franchises: any;
   currentPage: number;
   setCurrentPage: (page: number) => void;
   pageSize: number;
@@ -83,6 +91,7 @@ const ProductsContext = createContext<{
     options: string[],
     quantity: number
   ) => Promise<{user_errors: any[];}>;
+  disableAllPurchases?: boolean;
 }>({
   variables: {
     phrase: '',
@@ -123,6 +132,8 @@ const ProductsContext = createContext<{
   resolveCartId: () => Promise.resolve(''),
   refreshCart: () => {},
   addToCart: () => Promise.resolve({user_errors: []}),
+  disableAllPurchases: false,
+  franchises: null,
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -148,6 +159,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
+  const [franchises, setFranchises] = useState<Record<string, Franchise> | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -246,7 +258,35 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     refreshCart: storeCtx.config.refreshCart,
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
+    disableAllPurchases: storeCtx.config.disableAllPurchases,
+    displayByFranchise: storeCtx.config.displayByFranchise,
+    franchises,
   };
+
+  const handleFranchiseSearch = async (data: ProductSearchResponse['data']) => {
+    const categories = data.productSearch.facets?.find((facet) => facet.attribute === 'categories')?.buckets as CategoryView[];
+
+    if (!categories) {
+      return;
+    }
+
+    const result = await getFranchiseSearch({
+      ...variables,
+      ...storeCtx,
+      apiUrl: storeCtx.apiUrl,
+      categories: categories.map((c) => c.title),
+    });
+
+    Object.keys(result).forEach((key) => {
+      const category = categories.find((c) => c.title.replaceAll('-', '').endsWith(key));
+      result[key] = {
+        ...category,
+        ...result[key],
+      }
+    });
+
+    setFranchises(result);
+  }
 
   const searchProducts = async () => {
     try {
@@ -273,6 +313,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         handleCategoryNames(data?.productSearch?.facets || []);
 
         getPageSizeOptions(data?.productSearch?.total_count);
+
+        if (searchCtx.displayFranchises) {
+          await handleFranchiseSearch(data);
+        }
 
         paginationCheck(
           data?.productSearch?.total_count,
@@ -393,10 +437,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
   useEffect(() => {
     if (attributeMetadataCtx.filterableInSearch) {
+      const filtersFromConfig = [];
+      if(storeCtx?.config?.preCheckedFilters) {
+        filtersFromConfig.push(...getFiltersFromConfig(attributeMetadataCtx.filterableInSearch, storeCtx.config.preCheckedFilters));
+      }
       const filtersFromUrl = getFiltersFromUrl(
         attributeMetadataCtx.filterableInSearch
-      );
-      searchCtx.setFilters(filtersFromUrl);
+      )
+      searchCtx.setFilters([...filtersFromConfig, ...filtersFromUrl]);
     }
   }, [attributeMetadataCtx.filterableInSearch]);
 
@@ -411,6 +459,39 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       {children}
     </ProductsContext.Provider>
   );
+};
+
+const getFiltersFromConfig = (
+  filterableAttributes: string[],
+  preCheckedFilters: Array <{
+    key: string,
+    value: string,
+  }>
+): SearchClauseInput[] => {
+  const filters: FacetFilter[] = [];
+  preCheckedFilters.forEach(({key, value}) => {
+    if (filterableAttributes.includes(key)) {
+      if (value.includes('--')) {
+        const range = value.split('--');
+        const filter = {
+          attribute: key,
+          range: { from: Number(range[0]), to: Number(range[1]) },
+        };
+        filters.push(filter);
+      } else {
+        const attributeIndex = filters.findIndex(
+          (filter) => filter.attribute == key
+        );
+        if (attributeIndex !== -1) {
+          filters[attributeIndex].in?.push(value);
+        } else {
+          const filter = { attribute: key, in: [value] };
+          filters.push(filter);
+        }
+      }
+    }
+  });
+  return filters;
 };
 
 const useProducts = () => {

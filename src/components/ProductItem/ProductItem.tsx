@@ -52,6 +52,7 @@ export interface ProductProps {
   ) => Promise<{
     user_errors: any[];
   }>;
+  disableAllPurchases: boolean;
 }
 
 const SWATCH_COLORS = 'Colors';
@@ -70,6 +71,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   setRoute,
   refineProduct,
   addToCart,
+  disableAllPurchases,
 }: ProductProps) => {
   const { product, productView } = item;
   const defaultColorSwatchId = getDefaultColorSwatchId(item);
@@ -170,6 +172,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
   const shouldShowAddToBagButton = isSportsWear(item)
     && categoryConfig?.['plp_quick_view_modal_enabled'] === '1'
+    && !disableAllPurchases
     && (!screenSize.desktop || isHovering)
     && !showSizes
     && quickAddStatus === QUICK_ADD_STATUS_IDLE;

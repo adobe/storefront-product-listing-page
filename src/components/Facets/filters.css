@@ -1,0 +1,24 @@
+.franchise-selector button:not([disabled]) svg {
+  fill: #dddddd;
+}
+
+.franchise-selector button:hover svg {
+  opacity: 0.6;
+}
+
+.franchise-selector button[disabled] {
+  border-bottom: 2px solid black;
+}
+
+.franchise-selector {
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .franchise-selector {
+    align-self: end;
+    padding-right: 12px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

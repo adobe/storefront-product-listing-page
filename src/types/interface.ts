@@ -53,6 +53,11 @@ export interface StoreDetailsConfig {
     text: string;
     url: string;
   }>;
+  displayByFranchise?: boolean;
+  preCheckedFilters?: Array<{
+    key: string;
+    value: string;
+  }>;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
   addToCart: (
@@ -61,6 +66,7 @@ export interface StoreDetailsConfig {
     quantity: number
   ) => Promise<{ user_errors: any[]; }>;
   onCategoryChange?: (categoryPath: string) => void;
+  disableAllPurchases: boolean;
 }
 
 // Types
@@ -77,7 +83,7 @@ export type RedirectRouteFunc = ({
 }: {
   sku: string;
   urlKey: null | string;
-  optionsUIDs: null | string[];
+  optionsUIDs?: null | string[];
 }) => string;
 
 export interface MagentoHeaders {
@@ -102,6 +108,7 @@ export interface ProductSearchQuery {
   data?: QueryData;
   categorySearch?: boolean;
   categoryId?: string;
+  route?: RedirectRouteFunc;
 }
 
 export interface RefineProductQuery {
