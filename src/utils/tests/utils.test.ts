@@ -87,6 +87,7 @@ describe('test validating storeDetails.', () => {
         allowAllProducts: false,
         optimizeImages: true,
         imageBaseWidth: 200,
+        disableAllPurchases: false,
         addToCart: () => Promise.resolve({user_errors: []}),
       },
       context: {
@@ -116,6 +117,7 @@ describe('test validating storeDetails.', () => {
         allowAllProducts: false,
         optimizeImages: true,
         imageBaseWidth: 200,
+        disableAllPurchases: false,
         addToCart: () => Promise.resolve({user_errors: []}),
       },
       context: {

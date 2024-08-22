@@ -15,7 +15,6 @@ import {
   RedirectRouteFunc,
   StoreDetailsConfig,
 } from '../types/interface';
-import {useState} from "react";
 
 interface WithChildrenProps {
   children?: any;
@@ -44,6 +43,7 @@ const StoreContext = createContext<StoreDetailsProps>({
   apiUrl: '',
   apiKey: '',
   config: {
+    disableAllPurchases: false,
     addToCart: () => Promise.resolve({user_errors: []})
   },
   context: {},

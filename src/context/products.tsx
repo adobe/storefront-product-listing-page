@@ -38,7 +38,6 @@ import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
 import { useTranslation } from './translation';
-import store from "store2";
 
 interface WithChildrenProps {
   children?: any;
