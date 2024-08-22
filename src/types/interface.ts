@@ -66,6 +66,7 @@ export interface StoreDetailsConfig {
     quantity: number
   ) => Promise<{ user_errors: any[]; }>;
   onCategoryChange?: (categoryPath: string) => void;
+  disableAllPurchases: boolean;
 }
 
 // Types

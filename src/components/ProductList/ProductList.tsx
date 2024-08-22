@@ -103,6 +103,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
     refineProduct,
     refreshCart,
     addToCart,
+    disableAllPurchases = false,
   } = productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
@@ -186,6 +187,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                 setCartUpdated={setCartUpdated}
                 setItemAdded={setItemAdded}
                 addToCart={addToCart}
+                disableAllPurchases={disableAllPurchases}
               />
             ))}
           </div>
@@ -210,6 +212,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
               setCartUpdated={setCartUpdated}
               setItemAdded={setItemAdded}
               addToCart={addToCart}
+              disableAllPurchases={disableAllPurchases}
             />
           ))}
         </div>
