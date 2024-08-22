@@ -13,7 +13,6 @@ import ViewSwitcher from 'src/components/ViewSwitcher';
 
 import Facets from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
-import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
 import {
   useAttributeMetadata,

@@ -16,7 +16,7 @@ import {
   ProductSearchSortInput,
   SearchClauseInput,
 } from '../types/interface';
-import {CATEGORY_SORT_DEFAULT, SEARCH_SORT_DEFAULT} from '../utils/constants';
+import { SEARCH_SORT_DEFAULT } from '../utils/constants';
 import {
   addUrlFilter,
   getValueFromUrl,
@@ -25,7 +25,6 @@ import {
 } from '../utils/handleUrlFilters';
 import { generateGQLSortInput } from '../utils/sort';
 import { useStore } from './store';
-import store from "store2";
 
 interface SearchContextProps {
   phrase: string;

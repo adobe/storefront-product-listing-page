@@ -9,7 +9,7 @@ it.
 
 import getSymbolFromCurrency from 'currency-symbol-map';
 
-import { Product, RefinedProduct, Money } from '../types/interface';
+import { Money,Product, RefinedProduct } from '../types/interface';
 
 const computeProductPrice = (
     product: Product | RefinedProduct,

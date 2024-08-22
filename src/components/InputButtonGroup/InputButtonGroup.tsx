@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'preact';
-import { ChangeEvent, useState } from 'preact/compat';
+import { useState } from 'preact/compat';
 
 import { useProducts, useTranslation } from '../../context';
 import PlusIcon from '../../icons/plus.svg';
@@ -52,13 +52,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   );
 
   const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
-
-  const onInputChange = (title: string, e: ChangeEvent<HTMLInputElement>) => {
-    onChange({
-      value: title,
-      selected: (e?.target as HTMLInputElement)?.checked,
-    });
-  };
 
   const formatLabel = (title: string, bucket: Bucket) => {
     const {

@@ -15,6 +15,7 @@ import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
 
 import { CategoryFilters } from '../components/CategoryFilters';
+import {FranchiseViewSelector} from "../components/Facets/FranchiseViewSelector";
 import {
   useProducts,
   useSearch,
@@ -24,7 +25,6 @@ import {
 } from '../context';
 import { MobileFilterHeader } from './MobileFilterHeader';
 import { ProductsContainer } from './ProductsContainer';
-import {FranchiseViewSelector} from "../components/Facets/FranchiseViewSelector";
 
 
 export const App: FunctionComponent = () => {

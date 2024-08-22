@@ -12,7 +12,7 @@ import { useContext } from 'preact/hooks';
 
 import { TranslationContext } from '../../context/translation';
 import { Product, RefinedProduct } from '../../types/interface';
-import { getProductPrice, getOnlyProductPrice } from '../../utils/getProductPrice';
+import { getOnlyProductPrice,getProductPrice } from '../../utils/getProductPrice';
 
 export interface ProductPriceProps {
   isComplexProductView: boolean;
@@ -147,31 +147,16 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
       </>
     ) : (
         <>
-        <meta itemProp="price" content={getOnlyProductPrice(
+          <meta itemProp="price" content={getOnlyProductPrice(
             item,
             currencyRate,
             false,
             true)}/>
-    {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+          {getProductPrice(item, currencySymbol, currencyRate, false, true)}
         </>
-  )
-    ;
-    const discountedPriceTranslation = translation.ProductCard.asLowAs;
-    const discountedPriceTranslationOrder =
-      discountedPriceTranslation.split('{discountPrice}');
+      );
+
     return discountPrice;
-    // return discountedPriceTranslationOrder.map((word: string, index: any) =>
-    //   word === '' ? (
-    //     discountPrice
-    //   ) : (
-    //     <span
-    //       className="text-brand-300 font-headline-4-default mr-xs"
-    //       key={index}
-    //     >
-    //       {word}
-    //     </span>
-    //   )
-    // );
   };
 
   return (

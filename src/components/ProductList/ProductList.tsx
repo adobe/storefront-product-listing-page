@@ -35,6 +35,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
   franchise,
   franchises,
   numberOfColumns,
+  disableAllPurchases,
   setCartUpdated,
   setItemAdded,
   setError,
@@ -64,6 +65,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
             currencySymbol={currencySymbol}
             currencyRate={currencyRate}
             categoryConfig={categoryConfig}
+            disableAllPurchases={disableAllPurchases}
             setRoute={setRoute}
             refineProduct={refineProduct}
             setCartUpdated={setCartUpdated}
@@ -161,6 +163,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
               currencySymbol={currencySymbol}
               currencyRate={currencyRate}
               categoryConfig={categoryConfig}
+              disableAllPurchases={disableAllPurchases}
               setRoute={setRoute}
               refineProduct={refineProduct}
               setCartUpdated={setCartUpdated}
