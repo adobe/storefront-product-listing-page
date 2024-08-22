@@ -1,8 +1,8 @@
 /* https://cssguidelin.es/#bem-like-naming */
 .ds-sdk-product-list .franchises h2 {
-  font-size: var(--heading-font-size-l);
+  font-size: var(--heading-font-size-xxxs);
   font-family: var(--ff-gt-america-expanded-bold);
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 .ds-sdk-product-list .franchises {
@@ -19,25 +19,26 @@
 
 .ds-sdk-product-list .franchises .franchise-header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 50px;
+  align-items: flex-start;
+  margin-bottom: 30px;
 }
 
 .ds-sdk-product-list .franchises .franchise-header a {
   text-decoration: underline;
 }
 
-
-@media only screen and (max-width: 768px) {
-  .ds-sdk-product-list .franchises .franchise-header {
-    flex-direction: column;
-    align-items: start;
-    margin-bottom: 30px;
+@media only screen and (min-width: 1025px) {
+  .ds-sdk-product-list .franchises h2 {
+    font-size: var(--heading-font-size-l);
+    margin-bottom: 0;
   }
 
-  .ds-sdk-product-list .franchises h2 {
-    margin-bottom: 10px;
+  .ds-sdk-product-list .franchises .franchise-header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 50px;
   }
 }
 

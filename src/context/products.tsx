@@ -258,7 +258,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
     disableAllPurchases: storeCtx.config.disableAllPurchases,
-    displayByFranchise: storeCtx.config.displayByFranchise,
     franchises,
   };
 

@@ -135,7 +135,7 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     setFilterCount(count);
   }, [filters]);
 
-  const displayFranchises = (storeCtx.config.displayByFranchise || false)
+  const displayFranchises = storeCtx.config.categoryConfig?.pcm_display_by_franchise === '1'
     && (filters.length === 0)
     && (sort.length === 1)
     && (sort[0].attribute === 'relevance')

@@ -53,7 +53,6 @@ export interface StoreDetailsConfig {
     text: string;
     url: string;
   }>;
-  displayByFranchise?: boolean;
   preCheckedFilters?: Array<{
     key: string;
     value: string;

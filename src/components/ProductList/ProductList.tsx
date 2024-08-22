@@ -25,6 +25,8 @@ type FranchiseProps = Omit<ProductProps, "item"> & {
   numberOfColumns: number;
 };
 
+const NEXT_NUMBER_OF_ROWS = 4;
+
 const Franchises : FunctionComponent<FranchiseProps> = ({
    currencySymbol,
    currencyRate,
@@ -75,7 +77,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
         ))}
       </div>
       {page * numberOfColumns < franchises[franchise].items.length &&
-        <button onClick={() => setPage((p) => p + 1)} className="button secondary load-more">Load More</button>
+        <button onClick={() => setPage((p) => p + NEXT_NUMBER_OF_ROWS)} className="button secondary load-more">Load More</button>
       }
 
     </div>

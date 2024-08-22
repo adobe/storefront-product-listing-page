@@ -32,10 +32,11 @@ export const App: FunctionComponent = () => {
   const productsCtx = useProducts();
   const { screenSize } = useSensor();
   const translation = useTranslation();
-  const { displayMode, displayByFranchise } = useStore().config;
+  const { displayMode, categoryConfig } = useStore().config;
   const [showFilters, setShowFilters] = useState(true);
 
   const loadingLabel = translation.Loading.title;
+  const displayByFranchise = categoryConfig?.pcm_display_by_franchise === '1';
 
   return (
     <>

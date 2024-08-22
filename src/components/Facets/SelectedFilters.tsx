@@ -86,7 +86,7 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
       {!searchCtx.displayFranchises && (
         <p className="result-count">{totalCount} Results</p>
       )}
-      {storeCtx.config.displayByFranchise && (
+      {storeCtx.config.categoryConfig?.pcm_display_by_franchise === '1' && (
         <FranchiseViewSelector />
       )}
     </div>

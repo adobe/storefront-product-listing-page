@@ -78,7 +78,11 @@ const getFranchiseSearch = async ({
         ${category.split('/').at(-1)?.replaceAll('-', '')}: productSearch(
           phrase: "",
           filter: [
-            { attribute: "categoryPath", eq: "${category}" }
+            { attribute: "categoryPath", eq: "${category}" },
+            { 
+              attribute: "pcm_product_salability",
+              in: ["STANDARD", "COMING_SOON", "DRAW_CAMPAIGN", "EARLY_ACCESS", "SOLD_OUT", "PRE_ORDER", "NOT_SOLD_ONLINE"],
+            }
           ]
         ) {
           items {
