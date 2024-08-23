@@ -781,6 +781,9 @@ video {
   .max-w-\[21rem\] {
     max-width: 21rem;
   }
+  .max-w-\[1600px\] {
+    max-width: 1600px;
+  }
   .max-w-full {
     max-width: 100%;
   }
@@ -1614,6 +1617,12 @@ video {
       row-gap: 2.4rem;
     }
   }
+  @media (min-width: 768px) {
+    .md\:px-\[24px\] {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
   @media (min-width: 1024px) {
     .lg\:h-\[248px\] {
       height: 248px;
@@ -1655,6 +1664,12 @@ video {
     .lg\:py-\[10px\] {
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .lg\:px-\[48px\] {
+      padding-left: 48px;
+      padding-right: 48px;
     }
   }
   @media (min-width: 1280px) {

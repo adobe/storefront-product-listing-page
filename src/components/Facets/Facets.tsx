@@ -122,7 +122,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   return (
     <div className="ds-plp-facets flex flex-col">
       <div className="border-t border-b border-neutral-500">
-        <div className="ds-plp-facets__center-container flex justify-between items-center">
+        <div className="flex justify-between items-center px-[12px] md:px-[24px] lg:px-[48px] mx-auto w-full max-w-[1600px]">
           <form className="ds-plp-facets__list flex gap-x-6">
             {searchFacets?.map((facet) => {
               const bucketType = facet?.buckets[0]?.__typename;
@@ -168,7 +168,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
           />
         </div>
       </div>
-      <div className="ds-plp-facets__center-container">
+      <div className="px-[12px] md:px-[24px] lg:px-[48px] mx-auto w-full max-w-[1600px]">
       {selectedFacet && (
         <FilterSelectionGroup
           title={selectedFacet.title}
