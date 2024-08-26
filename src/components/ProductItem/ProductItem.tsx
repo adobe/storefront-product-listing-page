@@ -200,7 +200,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         eventInfo: {
           ...dl.getState(),
           sku: product?.sku,
-          productView,
           searchUnitId: SEARCH_UNIT_ID,
         },
       });

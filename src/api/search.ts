@@ -254,7 +254,7 @@ const getProductSearch = async ({
     window.adobeDataLayer.push((dl: any) => {
       dl.push({
         event: 'search-results-view',
-        eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID, searchResults: results?.data?.productSearch },
+        eventInfo: { ...dl.getState(), searchUnitId: SEARCH_UNIT_ID },
       });
     });
   }
