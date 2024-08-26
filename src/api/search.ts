@@ -51,6 +51,8 @@ const getFranchiseSearch = async ({
   xRequestId = uuidv4(),
   context,
   categories = [],
+  pageSize = 20,
+  currentPage = 1,
 }: {
   environmentId: string;
   websiteCode: string;
@@ -61,6 +63,8 @@ const getFranchiseSearch = async ({
   xRequestId?: string;
   context?: any;
   categories: string[];
+  pageSize?: number;
+  currentPage?: number;
 }) => {
   const headers = getHeaders({
     environmentId,
@@ -73,10 +77,15 @@ const getFranchiseSearch = async ({
   });
 
   const query = `
-    query getFranchises {
+    query getFranchises(
+      $pageSize: Int = 20
+      $currentPage: Int = 1
+    ) {
       ${categories.map((category) => `
         ${category.split('/').at(-1)?.replaceAll('-', '')}: productSearch(
           phrase: "",
+          page_size: $pageSize
+          current_page: $currentPage
           filter: [
             { attribute: "categoryPath", eq: "${category}" },
             { 
@@ -96,11 +105,17 @@ const getFranchiseSearch = async ({
     ${FranchiseQueryFragment}
   `;
 
+  const variables = {
+    pageSize,
+    currentPage,
+  };
+
   const results = await fetch(apiUrl, {
     method: 'POST',
     headers,
     body: JSON.stringify({
       query: query.replace(/(?:\r\n|\r|\n|\t|[\s]{4})/g, ' ').replace(/\s\s+/g, ' '),
+      variables,
     }),
   }).then((res) => res.json());
 
