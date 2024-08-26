@@ -91,6 +91,7 @@ const ProductsContext = createContext<{
     quantity: number
   ) => Promise<{user_errors: any[];}>;
   disableAllPurchases?: boolean;
+  getMoreFranchiseProducts: (category: string, pageSize: number, currentPage: number) => void
 }>({
   variables: {
     phrase: '',
@@ -133,6 +134,7 @@ const ProductsContext = createContext<{
   addToCart: () => Promise.resolve({user_errors: []}),
   disableAllPurchases: false,
   franchises: null,
+  getMoreFranchiseProducts: () => {}
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
@@ -217,6 +219,45 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     return data;
   };
 
+  const getMoreFranchiseProducts = async (categoryPath: string, pageSize: number, currentPage: number) => {
+    if (!categoryPath) {
+      return;
+    }
+
+    const result = await getFranchiseSearch({
+      ...variables,
+      ...storeCtx,
+      pageSize,
+      currentPage,
+      apiUrl: storeCtx.apiUrl,
+      categories: [categoryPath],
+    });
+
+    const category = categoryPath.split('/').at(-1)?.replaceAll('-', '') || '';
+    if (result?.[category]?.items?.length === 0) {
+      return;
+    }
+
+    setFranchises((franchises) => {
+      if (!franchises) {
+        return franchises;
+      }
+      
+      return {
+        ...franchises,
+        [category]: {
+          ...franchises[category],
+          pageSize,
+          currentPage,
+          items: [
+            ...franchises[category].items,
+            ...result[category].items,
+          ],
+        }
+      };
+    });
+  }
+
   const context = {
     variables,
     loading,
@@ -259,6 +300,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     addToCart: storeCtx.config.addToCart,
     disableAllPurchases: storeCtx.config.disableAllPurchases,
     franchises,
+    getMoreFranchiseProducts,
   };
 
   const handleFranchiseSearch = async (data: ProductSearchResponse['data']) => {
@@ -271,6 +313,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     const result = await getFranchiseSearch({
       ...variables,
       ...storeCtx,
+      pageSize: 20,
+      currentPage: 1,
       apiUrl: storeCtx.apiUrl,
       categories: categories.map((c) => c.title),
     });
@@ -280,6 +324,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       result[key] = {
         ...category,
         ...result[key],
+        currentPage: 1,
+        pageSize: 20,
       }
     });
 

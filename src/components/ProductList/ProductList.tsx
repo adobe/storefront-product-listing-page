@@ -23,6 +23,7 @@ type FranchiseProps = Omit<ProductProps, "item"> & {
   franchise: string;
   franchises: any;
   numberOfColumns: number;
+  getMoreFranchiseProducts: (category: string, pageSize: number, currentPage: number) => void
 };
 
 const NEXT_NUMBER_OF_ROWS = 4;
@@ -41,9 +42,35 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
   setCartUpdated,
   setItemAdded,
   setError,
+  getMoreFranchiseProducts,
   }: FranchiseProps) => {
   const [page, setPage] = useState(1);
   const storeCtx = useStore();
+
+  const totalProductsCount = franchises[franchise]?.count;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const franchiseData = franchises[franchise];
+      if (!franchiseData) {
+        return;
+      }
+
+      const {
+        currentPage,
+        pageSize,
+        path
+      } = franchiseData;
+
+      const requestedProducts = page * numberOfColumns;
+      const fetchedProducts = franchises[franchise].items.length;
+      if (requestedProducts > fetchedProducts) {
+        await getMoreFranchiseProducts(path, pageSize, currentPage + 1);
+      }
+    }
+
+    fetchData();
+  }, [page, franchises, franchise])
 
   return (
     <div className="franchises" key={franchise}>
@@ -53,7 +80,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
           sku: "",
           urlKey: franchises[franchise].title,
           optionsUIDs: null
-        }) ?? franchises[franchise].title}>View all {franchises[franchise].items.length} results</a>
+        }) ?? franchises[franchise].title}>View all {totalProductsCount} results</a>
       </div>
       <div style={{
         gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
@@ -76,7 +103,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
           />
         ))}
       </div>
-      {page * numberOfColumns < franchises[franchise].items.length &&
+      {page * numberOfColumns < totalProductsCount &&
         <button onClick={() => setPage((p) => p + NEXT_NUMBER_OF_ROWS)} className="button secondary load-more">Load More</button>
       }
 
@@ -107,6 +134,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
     refineProduct,
     refreshCart,
     addToCart,
+    getMoreFranchiseProducts,
     disableAllPurchases = false,
   } = productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
@@ -171,6 +199,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
               setCartUpdated={setCartUpdated}
               setItemAdded={setItemAdded}
               addToCart={addToCart}
+              getMoreFranchiseProducts={getMoreFranchiseProducts}
             />
           ))}
         </div>)
