@@ -122,7 +122,13 @@ const createProducts = (
     price:
       item?.productView?.price?.final?.amount?.value ??
       item?.product?.price_range?.minimum_price?.final_price?.value,
+    priceRange: item?.productView?.priceRange,
     rank: index,
+    ratingCount: item?.productView?.attributes.find((attr) => attr.name === 'bv_rating_count')?.value ?? '0',
+    ratingAverage: item?.productView?.attributes.find((attr) => attr.name === 'bv_rating_average')?.value ?? '0',
+    articleNumber: item?.productView?.attributes.find((attr) => attr.name === 'pim_article_code')?.value || '',
+    modelNumber: item?.productView?.attributes.find((attr) => attr.name === 'pim_model_code')?.value || '',
+    season: item?.productView?.attributes.find((attr) => attr.name === 'pim_season_dev')?.value || '',
   }));
 
   return products;
