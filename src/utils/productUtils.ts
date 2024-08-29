@@ -105,8 +105,8 @@ function getSegmentedOptions(item: Product, optionId: string | null, categoryId:
   const parsedSegmentation = JSON.parse(edsSegmentation);
   if (parsedSegmentation?.['attribute_code'] === optionId) {
     const segmentedOptions = parsedSegmentation.options
-        .filter((option: any) => option?.categories?.split()?.includes(categoryId))
-        .map((option:any) => option.id);
+      .filter((option: any) => option?.categories?.split(',')?.includes(categoryId))
+      .map((option:any) => option.id);
     return segmentedOptions.length > 0 ? segmentedOptions : null;
   }
   return null;
