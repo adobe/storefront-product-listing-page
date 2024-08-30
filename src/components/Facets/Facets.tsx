@@ -31,8 +31,6 @@ import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 import { SelectedFilters } from './SelectedFilters';
 
-import '../Facets/Facets.css';
-
 interface FacetsProps {
   searchFacets: FacetType[];
   totalCount?: number;
