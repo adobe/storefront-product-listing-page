@@ -53,7 +53,6 @@ export const FilterSelectionGroup: FunctionComponent<
     const {
       currencyRate = '1',
       currencySymbol = '$',
-      categoryPath,
     } = productsCtx;
 
     const formatPrice = (value: number) =>
@@ -74,7 +73,7 @@ export const FilterSelectionGroup: FunctionComponent<
     }
 
     if (bucket.__typename === 'CategoryView') {
-      return categoryPath ? bucket.name ?? bucket.title : bucket.title;
+      return bucket.name ? bucket.name : bucket.title;
     }
 
     if (bucket.title === BOOLEAN_YES) {

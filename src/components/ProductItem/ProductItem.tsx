@@ -268,7 +268,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-brand-700 hover:no-underline hover:text-brand-700"
+              className="!text-brand-700 hover:no-underline"
             >
               {/* Image */}
               {productImageArray.length ? (
@@ -293,7 +293,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               <a
                 href={productUrl as string}
                 onClick={onProductClick}
-                className="!text-brand-700 hover:no-underline hover:text-brand-700"
+                className="!text-brand-700 hover:no-underline"
               >
                 <div className="ds-sdk-product-item__product-name mt-xs text-sm text-brand-700">
                   {product.name !== null && htmlStringDecode(product.name)}
@@ -329,7 +329,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-brand-700 hover:no-underline hover:text-brand-700"
+              className="!text-brand-700 hover:no-underline"
             >
               <ProductPrice
                 item={refinedProduct ?? item}
@@ -348,7 +348,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-brand-700 hover:no-underline hover:text-brand-700"
+              className="!text-brand-700 hover:no-underline"
             >
               {product.short_description?.html ? (
                 <>
@@ -398,7 +398,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <a itemProp="url"
         href={productUrl as string}
         onClick={onProductClick}
-        className="!text-brand-700 hover:no-underline hover:text-brand-700"
+        className="!text-brand-700 hover:no-underline"
       >
         <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
           <div className="ds-sdk-product-item__image relative w-full h-full h-[445px] overflow-hidden">
