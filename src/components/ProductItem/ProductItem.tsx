@@ -74,8 +74,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   disableAllPurchases,
 }: ProductProps) => {
   const { product, productView } = item;
-  const defaultColorSwatchId = getDefaultColorSwatchId(item);
+  const {
+    config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor, currentCategoryId },
+  } = useStore();
 
+  const defaultColorSwatchId = getDefaultColorSwatchId(item, currentCategoryId);
   const [selectedSwatch, setSelectedSwatch] = useState(defaultColorSwatchId);
   const [imagesFromRefinedProduct, setImagesFromRefinedProduct] = useState<
     ProductViewMedia[] | null
@@ -86,9 +89,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const [quickAddStatus, setQuickAddStatus] = useState(QUICK_ADD_STATUS_IDLE);
   const prevSelectedSwatch = useRef<string | null>(null);
   const { viewType } = useProducts();
-  const {
-    config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor, currentCategoryId },
-  } = useStore();
 
   const { screenSize } = useSensor();
   const translation = useTranslation();
@@ -137,9 +137,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     return selected;
   };
 
+
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
-    : getProductImagesFromAttribute(item);
+    : getProductImagesFromAttribute(item, currentCategoryId);
 
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
