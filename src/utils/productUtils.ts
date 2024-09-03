@@ -7,7 +7,7 @@ function isSportsWear(product: Product) {
   return department?.value.includes('Sportswear');
 }
 
-function getColorSwatcheConfigFromAttribute(item: Product) {
+function getColorSwatchesConfigFromAttribute(item: Product) {
   if (isSportsWear(item)) {
     return null;
   }
@@ -32,8 +32,8 @@ function getColorSwatcheConfigFromAttribute(item: Product) {
   const attributeId = colorOptions?.id;
 
   return options.find((option: any) => option.attribute_id === attributeId
-    && option.attribute_type === 'visual'
-    && option.show_swatches);
+  && option.attribute_type === 'visual'
+  && option.show_swatches);
 }
 
 /*
@@ -54,7 +54,7 @@ function getColorSwatchesFromAttribute(item: Product, categoryId?: string) {
     return null;
   }
 
-  const colorOptionsFromAttribute = getColorSwatcheConfigFromAttribute(item);
+  const colorOptionsFromAttribute = getColorSwatchesConfigFromAttribute(item);
   if (!colorOptionsFromAttribute) {
     return null;
   }
@@ -97,6 +97,9 @@ function getColorSwatchesFromAttribute(item: Product, categoryId?: string) {
  * For more information see https://amersports.atlassian.net/browse/WAF-116
  */
 function getSegmentedOptions(item: Product, optionId: string | null, categoryId: string) {
+  if (!categoryId) {
+    return null;
+  }
   const edsSegmentation = item.productView?.attributes?.find(({name}) => name === 'eds_segmentation')?.value;
   if (!edsSegmentation) {
     return null;
@@ -113,10 +116,13 @@ function getSegmentedOptions(item: Product, optionId: string | null, categoryId:
 }
 
 
-function getDefaultColorSwatchId(item: Product) {
-  const colorOptionsFromAttribute = getColorSwatcheConfigFromAttribute(item);
-
+function getDefaultColorSwatchId(item: Product, categoryId?: string) {
+  const colorOptionsFromAttribute = getColorSwatchesConfigFromAttribute(item);
+  if (colorOptionsFromAttribute && categoryId) {
+    const segmentedOptions = getSegmentedOptions(item, colorOptionsFromAttribute.attribute_id, categoryId);
+    return colorOptionsFromAttribute?.images?.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id));
+  }
   return colorOptionsFromAttribute?.images?.[0]?.id;
 }
 
-export { isSportsWear, getColorSwatchesFromAttribute, getDefaultColorSwatchId };
+export { isSportsWear, getColorSwatchesFromAttribute, getDefaultColorSwatchId, getSegmentedOptions };

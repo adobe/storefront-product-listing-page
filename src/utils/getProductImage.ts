@@ -6,9 +6,9 @@ NOTICE: Adobe permits you to use, modify, and distribute this file in
 accordance with the terms of the Adobe license agreement accompanying
 it.
 */
-
 import { Product, ProductViewMedia } from '../types/interface';
-import { isSportsWear } from './productUtils';
+import { getSegmentedOptions,isSportsWear } from './productUtils';
+
 
 const getProductImageURLs = (
   images: ProductViewMedia[],
@@ -121,7 +121,7 @@ const generateOptimizedImages = (
 * 6. If the product is sports wear, get the images from the option with same the variant id as in product view options found in step 1.
 * 7. If the product is not sports wear, get the images from the first option.
 */
-function getProductImagesFromAttribute(item: Product) {
+function getProductImagesFromAttribute(item: Product, categoryId?: string) {
   const { productView } = item;
   const attributeId = productView?.options?.[0].id;
   if (!attributeId) {
@@ -143,9 +143,10 @@ function getProductImagesFromAttribute(item: Product) {
     }
 
     if (defaultOption && defaultOption.images.length > 0) {
-      const imageConfig = defaultOption.images[0];
+      const segmentedOptions = categoryId ? getSegmentedOptions(item, defaultOption['attribute_id'] || null, categoryId) : null;
+      const imageConfig = defaultOption.images.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id));
       return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
-    } 
+    }
   }
 
   return [];
