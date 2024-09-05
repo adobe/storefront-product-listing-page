@@ -11,9 +11,9 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { Drawer } from 'src/components/Drawer/Drawer';
 import MobileFacets from 'src/components/MobileFacets';
+import Chevron from '../icons/chevron.svg';
 
 import { FilterButton } from '../components/FilterButton';
-import { SortDropdown } from '../components/SortDropdown';
 import {
   useAttributeMetadata,
   useProducts,
@@ -28,6 +28,7 @@ import {
   generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from '../utils/sort';
+import {CategoryFilters} from "../components";
 
 interface Props {
   facets: Facet[];
@@ -99,35 +100,49 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
     return null;
   }
 
+  const [showFilters, setShowFilters] = useState(true);
   return (
-    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-      <div className="flex border-t border-b border-neutral-400">
-        {screenSize.mobile && (
-          <div className="flex justify-center w-1/2 py-md border-r border-neutral-400">
-            <FilterButton
-              displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-              type="mobile"
+      <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
+        {!screenSize.mobile && productsCtx.totalCount && (
+            <CategoryFilters
+                loading={productsCtx.loading}
+                pageLoading={productsCtx.pageLoading}
+                facets={productsCtx.facets}
+                totalCount={productsCtx.totalCount}
+                categoryName={productsCtx.categoryName ?? ''}
+                phrase={productsCtx.variables.phrase ?? ''}
+                showFilters={showFilters}
+                setShowFilters={setShowFilters}
+                displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                filterCount={searchCtx.filterCount}
             />
-          </div>
         )}
-
-        <div className="flex justify-center w-1/2 py-md">
-          <SortDropdown
-            sortOptions={sortOptions}
-            value={sortBy}
-            onChange={onSortChange}
-            mobile
-          />
+        {screenSize.mobile && (
+            <div className="flex border-t border-b border-neutral-400 bg-black">
+              <div className="flex justify-center w-full py-md border-r border-neutral-400">
+                <FilterButton
+                    displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                    type="mobile"
+                />
+              </div>
+            </div>
+          )}
+        <div class="mobile-filters-container">
+          <Drawer
+              isOpen={showMobileFacet}
+              onClose={() => setShowMobileFacet(!showMobileFacet)}
+              totalCount={totalCount}
+          >
+            <MobileFacets
+                searchFacets={facets}
+                onClose={() => setShowMobileFacet(!showMobileFacet)}
+                sortOptions={sortOptions}
+                value={sortBy}
+                onChange={onSortChange}
+                mobile
+            />
+          </Drawer>
         </div>
       </div>
-      {screenSize.mobile && (
-        <Drawer
-          isOpen={showMobileFacet}
-          onClose={() => setShowMobileFacet(!showMobileFacet)}
-        >
-          <MobileFacets searchFacets={facets} />
-        </Drawer>
-      )}
-    </div>
   );
 };

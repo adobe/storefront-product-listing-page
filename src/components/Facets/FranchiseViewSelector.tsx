@@ -9,7 +9,7 @@ export const FranchiseViewSelector: FunctionComponent = () => {
   const searchCtx = useSearch();
 
   return (
-    <div className="flex gap-[10px] franchise-selector">
+    <div className="flex gap-[10px] pl-24 franchise-selector">
       <button disabled={searchCtx.displayFranchises} onClick={() => searchCtx.toggleFranchiseView(true)}>
         <FranchiseView/>
       </button>

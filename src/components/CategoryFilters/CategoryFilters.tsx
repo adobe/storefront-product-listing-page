@@ -21,6 +21,7 @@ interface CategoryFiltersProps {
   phrase: string;
   showFilters: boolean;
   setShowFilters: (showFilters: boolean) => void;
+  displayFilter: () => void;
   filterCount: number;
 }
 
@@ -28,12 +29,13 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   pageLoading,
   totalCount,
   facets,
+  displayFilter,
 }) => {
 
   return (
-    <div className="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col">
+    <div className="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] flex-col">
       {!pageLoading && facets.length > 0 && (
-        <Facets searchFacets={facets} totalCount={totalCount} />
+        <Facets searchFacets={facets} totalCount={totalCount} displayFilter={displayFilter} />
       )}
     </div>
   );

@@ -606,6 +606,9 @@ video {
   .mr-xs {
     margin-right: var(--spacing-xs);
   }
+  .mt-0 {
+    margin-top: 0;
+  }
   .mt-2 {
     margin-top: 0.5rem;
   }
@@ -660,11 +663,17 @@ video {
   .h-\[15px\] {
     height: 15px;
   }
+  .h-\[18px\] {
+    height: 18px;
+  }
   .h-\[180px\] {
     height: 180px;
   }
   .h-\[20px\] {
     height: 20px;
+  }
+  .h-\[28px\] {
+    height: 28px;
   }
   .h-\[32px\] {
     height: 32px;
@@ -738,8 +747,14 @@ video {
   .w-\[15px\] {
     width: 15px;
   }
+  .w-\[18px\] {
+    width: 18px;
+  }
   .w-\[20px\] {
     width: 20px;
+  }
+  .w-\[28px\] {
+    width: 28px;
   }
   .w-\[40px\] {
     width: 40px;
@@ -747,6 +762,10 @@ video {
   .w-fit {
     width: -moz-fit-content;
     width: fit-content;
+  }
+  .w-max {
+    width: -moz-max-content;
+    width: max-content;
   }
   .w-full {
     width: 100%;
@@ -837,6 +856,16 @@ video {
       transform: translateY(0);
     }
   }
+
+  @keyframes slideRight {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
   .animate-slideUp {
     animation: slideUp 0.3s ease-out forwards;
   }
@@ -865,8 +894,14 @@ video {
        -moz-appearance: none;
             appearance: none;
   }
+  .grid-flow-row {
+    grid-auto-flow: row;
+  }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .grid-cols-none {
     grid-template-columns: none;
@@ -937,6 +972,10 @@ video {
   .gap-x-6 {
     -moz-column-gap: 1.5rem;
          column-gap: 1.5rem;
+  }
+  .gap-x-3\.2rem {
+    -moz-column-gap: 3.2rem;
+         column-gap: 3.2rem;
   }
   .gap-x-md {
     -moz-column-gap: var(--spacing-md);
@@ -1049,6 +1088,9 @@ video {
   .border-neutral-400 {
     border-color: var(--color-neutral-400);
   }
+  .border-neutral-450 {
+    border-color: var(--color-neutral-450);
+  }
   .border-neutral-500 {
     border-color: var(--color-neutral-500);
   }
@@ -1122,6 +1164,9 @@ video {
   .stroke-neutral-600 {
     stroke: var(--color-neutral-600);
   }
+  .stroke-neutral-50 {
+    stroke: var(--color-neutral-50);
+  }
   .stroke-1 {
     stroke-width: var(--shape-icon-stroke-1);
   }
@@ -1144,6 +1189,9 @@ video {
   }
   .p-4 {
     padding: 1rem;
+  }
+  .p-12 {
+    padding: 3rem;
   }
   .p-\[14px\] {
     padding: 14px;
@@ -1248,11 +1296,17 @@ video {
   .pl-8 {
     padding-left: 2rem;
   }
+  .pl-24 {
+    padding-left: 6rem;
+  }
   .pr-2 {
     padding-right: 0.5rem;
   }
   .pr-5 {
     padding-right: 1.25rem;
+  }
+  .pr-24 {
+    padding-right: 6rem;
   }
   .pr-lg {
     padding-right: var(--spacing-lg);
@@ -1588,8 +1642,28 @@ video {
     }
   }
   @media (min-width: 768px) {
+    .md\:h-full {
+      height: 100%;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:grid {
+      display: grid;
+    }
+  }
+  @media (min-width: 768px) {
     .md\:ml-6 {
       margin-left: 1.5rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:mt-md {
+      margin-top: var(--spacing-md);
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:mt-4 {
+      margin-top: 1rem;
     }
   }
   @media (min-width: 768px) {
@@ -1600,6 +1674,11 @@ video {
   @media (min-width: 768px) {
     .md\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
   @media (min-width: 768px) {
@@ -1621,6 +1700,16 @@ video {
     .md\:px-\[24px\] {
       padding-left: 24px;
       padding-right: 24px;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:flex-1-0-100 {
+      flex: 1 0 100%;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:animate-slideRight {
+      animation: slideRight 0.3s ease-out forwards;
     }
   }
   @media (min-width: 1024px) {
@@ -1700,6 +1789,7 @@ video {
   --color-neutral-200: #f5f5f5;
   --color-neutral-300: #e8e8e8;
   --color-neutral-400: #d6d6d6;
+  --color-neutral-450: #dddddd;
   --color-neutral-500: #b8b8b8;
   --color-neutral-600: #8f8f8f;
   --color-neutral-700: #666;
@@ -1951,6 +2041,14 @@ video {
 
 .block-display {
   display: block;
+}
+
+.none-display {
+  display: none;
+}
+
+.ib-display {
+  display: inline-block;
 }
 
 .loading-spinner-on-mobile {

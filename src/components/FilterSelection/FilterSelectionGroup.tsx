@@ -91,9 +91,9 @@ export const FilterSelectionGroup: FunctionComponent<
   };
 
   return (
-    <div className="ds-sdk-input py-md">
-      <fieldset className="ds-sdk-input__options">
-        <div>
+    <div className="mx-auto w-full max-w-[1600px] ds-sdk-input py-md">
+      <fieldset className="ds-sdk-input__options ds-sdk-filterGroup">
+        <div className="flex md:grid md:grid-cols-4 grid-flow-row gap-4">
           {buckets.slice(0, numberOfOptions).map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';

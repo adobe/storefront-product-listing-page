@@ -9,7 +9,7 @@ it.
 
 export const en_US = {
   Filter: {
-    title: 'Filters',
+    title: 'Sort & Filter',
     showTitle: 'Show filters',
     hideTitle: 'Hide filters',
     clearAll: 'Clear all',

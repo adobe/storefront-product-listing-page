@@ -29,6 +29,7 @@ export const RangeFacet: FunctionComponent<RangeFacetProps> = ({
       buckets={filterData.buckets}
       type={'radio'}
       isSelected={isSelected}
+      isHidden={true}
       onChange={(e) => {
         onChange(e.value);
       }}

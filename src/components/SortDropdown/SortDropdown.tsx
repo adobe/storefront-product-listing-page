@@ -12,7 +12,6 @@ import { useEffect, useRef } from 'preact/hooks';
 
 import { useTranslation } from '../../context/translation';
 import { useAccessibleDropdown } from '../../hooks/useAccessibleDropdown';
-import Chevron from '../../icons/chevron.svg';
 import { SortOption } from '../../types/interface';
 
 export interface SortDropdownProps {
@@ -79,62 +78,54 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     };
   }, [sortOptionMenu]);
 
+  const toggleFilters = (event) => {
+    const clicked = event.target;
+    const toBeActiveFilterBlock = clicked.nextElementSibling;
+    const parrentDiv = clicked.closest('.ds-sdk-input')
+    const borderDiv = parrentDiv.querySelector('.ds-sdk-input__border')
+
+    if (toBeActiveFilterBlock.classList.contains('none-display')) {
+      const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
+      currentFilterBlock?.classList.add('none-display')
+      currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
+      toBeActiveFilterBlock?.classList.remove('none-display')
+      borderDiv.classList.add('mt-md');
+    } else {
+      toBeActiveFilterBlock?.classList.add('none-display')
+      borderDiv.classList.remove('mt-md');
+    }
+  }
+
   return (
     <>
-      <div
-        ref={sortOptionMenu}
-        class="ds-sdk-sort-dropdown flex items-center gap-x-2 shrink-0 relative inline-block text-left bg-neutral-50 z-9"
-      >
-        {!mobile && <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
-          {translation.SortDropdown.title}
-        </label>}
-        <button
-          className="group flex justify-center items-center gap-x-1 hover:cursor-pointer bg-background h-full"
-          ref={sortOptionButton}
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          onFocus={() => setIsFocus(false)}
-          onBlur={() => setIsFocus(false)}
+      <div ref={sortOptionMenu} class="ds-sdk-input">
+        <label
+            className={'ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row'}
+            onClick={toggleFilters}
         >
-          <span className={`font-headline-1 text-sm ${!mobile ? 'text-neutral-700' : ''}`}>
-            {selectedOption ? sortOption : translation.SortDropdown.title}
-          </span>
-          <Chevron
-            className={`flex-shrink-0 h-sm w-sm stroke-1 stroke-brand-700 ${
-              isDropdownOpen ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-        {isDropdownOpen && (
-          <ul
-            ref={listRef}
-            tabIndex={-1}
-            className="ds-sdk-sort-dropdown__items top-full absolute hover:cursor-pointer right-0 w-28 rounded-2 shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
-          >
+          {translation.SortDropdown.title}
+        </label>
+        <fieldset className={'ds-sdk-input__options mt-4 md:mt-0 none-display'}>
+          <div className={'space-y-4'}>
             {sortOptions.map((option, i) => (
-              <li
-                key={i}
-                aria-selected={option.value === selectedOption?.value}
-                onMouseOver={() => setActiveIndex(i)}
-                className={`py-xs hover:bg-neutral-200 hover:text-neutral-900 ${
-                  i === activeIndex ? 'bg-neutral-200 text-neutral-900' : ''
-                }}`}
-              >
-                <a
-                  className={`ds-sdk-sort-dropdown__items--item block-display px-md py-sm text-sm mb-0
-              no-underline active:no-underline focus:no-underline hover:no-underline
-              hover:text-neutral-900 ${
-                option.value === selectedOption?.value
-                  ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-neutral-900'
-                  : 'font-normal text-neutral-800'
-              }`}
-                  onClick={() => select(option.value)}
+              <div className={'ds-sdk-labelled-input flex gap-4 items-center'}>
+                <input type={'radio'}
+                       value={'option.value'}
+                       checked={option.value === selectedOption?.value}
+                       onClick={() => select(option.value)}
+                       className={'ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-neutral-800 min-w-[16px]'}
+                />
+                <label for={'sortby-' + option.value}
+                       onClick={() => select(option.value)}
+                       className={'ds-sdk-labelled-input__label ml-sm block-display h-max-content text-neutral-800 font-body-1-default text-[12px] cursor-pointer'}
                 >
                   {option.label}
-                </a>
-              </li>
+                </label>
+              </div>
             ))}
-          </ul>
-        )}
+          </div>
+        </fieldset>
+        <div className={'ds-sdk-input__border border-t border-neutral-500'}></div>
       </div>
     </>
   );

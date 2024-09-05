@@ -32,9 +32,9 @@ export interface InputButtonGroupProps {
   onChange: InputButtonGroupOnChange;
   type: 'radio' | 'checkbox';
   inputGroupTitleSlot?: InputButtonGroupTitleSlot;
+  isHidden: boolean;
 }
 
-const numberOfOptionsShown = 5;
 export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   title,
   attribute,
@@ -43,15 +43,10 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   onChange,
   type,
   inputGroupTitleSlot,
+  isHidden
 }) => {
   const translation = useTranslation();
   const productsCtx = useProducts();
-
-  const [showMore, setShowMore] = useState(
-    buckets.length < numberOfOptionsShown
-  );
-
-  const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
 
   const formatLabel = (title: string, bucket: Bucket) => {
     const {
@@ -95,18 +90,44 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
     return bucket.title;
   };
 
+  const toggleFilters = (event) => {
+    const clicked = event.target;
+    const toBeActiveFilterBlock = clicked.nextElementSibling;
+    const parrentDiv = clicked.closest('.ds-sdk-input')
+    const borderDiv = parrentDiv.querySelector('.ds-sdk-input__border')
+
+    if (toBeActiveFilterBlock.classList.contains('none-display')) {
+      const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
+      currentFilterBlock?.classList.add('none-display')
+      currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
+      toBeActiveFilterBlock?.classList.remove('none-display')
+      borderDiv.classList.add('mt-md');
+      parrentDiv.classList.add('active');
+    } else {
+      toBeActiveFilterBlock?.classList.add('none-display')
+      borderDiv.classList.remove('mt-md');
+      parrentDiv.classList.remove('active');
+    }
+  }
+
   return (
-    <div className="ds-sdk-input pt-md">
+    <div className="ds-sdk-input">
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
-          {title}
-        </label>
+          (isHidden ? (
+              <label
+                  className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
+                  onClick={toggleFilters}>
+                {title}
+              </label>
+          ) : (
+              <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display flex flex-row">{title}</label>
+          ))
       )}
-      <fieldset className="ds-sdk-input__options">
+      <fieldset className={`ds-sdk-input__options mt-4 md:mt-0 ${isHidden ? 'none-display' : ''}`}>
         <div className="space-y-4">
-          {buckets.slice(0, numberOfOptions).map((option) => {
+          {buckets.map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';
             return (
@@ -123,25 +144,22 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
               />
             );
           })}
-          {!showMore && buckets.length > numberOfOptionsShown && (
-            <div
-              className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
-              onClick={() => setShowMore(true)}
-            >
-              <PlusIcon className="h-md w-md fill-neutral-800" />
-              <button
-                type="button"
-                className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
-              >
-                <span className="font-button-2 text-[12px]">
-                  {translation.InputButtonGroup.showmore}
-                </span>
-              </button>
-            </div>
+          {attribute === 'price' && (
+              <LabelledInput
+                name={`range-radio-${attribute}`}
+                attribute={attribute}
+                label={'Range price'}
+                checked={false}
+                value={'125.0-555.0'}
+                count={null}
+                onChange={onChange}
+                type={type}
+                isRangeInput={true}
+              />
           )}
         </div>
       </fieldset>
-      <div className="ds-sdk-input__border border-t mt-md border-neutral-500" />
+      <div className="ds-sdk-input__border border-t border-neutral-500" />
     </div>
   );
 };
