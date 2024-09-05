@@ -120,7 +120,7 @@ function getDefaultColorSwatchId(item: Product, categoryId?: string) {
   const colorOptionsFromAttribute = getColorSwatchesConfigFromAttribute(item);
   if (colorOptionsFromAttribute && categoryId) {
     const segmentedOptions = getSegmentedOptions(item, colorOptionsFromAttribute.attribute_id, categoryId);
-    return colorOptionsFromAttribute?.images?.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id));
+    return colorOptionsFromAttribute?.images?.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id))?.id;
   }
   return colorOptionsFromAttribute?.images?.[0]?.id;
 }
