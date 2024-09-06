@@ -11,16 +11,25 @@ import { FunctionComponent } from 'preact';
 import { useRef } from 'preact/hooks';
 import { useEffect, useState } from 'react';
 
-import { SwatchValues } from '../../types/interface';
+import { SwatchType } from '../../types/interface';
 import { SwatchButton } from '../SwatchButton';
+
+export type Swatch = {
+    id: string;
+    title: string;
+    type: SwatchType;
+    value: string;
+    sku: string;
+    inStock?: boolean
+    configId?: string;
+};
 
 export interface SwatchButtonGroupProps {
   isSelected: (id: string) => boolean | undefined;
-  swatches: SwatchValues[];
+  swatches: Swatch[];
   showMore: () => any;
   productUrl: string;
   onClick: (optionIds: string[], sku: string) => any;
-  sku: string;
 }
 
 export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
@@ -29,7 +38,6 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
   showMore,
   productUrl,
   onClick,
-  sku
 }: SwatchButtonGroupProps) => {
   const [visibleCount, setVisibleCount] = useState<number|null>(null);
   const swatchButtonContainerRef = useRef<HTMLDivElement>(null);
@@ -63,7 +71,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
       evt.preventDefault();
       evt.stopPropagation();
 
-      onClick([swatch.id], sku);
+      onClick([swatch.id], swatch.sku);
     }
 
     const checked = isSelected(swatch.id);
@@ -71,7 +79,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
     const outOfStockClass = swatch.inStock ? '' : 'out-of-stock';
     const wrapperClasses = `ds-sdk-product-item__product-swatch-item text-sm text-brand-700${swatch.type == 'COLOR_HEX' ? ' mr-2': ''} ${selectedClass} ${outOfStockClass}`;
     return (
-      <div className={wrapperClasses} key={swatch.id} ref={index === 0  ? swatchButtonRef : null}>
+      <div className={wrapperClasses} key={swatch.id} ref={index === 0  ? swatchButtonRef : null} data-config-id={swatch.configId || ''}>
           <SwatchButton
             id={swatch.id}
             value={swatch.value}

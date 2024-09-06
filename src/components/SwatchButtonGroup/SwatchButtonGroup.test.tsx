@@ -32,25 +32,27 @@ const mockButtonGroup: SwatchButtonGroupProps = {
       id: 'Y29uZmlndXJhYmxlLzkzLzU5',
       type: 'COLOR_HEX',
       value: '#1857f7',
+      sku: 'test',
     },
     {
       title: 'Purple',
       id: 'Y29uZmlndXJhYmxlLzkzLzY2',
       type: 'COLOR_HEX',
       value: '#ef3dff',
+      sku: 'test',
     },
     {
       title: 'Red',
       id: 'Y29uZmlndXJhYmxlLzkzLzY3',
       type: 'COLOR_HEX',
       value: '#ff0000',
+      sku: 'test',
     },
   ],
   isSelected: () => true,
   showMore: () => {},
   productUrl: '',
   onClick: () => {},
-  sku: 'test',
 };
 
 describe('WidgetSDK - UIKit/SwatchButtonGroup', () => {
@@ -62,7 +64,6 @@ describe('WidgetSDK - UIKit/SwatchButtonGroup', () => {
         showMore={mockButtonGroup.showMore}
         productUrl={mockButtonGroup.productUrl}
         onClick={mockButtonGroup.onClick}
-        sku={mockButtonGroup.sku}
       />
     );
 

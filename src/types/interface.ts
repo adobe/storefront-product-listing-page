@@ -184,6 +184,72 @@ export interface AttributeMetadataResponse {
   };
 }
 
+export interface ColorSwatchFromAttribute {
+  id: string;
+  config_id: string;
+  config_sku: string;
+  simple_id: string;
+  simple_sku: string;
+  label: string;
+  url: string;
+  image: string;
+  swatch_image: string;
+  back_view_image: string;
+}
+
+export interface ProductView {
+  __typename: string;
+  id: number;
+  uid: string;
+  name: string;
+  sku: string;
+  inStock?: boolean | undefined;
+  description: null | ComplexTextValue;
+  short_description: null | ComplexTextValue;
+  attribute_set_id: null | number;
+  meta_title: null | string;
+  meta_keyword: null | string;
+  meta_description: null | string;
+  images: null | ProductViewMedia[];
+  new_from_date: null | string;
+  new_to_date: null | string;
+  created_at: null | string;
+  updated_at: null | string;
+  attributes: Array<{
+    label: string
+    name: string
+    roles: string[]
+    value: string
+  }>;
+  price: {
+    final: ProductViewPrice;
+    regular: ProductViewPrice;
+  };
+  priceRange: {
+    minimum: {
+      final: ProductViewPrice;
+      regular: ProductViewPrice;
+    };
+    maximum: {
+      final: ProductViewPrice;
+      regular: ProductViewPrice;
+    };
+  };
+  gift_message_available: null | string;
+  url: null | string;
+  urlKey: null | string;
+  media_gallery: null | ProductViewMedia;
+  custom_attributes: null | CustomAttribute;
+  add_to_cart_allowed: null | boolean;
+  options:
+    | null
+    | {
+        id: null | string;
+        title: null | string;
+        values: null | SwatchValues[];
+      }[];
+};
+
 export interface Product {
   product: {
     __typename: string;
@@ -214,7 +280,12 @@ export interface Product {
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;
   };
-  productView: {
+  productView: ProductView;
+  highlights: Array<Highlights>;
+}
+
+export interface RefinedProduct {
+  refineProduct: {
     __typename: string;
     id: number;
     uid: string;
@@ -232,12 +303,6 @@ export interface Product {
     new_to_date: null | string;
     created_at: null | string;
     updated_at: null | string;
-    attributes: Array<{
-      label: string
-      name: string
-      roles: string[]
-      value: string
-    }>;
     price: {
       final: ProductViewPrice;
       regular: ProductViewPrice;
@@ -255,54 +320,6 @@ export interface Product {
     gift_message_available: null | string;
     url: null | string;
     urlKey: null | string;
-    media_gallery: null | ProductViewMedia;
-    custom_attributes: null | CustomAttribute;
-    add_to_cart_allowed: null | boolean;
-    options:
-      | null
-      | {
-          id: null | string;
-          title: null | string;
-          values: null | SwatchValues[];
-        }[];
-  };
-  highlights: Array<Highlights>;
-}
-
-export interface RefinedProduct {
-  refineProduct: {
-    __typename: string;
-    id: number;
-    uid: string;
-    name: string;
-    sku: string;
-    description: null | ComplexTextValue;
-    short_description: null | ComplexTextValue;
-    attribute_set_id: null | number;
-    meta_title: null | string;
-    meta_keyword: null | string;
-    meta_description: null | string;
-    images: null | ProductViewMedia[];
-    new_from_date: null | string;
-    new_to_date: null | string;
-    created_at: null | string;
-    updated_at: null | string;
-    price: {
-      final: ProductViewPrice;
-      regular: ProductViewPrice;
-    };
-    priceRange: {
-      minimum: {
-        final: ProductViewPrice;
-        regular: ProductViewPrice;
-      };
-      maximum: {
-        final: ProductViewPrice;
-        regular: ProductViewPrice;
-      };
-    };
-    gift_message_available: null | string;
-    url: null | string;
     media_gallery: null | ProductViewMedia;
     custom_attributes: null | CustomAttribute;
     add_to_cart_allowed: null | boolean;

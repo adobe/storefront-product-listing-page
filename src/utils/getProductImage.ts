@@ -6,8 +6,12 @@ NOTICE: Adobe permits you to use, modify, and distribute this file in
 accordance with the terms of the Adobe license agreement accompanying
 it.
 */
-import { Product, ProductViewMedia } from '../types/interface';
-import { getSegmentedOptions,isSportsWear } from './productUtils';
+import { ProductView, ProductViewMedia } from '../types/interface';
+import { 
+  getColorOptionsFromProductOptions,
+  getImageConfigsFromAttribute,
+  getSegmentedOptions,
+  isSportsWear} from './productUtils';
 
 
 const getProductImageURLs = (
@@ -121,38 +125,30 @@ const generateOptimizedImages = (
 * 6. If the product is sports wear, get the images from the option with same the variant id as in product view options found in step 1.
 * 7. If the product is not sports wear, get the images from the first option.
 */
-function getProductImagesFromAttribute(item: Product, categoryId?: string) {
-  const { productView } = item;
-  const attributeId = productView?.options?.[0].id;
-  if (!attributeId) {
-    return [];
+function getProductImagesFromAttribute(productView: ProductView, categoryId?: string) {
+  const colorOptionsFromProductOptions = getColorOptionsFromProductOptions(productView);
+  const imageConfigs = getImageConfigsFromAttribute(productView);
+
+  const colorOptionsFromAttribute = imageConfigs.find((config: any) => config.attribute_id === colorOptionsFromProductOptions?.id);
+  let colorVariantId = colorOptionsFromProductOptions?.values?.[0].id;
+  if (isSportsWear(productView)) {
+    colorVariantId = colorOptionsFromProductOptions?.values?.[0].id;
+    const defaultColorOption = colorOptionsFromAttribute.images.find((colorOption: any) => colorOption.id === colorVariantId)
+      || colorOptionsFromAttribute.images[0];
+  
+    return getAbsoluteImageUrl(productView, [defaultColorOption.image, defaultColorOption.back_view_image]);
   }
-
-  const imageAttributes = productView?.attributes?.find(({ name }) => name === 'eds_images');
-  if (imageAttributes) {
-    const options = JSON.parse(imageAttributes.value);
-    const defaultOption = options.find((option: any) => option.attribute_id === attributeId);
-    if (!defaultOption) {
-      return [];
-    }
-
-    const variantId = productView?.options?.[0].values?.[0].id;
-    if (isSportsWear(item) && defaultOption.images) {
-      const imageConfig = defaultOption.images.find((image: any) => image.id === variantId);
-      return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
-    }
-
-    if (defaultOption && defaultOption.images.length > 0) {
-      const segmentedOptions = categoryId ? getSegmentedOptions(item, defaultOption['attribute_id'] || null, categoryId) : null;
-      const imageConfig = defaultOption.images.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id));
-      return getAbsoluteImageUrl(item, [imageConfig.image, imageConfig.back_view_image]);
-    }
+    
+  if (colorOptionsFromAttribute && colorOptionsFromAttribute.images.length > 0) {
+    const segmentedOptions = categoryId ? getSegmentedOptions(productView, colorOptionsFromProductOptions?.id || null, categoryId) : null;
+    const defaultColorOption = colorOptionsFromAttribute.images.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id));
+    return getAbsoluteImageUrl(productView, [defaultColorOption.image, defaultColorOption.back_view_image]);
   }
 
   return [];
 }
 
-function getAbsoluteImageUrl(item: Product, urls: string[]) {
+function getAbsoluteImageUrl(productView: ProductView, urls: string[]) {
   return urls.map((url) => {
     if (url.startsWith('http')) {
       return url;
@@ -162,7 +158,6 @@ function getAbsoluteImageUrl(item: Product, urls: string[]) {
       url = url.slice(1);
     }
 
-    const { productView } = item;
     const baseUrl = productView?.url?.replace(productView?.urlKey || '', '');
     return baseUrl + url;
   });

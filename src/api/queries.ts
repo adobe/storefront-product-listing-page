@@ -181,6 +181,11 @@ const REFINE_PRODUCT_QUERY = `
                     values {
                         id
                         title
+                        ... on ProductViewOptionValueSwatch {
+                            inStock
+                            type
+                            value
+                        }
                     }
                 }
                 priceRange {

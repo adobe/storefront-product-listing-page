@@ -15,11 +15,11 @@ import '../ProductItem/ProductItem.css';
 import { useProducts, useSensor, useStore, useTranslation } from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
+  ColorSwatchFromAttribute,
   Product,
   ProductViewMedia,
   RedirectRouteFunc,
   RefinedProduct,
-  SwatchValues
 } from '../../types/interface';
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import {
@@ -31,7 +31,7 @@ import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { getColorSwatchesFromAttribute, getDefaultColorSwatchId, isSportsWear } from '../../utils/productUtils';
 import { AddToCartButton } from '../AddToCartButton';
 import ImageHover from '../ImageHover';
-import { SwatchButtonGroup } from '../SwatchButtonGroup';
+import { Swatch, SwatchButtonGroup } from '../SwatchButtonGroup';
 import ProductPrice from './ProductPrice';
 
 export interface ProductProps {
@@ -55,7 +55,6 @@ export interface ProductProps {
   disableAllPurchases: boolean;
 }
 
-const SWATCH_COLORS = 'Colors';
 const SWATCH_SIZE = 'Size';
 
 const QUICK_ADD_STATUS_IDLE = 'IDLE';
@@ -78,8 +77,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     config: { optimizeImages, imageBaseWidth, listview, imageBackgroundColor, currentCategoryId },
   } = useStore();
 
-  const defaultColorSwatchId = getDefaultColorSwatchId(item, currentCategoryId);
-  const [selectedSwatch, setSelectedSwatch] = useState(defaultColorSwatchId);
   const [imagesFromRefinedProduct, setImagesFromRefinedProduct] = useState<
     ProductViewMedia[] | null
   >();
@@ -87,15 +84,100 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const [isHovering, setIsHovering] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
   const [quickAddStatus, setQuickAddStatus] = useState(QUICK_ADD_STATUS_IDLE);
-  const prevSelectedSwatch = useRef<string | null>(null);
   const { viewType } = useProducts();
-
   const { screenSize } = useSensor();
   const translation = useTranslation();
 
+  const { colorSwatches, defaultColorSwatch} = useMemo(() => {
+    const colorSwatchesFromAttribute = getColorSwatchesFromAttribute(productView, currentCategoryId);
+    const colorSwatches: Swatch[] = colorSwatchesFromAttribute.map((swatch: ColorSwatchFromAttribute) => {
+      const {
+        id,
+        image,
+        label,
+        config_sku: sku,
+        config_id: configId,
+      } = swatch;
+
+      let imageUrl = generateOptimizedImages([image], 44, imageBackgroundColor || '', '1:1')[0]?.src;
+      imageUrl = `${imageUrl}&dpr=${Math.round(window.devicePixelRatio)}`;
+
+      return {
+        id,
+        title: label,
+        sku,
+        configId,
+        type: 'IMAGE',
+        value: imageUrl,
+      };
+    });
+
+    const defaultColorOptionId = getDefaultColorSwatchId(item.productView, colorSwatchesFromAttribute)
+    const defaultColorSwatch = defaultColorOptionId ? {
+      sku: item.productView.sku,
+      optionId: defaultColorOptionId,
+    } : null
+
+    return {
+      colorSwatches,
+      defaultColorSwatch
+    }
+  }, [item, currentCategoryId]);
+
+  const [selectedColorSwatch, setSelectedColorSwatch] = useState<{
+    sku: string,
+    optionId: string,
+  } | null>(defaultColorSwatch);
+
+  const prevSelectedSwatch = useRef<{
+    sku: string,
+    optionId: string
+  } | null>(defaultColorSwatch);
+
+  const productSku = refinedProduct?.refineProduct?.sku || product?.sku;
+  const productOptions = refinedProduct?.refineProduct?.options || productView?.options;
+  const sizeOption = productOptions?.find((option) => option.title === SWATCH_SIZE);
+  const sizeSwatches: Swatch[] = (sizeOption?.values ?? []).map((swatch) => ({
+    ...swatch,
+    type: 'SIZE',
+    sku: productSku,
+  }));
+
   useEffect(() => {
-    prevSelectedSwatch.current = selectedSwatch;
-  }, [selectedSwatch]);
+    let isSwatchUpdated = false;
+    async function fetchData() {
+      try {
+          if (!selectedColorSwatch) {
+            return;
+          }
+          
+          const { sku, optionId} = selectedColorSwatch;
+          const data = await refineProduct([optionId], sku);
+          // Return early if different swatch is selected before request is complete
+          if (isSwatchUpdated) {
+            return;
+          }
+
+          setImagesFromRefinedProduct(data.refineProduct.images);
+          setRefinedProduct(data);
+
+          prevSelectedSwatch.current = selectedColorSwatch;
+        } catch (error) {
+          // Reset the selected swatch if there is an error
+          if (!isSwatchUpdated && prevSelectedSwatch.current && prevSelectedSwatch.current !== selectedColorSwatch) {
+            setSelectedColorSwatch(prevSelectedSwatch.current);
+          }
+
+          // eslint-disable-next-line no-console
+          console.error('Error fetching refined product', error);
+        }
+    }
+    fetchData();
+
+    return () => {
+      isSwatchUpdated = true;
+    }
+  }, [selectedColorSwatch]);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -107,40 +189,23 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     setQuickAddStatus(QUICK_ADD_STATUS_IDLE);
   };
 
-  const handleSelection = async (optionIds: string[], sku: string) => {
-    const selectedSwatchBeforeUdpate = selectedSwatch;
-    const nextSelectedSwatch = optionIds[0];
-    setSelectedSwatch(nextSelectedSwatch);
-
-    try {
-      const data = await refineProduct(optionIds, sku);
-      // If different swatch is selected before the data is fetched, do not update the state
-      if (prevSelectedSwatch.current !== nextSelectedSwatch) {
-        return;
-      }
-
-      setImagesFromRefinedProduct(data.refineProduct.images);
-      setRefinedProduct(data);
-    } catch (error) {
-      // Reset the selected swatch if there is an error
-      if (prevSelectedSwatch.current === nextSelectedSwatch) {
-        setSelectedSwatch(selectedSwatchBeforeUdpate);
-      }
-
-      // eslint-disable-next-line no-console
-      console.error('Error fetching refined product', error);
+  const handleColorSelection = async (optionIds: string[], sku: string) => {
+    if (selectedColorSwatch?.optionId !== optionIds[0] && selectedColorSwatch?.sku !== sku) {
+      setSelectedColorSwatch({
+        sku,
+        optionId: optionIds[0],
+      });
     }
   };
 
   const isSelected = (id: string) => {
-    const selected = selectedSwatch ? selectedSwatch === id : false;
+    const selected = selectedColorSwatch ? selectedColorSwatch.optionId === id : false;
     return selected;
   };
 
-
   const productImageArray = imagesFromRefinedProduct
     ? getProductImageURLs(imagesFromRefinedProduct ?? [], 2)
-    : getProductImagesFromAttribute(item, currentCategoryId);
+    : getProductImagesFromAttribute(productView, currentCategoryId);
 
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
@@ -171,28 +236,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isGrouped = product?.__typename === 'GroupedProduct';
   const isGiftCard = product?.__typename === 'GiftCardProduct';
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
-  const shouldShowAddToBagButton = isSportsWear(item)
+  const shouldShowAddToBagButton = isSportsWear(productView)
     && categoryConfig?.['plp_quick_view_modal_enabled'] === '1'
     && !disableAllPurchases
     && (!screenSize.desktop || isHovering)
+    && sizeSwatches.length > 0
     && !showSizes
     && quickAddStatus === QUICK_ADD_STATUS_IDLE;
-
-  const colorSwatchesFromAttribute = useMemo(() => getColorSwatchesFromAttribute(item, currentCategoryId), [item]);
-  let colorSwatches: SwatchValues[] = [];
-  if (colorSwatchesFromAttribute && colorSwatchesFromAttribute.length > 0) {
-    colorSwatches = colorSwatchesFromAttribute.map((swatch: any) => {
-      let imageUrl = generateOptimizedImages([swatch.image], 44, imageBackgroundColor || '', '1:1')[0]?.src;
-      imageUrl = `${imageUrl}&dpr=${Math.round(window.devicePixelRatio)}`;
-
-      return {
-        id: swatch.id,
-        type: 'IMAGE',
-        value: imageUrl,
-        title: swatch.title,
-      };
-    });
-  }
 
   const onProductClick = () => {
     window.adobeDataLayer.push((dl: any) => {
@@ -200,7 +250,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         event: 'search-product-click',
         eventInfo: {
           ...dl.getState(),
-          sku: product?.sku,
+          sku: productSku,
           searchUnitId: SEARCH_UNIT_ID,
         },
       });
@@ -209,11 +259,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productUrl = setRoute
     ? setRoute({
-        sku: productView?.sku,
-        urlKey: productView?.urlKey,
-        optionsUIDs: selectedSwatch ? [selectedSwatch] : null,
+        sku: productSku,
+        urlKey: refinedProduct?.refineProduct?.urlKey || productView?.urlKey,
+        optionsUIDs: selectedColorSwatch ? [selectedColorSwatch.optionId] : null,
       })
-    : product?.canonical_url;
+    : refinedProduct?.refineProduct?.url || product?.canonical_url;
 
   const handleAddToCart = async (evt: any) => {
     evt.preventDefault();
@@ -225,32 +275,20 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       return;
     }
 
-    const selectedVariants = selectedSwatch ? [selectedSwatch] : [];
-    await addToCart(productView.sku, selectedVariants, 1, 'product-list-page');
+    const selectedVariants = selectedColorSwatch ? [selectedColorSwatch.optionId] : [];
+    await addToCart(productSku, selectedVariants, 1, 'product-list-page');
   };
 
   const handleSizeSelection = async (optionIds: string[]) => {
-    const sizeVariants = item.productView?.options?.find((option) => option.title === SWATCH_SIZE)?.values;
-    const selectedSize = sizeVariants?.find((size) => optionIds.includes(size.id));
-    if (selectedSize && !selectedSize.inStock) {
+    const selectedSize = sizeSwatches?.find((size) => optionIds.includes(size.id));
+    if (!selectedSize || !selectedSize.inStock) {
       return;
     }
 
-    let selectedVariants: string[] = [];
-    // Sportswear products do not have multiple color swatches
-    // Select the default color variant
-    const colorVariant = item.productView?.options?.find((option) => option.title === SWATCH_COLORS)?.values?.[0].id;
-    if (colorVariant) {
-      selectedVariants = [colorVariant];
-    }
-
-    if (optionIds) {
-      selectedVariants = [...selectedVariants, ...optionIds];
-    }
-
+    const selectedVariants: string[] = selectedColorSwatch ? [selectedColorSwatch.optionId, ...optionIds] : [...optionIds];
     setShowSizes(false);
     setQuickAddStatus(QUICK_ADD_STATUS_PENDING);
-    const addedToCart = await addToCart(productView.sku, selectedVariants, 1, 'product-list-page');
+    const addedToCart = await addToCart(selectedSize.sku, selectedVariants, 1, 'product-list-page');
 
     if (addedToCart?.user_errors?.length) {
       setQuickAddStatus(QUICK_ADD_STATUS_ERROR);
@@ -301,27 +339,20 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 </div>
                 <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-brand-700">
                   SKU:
-                  {product.sku !== null && htmlStringDecode(product.sku)}
+                  {productSku !== null && htmlStringDecode(productSku)}
                 </div>
               </a>
 
               {/* Swatch */}
               <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-brand-700 pb-6">
-                {productView?.options?.map(
-                  (swatches) => {
-                      // swatches.id === 'color' && (
-                     return swatches.title === SWATCH_COLORS && (
-                        <SwatchButtonGroup
-                          key={productView?.sku}
-                          isSelected={isSelected}
-                          swatches={swatches.values ?? []}
-                          showMore={onProductClick}
-                          productUrl={productUrl as string}
-                          onClick={handleSelection}
-                          sku={productView?.sku}
-                        />
-                      )
-                  }
+                {sizeSwatches.length > 0 && (
+                  <SwatchButtonGroup
+                    isSelected={() => false}
+                    swatches={sizeSwatches}
+                    showMore={onProductClick}
+                    productUrl={productUrl as string}
+                    onClick={handleSizeSelection}
+                  />
                 )}
               </div>
             </div>
@@ -377,6 +408,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     );
   }
 
+  const productAvailability = (refinedProduct?.refineProduct ? refinedProduct?.refineProduct.inStock : productView?.inStock) 
+    ? 'InStock' 
+    : 'OutOfStock';
   return (
     <div itemScope itemType="http://schema.org/Product"
       className="ds-sdk-product-item group relative flex flex-col w-full justify-between h-full"
@@ -386,9 +420,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
     >
-      <meta itemProp="sku" content={product?.sku} />
+      <meta itemProp="sku" content={productSku} />
       <meta itemProp="description" content={product?.short_description?.html} />
-      <meta itemProp="availability" content={productView?.inStock ? 'InStock' : 'OutOfStock'} />
+      <meta itemProp="availability" content={productAvailability}/>
       {ratingCount > 0 ? (
         <div itemprop="aggregateRating" style="display:none"
              itemscope itemtype="https://schema.org/AggregateRating">
@@ -432,39 +466,26 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 </div>
               )}
               {shouldShowAddToBagButton && <AddToCartButton onClick={handleAddToCart} />}
-              {showSizes && productView?.options?.map((swatches) => {
-                if (swatches.title === SWATCH_SIZE) {
-                  const swatchItems: SwatchValues[] = (swatches.values ?? []).map((swatch) => ({
-                    ...swatch,
-                    type: 'SIZE',
-                  }));
-
-                  return (
-                    <SwatchButtonGroup
-                      key={product?.sku}
-                      isSelected={isSelected}
-                      swatches={swatchItems}
-                      showMore={onProductClick}
-                      productUrl={productUrl as string}
-                      onClick={handleSizeSelection}
-                      sku={product?.sku}
-                    />
-                  );
-                }
-              })}
+              {showSizes && sizeSwatches.length > 0 && (
+                <SwatchButtonGroup
+                  isSelected={() => false}
+                  swatches={sizeSwatches}
+                  showMore={onProductClick}
+                  productUrl={productUrl as string}
+                  onClick={handleSizeSelection}
+                />
+              )}
             </div>
           </div>
           <div className="flex flex-col px-xsmall py-small gap-2">
             {colorSwatches && colorSwatches.length > 0 && (
               <div className="ds-sdk-product-item__product-swatch flex flex-row text-sm text-brand-700">
                  <SwatchButtonGroup
-                    key={product?.sku}
                     isSelected={isSelected}
                     swatches={colorSwatches}
                     showMore={onProductClick}
                     productUrl={productUrl as string}
-                    onClick={handleSelection}
-                    sku={product?.sku}
+                    onClick={handleColorSelection}
                   />
               </div>
             )}
