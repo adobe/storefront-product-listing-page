@@ -190,7 +190,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const handleColorSelection = async (optionIds: string[], sku: string) => {
-    if (selectedColorSwatch?.optionId !== optionIds[0] && selectedColorSwatch?.sku !== sku) {
+    if (selectedColorSwatch?.optionId !== optionIds[0]) {
       setSelectedColorSwatch({
         sku,
         optionId: optionIds[0],
@@ -261,7 +261,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     ? setRoute({
         sku: productSku,
         urlKey: refinedProduct?.refineProduct?.urlKey || productView?.urlKey,
-        optionsUIDs: selectedColorSwatch ? [selectedColorSwatch.optionId] : null,
+        optionsUIDs: !isSportsWear(productView) && selectedColorSwatch ? [selectedColorSwatch.optionId] : null,
       })
     : refinedProduct?.refineProduct?.url || product?.canonical_url;
 
