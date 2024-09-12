@@ -45,7 +45,7 @@ function getColorSwatchesFromAttribute(productView: ProductView, categoryId?: st
   const colorOptionsFromAttribute = imageConfigsFromAttribute.find((config: any) => config.attribute_type === 'visual'
     && config.show_swatches);
 
-  const segmentedOptions = categoryId ? getSegmentedOptions(productView, colorOptionsFromAttribute?.id, categoryId) : null;
+  const segmentedOptions = categoryId ? getSegmentedOptions(productView, colorOptionsFromAttribute?.attribute_id, categoryId) : null;
   return (colorOptionsFromAttribute?.images ?? [])
     .filter((colorOption: any) => !segmentedOptions || segmentedOptions.includes(colorOption.id))
     .map((colorOption: any) => {

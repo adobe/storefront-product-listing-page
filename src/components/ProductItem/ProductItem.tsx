@@ -93,13 +93,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     const colorSwatches: Swatch[] = colorSwatchesFromAttribute.map((swatch: ColorSwatchFromAttribute) => {
       const {
         id,
-        image,
+        swatch_image,
         label,
         config_sku: sku,
         config_id: configId,
       } = swatch;
 
-      let imageUrl = generateOptimizedImages([image], 44, imageBackgroundColor || '', '1:1')[0]?.src;
+      let imageUrl = generateOptimizedImages([swatch_image], 44, imageBackgroundColor || '', '1:1')[0]?.src;
       imageUrl = `${imageUrl}&dpr=${Math.round(window.devicePixelRatio)}`;
 
       return {
