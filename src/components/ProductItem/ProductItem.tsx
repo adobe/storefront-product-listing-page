@@ -147,7 +147,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     let isSwatchUpdated = false;
     async function fetchData() {
       try {
-          if (!selectedColorSwatch) {
+          if (!selectedColorSwatch || prevSelectedSwatch.current?.optionId === selectedColorSwatch.optionId) {
             return;
           }
           
