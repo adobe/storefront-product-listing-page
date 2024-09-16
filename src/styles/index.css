@@ -692,6 +692,9 @@ video {
   .max-h-\[250px\] {
     max-height: 250px;
   }
+  .max-h-\[371px\] {
+    max-height: 371px;
+  }
   .max-h-\[45rem\] {
     max-height: 45rem;
   }
@@ -755,6 +758,9 @@ video {
   }
   .max-w-\[21rem\] {
     max-width: 21rem;
+  }
+  .max-w-\[278px\] {
+    max-width: 278px;
   }
   .max-w-full {
     max-width: 100%;
@@ -855,6 +861,10 @@ video {
   .gap-\[10px\] {
     gap: 10px;
   }
+  .gap-x-1 {
+    -moz-column-gap: 0.25rem;
+         column-gap: 0.25rem;
+  }
   .gap-x-2 {
     -moz-column-gap: 0.5rem;
          column-gap: 0.5rem;
@@ -862,10 +872,6 @@ video {
   .gap-x-2\.5 {
     -moz-column-gap: 0.625rem;
          column-gap: 0.625rem;
-  }
-  .gap-x-2xl {
-    -moz-column-gap: var(--spacing-2xl);
-         column-gap: var(--spacing-2xl);
   }
   .gap-x-md {
     -moz-column-gap: var(--spacing-md);
@@ -937,6 +943,10 @@ video {
   }
   .border-transparent {
     border-color: transparent;
+  }
+  .bg-black {
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   }
   .bg-blue-50 {
     --tw-bg-opacity: 1;
@@ -1090,6 +1100,9 @@ video {
   .pt-16 {
     padding-top: 4rem;
   }
+  .pt-2 {
+    padding-top: 0.5rem;
+  }
   .pt-28 {
     padding-top: 7rem;
   }
@@ -1105,12 +1118,18 @@ video {
   .text-center {
     text-align: center;
   }
+  .font-\[\'PlayfairDisplay-Bold\'\] {
+    font-family: 'PlayfairDisplay-Bold';
+  }
   .text-2xl {
     font-size: var(--font-2xl);
     line-height: var(--leading-loose);
   }
   .text-\[12px\] {
     font-size: 12px;
+  }
+  .text-\[19px\] {
+    font-size: 19px;
   }
   .text-base {
     font-size: var(--font-md);
@@ -1139,6 +1158,15 @@ video {
   }
   .font-semibold {
     font-weight: var(--font-semibold);
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+  .leading-\[1\.2\] {
+    line-height: 1.2;
+  }
+  .tracking-\[0\.5px\] {
+    letter-spacing: 0.5px;
   }
   .\!text-primary {
     color: var(--color-primary) !important;
@@ -1391,12 +1419,17 @@ video {
   cursor: pointer;
 }
 
-.hover\:border-\[1\.5px\]:hover {
-  border-width: 1.5px;
+.hover\:border-\[1px\]:hover {
+  border-width: 1px;
 }
 
 .hover\:border-none:hover {
   border-style: none;
+}
+
+.hover\:bg-\[\#904547\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 69 71 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-100:hover {
