@@ -103,7 +103,7 @@ function getDefaultColorSwatchId(productView: ProductView, swatches: ColorSwatch
     return swatches?.find((swatch: any) => swatch.id === colorOptionsFromProductOptions?.values?.[0].id)?.id;
   }
 
-  return swatches[0].id;
+  return swatches?.[0]?.id;
 }
 
 export { isSportsWear, getColorSwatchesFromAttribute, getDefaultColorSwatchId, getSegmentedOptions };
