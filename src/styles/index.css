@@ -1085,6 +1085,9 @@ video {
   .pb-6 {
     padding-bottom: 1.5rem;
   }
+  .pb-\[5rem\] {
+    padding-bottom: 5rem;
+  }
   .pl-3 {
     padding-left: 0.75rem;
   }

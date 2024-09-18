@@ -243,57 +243,59 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   }
 
   return (
-    <div
-      className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1px] border-solid hover:shadow-lg border-offset-2 p-2"
-      style={{
-        'border-color': '#000',
-      }}
-      onMouseEnter={handleMouseOver}
-      onMouseLeave={handleMouseOut}
-    >
-      <a
-        href={productUrl as string}
-        onClick={onProductClick}
-        className="!text-primary hover:no-underline hover:text-primary"
+      <div
+          className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1px] border-solid hover:shadow-lg border-offset-2 p-2"
+          style={{
+            'border-color': '#000',
+          }}
+          onMouseEnter={handleMouseOver}
+          onMouseLeave={handleMouseOut}
       >
-        <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
-          <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
-            {productImageArray.length ? (
-              <ImageCarousel
-                images={
-                  optimizedImageArray.length
-                    ? optimizedImageArray
-                    : productImageArray
-                }
-                productName={product.name}
-                carouselIndex={carouselIndex}
-                setCarouselIndex={setCarouselIndex}
-              />
-            ) : (
-              <NoImage
-                className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
-              />
-            )}
-          </div>
-          <div className="flex flex-row justify-center pt-2">
-            <div className="flex flex-col">
-              <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] font-normal text-[19px] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
-                {product.name !== null && htmlStringDecode(product.name)}
+        <div class="pb-[5rem]">
+          <a
+              href={productUrl as string}
+              onClick={onProductClick}
+              className="!text-primary hover:no-underline hover:text-primary"
+          >
+            <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
+              <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+                {productImageArray.length ? (
+                    <ImageCarousel
+                        images={
+                          optimizedImageArray.length
+                              ? optimizedImageArray
+                              : productImageArray
+                        }
+                        productName={product.name}
+                        carouselIndex={carouselIndex}
+                        setCarouselIndex={setCarouselIndex}
+                    />
+                ) : (
+                    <NoImage
+                        className={`max-h-[45rem] w-full object-cover object-center lg:w-full`}
+                    />
+                )}
               </div>
-              <ProductPrice
-                item={refinedProduct ?? item}
-                isBundle={isBundle}
-                isGrouped={isGrouped}
-                isGiftCard={isGiftCard}
-                isConfigurable={isConfigurable}
-                isComplexProductView={isComplexProductView}
-                discount={discount}
-                currencySymbol={currencySymbol}
-                currencyRate={currencyRate}
-              />
-            </div>
+              <div className="flex flex-row justify-center pt-2">
+                <div className="flex flex-col">
+                  <div
+                      className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] font-normal text-[19px] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
+                    {product.name !== null && htmlStringDecode(product.name)}
+                  </div>
+                  <ProductPrice
+                      item={refinedProduct ?? item}
+                      isBundle={isBundle}
+                      isGrouped={isGrouped}
+                      isGiftCard={isGiftCard}
+                      isConfigurable={isConfigurable}
+                      isComplexProductView={isComplexProductView}
+                      discount={discount}
+                      currencySymbol={currencySymbol}
+                      currencyRate={currencyRate}
+                  />
+                </div>
 
-            {/*
+                {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
@@ -304,18 +306,19 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 />
               </div>
             )} */}
+              </div>
+            </div>
+          </a>
+          <div>
+            {screenSize.mobile && <GoButton onClick={handleGoProduct}/>}
+            {
+              isHovering &&
+                screenSize.desktop && (
+                    <GoButton onClick={handleGoProduct}/>
+                )}
           </div>
         </div>
-      </a>
-      <div>
-        {screenSize.mobile && <GoButton onClick={handleGoProduct} />}
-        {
-          isHovering &&
-            screenSize.desktop && (
-          <GoButton onClick={handleGoProduct} />
-        )}
       </div>
-    </div>
   );
 };
 

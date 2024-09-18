@@ -49,6 +49,10 @@
 .livesearch-plp .ds-widgets .ds-sdk-product-list .ds-sdk-product-item__main{
   border-bottom-width: 0;
 }
+
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item > div:last-child {
+  height: auto;
+}
 @media screen and (max-width: 767px) {
   .grid-container {
     display: grid;
