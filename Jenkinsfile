@@ -26,10 +26,6 @@ pipeline {
         // Match pattern like v1.0.1-rc.1 or v1.0.1 for a release
         git_tag_rc = sh(returnStdout: true, script: 'git tag --contains | egrep "^v[0-9]*\\.[0-9]*\\.[0-9]*-rc*" || echo "null"').trim()
         git_tag_release = sh(returnStdout: true, script: 'git tag --contains | egrep "^v[0-9]*\\.[0-9]*\\.[0-9]*$" || echo "null"').trim()
-
-        CMR_SLACK_CHANNEL = '#magento-search-alerts'
-        CMR_CHANGE_MODEL_ID = '338630'
-        CMR_API_ACCOUNT_NAME = 'magento_search_cmr_skms_api_user'
     }
 
     stages {
@@ -159,19 +155,13 @@ pipeline {
             steps {
                 wrap([$class: 'BuildUser']) {
                     script {
-                        echo "Creating CMR for Branch ${env.BRANCH_NAME}"
-                        env.BUILD_USER = BUILD_USER
-                        def CHANGE_ID = cmr([
-                            change_model_id: "${env.CMR_CHANGE_MODEL_ID}",
-                            api_account_name: "${env.CMR_API_ACCOUNT_NAME}",
-                            cmr_function: "open",
-                            user: "${BUILD_USER}",
-                            summary: "Releasing tag version ${env.git_tag_release}",
-                            ticket: "See release tag notes for more details: ${env.GIT_URL.replace('.git', '')}/releases/${env.git_tag_release}",
-                            slack_channel: "${env.CMR_SLACK_CHANNEL}",
-                            project: "${env.PROJECT}"
-                        ])
-                        env.CMR_ID = CHANGE_ID
+                        def cmr_job = build job: 'CMR Now',
+                            parameters: [
+                                string(name: 'PROJECT', value: 'search'),
+                                string(name: 'DESCRIPTION', value: "${env.git_tag_release}"),
+                                string(name: 'TICKET', value: "See ${env.GIT_URL} tag: ${env.git_tag_release} for more details")
+                            ]
+                        println("https://adobe.service-now.com/now/change-launchpad/homepage - CMR ID: ${cmr_job.getBuildVariables().CHANGE_ID}")
                     }
                 }
             }
@@ -217,74 +207,13 @@ pipeline {
                     }
                 }
             }
-        }
-
-        stage('Validate Production Deployment...waiting for validation response to close CMR...') {
-            when {
-                allOf {
-                    buildingTag()
-                    expression { return env.git_tag_rc != 'null' }
-                    expression { return env.git_tag_release != 'null' }
-                }
-            }
-            steps {
-                script {
-                    try {
-                        timeout(time: 60, unit: 'MINUTES') {
-                            input message: "VERIFY THE DEPLOYMENT. Was the deployment a SUCCESS or FAILURE? Choose ABORT if the deployment failed verification.", ok: 'Deployment was successful!'
-                        }
-                    } catch (err) {
-                        // If 'CMR Success!' is not clicked in 60 minutes, the CMR will be closed as Completed successfully automatically. 'SYSTEM' user means timeout is reached.
-                        def user = err.getCauses()[0].getUser().toString()
-                        if (user == 'SYSTEM') {
-                            currentBuild.result = 'SUCCESS'
-                        } else {
-                            currentBuild.result = 'FAILURE'
-                            error "Deployment was not successful, input aborted."
-                        }
-                    }
-                }
-            }
-        }
-        
+        } 
     }
 
     post {
-        success {
-            script {
-                if (env.CMR_ID) {
-                    env.CMR_COMPLETION_STATUS = "Completed - According to implementation plan"
-                }
-            }
-        }
-        failure {
-            script {
-                if (env.CMR_ID) {
-                    env.CMR_COMPLETION_STATUS = "Canceled - Had to initiate backout plan"
-                }
-            }
-        }
         always {
             cleanWs()
             slack(currentBuild.result, "#datasolutions-jenkins")
-        }
-        // 'cleanup' runs after all other post stages (learned that 'always' runs before 'success' stage ¯\_(ツ)_/¯) (https://www.jenkins.io/doc/book/pipeline/syntax/#post))
-        cleanup {
-            node('ec2-worker') {
-                script {
-                    if (env.CMR_ID) {
-                        echo "Closing CMR with status: ${env.CMR_COMPLETION_STATUS}..."
-                        cmr([
-                           cmr_id: "${env.CMR_ID}",
-                           api_account_name: "${env.CMR_API_ACCOUNT_NAME}",
-                           cmr_function: "close",
-                           user: "${env.BUILD_USER}",
-                           completion_status: "${env.CMR_COMPLETION_STATUS}",
-                           slack_channel: "${env.CMR_SLACK_CHANNEL}"
-                        ])
-                    }
-                }
-            }
         }
     }
 }
