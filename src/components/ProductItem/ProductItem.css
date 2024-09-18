@@ -53,9 +53,16 @@
 .livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item > div:last-child {
   height: auto;
 }
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item:hover {
+  border-style: solid;
+}
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item {
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding: 0;
+}
 @media screen and (max-width: 767px) {
   .grid-container {
-    display: grid;
+    display: flex;
     gap: 10px;
     height: auto;
     border-top: 2px solid #e5e7eb;

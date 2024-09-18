@@ -1,7 +1,10 @@
 /* https://cssguidelin.es/#bem-like-naming */
 .sfsdk-product-list {
 }
-
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid{
+    column-gap: .25rem;
+    row-gap: 2rem;
+}
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) { } */
 
