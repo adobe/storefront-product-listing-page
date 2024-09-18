@@ -16,10 +16,10 @@ export const GoButton: FunctionComponent<GoButtonProps> = ({
   onClick,
 }: GoButtonProps) => {
   return (
-      <div className="ds-sdk-go-button">
+      <div className="ds-sdk-go-button relative w-full bottom-[0] left-[0]">
           <div
               class="w-full text-center text-white text-base font-normal
-              font-['Futura Md BT'] bg-black hover:bg-[#904547]" onClick={onClick}>
+              font-['Futura Md BT'] bg-black hover:no-underline hover:bg-[#f55d66] hover:border-t-[solid_1px_#f55d66]" onClick={onClick}>
               GO
           </div>
       </div>

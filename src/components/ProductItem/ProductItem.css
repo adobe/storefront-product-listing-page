@@ -46,7 +46,9 @@
   display: grid;
   justify-content: end;
 }
-
+.livesearch-plp .ds-widgets .ds-sdk-product-list .ds-sdk-product-item__main{
+  border-bottom-width: 0;
+}
 @media screen and (max-width: 767px) {
   .grid-container {
     display: grid;

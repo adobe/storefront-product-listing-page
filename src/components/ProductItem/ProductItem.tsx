@@ -29,7 +29,7 @@ import { htmlStringDecode } from '../../utils/htmlStringDecode';
 import { GoButton } from '../GoButton';
 import { ImageCarousel } from '../ImageCarousel';
 import { SwatchButtonGroup } from '../SwatchButtonGroup';
-import ProductPrice from './ProductPrice';
+import ProductPrice from './ProductPriceRange';
 
 export interface ProductProps {
   item: Product;
@@ -256,7 +256,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         onClick={onProductClick}
         className="!text-primary hover:no-underline hover:text-primary"
       >
-        <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
+        <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
           <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
             {productImageArray.length ? (
               <ImageCarousel
@@ -277,7 +277,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
           <div className="flex flex-row justify-center pt-2">
             <div className="flex flex-col">
-              <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] font-normal text-[19px] font-['PlayfairDisplay-Bold'] text-center">
+              <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] font-normal text-[19px] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                 {product.name !== null && htmlStringDecode(product.name)}
               </div>
               <ProductPrice
@@ -293,7 +293,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </div>
 
-            {/* 
+            {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
@@ -307,10 +307,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </div>
         </div>
       </a>
-      <div className="pb-4 mt-sm">
+      <div>
         {screenSize.mobile && <GoButton onClick={handleGoProduct} />}
         {
-          // isHovering &&
+          isHovering &&
             screenSize.desktop && (
           <GoButton onClick={handleGoProduct} />
         )}
