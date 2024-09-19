@@ -141,7 +141,14 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       window.open(productUrl, '_self');
     }
   };
-
+  const getSearchProductManufacturer=()=>{
+    let manufacturer = item.productView.attributes.find(attribute => {
+      return attribute.name === 'manufacturer'
+    });
+    if ("undefined" !== typeof manufacturer) {
+      return manufacturer.value;
+    } else return '';
+  }
   if (listview && viewType === 'listview') {
     return (
       <>
@@ -278,6 +285,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
               <div className="flex flex-row justify-center pt-2">
                 <div className="flex flex-col">
+                  <div class="leading-none text-[14px] uppercase text-black font-['FuturaBT-Light'] text-center">{getSearchProductManufacturer()}</div>
                   <div
                       className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] font-normal text-[19px] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}

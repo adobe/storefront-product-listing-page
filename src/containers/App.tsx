@@ -31,7 +31,7 @@ export const App: FunctionComponent = () => {
   const { screenSize } = useSensor();
   const translation = useTranslation();
   const { displayMode } = useStore().config;
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const loadingLabel = translation.Loading.title;
 

@@ -861,6 +861,9 @@ video {
   .justify-between {
     justify-content: space-between;
   }
+  .justify-evenly {
+    justify-content: space-evenly;
+  }
   .gap-\[10px\] {
     gap: 10px;
   }
@@ -1127,6 +1130,9 @@ video {
   .text-center {
     text-align: center;
   }
+  .font-\[\'FuturaBT-Light\'\] {
+    font-family: 'FuturaBT-Light';
+  }
   .font-\[\'PlayfairDisplay-Bold\'\] {
     font-family: 'PlayfairDisplay-Bold';
   }
@@ -1136,6 +1142,9 @@ video {
   }
   .text-\[12px\] {
     font-size: 12px;
+  }
+  .text-\[14px\] {
+    font-size: 14px;
   }
   .text-\[19px\] {
     font-size: 19px;
@@ -1171,11 +1180,17 @@ video {
   .font-semibold {
     font-weight: var(--font-semibold);
   }
+  .uppercase {
+    text-transform: uppercase;
+  }
   .capitalize {
     text-transform: capitalize;
   }
   .leading-\[1\.2\] {
     line-height: 1.2;
+  }
+  .leading-none {
+    line-height: var(--leading-none);
   }
   .tracking-\[0\.5px\] {
     letter-spacing: 0.5px;

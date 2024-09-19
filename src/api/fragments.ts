@@ -49,6 +49,13 @@ const ProductView = `
                 url
                 roles
             }
+            attributes(roles: [
+                                "visible_in_pdp",
+                                "visible_in_search"
+                                ]) {
+                    value
+                    name
+                }
             ... on ComplexProductView {
                 priceRange {
                     maximum {

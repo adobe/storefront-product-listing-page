@@ -5,6 +5,9 @@
     column-gap: .25rem;
     row-gap: 2rem;
 }
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item>div:last-child{
+    align-self: flex-start;
+}
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) { } */
 
