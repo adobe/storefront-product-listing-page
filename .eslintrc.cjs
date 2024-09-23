@@ -28,14 +28,15 @@ module.exports = {
         TEST_URL: true,
     },
     extends: [
-        "eslint:recommended",
+        // "eslint:recommended",
+        "plugin:preact/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "preact",
-        "prettier",
+        // "plugin:@typescript-eslint/eslint-recommended",
+        // "preact",
         "plugin:storybook/recommended",
+        "plugin:prettier/recommended", // should always be last
     ],
-    plugins: ["jest", "prettier", "simple-import-sort", "@typescript-eslint"],
+    plugins: ["jest", "simple-import-sort", "@typescript-eslint"],
     rules: {
         "no-console": ["error"],
         "react/prop-types": 0,
@@ -77,7 +78,11 @@ module.exports = {
             },
         },
     ],
-
-
-    ignorePatterns: ["dist/", "config/"],
+    ignorePatterns: [
+        "node_modules",
+        "dist", 
+        "config",
+        "**/*.test.ts",
+        "**/*.test.tsx"
+    ],
 };
