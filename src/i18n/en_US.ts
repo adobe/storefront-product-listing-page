@@ -67,4 +67,7 @@ export const en_US = {
   ListView: {
     viewDetails: 'View details',
   },
+  GoButton:{
+    text:"Go"
+  },
 };

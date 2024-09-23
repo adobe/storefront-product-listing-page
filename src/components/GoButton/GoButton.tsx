@@ -9,6 +9,8 @@ it.
 
 import {FunctionComponent} from 'preact';
 import '../GoButton/GoButton.css';
+import {TranslationContext} from '../../context';
+import {useContext} from "preact/hooks";
 
 export interface GoButtonProps {
     onClick: (e: any) => any;
@@ -17,12 +19,14 @@ export interface GoButtonProps {
 export const GoButton: FunctionComponent<GoButtonProps> = ({
                                                                onClick,
                                                            }: GoButtonProps) => {
+    const translation = useContext(TranslationContext);
+    const translatedText = 'GoButton' in translation ? translation.GoButton.text : 'Go';
     return (
         <div className="ds-sdk-go-button absolute w-full bottom-[0] left-[0]">
             <div
                 class="go-button text hover:no-underline bg-black hover:bg-[#f55d66] hover:border-t-[solid_1px_#f55d66]"
                 onClick={onClick}>
-                GO
+                {translatedText}
             </div>
         </div>
     );

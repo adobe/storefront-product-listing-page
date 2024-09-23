@@ -2,8 +2,14 @@
 .sfsdk-product-list {
 }
 .livesearch-plp .ds-widgets .ds-sdk-product-list__grid{
-    column-gap: .25rem;
+    column-gap: 1.25rem;
     row-gap: 2rem;
+}
+.livesearch-plp {
+    margin: 0 auto;
+    max-width: 90%;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item>div:last-child{
     align-self: flex-start;

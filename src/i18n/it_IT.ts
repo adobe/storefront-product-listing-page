@@ -57,4 +57,7 @@ export const it_IT = {
   SearchBar: {
     placeholder: 'Cerca...',
   },
+  GoButton:{
+    text:"Vai"
+  },
 };

@@ -115,7 +115,7 @@ export const ProductPriceRange: FunctionComponent<ProductPriceRangeProps> = ({
   return (
     <>
       {price && (
-        <div className="ds-sdk-product-price price-text pt-[0.3rem]">
+        <div className="ds-sdk-product-price price-text pt-3.5">
           {!isBundle &&
             !isGrouped &&
             !isConfigurable &&
