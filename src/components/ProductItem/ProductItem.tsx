@@ -141,12 +141,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       window.open(productUrl, '_self');
     }
   };
-  const getSearchProductManufacturer=()=>{
-    let manufacturer = item.productView.attributes.find(attribute => {
-      return attribute.name === 'manufacturer'
+  const getProductAttribute = (name: string) => {
+    let attribute = item.productView.attributes.find(attribute => {
+      return attribute.name === name
     });
-    if ("undefined" !== typeof manufacturer) {
-      return manufacturer.value;
+    if ("undefined" !== typeof attribute) {
+      return attribute.value;
     } else return '';
   }
   if (listview && viewType === 'listview') {
@@ -251,10 +251,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
       <div
-          className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1px] border-solid hover:shadow-lg border-offset-2 p-2"
-          style={{
-            'border-color': '#000',
-          }}
+          className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-[#11182703] h-full hover:border-black p-2"
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
       >
@@ -262,7 +259,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           <a
               href={productUrl as string}
               onClick={onProductClick}
-              className="!text-primary hover:no-underline hover:text-primary"
+              className="!text-primary"
           >
             <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
               <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
@@ -285,11 +282,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
               <div className="flex flex-row justify-center pt-2">
                 <div className="flex flex-col">
-                  <div class="leading-none text-[14px] uppercase text-black font-['FuturaBT-Light'] text-center">{getSearchProductManufacturer()}</div>
-                  <div
-                      className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] font-normal text-[19px] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
+                  <div class="leading-none text-[1rem] uppercase text-black font-['FuturaBT-Light'] text-center">{getProductAttribute('manufacturer')}</div>
+                  <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-[0.3rem] font-normal text-[1rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
+                  <div className="block">{getProductAttribute('mini_description')}</div>
                   <ProductPrice
                       item={refinedProduct ?? item}
                       isBundle={isBundle}
