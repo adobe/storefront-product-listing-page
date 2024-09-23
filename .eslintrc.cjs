@@ -1,4 +1,5 @@
 module.exports = {
+    root: true,
     parser: "@typescript-eslint/parser",
     parserOptions: {
         ecmaVersion: 2020,
@@ -28,15 +29,16 @@ module.exports = {
         TEST_URL: true,
     },
     extends: [
+        "preact",
         // "eslint:recommended",
-        "plugin:preact/recommended",
+        // "plugin:preact/recommended",
         "plugin:@typescript-eslint/recommended",
         // "plugin:@typescript-eslint/eslint-recommended",
         // "preact",
-        "plugin:storybook/recommended",
+        // "plugin:storybook/recommended",
         "plugin:prettier/recommended", // should always be last
     ],
-    plugins: ["jest", "simple-import-sort", "@typescript-eslint"],
+    plugins: ["jest", "simple-import-sort"],
     rules: {
         "no-console": ["error"],
         "react/prop-types": 0,
@@ -57,6 +59,7 @@ module.exports = {
                     // Relative imports.
                     // Anything that starts with a dot.
                     ["^\\."],
+                    [".css$"], // css last
                 ],
             },
         ],
@@ -69,6 +72,8 @@ module.exports = {
         ],
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/ban-ts-comment": ["error", { "ts-ignore": "allow-with-description" }],
+        // introduced with eslint-config-preact
+        radix: "off",
     },
     overrides: [
         {
@@ -80,7 +85,7 @@ module.exports = {
     ],
     ignorePatterns: [
         "node_modules",
-        "dist", 
+        "dist",
         "config",
         // "**/*.test.ts",
         // "**/*.test.tsx"

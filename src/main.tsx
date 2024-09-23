@@ -7,10 +7,11 @@
 
 import mse from "@adobe/magento-storefront-events-sdk";
 
-import "./main.css";
 import { StoreDetails } from "@/types";
 
 import { LiveSearchPLP } from "./LiveSearchPLP";
+
+import "./main.css";
 
 // TODO: check presence of urls
 const env = import.meta.env;

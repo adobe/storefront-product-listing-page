@@ -61,6 +61,7 @@ export const PerPagePicker: FunctionalComponent<PerPagePickerProps> = ({
             menuRef?.removeEventListener("focusin", handleFocus);
             menuRef?.removeEventListener("focusout", handleFocus);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSizeMenu]);
 
     return (
@@ -70,7 +71,7 @@ export const PerPagePicker: FunctionalComponent<PerPagePickerProps> = ({
                 className="ds-sdk-per-page-picker ml-2 mr-2 relative inline-block text-left bg-gray-100 rounded-md outline outline-1 outline-gray-200 hover:outline-gray-600 h-[32px]"
             >
                 <button
-                    className="group flex justify-center items-center font-normal text-sm text-gray-700 rounded-md hover:cursor-pointer border-none bg-transparent hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
+                    className="flex items-center justify-center w-full h-full text-sm font-normal text-gray-700 bg-transparent border-none rounded-md group hover:cursor-pointer hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none px-sm"
                     ref={pageSizeButton}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     onFocus={() => setIsFocus(false)}
@@ -86,7 +87,7 @@ export const PerPagePicker: FunctionalComponent<PerPagePickerProps> = ({
                 {isDropdownOpen && (
                     <ul
                         ref={listRef}
-                        className="ds-sdk-per-page-picker__items origin-top-right absolute hover:cursor-pointer right-0 w-full rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
+                        className="absolute right-0 z-20 w-full mt-2 origin-top-right bg-white rounded-md shadow-2xl ds-sdk-per-page-picker__items hover:cursor-pointer ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                         {pageSizeOptions.map((option, i) => (
                             <li
@@ -99,12 +100,12 @@ export const PerPagePicker: FunctionalComponent<PerPagePickerProps> = ({
                             >
                                 <a
                                     className={`ds-sdk-per-page-picker__items--item block-display px-md py-sm text-sm mb-0
-              no-underline active:no-underline focus:no-underline hover:no-underline
-              hover:text-gray-900 ${
-                  option.value === selectedOption?.value
-                      ? "ds-sdk-per-page-picker__items--item-selected font-semibold text-gray-900"
-                      : "font-normal text-gray-800"
-              }`}
+                                                no-underline active:no-underline focus:no-underline hover:no-underline
+                                                hover:text-gray-900 ${
+                                                    option.value === selectedOption?.value
+                                                        ? "ds-sdk-per-page-picker__items--item-selected font-semibold text-gray-900"
+                                                        : "font-normal text-gray-800"
+                                                }`}
                                     onClick={() => select(option.value)}
                                 >
                                     {option.label}

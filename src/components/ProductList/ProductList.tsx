@@ -11,13 +11,13 @@ import { FunctionComponent } from "preact";
 import { HTMLAttributes } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
 
-import "./product-list.css";
-
 import { Alert } from "../../components/Alert";
 import { useProducts, useStore } from "../../context";
 import { Product } from "../../types/interface";
 import { classNames } from "../../utils/dom";
 import ProductItem from "../ProductItem";
+
+import "./product-list.css";
 
 export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
     products: Array<Product> | null | undefined;
@@ -42,7 +42,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({ products, num
 
     useEffect(() => {
         refreshCart && refreshCart();
-    }, [itemAdded]);
+    }, [itemAdded, refreshCart]);
 
     return (
         <div className={classNames("ds-sdk-product-list bg-body pb-2xl sm:pb-24", className)}>
@@ -91,7 +91,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({ products, num
                     style={{
                         gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
                     }}
-                    className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-2xl xl:gap-x-8"
+                    className="grid ds-sdk-product-list__grid mt-md gap-y-8 gap-x-2xl xl:gap-x-8"
                 >
                     {products?.map((product) => (
                         <ProductItem

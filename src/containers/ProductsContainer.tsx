@@ -47,6 +47,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({ showFilters }) => 
         if (currentPage < 1) {
             goToPage(1);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const productCardArray = Array.from({ length: 8 });
@@ -91,7 +92,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({ showFilters }) => 
             .replace("{variables.phrase}", variables.phrase)
             .replace("{minQueryLength}", minQueryLength);
         return (
-            <div className="ds-sdk-min-query__page mx-auto max-w-8xl py-12 px-4 sm:px-6 lg:px-8">
+            <div className="px-4 py-12 mx-auto ds-sdk-min-query__page max-w-8xl sm:px-6 lg:px-8">
                 <Alert title={title} type="warning" description="" />
             </div>
         );
@@ -99,7 +100,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({ showFilters }) => 
 
     if (!totalCount) {
         return (
-            <div className="ds-sdk-no-results__page mx-auto max-w-8xl py-12 px-4 sm:px-6 lg:px-8">
+            <div className="px-4 py-12 mx-auto ds-sdk-no-results__page max-w-8xl sm:px-6 lg:px-8">
                 <Alert title={translation.ProductContainers.noresults} type="warning" description="" />
             </div>
         );
@@ -112,7 +113,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({ showFilters }) => 
                     style={{
                         gridTemplateColumns: `repeat(${screenSize.columns}, minmax(0, 1fr))`,
                     }}
-                    className="ds-sdk-product-list__grid mt-md grid grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
+                    className="grid grid-cols-1 pl-8 ds-sdk-product-list__grid mt-md gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4"
                 >
                     {" "}
                     {productCardArray.map((_, index) => (

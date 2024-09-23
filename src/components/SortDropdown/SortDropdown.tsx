@@ -66,6 +66,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
             menuRef?.removeEventListener("focusin", handleFocus);
             menuRef?.removeEventListener("focusout", handleFocus);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortOptionMenu]);
 
     return (
@@ -75,13 +76,13 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
                 class="ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md outline outline-1 outline-gray-200 hover:outline-gray-600 h-[32px] z-9"
             >
                 <button
-                    className="group flex justify-center items-center font-normal text-sm text-gray-700 rounded-md hover:cursor-pointer border-none bg-transparent hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
+                    className="flex items-center justify-center w-full h-full text-sm font-normal text-gray-700 bg-transparent border-none rounded-md group hover:cursor-pointer hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none px-sm"
                     ref={sortOptionButton}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     onFocus={() => setIsFocus(false)}
                     onBlur={() => setIsFocus(false)}
                 >
-                    <SortIcon className="h-md w-md mr-sm stroke-gray-600 m-auto" />
+                    <SortIcon className="m-auto h-md w-md mr-sm stroke-gray-600" />
                     {selectedOption ? sortOption : translation.SortDropdown.title}
                     <Chevron
                         className={`flex-shrink-0 m-auto ml-sm h-md w-md stroke-1 stroke-gray-600 ${
@@ -93,7 +94,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
                     <ul
                         ref={listRef}
                         tabIndex={-1}
-                        className="ds-sdk-sort-dropdown__items origin-top-right absolute hover:cursor-pointer right-0 w-full rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
+                        className="absolute right-0 z-20 w-full mt-2 origin-top-right bg-white rounded-md shadow-2xl ds-sdk-sort-dropdown__items hover:cursor-pointer ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                         {sortOptions.map((option, i) => (
                             <li

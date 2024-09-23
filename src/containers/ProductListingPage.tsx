@@ -8,7 +8,6 @@ it.
 */
 import { render } from "preact";
 
-import "./styles/global.css";
 import { validateStoreDetailsKeys } from "@/utils/validateStoreDetails";
 
 import {
@@ -23,6 +22,8 @@ import Resize from "../context/displayChange";
 import Translation from "../context/translation";
 import { getUserViewHistory } from "../utils/getUserViewHistory";
 import App from "./App";
+
+import "./styles/global.css";
 
 type MountSearchPlpProps = {
     storeDetails: StoreDetailsProps;

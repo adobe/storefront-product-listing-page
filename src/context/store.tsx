@@ -74,6 +74,7 @@ const StoreContextProvider = ({
             route,
             searchQuery,
         }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [environmentId, websiteCode, storeCode, storeViewCode],
     );
 

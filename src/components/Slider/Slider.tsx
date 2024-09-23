@@ -11,11 +11,11 @@ import { FunctionComponent } from "preact";
 import { HTMLAttributes, useState } from "preact/compat";
 import { useEffect } from "react";
 
-import "../Slider/Slider.css";
-
 import { useProducts, useSearch } from "../../context";
 import useSliderFacet from "../../hooks/useSliderFacet";
 import { PriceFacet } from "../../types/interface";
+
+import "../Slider/Slider.css";
 
 export interface SliderProps extends HTMLAttributes<HTMLInputElement> {
     filterData: PriceFacet;
@@ -42,6 +42,7 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
         if (searchCtx?.filters?.length === 0 || !searchCtx?.filters?.find((obj) => obj.attribute === "price")) {
             setSelectedPrice(filterData.buckets[filterData.buckets.length - 1].to);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchCtx]);
 
     useEffect(() => {
@@ -49,6 +50,7 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
             setSelectedPrice(filterData.buckets[filterData.buckets.length - 1].to);
         }
         setIsFirstRender(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filterData.buckets[filterData.buckets.length - 1].to]);
 
     const { onChange } = useSliderFacet(filterData);
@@ -96,7 +98,7 @@ export const Slider: FunctionComponent<SliderProps> = ({ filterData }) => {
                     <span class="max-price">{formatLabel(filterData.buckets[filterData.buckets.length - 1].to)}</span>
                 </div>
             </div>
-            <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
+            <div className="border-t border-gray-200 ds-sdk-input__border mt-md" />
         </>
     );
 };

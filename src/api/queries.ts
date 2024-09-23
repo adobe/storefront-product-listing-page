@@ -9,24 +9,24 @@ it.
 
 import { Facet, Product, ProductView } from "./fragments";
 
-const ATTRIBUTE_METADATA_QUERY = /* GraphQL */`
+const ATTRIBUTE_METADATA_QUERY = /* GraphQL */ `
     query attributeMetadata {
         attributeMetadata {
-        sortable {
-            label
-            attribute
-            numeric
-        }
-        filterableInSearch {
-            label
-            attribute
-            numeric
-        }
+            sortable {
+                label
+                attribute
+                numeric
+            }
+            filterableInSearch {
+                label
+                attribute
+                numeric
+            }
         }
     }
 `;
 
-const QUICK_SEARCH_QUERY = /* GraphQL */`
+const QUICK_SEARCH_QUERY = /* GraphQL */ `
     query quickSearch(
         $phrase: String!
         $pageSize: Int = 20
@@ -57,7 +57,7 @@ const QUICK_SEARCH_QUERY = /* GraphQL */`
     ${Product}
 `;
 
-const PRODUCT_SEARCH_QUERY = /* GraphQL */`
+const PRODUCT_SEARCH_QUERY = /* GraphQL */ `
     query productSearch(
         $phrase: String!
         $pageSize: Int
@@ -101,15 +101,9 @@ const PRODUCT_SEARCH_QUERY = /* GraphQL */`
     ${Facet}
 `;
 
-const REFINE_PRODUCT_QUERY = /* GraphQL */`
-    query refineProduct(
-        $optionIds: [String!]!
-        $sku: String!
-    ) {
-        refineProduct(
-            optionIds: $optionIds
-            sku: $sku
-        ) {
+const REFINE_PRODUCT_QUERY = /* GraphQL */ `
+    query refineProduct($optionIds: [String!]!, $sku: String!) {
+        refineProduct(optionIds: $optionIds, sku: $sku) {
             __typename
             id
             sku
@@ -177,41 +171,41 @@ const REFINE_PRODUCT_QUERY = /* GraphQL */`
     }
 `;
 
-const GET_CUSTOMER_CART = /* GraphQL */`
+const GET_CUSTOMER_CART = /* GraphQL */ `
     query customerCart {
         customerCart {
             id
             items {
-            id
-            product {
-                name
-                sku
-            }
-            quantity
+                id
+                product {
+                    name
+                    sku
+                }
+                quantity
             }
         }
     }
 `;
 
-const GET_CUSTOMER_WISHLISTS = /* GraphQL */`
+const GET_CUSTOMER_WISHLISTS = /* GraphQL */ `
     query customer {
-      customer {
-        wishlists {
-          id
-          name
-          items_count
-          items_v2 {
-            items {
-            id
-              product {
-              uid
-              name
-              sku
-              }
+        customer {
+            wishlists {
+                id
+                name
+                items_count
+                items_v2 {
+                    items {
+                        id
+                        product {
+                            uid
+                            name
+                            sku
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
 `;
 

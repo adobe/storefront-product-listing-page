@@ -9,8 +9,6 @@ it.
 
 import { render } from "preact";
 
-import "./styles/index.css";
-
 import { getUserViewHistory } from "../src/utils/getUserViewHistory";
 import App from "./containers/App";
 import {
@@ -24,6 +22,8 @@ import {
 import Resize from "./context/displayChange";
 import Translation from "./context/translation";
 import { validateStoreDetailsKeys } from "./utils/validateStoreDetails";
+
+import "./styles/index.css";
 
 type MountSearchPlpProps = {
     storeDetails: StoreDetailsProps;

@@ -88,6 +88,7 @@ const WidgetConfigContextProvider = ({ children }: { children?: any }) => {
                 .finally(() => {
                     setWidgetConfigFetched(true);
                 });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [environmentId, storeCode]);
 
     const getWidgetConfig = async (envId: string, storeCode: string): Promise<WidgetConfigOptions> => {

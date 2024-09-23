@@ -35,7 +35,9 @@ export const Pagination: FunctionComponent<PaginationProps> = ({ onPageChange, t
         }
 
         return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     const onPrevious = () => {
         if (currentPage > 1) {
             onPageChange(currentPage - 1);
@@ -49,7 +51,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({ onPageChange, t
     };
 
     return (
-        <ul className="ds-plp-pagination flex justify-center items-center mt-2 mb-6 list-none">
+        <ul className="flex items-center justify-center mt-2 mb-6 list-none ds-plp-pagination">
             <Chevron
                 className={`h-sm w-sm transform rotate-90 ${
                     currentPage === 1 ? "stroke-gray-400 cursor-not-allowed" : "stroke-gray-600 cursor-pointer"
@@ -60,7 +62,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({ onPageChange, t
             {paginationRange?.map((page: number | string) => {
                 if (page === ELLIPSIS) {
                     return (
-                        <li key={page} className="ds-plp-pagination__dots text-gray-500 mx-sm my-auto">
+                        <li key={page} className="my-auto text-gray-500 ds-plp-pagination__dots mx-sm">
                             ...
                         </li>
                     );

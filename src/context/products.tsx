@@ -327,6 +327,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         if (attributeMetadataCtx.filterableInSearch) {
             searchProducts();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchCtx.filters]);
 
     useEffect(() => {
@@ -334,12 +335,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
             const filtersFromUrl = getFiltersFromUrl(attributeMetadataCtx.filterableInSearch);
             searchCtx.setFilters(filtersFromUrl);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [attributeMetadataCtx.filterableInSearch]);
 
     useEffect(() => {
         if (!loading) {
             searchProducts();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchCtx.phrase, searchCtx.sort, currentPage, pageSize]);
 
     return <ProductsContext.Provider value={context}>{children}</ProductsContext.Provider>;

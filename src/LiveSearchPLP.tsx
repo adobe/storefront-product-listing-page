@@ -1,6 +1,5 @@
 import { render } from "preact/compat";
 
-import "./styles/index.css";
 import {
     AttributeMetadataProvider,
     CartProvider,
@@ -15,6 +14,8 @@ import { validateStoreDetailsKeys } from "@/utils/validateStoreDetails";
 import App from "./containers/App";
 import Resize from "./context/displayChange";
 import Translation from "./context/translation";
+
+import "./styles/index.css";
 
 type LiveSearchPlpProps = {
     storeDetails: StoreDetails;

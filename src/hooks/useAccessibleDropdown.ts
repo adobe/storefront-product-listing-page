@@ -143,6 +143,7 @@ export const useAccessibleDropdown = ({
                 setIsDropdownOpen,
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isDropdownOpen, activeIndex, isFocus]);
 
     return {

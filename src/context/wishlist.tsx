@@ -38,6 +38,7 @@ const WishlistProvider: FunctionComponent = ({ children }) => {
 
     useEffect(() => {
         getWishlists();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getWishlists = async () => {

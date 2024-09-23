@@ -10,7 +10,6 @@ it.
 import { FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 
-import "../ProductItem/ProductItem.css";
 import { NoImage } from "@/icons";
 
 import { useCart, useProducts, useSensor, useStore } from "../../context";
@@ -22,6 +21,8 @@ import { AddToCartButton } from "../AddToCartButton";
 import { ImageCarousel } from "../ImageCarousel";
 import { SwatchButtonGroup } from "../SwatchButtonGroup";
 import ProductPrice from "./ProductPrice";
+
+import "../ProductItem/ProductItem.css";
 
 export interface ProductProps {
     item: Product;
@@ -173,17 +174,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                                 onClick={onProductClick}
                                 className="!text-primary hover:no-underline hover:text-primary"
                             >
-                                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-primary">
+                                <div className="text-sm ds-sdk-product-item__product-name mt-xs text-primary">
                                     {product.name !== null && htmlStringDecode(product.name)}
                                 </div>
-                                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-primary">
+                                <div className="text-sm ds-sdk-product-item__product-sku mt-xs text-primary">
                                     SKU:
                                     {product.sku !== null && htmlStringDecode(product.sku)}
                                 </div>
                             </a>
 
                             {/* Swatch */}
-                            <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary pb-6">
+                            <div className="flex flex-row pb-6 text-sm ds-sdk-product-item__product-swatch mt-sm text-primary">
                                 {productView?.options?.map(
                                     (swatches) =>
                                         swatches.id === "color" && (
@@ -220,7 +221,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                             />
                         </a>
                     </div>
-                    <div className="product-description text-sm text-primary mt-xs">
+                    <div className="text-sm product-description text-primary mt-xs">
                         <a
                             href={productUrl as string}
                             onClick={onProductClick}
@@ -229,6 +230,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                             {product.short_description?.html ? (
                                 <>
                                     <span
+                                        // eslint-disable-next-line react/no-danger
                                         dangerouslySetInnerHTML={{
                                             __html: product.short_description.html,
                                         }}
@@ -266,8 +268,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 onClick={onProductClick}
                 className="!text-primary hover:no-underline hover:text-primary"
             >
-                <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full">
-                    <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+                <div className="relative flex flex-col justify-between h-full ds-sdk-product-item__main">
+                    <div className="relative w-full h-full overflow-hidden rounded-md ds-sdk-product-item__image">
                         {productImageArray.length ? (
                             <ImageCarousel
                                 images={optimizedImageArray.length ? optimizedImageArray : productImageArray}
@@ -281,7 +283,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                     </div>
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <div className="ds-sdk-product-item__product-name mt-md text-sm text-primary">
+                            <div className="text-sm ds-sdk-product-item__product-name mt-md text-primary">
                                 {product.name !== null && htmlStringDecode(product.name)}
                             </div>
                             <ProductPrice
@@ -301,7 +303,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
-              <div className="ds-sdk-wishlist ml-auto mt-md">
+              <div className="ml-auto ds-sdk-wishlist mt-md">
                 <WishlistButton
                   productSku={item.product.sku}
                   type={widgetConfig.addToWishlist.placement}
@@ -313,7 +315,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             </a>
 
             {productView?.options && productView.options?.length > 0 && (
-                <div className="ds-sdk-product-item__product-swatch flex flex-row mt-sm text-sm text-primary">
+                <div className="flex flex-row text-sm ds-sdk-product-item__product-swatch mt-sm text-primary">
                     {productView?.options?.map(
                         (swatches) =>
                             swatches.id == "color" && (

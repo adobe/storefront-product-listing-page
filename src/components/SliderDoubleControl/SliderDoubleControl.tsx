@@ -10,11 +10,11 @@ it.
 import { FunctionComponent } from "preact";
 import { HTMLAttributes, useEffect, useState } from "preact/compat";
 
-import "../SliderDoubleControl/SliderDoubleControl.css";
-
 import { useProducts, useSearch } from "../../context";
 import useSliderFacet from "../../hooks/useSliderFacet";
 import { PriceFacet } from "../../types/interface";
+
+import "../SliderDoubleControl/SliderDoubleControl.css";
 
 export interface SliderProps extends HTMLAttributes<HTMLInputElement> {
     filterData: PriceFacet;
@@ -54,6 +54,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({ filterData
             setMinVal(min);
             setMaxVal(max);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchCtx]);
 
     useEffect(() => {
@@ -137,6 +138,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({ filterData
         toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
         fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
         toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [minVal, maxVal]);
 
     const formatLabel = (price: number) => {
@@ -153,7 +155,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({ filterData
 
     return (
         <div className="ds-sdk-input pt-md">
-            <label className="ds-sdk-input__label text-base font-normal text-gray-900">{filterData.title}</label>
+            <label className="text-base font-normal text-gray-900 ds-sdk-input__label">{filterData.title}</label>
 
             <div class="ds-sdk-slider range_container">
                 <div class="sliders_control">
@@ -257,12 +259,12 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({ filterData
             </div>
 
             <div className={`price-range-display__${filterData.attribute} pb-3`}>
-                <span className="ml-sm block-display text-sm font-light text-gray-700">
-                    Between <span className="min-price text-gray-900 font-semibold">{formatLabel(minVal)}</span> and{" "}
-                    <span className="max-price text-gray-900 font-semibold">{formatLabel(maxVal)}</span>
+                <span className="text-sm font-light text-gray-700 ml-sm block-display">
+                    Between <span className="font-semibold text-gray-900 min-price">{formatLabel(minVal)}</span> and{" "}
+                    <span className="font-semibold text-gray-900 max-price">{formatLabel(maxVal)}</span>
                 </span>
             </div>
-            <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
+            <div className="border-t border-gray-200 ds-sdk-input__border mt-md" />
         </div>
     );
 };

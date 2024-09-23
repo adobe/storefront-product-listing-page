@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
         server: {
             port: parseInt(PORT),
             strictPort: true,
-            open: `http://localhost:${PORT}/${MAJOR_VERSION}/index.html`,
+            open: `http://localhost:${PORT}/v${MAJOR_VERSION}/index.html`,
             // proxy: {
             //     [`/v${MAJOR_VERSION}`]: `http://localhost:${PORT}/`
             // }

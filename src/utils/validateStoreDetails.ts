@@ -27,6 +27,7 @@ export const sanitizeString = (value: any) => {
 export const validateStoreDetailsKeys = (storeDetails: StoreDetailsProps): StoreDetailsProps => {
     Object.keys(storeDetails).forEach((key: string) => {
         if (!validStoreDetailsKeys.includes(key as keyof StoreDetailsProps)) {
+            // eslint-disable-next-line no-console
             console.error(`Invalid key ${key} in StoreDetailsProps`);
             // filter out invalid keys/value
             delete (storeDetails as any)[key];
