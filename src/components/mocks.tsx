@@ -12,7 +12,7 @@ import {
   PriceFacet,
   RangeBucket,
   ScalarBucket,
-} from 'src/types/interface';
+} from '@/types/interface';
 
 const colorBuckets: ScalarBucket[] = [
   {

@@ -8,7 +8,8 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useSensor } from 'src/context';
+
+import { useSensor } from '@/context';
 
 import ButtonShimmer from '../ButtonShimmer';
 import FacetsShimmer from '../FacetsShimmer';

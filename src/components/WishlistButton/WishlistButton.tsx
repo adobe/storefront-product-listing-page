@@ -9,11 +9,11 @@ it.
 
 import { FunctionComponent } from 'preact';
 
+import {EmptyHeart, FilledHeart } from '@/icons';
+
 import { useWishlist } from '../../context';
-import EmptyHeart from '../../icons/emptyHeart.svg';
-import FilledHeart from '../../icons/filledHeart.svg';
 import { WishlistItem } from '../../types/interface';
-import { AddToWishlistPlacement } from '../../types/widgetConfig.interface';
+import { AddToWishlistPlacement } from '../../types/widget';
 import { classNames } from '../../utils/dom';
 
 export interface WishlistButtonProps {

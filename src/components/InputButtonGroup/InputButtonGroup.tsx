@@ -10,8 +10,9 @@ it.
 import { FunctionComponent } from 'preact';
 import { ChangeEvent, useState } from 'preact/compat';
 
+import { Plus as PlusIcon} from '@/icons';
+
 import { useProducts, useTranslation } from '../../context';
-import PlusIcon from '../../icons/plus.svg';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
 

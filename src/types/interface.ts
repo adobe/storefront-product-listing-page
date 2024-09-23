@@ -461,4 +461,4 @@ export interface WishlistAddItemInput {
   selected_options?: string[];
 }
 
-export { WidgetConfigOptions } from './widgetConfig.interface';
+export { type WidgetConfigOptions } from './widget';

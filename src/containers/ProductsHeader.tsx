@@ -9,7 +9,8 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
-import ViewSwitcher from 'src/components/ViewSwitcher';
+
+import ViewSwitcher from '@/components/ViewSwitcher';
 
 import Facets from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';

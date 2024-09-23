@@ -9,13 +9,14 @@ it.
 
 import { FunctionalComponent, FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
-import { ProductCardShimmer } from 'src/components/ProductCardShimmer';
-import { useProducts, useSensor, useTranslation } from 'src/context';
-import { PageSizeOption } from 'src/types/interface';
+
+import { ProductCardShimmer } from '@/components/ProductCardShimmer';
+import { useProducts, useSensor, useTranslation } from '@/context';
+import { PageSizeOption } from '@/types/interface';
 import {
   handleUrlPageSize,
   handleUrlPagination,
-} from 'src/utils/handleUrlFilters';
+} from '@/utils/handleUrlFilters';
 
 import { Alert } from '../components/Alert';
 import { Pagination } from '../components/Pagination';

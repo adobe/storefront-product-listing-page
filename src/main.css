@@ -1,0 +1,18 @@
+/* This file only exists to help aid development when using index.html */
+body {
+    margin: 0 auto;
+    max-width: 1280px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.ds-widgets {
+    --color-primary: black;
+}
+
+.ds-sdk-product-item__product-name {
+    text-transform: uppercase;
+}

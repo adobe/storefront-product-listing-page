@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { ProductSearchSortInput } from 'src/types/interface';
+import { ProductSearchSortInput } from '@/types/interface';
 
 export const DEFAULT_PAGE_SIZE = 24;
 export const DEFAULT_PAGE_SIZE_OPTIONS = '12,24,36';

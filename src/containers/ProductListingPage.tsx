@@ -7,9 +7,9 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 import { render } from 'preact';
-import { validateStoreDetailsKeys } from 'src/utils/validateStoreDetails';
 
 import './styles/global.css';
+import { validateStoreDetailsKeys } from '@/utils/validateStoreDetails';
 
 import {
   AttributeMetadataProvider,

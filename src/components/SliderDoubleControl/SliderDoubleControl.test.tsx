@@ -8,7 +8,8 @@ it.
 */
 
 import { render } from '@testing-library/preact';
-import { PriceFacet } from 'src/types/interface';
+
+import { PriceFacet } from '@/types/interface';
 
 import { SliderDoubleControl } from './SliderDoubleControl';
 
