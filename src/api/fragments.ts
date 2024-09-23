@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-const Facet = `
+const Facet = /* GraphQL */`
     fragment Facet on Aggregation {
         title
         attribute
@@ -35,7 +35,7 @@ const Facet = `
     }
 `;
 
-const ProductView = `
+const ProductView = /* GraphQL */`
     fragment ProductView on ProductSearchItem {
         productView {
             __typename
@@ -119,7 +119,7 @@ const ProductView = `
     }
 `;
 
-const Product = `
+const Product = /* GraphQL */`
     fragment Product on ProductSearchItem {
         product {
             __typename

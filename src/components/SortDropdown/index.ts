@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './SortDropdown';
-export { SortDropdown as default } from './SortDropdown';
+export * from "./SortDropdown";
+export { SortDropdown as default } from "./SortDropdown";

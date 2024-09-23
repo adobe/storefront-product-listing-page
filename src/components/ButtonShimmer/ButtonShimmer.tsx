@@ -7,18 +7,18 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
+import { FunctionComponent } from "preact";
 
-import '../ButtonShimmer/ButtonShimmer.css';
+import "../ButtonShimmer/ButtonShimmer.css";
 
 export const ButtonShimmer: FunctionComponent = () => {
-  return (
-    <>
-      <div className="ds-plp-facets ds-plp-facets--loading">
-        <div className="ds-plp-facets__button shimmer-animation-button" />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="ds-plp-facets ds-plp-facets--loading">
+                <div className="ds-plp-facets__button shimmer-animation-button" />
+            </div>
+        </>
+    );
 };
 
 export default ButtonShimmer;

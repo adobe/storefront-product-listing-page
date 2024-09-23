@@ -7,29 +7,27 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
+import { FunctionComponent } from "preact";
 
-import useScalarFacet from '../../../hooks/useScalarFacet';
-import { Facet as FacetType, PriceFacet } from '../../../types/interface';
-import { InputButtonGroup } from '../../InputButtonGroup';
+import useScalarFacet from "../../../hooks/useScalarFacet";
+import { Facet as FacetType, PriceFacet } from "../../../types/interface";
+import { InputButtonGroup } from "../../InputButtonGroup";
 
 interface ScalarFacetProps {
-  filterData: FacetType | PriceFacet;
+    filterData: FacetType | PriceFacet;
 }
 
-export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
-  filterData,
-}) => {
-  const { isSelected, onChange } = useScalarFacet(filterData);
+export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({ filterData }) => {
+    const { isSelected, onChange } = useScalarFacet(filterData);
 
-  return (
-    <InputButtonGroup
-      title={filterData.title}
-      attribute={filterData.attribute}
-      buckets={filterData.buckets as any}
-      type={'checkbox'}
-      isSelected={isSelected}
-      onChange={(args) => onChange(args.value, args.selected)}
-    />
-  );
+    return (
+        <InputButtonGroup
+            title={filterData.title}
+            attribute={filterData.attribute}
+            buckets={filterData.buckets as any}
+            type={"checkbox"}
+            isSelected={isSelected}
+            onChange={(args) => onChange(args.value, args.selected)}
+        />
+    );
 };

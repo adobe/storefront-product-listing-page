@@ -7,59 +7,55 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import getSymbolFromCurrency from 'currency-symbol-map';
+import getSymbolFromCurrency from "currency-symbol-map";
 
-import { Product, RefinedProduct } from '../types/interface';
+import { Product, RefinedProduct } from "../types/interface";
 
 const getProductPrice = (
-  product: Product | RefinedProduct,
-  currencySymbol: string,
-  currencyRate: string | undefined,
-  useMaximum = false,
-  useFinal = false
+    product: Product | RefinedProduct,
+    currencySymbol: string,
+    currencyRate: string | undefined,
+    useMaximum = false,
+    useFinal = false,
 ): string => {
-  let priceType;
-  let price;
-  if ('product' in product) {
-    priceType = product?.product?.price_range?.minimum_price;
+    let priceType;
+    let price;
+    if ("product" in product) {
+        priceType = product?.product?.price_range?.minimum_price;
 
-    if (useMaximum) {
-      priceType = product?.product?.price_range?.maximum_price;
+        if (useMaximum) {
+            priceType = product?.product?.price_range?.maximum_price;
+        }
+
+        price = priceType?.regular_price;
+        if (useFinal) {
+            price = priceType?.final_price;
+        }
+    } else {
+        priceType = product?.refineProduct?.priceRange?.minimum ?? product?.refineProduct?.price;
+
+        if (useMaximum) {
+            priceType = product?.refineProduct?.priceRange?.maximum;
+        }
+
+        price = priceType?.regular?.amount;
+        if (useFinal) {
+            price = priceType?.final?.amount;
+        }
     }
 
-    price = priceType?.regular_price;
-    if (useFinal) {
-      price = priceType?.final_price;
-    }
-  } else {
-    priceType =
-      product?.refineProduct?.priceRange?.minimum ??
-      product?.refineProduct?.price;
+    // if currency symbol is configurable within Commerce, that symbol is used
+    let currency = price?.currency;
 
-    if (useMaximum) {
-      priceType = product?.refineProduct?.priceRange?.maximum;
+    if (currencySymbol) {
+        currency = currencySymbol;
+    } else {
+        currency = getSymbolFromCurrency(currency) ?? "$";
     }
 
-    price = priceType?.regular?.amount;
-    if (useFinal) {
-      price = priceType?.final?.amount;
-    }
-  }
+    const convertedPrice = currencyRate ? price?.value * parseFloat(currencyRate) : price?.value;
 
-  // if currency symbol is configurable within Commerce, that symbol is used
-  let currency = price?.currency;
-
-  if (currencySymbol) {
-    currency = currencySymbol;
-  } else {
-    currency = getSymbolFromCurrency(currency) ?? '$';
-  }
-
-  const convertedPrice = currencyRate
-    ? price?.value * parseFloat(currencyRate)
-    : price?.value;
-
-  return convertedPrice ? `${currency}${convertedPrice.toFixed(2)}` : '';
+    return convertedPrice ? `${currency}${convertedPrice.toFixed(2)}` : "";
 };
 
 export { getProductPrice };

@@ -7,8 +7,8 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './Facets';
-export * from './SelectedFilters';
-export * from './Range/RangeFacet';
-export * from './Scalar/ScalarFacet';
-export { Facets as default } from './Facets';
+export * from "./Facets";
+export * from "./SelectedFilters";
+export * from "./Range/RangeFacet";
+export * from "./Scalar/ScalarFacet";
+export { Facets as default } from "./Facets";

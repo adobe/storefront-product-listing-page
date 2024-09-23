@@ -82,7 +82,7 @@ module.exports = {
         "node_modules",
         "dist", 
         "config",
-        "**/*.test.ts",
-        "**/*.test.tsx"
+        // "**/*.test.ts",
+        // "**/*.test.tsx"
     ],
 };

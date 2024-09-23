@@ -8,28 +8,28 @@ it.
 */
 
 /// <reference types="@types/jest" />;
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
 
-import { CategoryFilters } from './CategoryFilters';
+import { CategoryFilters } from "./CategoryFilters";
 
-describe('PLP widget/CategoryFilters', () => {
-  it('renders', () => {
-    const { container } = render(
-      <CategoryFilters
-        loading={true}
-        pageLoading={false}
-        totalCount={1}
-        facets={[]}
-        categoryName=""
-        phrase=""
-        showFilters={true}
-        setShowFilters={() => true}
-        filterCount={0}
-      />
-    );
+describe("PLP widget/CategoryFilters", () => {
+    it("renders", () => {
+        const { container } = render(
+            <CategoryFilters
+                loading
+                pageLoading={false}
+                totalCount={1}
+                facets={[]}
+                categoryName=""
+                phrase=""
+                showFilters
+                setShowFilters={() => true}
+                filterCount={0}
+            />,
+        );
 
-    const elem = container.querySelector('.ds-widgets_actions_header');
+        const elem = container.querySelector(".ds-widgets_actions_header");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

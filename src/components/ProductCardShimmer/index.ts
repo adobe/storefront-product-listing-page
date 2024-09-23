@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './ProductCardShimmer';
-export { ProductCardShimmer as default } from './ProductCardShimmer';
+export * from "./ProductCardShimmer";
+export { ProductCardShimmer as default } from "./ProductCardShimmer";

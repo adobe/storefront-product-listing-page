@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './Alert';
-export { Alert as default } from './Alert';
+export * from "./Alert";
+export { Alert as default } from "./Alert";

@@ -7,9 +7,9 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { Facet, Product, ProductView } from './fragments';
+import { Facet, Product, ProductView } from "./fragments";
 
-const ATTRIBUTE_METADATA_QUERY = `
+const ATTRIBUTE_METADATA_QUERY = /* GraphQL */`
     query attributeMetadata {
         attributeMetadata {
         sortable {
@@ -26,7 +26,7 @@ const ATTRIBUTE_METADATA_QUERY = `
     }
 `;
 
-const QUICK_SEARCH_QUERY = `
+const QUICK_SEARCH_QUERY = /* GraphQL */`
     query quickSearch(
         $phrase: String!
         $pageSize: Int = 20
@@ -57,7 +57,7 @@ const QUICK_SEARCH_QUERY = `
     ${Product}
 `;
 
-const PRODUCT_SEARCH_QUERY = `
+const PRODUCT_SEARCH_QUERY = /* GraphQL */`
     query productSearch(
         $phrase: String!
         $pageSize: Int
@@ -101,7 +101,7 @@ const PRODUCT_SEARCH_QUERY = `
     ${Facet}
 `;
 
-const REFINE_PRODUCT_QUERY = `
+const REFINE_PRODUCT_QUERY = /* GraphQL */`
     query refineProduct(
         $optionIds: [String!]!
         $sku: String!
@@ -177,7 +177,7 @@ const REFINE_PRODUCT_QUERY = `
     }
 `;
 
-const GET_CUSTOMER_CART = `
+const GET_CUSTOMER_CART = /* GraphQL */`
     query customerCart {
         customerCart {
             id
@@ -193,7 +193,7 @@ const GET_CUSTOMER_CART = `
     }
 `;
 
-const GET_CUSTOMER_WISHLISTS = `
+const GET_CUSTOMER_WISHLISTS = /* GraphQL */`
     query customer {
       customer {
         wishlists {
@@ -216,10 +216,10 @@ const GET_CUSTOMER_WISHLISTS = `
 `;
 
 export {
-  ATTRIBUTE_METADATA_QUERY,
-  PRODUCT_SEARCH_QUERY,
-  QUICK_SEARCH_QUERY,
-  REFINE_PRODUCT_QUERY,
-  GET_CUSTOMER_CART,
-  GET_CUSTOMER_WISHLISTS,
+    ATTRIBUTE_METADATA_QUERY,
+    PRODUCT_SEARCH_QUERY,
+    QUICK_SEARCH_QUERY,
+    REFINE_PRODUCT_QUERY,
+    GET_CUSTOMER_CART,
+    GET_CUSTOMER_WISHLISTS,
 };

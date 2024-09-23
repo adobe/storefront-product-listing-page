@@ -19,9 +19,11 @@ const env = import.meta.env;
 mse.context.setMagentoExtension({
     magentoExtensionVersion: "1.0.0",
 });
+
 mse.context.setSearchExtension({
     version: "2.0.3",
 });
+
 mse.context.setShopper({ shopperId: "logged-in" });
 
 mse.context.setPage({
@@ -50,7 +52,7 @@ mse.context.setStorefrontInstance({
     storeViewName: env.CONFIG_STORE_VIEW_NAME ?? "",
     baseCurrencyCode: env.CONFIG_BASE_CURRENCY_CODE ?? "",
     storeViewCurrencyCode: env.CONFIG_STORE_VIEW_CURRENCY_CODE ?? "",
-    catalogExtensionVersion: '1.0.0',
+    catalogExtensionVersion: "1.0.0",
 });
 
 // configure store details
@@ -94,9 +96,9 @@ const storeDetails: StoreDetails = {
     // apiKey: "",
     // apiUrl: env.MODE === 'testing' ? TEST_URL : API_URL,
     // apiKey: env.MODE === "testing" && apiKey ? apiKey : env.VITE_SANDBOX_KEY,
-        // environmentType?.toLowerCase() === 'testing' && !apiKey
-        //     ? SANDBOX_KEY
-        //     : apiKey,
+    // environmentType?.toLowerCase() === 'testing' && !apiKey
+    //     ? SANDBOX_KEY
+    //     : apiKey,
     environmentType: env.MODE ?? "",
     // searchQuery: 'search_query', // Optional: providing searchQuery will override 'q' query param
     // route: ({ sku, urlKey  }) => {

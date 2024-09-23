@@ -7,126 +7,100 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
-import { useCallback, useEffect, useState } from 'preact/hooks';
+import { FunctionComponent } from "preact";
+import { useCallback, useEffect, useState } from "preact/hooks";
 
-import ViewSwitcher from '@/components/ViewSwitcher';
+import ViewSwitcher from "@/components/ViewSwitcher";
 
-import Facets from '../components/Facets';
-import { FilterButton } from '../components/FilterButton';
-import { SearchBar } from '../components/SearchBar';
-import { SortDropdown } from '../components/SortDropdown';
-import {
-  useAttributeMetadata,
-  useProducts,
-  useSearch,
-  useStore,
-  useTranslation,
-} from '../context';
-import { Facet } from '../types/interface';
-import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
-import {
-  defaultSortOptions,
-  generateGQLSortInput,
-  getSortOptionsfromMetadata,
-} from '../utils/sort';
+import Facets from "../components/Facets";
+import { FilterButton } from "../components/FilterButton";
+import { SearchBar } from "../components/SearchBar";
+import { SortDropdown } from "../components/SortDropdown";
+import { useAttributeMetadata, useProducts, useSearch, useStore, useTranslation } from "../context";
+import { Facet } from "../types/interface";
+import { getValueFromUrl, handleUrlSort } from "../utils/handleUrlFilters";
+import { defaultSortOptions, generateGQLSortInput, getSortOptionsfromMetadata } from "../utils/sort";
 
 interface Props {
-  facets: Facet[];
-  totalCount: number;
-  screenSize: {
-    mobile: boolean;
-    tablet: boolean;
-    desktop: boolean;
-    columns: number;
-  };
+    facets: Facet[];
+    totalCount: number;
+    screenSize: {
+        mobile: boolean;
+        tablet: boolean;
+        desktop: boolean;
+        columns: number;
+    };
 }
-export const ProductsHeader: FunctionComponent<Props> = ({
-  facets,
-  totalCount,
-  screenSize,
-}) => {
-  const searchCtx = useSearch();
-  const storeCtx = useStore();
-  const attributeMetadata = useAttributeMetadata();
-  const productsCtx = useProducts();
-  const translation = useTranslation();
+export const ProductsHeader: FunctionComponent<Props> = ({ facets, totalCount, screenSize }) => {
+    const searchCtx = useSearch();
+    const storeCtx = useStore();
+    const attributeMetadata = useAttributeMetadata();
+    const productsCtx = useProducts();
+    const translation = useTranslation();
 
-  const [showMobileFacet, setShowMobileFacet] = useState(
-    !!productsCtx.variables.filter?.length
-  );
-  const [sortOptions, setSortOptions] = useState(defaultSortOptions());
+    const [showMobileFacet, setShowMobileFacet] = useState(!!productsCtx.variables.filter?.length);
+    const [sortOptions, setSortOptions] = useState(defaultSortOptions());
 
-  const getSortOptions = useCallback(() => {
-    setSortOptions(
-      getSortOptionsfromMetadata(
-        translation,
-        attributeMetadata?.sortable,
-        storeCtx?.config?.displayOutOfStock,
-        storeCtx?.config?.currentCategoryUrlPath
-      )
-    );
-  }, [storeCtx, translation, attributeMetadata]);
+    const getSortOptions = useCallback(() => {
+        setSortOptions(
+            getSortOptionsfromMetadata(
+                translation,
+                attributeMetadata?.sortable,
+                storeCtx?.config?.displayOutOfStock,
+                storeCtx?.config?.currentCategoryUrlPath,
+            ),
+        );
+    }, [storeCtx, translation, attributeMetadata]);
 
-  useEffect(() => {
-    getSortOptions();
-  }, [getSortOptions]);
+    useEffect(() => {
+        getSortOptions();
+    }, [getSortOptions]);
 
-  const defaultSortOption = storeCtx.config?.currentCategoryUrlPath
-    ? 'position_ASC'
-    : 'relevance_DESC';
-  const sortFromUrl = getValueFromUrl('product_list_order');
-  const sortByDefault = sortFromUrl ? sortFromUrl : defaultSortOption;
-  const [sortBy, setSortBy] = useState<string>(sortByDefault);
-  const onSortChange = (sortOption: string) => {
-    setSortBy(sortOption);
-    searchCtx.setSort(generateGQLSortInput(sortOption));
-    handleUrlSort(sortOption);
-  };
+    const defaultSortOption = storeCtx.config?.currentCategoryUrlPath ? "position_ASC" : "relevance_DESC";
+    const sortFromUrl = getValueFromUrl("product_list_order");
+    const sortByDefault = sortFromUrl ? sortFromUrl : defaultSortOption;
+    const [sortBy, setSortBy] = useState<string>(sortByDefault);
+    const onSortChange = (sortOption: string) => {
+        setSortBy(sortOption);
+        searchCtx.setSort(generateGQLSortInput(sortOption));
+        handleUrlSort(sortOption);
+    };
 
-  return (
-    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-      <div
-        className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between' : 'justify-end'
-        }`}
-      >
-        <div>
-          {screenSize.mobile
-            ? totalCount > 0 && (
-                <div className="pb-4">
-                  <FilterButton
-                    displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                    type="mobile"
-                  />
+    return (
+        <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
+            <div className={`flex gap-x-2.5 mb-[1px] ${screenSize.mobile ? "justify-between" : "justify-end"}`}>
+                <div>
+                    {screenSize.mobile
+                        ? totalCount > 0 && (
+                              <div className="pb-4">
+                                  <FilterButton
+                                      displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                                      type="mobile"
+                                  />
+                              </div>
+                          )
+                        : storeCtx.config.displaySearchBox && (
+                              <SearchBar
+                                  phrase={searchCtx.phrase}
+                                  onKeyPress={(e: any) => {
+                                      if (e.key === "Enter") {
+                                          searchCtx.setPhrase(e?.target?.value);
+                                      }
+                                  }}
+                                  onClear={() => searchCtx.setPhrase("")}
+                                  placeholder={translation.SearchBar.placeholder}
+                              />
+                          )}
                 </div>
-              )
-            : storeCtx.config.displaySearchBox && (
-                <SearchBar
-                  phrase={searchCtx.phrase}
-                  onKeyPress={(e: any) => {
-                    if (e.key === 'Enter') {
-                      searchCtx.setPhrase(e?.target?.value);
-                    }
-                  }}
-                  onClear={() => searchCtx.setPhrase('')}
-                  placeholder={translation.SearchBar.placeholder}
-                />
-              )}
-        </div>
-        {totalCount > 0 && (
-          <>
-            {storeCtx?.config?.listview && <ViewSwitcher />}
+                {totalCount > 0 && (
+                    <>
+                        {storeCtx?.config?.listview && <ViewSwitcher />}
 
-            <SortDropdown
-              sortOptions={sortOptions}
-              value={sortBy}
-              onChange={onSortChange}
-            />
-          </>
-        )}
-      </div>
-      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
-    </div>
-  );
+                        <SortDropdown sortOptions={sortOptions} value={sortBy} onChange={onSortChange} />
+                    </>
+                )}
+            </div>
+            {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
+        </div>
+    );
 };

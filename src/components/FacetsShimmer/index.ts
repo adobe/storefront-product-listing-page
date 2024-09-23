@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './FacetsShimmer';
-export { FacetsShimmer as default } from './FacetsShimmer';
+export * from "./FacetsShimmer";
+export { FacetsShimmer as default } from "./FacetsShimmer";

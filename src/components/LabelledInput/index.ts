@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './LabelledInput';
-export { LabelledInput as default } from './LabelledInput';
+export * from "./LabelledInput";
+export { LabelledInput as default } from "./LabelledInput";

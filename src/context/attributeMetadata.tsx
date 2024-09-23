@@ -7,69 +7,68 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { createContext, FunctionComponent } from 'preact';
-import { useContext, useEffect, useState } from 'preact/hooks';
+import { createContext, FunctionComponent } from "preact";
+import { useContext, useEffect, useState } from "preact/hooks";
 
-import { getAttributeMetadata } from '../api/search';
-import { AttributeMetadata } from '../types/interface';
-import { useStore } from './store';
+import { getAttributeMetadata } from "../api/search";
+import { AttributeMetadata } from "../types/interface";
+import { useStore } from "./store";
 
 interface WithChildrenProps {
-  children?: any;
+    children?: any;
 }
 
 export interface AttributeMetaDataProps extends WithChildrenProps {
-  sortable: AttributeMetadata[];
-  filterableInSearch: string[] | null;
+    sortable: AttributeMetadata[];
+    filterableInSearch: string[] | null;
 }
 
 const AttributeMetadataContext = createContext<AttributeMetaDataProps>({
-  sortable: [],
-  filterableInSearch: [],
+    sortable: [],
+    filterableInSearch: [],
 });
 
 const AttributeMetadataProvider: FunctionComponent = ({ children }) => {
-  const [attributeMetadata, setAttributeMetadata] =
-    useState<AttributeMetaDataProps>({
-      sortable: [],
-      filterableInSearch: null,
+    const [attributeMetadata, setAttributeMetadata] = useState<AttributeMetaDataProps>({
+        sortable: [],
+        filterableInSearch: null,
     });
 
-  const storeCtx = useStore();
+    const storeCtx = useStore();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAttributeMetadata({
-        ...storeCtx,
-        apiUrl: storeCtx.apiUrl,
-      });
-      if (data?.attributeMetadata) {
-        setAttributeMetadata({
-          sortable: data.attributeMetadata.sortable as AttributeMetadata[],
-          filterableInSearch: data.attributeMetadata.filterableInSearch.map(
-            (attribute) => attribute.attribute
-          ),
-        });
-      }
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getAttributeMetadata({
+                ...storeCtx,
+                apiUrl: storeCtx.apiUrl,
+            });
+            if (data?.attributeMetadata) {
+                setAttributeMetadata({
+                    sortable: data.attributeMetadata.sortable as AttributeMetadata[],
+                    filterableInSearch: data.attributeMetadata.filterableInSearch.map(
+                        (attribute) => attribute.attribute,
+                    ),
+                });
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const attributeMetadataContext = {
+        ...attributeMetadata,
     };
 
-    fetchData();
-  }, []);
-
-  const attributeMetadataContext = {
-    ...attributeMetadata,
-  };
-
-  return (
-    <AttributeMetadataContext.Provider value={attributeMetadataContext}>
-      {children}
-    </AttributeMetadataContext.Provider>
-  );
+    return (
+        <AttributeMetadataContext.Provider value={attributeMetadataContext}>
+            {children}
+        </AttributeMetadataContext.Provider>
+    );
 };
 
 const useAttributeMetadata = () => {
-  const attributeMetadataCtx = useContext(AttributeMetadataContext);
-  return attributeMetadataCtx;
+    const attributeMetadataCtx = useContext(AttributeMetadataContext);
+    return attributeMetadataCtx;
 };
 
 export { AttributeMetadataProvider, useAttributeMetadata };

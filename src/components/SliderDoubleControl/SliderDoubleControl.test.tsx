@@ -7,47 +7,45 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
 
-import { PriceFacet } from '@/types/interface';
+import { PriceFacet } from "@/types/interface";
 
-import { SliderDoubleControl } from './SliderDoubleControl';
+import { SliderDoubleControl } from "./SliderDoubleControl";
 
-describe('PLP widget/SliderDoubleControl', () => {
-  test('renders', () => {
-    const filterData: PriceFacet = {
-      title: 'Price',
-      attribute: 'price',
-      buckets: [
-        {
-          title: '10.0-25.0',
-          __typename: 'RangeBucket',
-          from: 10,
-          to: 25,
-          count: 1,
-        },
-        {
-          title: '25.0-50.0',
-          __typename: 'RangeBucket',
-          from: 25,
-          to: 50,
-          count: 10,
-        },
-        {
-          title: '50.0-75.0',
-          __typename: 'RangeBucket',
-          from: 50,
-          to: 75,
-          count: 1,
-        },
-      ],
-    };
-    const { container } = render(
-      <SliderDoubleControl filterData={filterData} />
-    );
+describe("PLP widget/SliderDoubleControl", () => {
+    test("renders", () => {
+        const filterData: PriceFacet = {
+            title: "Price",
+            attribute: "price",
+            buckets: [
+                {
+                    title: "10.0-25.0",
+                    __typename: "RangeBucket",
+                    from: 10,
+                    to: 25,
+                    count: 1,
+                },
+                {
+                    title: "25.0-50.0",
+                    __typename: "RangeBucket",
+                    from: 25,
+                    to: 50,
+                    count: 10,
+                },
+                {
+                    title: "50.0-75.0",
+                    __typename: "RangeBucket",
+                    from: 50,
+                    to: 75,
+                    count: 1,
+                },
+            ],
+        };
+        const { container } = render(<SliderDoubleControl filterData={filterData} />);
 
-    const elem = container.querySelector('.ds-sdk-slider');
+        const elem = container.querySelector(".ds-sdk-slider");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

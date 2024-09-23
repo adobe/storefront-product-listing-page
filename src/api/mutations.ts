@@ -1,10 +1,10 @@
-const CREATE_EMPTY_CART = `
-  mutation createEmptyCart($input: createEmptyCartInput) {
-    createEmptyCart(input: $input)
-  }
+const CREATE_EMPTY_CART = /* GraphQL */`
+    mutation createEmptyCart($input: createEmptyCartInput) {
+        createEmptyCart(input: $input)
+    }
 `;
 
-const ADD_TO_CART = `
+const ADD_TO_CART = /* GraphQL */`
   mutation addProductsToCart(
     $cartId: String!
     $cartItems: [CartItemInput!]!
@@ -30,7 +30,7 @@ const ADD_TO_CART = `
   }
 `;
 
-const ADD_TO_WISHLIST = `
+const ADD_TO_WISHLIST = /* GraphQL */`
   mutation addProductsToWishlist(
     $wishlistId: ID!
     $wishlistItems: [WishlistItemInput!]!
@@ -58,7 +58,7 @@ const ADD_TO_WISHLIST = `
   }
 `;
 
-const REMOVE_FROM_WISHLIST = `
+const REMOVE_FROM_WISHLIST = /* GraphQL */`
   mutation removeProductsFromWishlist (
     $wishlistId: ID!
     $wishlistItemsIds: [ID!]!
@@ -86,9 +86,4 @@ const REMOVE_FROM_WISHLIST = `
   }
 `;
 
-export {
-  CREATE_EMPTY_CART,
-  ADD_TO_CART,
-  ADD_TO_WISHLIST,
-  REMOVE_FROM_WISHLIST,
-};
+export { CREATE_EMPTY_CART, ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST };

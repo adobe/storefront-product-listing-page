@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './AddToCartButton';
-export { AddToCartButton as default } from './AddToCartButton';
+export * from "./AddToCartButton";
+export { AddToCartButton as default } from "./AddToCartButton";

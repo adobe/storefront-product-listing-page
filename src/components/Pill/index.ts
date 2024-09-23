@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './Pill';
-export { Pill as default } from './Pill';
+export * from "./Pill";
+export { Pill as default } from "./Pill";

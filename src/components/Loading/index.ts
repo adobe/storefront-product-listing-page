@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './Loading';
-export { Loading as default } from './Loading';
+export * from "./Loading";
+export { Loading as default } from "./Loading";

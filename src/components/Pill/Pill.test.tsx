@@ -7,16 +7,16 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
 
-import { Pill } from './Pill';
+import { Pill } from "./Pill";
 
-describe('WidgetSDK - UIKit/Pill', () => {
-  test('renders', () => {
-    const { container } = render(<Pill label="" onClick={() => {}} />);
+describe("WidgetSDK - UIKit/Pill", () => {
+    test("renders", () => {
+        const { container } = render(<Pill label="" onClick={() => {}} />);
 
-    const elem = container.querySelector('.ds-sdk-pill');
+        const elem = container.querySelector(".ds-sdk-pill");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

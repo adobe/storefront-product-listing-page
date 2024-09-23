@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './ButtonShimmer';
-export { ButtonShimmer as default } from './ButtonShimmer';
+export * from "./ButtonShimmer";
+export { ButtonShimmer as default } from "./ButtonShimmer";

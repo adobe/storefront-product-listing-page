@@ -7,22 +7,22 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
 
-import { AddToCartButton } from './AddToCartButton';
+import { AddToCartButton } from "./AddToCartButton";
 
-describe('WidgetSDK - UIKit/AddToCartButton', () => {
-  test('renders', () => {
-    const { container } = render(
-      <AddToCartButton
-        onClick={() => {
-          return;
-        }}
-      />
-    );
+describe("WidgetSDK - UIKit/AddToCartButton", () => {
+    test("renders", () => {
+        const { container } = render(
+            <AddToCartButton
+                onClick={() => {
+                    return;
+                }}
+            />,
+        );
 
-    const elem = container.querySelector('.ds-sdk-add-to-cart-button');
+        const elem = container.querySelector(".ds-sdk-add-to-cart-button");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

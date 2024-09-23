@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './InputButtonGroup';
-export { InputButtonGroup as default } from './InputButtonGroup';
+export * from "./InputButtonGroup";
+export { InputButtonGroup as default } from "./InputButtonGroup";

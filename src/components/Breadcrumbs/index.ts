@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './Breadcrumbs';
-export { Breadcrumbs as default } from './Breadcrumbs';
+export * from "./Breadcrumbs";
+export { Breadcrumbs as default } from "./Breadcrumbs";

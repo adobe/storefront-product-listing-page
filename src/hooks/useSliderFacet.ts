@@ -7,40 +7,38 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { useSearch } from '../context';
-import { FacetFilter, PriceFacet } from '../types/interface';
+import { useSearch } from "../context";
+import { FacetFilter, PriceFacet } from "../types/interface";
 
 const useSliderFacet = ({ attribute }: PriceFacet) => {
-  const searchCtx = useSearch();
+    const searchCtx = useSearch();
 
-  const onChange = (from: number, to: number) => {
-    const filter = searchCtx?.filters?.find(
-      (e: FacetFilter) => e.attribute === attribute
-    );
+    const onChange = (from: number, to: number) => {
+        const filter = searchCtx?.filters?.find((e: FacetFilter) => e.attribute === attribute);
 
-    if (!filter) {
-      const newFilter = {
-        attribute,
-        range: {
-          from,
-          to,
-        },
-      };
-      searchCtx.createFilter(newFilter);
-      return;
-    }
+        if (!filter) {
+            const newFilter = {
+                attribute,
+                range: {
+                    from,
+                    to,
+                },
+            };
+            searchCtx.createFilter(newFilter);
+            return;
+        }
 
-    const newFilter = {
-      ...filter,
-      range: {
-        from,
-        to,
-      },
+        const newFilter = {
+            ...filter,
+            range: {
+                from,
+                to,
+            },
+        };
+        searchCtx.updateFilter(newFilter);
     };
-    searchCtx.updateFilter(newFilter);
-  };
 
-  return { onChange };
+    return { onChange };
 };
 
 export default useSliderFacet;
