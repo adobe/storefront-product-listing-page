@@ -26,7 +26,12 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             banner(BANNER_CONTENT),
-            svgr({ include: "**/*.svg?react" }),
+            svgr({
+                svgrOptions: {
+                    svgo: false,
+                },
+                include: "**/*.svg",
+            }),
             preact(),
             dts({
                 compilerOptions: {
@@ -36,18 +41,6 @@ export default defineConfig(({ mode }) => {
                 },
                 include: ["src"],
             }),
-            // {
-            //     name: "dts-generator",
-            //     buildEnd: async (error?: Error) => {
-            //         if (!error) {
-            //             return new Promise((resolve, reject) => {
-            //                 exec("yarn tsc --emitDeclarationOnly", (err) => {
-            //                     err ? reject(err) : resolve();
-            //                 });
-            //             });
-            //         }
-            //     },
-            // },
         ],
         envDir,
         envPrefix, // only allow CONFIG on dev ???
@@ -82,6 +75,7 @@ export default defineConfig(({ mode }) => {
         test: {
             globals: true,
             environment: "jsdom",
+            setupFiles: "./vitest.setup.ts",
         },
     };
 });
