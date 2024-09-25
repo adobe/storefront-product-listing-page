@@ -1,20 +1,20 @@
-import Adjustments from "@/icons/adjustments.svg";
-import Cart from "@/icons/cart.svg";
-import Checkmark from "@/icons/checkmark.svg";
-import Chevron from "@/icons/chevron.svg";
-import EmptyHeart from "@/icons/emptyHeart.svg";
-import Error from "@/icons/error.svg";
-import FilledHeart from "@/icons/filledHeart.svg";
-import Filter from "@/icons/Filter.svg";
-import GridView from "@/icons/gridView.svg";
-import Info from "@/icons/info.svg";
-import ListView from "@/icons/listView.svg";
-import Loading from "@/icons/loading.svg";
-import NoImage from "@/icons/NoImage.svg";
-import Plus from "@/icons/plus.svg";
-import Sort from "@/icons/sort.svg";
-import Warning from "@/icons/warning.svg";
-import X from "@/icons/x.svg";
+import Adjustments from "./adjustments.svg";
+import Cart from "./cart.svg";
+import Checkmark from "./checkmark.svg";
+import Chevron from "./chevron.svg";
+import EmptyHeart from "./emptyHeart.svg";
+import Error from "./error.svg";
+import FilledHeart from "./filledHeart.svg";
+import Filter from "./Filter.svg";
+import GridView from "./gridView.svg";
+import Info from "./info.svg";
+import ListView from "./listView.svg";
+import Loading from "./loading.svg";
+import NoImage from "./NoImage.svg";
+import Plus from "./plus.svg";
+import Sort from "./sort.svg";
+import Warning from "./warning.svg";
+import X from "./x.svg";
 
 export {
     Adjustments,
