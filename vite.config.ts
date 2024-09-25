@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             banner(BANNER_CONTENT),
-            svgr(),
+            svgr({ include: "**/*.svg?react" }),
             preact(),
             dts({
                 compilerOptions: {
