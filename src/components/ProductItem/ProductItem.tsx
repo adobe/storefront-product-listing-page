@@ -251,7 +251,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
       <div
-          className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-[#11182703] h-full hover:border-black p-2"
+          className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-transparent h-full hover:border-black p-2"
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
       >

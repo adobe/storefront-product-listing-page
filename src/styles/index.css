@@ -946,9 +946,6 @@ video {
   .border-none {
     border-style: none;
   }
-  .border-\[\#11182703\] {
-    border-color: #11182703;
-  }
   .border-black {
     --tw-border-opacity: 1;
     border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -961,6 +958,10 @@ video {
   }
   .border-transparent {
     border-color: transparent;
+  }
+  .bg-\[\#904745\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(144 71 69 / var(--tw-bg-opacity));
   }
   .bg-black {
     --tw-bg-opacity: 1;

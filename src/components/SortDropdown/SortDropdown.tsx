@@ -85,7 +85,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
         class="ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md outline outline-1 outline-gray-200 hover:outline-gray-600 h-[32px] z-9"
       >
         <button
-          className="group flex justify-center items-center font-normal text-sm text-gray-700 rounded-md hover:cursor-pointer border-none bg-transparent hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
+          className="group flex justify-center items-center font-normal text-sm text-gray-700 rounded-md hover:cursor-pointer border-none bg-[#904745] hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
           ref={sortOptionButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
