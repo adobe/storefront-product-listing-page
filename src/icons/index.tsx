@@ -5,7 +5,7 @@ import Chevron from "./chevron.svg";
 import EmptyHeart from "./emptyHeart.svg";
 import Error from "./error.svg";
 import FilledHeart from "./filledHeart.svg";
-import Filter from "./Filter.svg";
+import Filter from "./filter.svg";
 import GridView from "./gridView.svg";
 import Info from "./info.svg";
 import ListView from "./listView.svg";
