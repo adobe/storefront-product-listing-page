@@ -23,6 +23,7 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "build:dev": "tsc -b && vite build --mode dev",
+        "test": "vitest",
         "preview": "vite preview",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "format": "prettier **/*.{ts,tsx,json,md} --write",
@@ -34,7 +35,7 @@
         "lint:old": "eslint '*/**/*.{ts,tsx}'",
         "lint:fix": "eslint '*/**/*.{ts,tsx}' --fix",
         "prettier:fix": "prettier 'src/**/*.{ts,tsx,json,md}' --write",
-        "test": "jest --passWithNoTests --color --silent",
+        "test:old": "jest --passWithNoTests --color --silent",
         "cleanup": "rimraf dist"
     },
     "dependencies": {
