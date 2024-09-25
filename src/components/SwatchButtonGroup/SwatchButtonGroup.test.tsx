@@ -8,6 +8,7 @@ it.
 */
 
 import { render } from "@testing-library/preact";
+import { describe, expect, test } from "vitest";
 
 import { SwatchButtonGroup, SwatchButtonGroupProps } from "./SwatchButtonGroup";
 

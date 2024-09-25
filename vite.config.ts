@@ -26,15 +26,8 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             banner(BANNER_CONTENT),
+            svgr(),
             preact(),
-            svgr({
-                svgrOptions: {
-                    ref: true,
-                    svgo: false,
-                    titleProp: true,
-                },
-                include: "**/*.svg",
-            }),
             dts({
                 compilerOptions: {
                     emitDeclarationOnly: true,
