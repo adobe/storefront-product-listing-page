@@ -8,13 +8,14 @@ it.
 */
 
 import { render } from "@testing-library/preact";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import { sampleProductNotDiscounted } from "./MockData";
 import ProductItem from "./ProductItem";
 
 beforeEach(() => {
     // IntersectionObserver isn't available in test environment
-    const mockIntersectionObserver = jest.fn();
+    const mockIntersectionObserver = vi.fn();
     mockIntersectionObserver.mockReturnValue({
         observe: () => null,
         unobserve: () => null,

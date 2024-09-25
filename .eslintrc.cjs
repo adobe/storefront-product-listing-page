@@ -34,11 +34,10 @@ module.exports = {
         // "plugin:preact/recommended",
         "plugin:@typescript-eslint/recommended",
         // "plugin:@typescript-eslint/eslint-recommended",
-        // "preact",
         // "plugin:storybook/recommended",
         "plugin:prettier/recommended", // should always be last
     ],
-    plugins: ["jest", "simple-import-sort"],
+    plugins: ["simple-import-sort"],
     rules: {
         "no-console": ["error"],
         "react/prop-types": 0,

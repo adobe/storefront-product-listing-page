@@ -6,6 +6,7 @@ NOTICE: Adobe permits you to use, modify, and distribute this file in
 accordance with the terms of the Adobe license agreement accompanying
 it.
 */
+import { describe, expect, it } from "vitest";
 
 import { getCurrLanguage } from "../../context/translation";
 

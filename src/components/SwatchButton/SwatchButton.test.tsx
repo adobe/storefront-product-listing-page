@@ -8,12 +8,13 @@ it.
 */
 
 import { render } from "@testing-library/preact";
+import { describe, expect, test, vi } from "vitest";
 
 import { SwatchButton } from "./SwatchButton";
 
 describe("WidgetSDK - UIKit/SwatchButton", () => {
     test("renders", () => {
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
         const { container } = render(
             <SwatchButton id="test" value="test" type="TEXT" checked onClick={handleChange} />,
         );

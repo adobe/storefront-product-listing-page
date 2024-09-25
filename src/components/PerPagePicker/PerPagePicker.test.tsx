@@ -8,12 +8,13 @@ it.
 */
 
 import { render } from "@testing-library/preact";
+import { describe, expect, test, vi } from "vitest";
 
 import { PerPagePicker } from "./PerPagePicker";
 
 describe("WidgetSDK - UIKit/PerPagePicker", () => {
     test("renders", () => {
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
         const { container } = render(
             <PerPagePicker value={12} pageSizeOptions={[{ label: "12", value: 12 }]} onChange={handleChange} />,
         );

@@ -8,12 +8,13 @@ it.
 */
 
 import { render } from "@testing-library/preact";
+import { describe, expect, test, vi } from "vitest";
 
 import { SortDropdown } from "./SortDropdown";
 
 describe("WidgetSDK - UIKit/SortDropdown", () => {
     test("renders", () => {
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
         const { container } = render(
             <SortDropdown
                 value="relevance_DESC"

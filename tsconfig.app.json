@@ -8,6 +8,8 @@
         "paths": {
             "react": ["./node_modules/preact/compat/"],
             "react-dom": ["./node_modules/preact/compat/"],
+            "react-dom/test-utils": ["./node_modules/preact/test-utils/"],
+            "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
             "@/*": ["./src/*"]
         },
 

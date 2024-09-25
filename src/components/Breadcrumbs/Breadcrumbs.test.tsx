@@ -7,8 +7,8 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-/// <reference types="@types/jest" />;
 import { render } from "@testing-library/preact";
+import { describe, expect, it } from "vitest";
 
 import Breadcrumbs from "./Breadcrumbs";
 import { pages } from "./MockPages";

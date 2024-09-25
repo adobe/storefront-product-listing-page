@@ -1,11 +1,14 @@
+/// <reference types="vitest/config" />
 import preact from "@preact/preset-vite";
 import path, { resolve } from "node:path";
 import { defineConfig, loadEnv } from "vite";
+import banner from "vite-plugin-banner";
+import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
 
 import pkg from "./package.json";
 
-// const _banner = `${pkg.name}@v${pkg.version}`;
+const BANNER_CONTENT = `${pkg.name}@v${pkg.version}`;
 const MAJOR_VERSION = `v${pkg.version.split(".")[0]}`;
 
 // https://vitejs.dev/config/
@@ -21,7 +24,31 @@ export default defineConfig(({ mode }) => {
     const PORT = env.LUMA_PORT;
 
     return {
-        plugins: [svgr(), preact()],
+        plugins: [
+            banner(BANNER_CONTENT),
+            svgr(),
+            preact(),
+            dts({
+                compilerOptions: {
+                    emitDeclarationOnly: true,
+                    declaration: true,
+                    noEmit: false,
+                },
+                include: ["src"],
+            }),
+            // {
+            //     name: "dts-generator",
+            //     buildEnd: async (error?: Error) => {
+            //         if (!error) {
+            //             return new Promise((resolve, reject) => {
+            //                 exec("yarn tsc --emitDeclarationOnly", (err) => {
+            //                     err ? reject(err) : resolve();
+            //                 });
+            //             });
+            //         }
+            //     },
+            // },
+        ],
         envDir,
         envPrefix, // only allow CONFIG on dev ???
         resolve: {
@@ -32,10 +59,7 @@ export default defineConfig(({ mode }) => {
         server: {
             port: parseInt(PORT),
             strictPort: true,
-            open: `http://localhost:${PORT}/v${MAJOR_VERSION}/index.html`,
-            // proxy: {
-            //     [`/v${MAJOR_VERSION}`]: `http://localhost:${PORT}/`
-            // }
+            open: `http://localhost:${PORT}/${MAJOR_VERSION}/index.html`,
         },
         define: {
             __APP_VERSION__: JSON.stringify(env.npm_package_version),
@@ -50,6 +74,14 @@ export default defineConfig(({ mode }) => {
                 name: "LiveSearchPLP",
                 fileName: "search",
             },
+            rollupOptions: {
+                external: ["preact", "preact/compat"],
+            },
+            copyPublicDir: false,
+        },
+        test: {
+            globals: true,
+            environment: "jsdom",
         },
     };
 });
