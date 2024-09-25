@@ -76,10 +76,8 @@ export default defineConfig(({ mode }) => {
             globals: true,
             environment: "jsdom",
             setupFiles: "./vitest.setup.ts",
-            deps: {
-                web: {
-                    transformAssets: false,
-                },
+            alias: {
+                "^.+\\.svg$": "./src/__mocks__/mock-file.ts",
             },
         },
     };
