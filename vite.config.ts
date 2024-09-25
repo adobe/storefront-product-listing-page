@@ -77,7 +77,8 @@ export default defineConfig(({ mode }) => {
             environment: "jsdom",
             setupFiles: "./vitest.setup.ts",
             alias: {
-                "^.+\\.svg$": "",
+                // "^.+\\.svg$": "<rootDir>",
+                "@": path.resolve(__dirname, "./src"),
             },
         },
     };
