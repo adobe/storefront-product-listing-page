@@ -28,7 +28,9 @@ export default defineConfig(({ mode }) => {
             banner(BANNER_CONTENT),
             svgr({
                 svgrOptions: {
+                    ref: true,
                     svgo: false,
+                    titleProp: true,
                 },
                 include: "**/*.svg",
             }),
@@ -76,9 +78,12 @@ export default defineConfig(({ mode }) => {
             globals: true,
             environment: "jsdom",
             setupFiles: "./vitest.setup.ts",
-            alias: {
-                "\\.svg$": "./src/__mocks__/mock-file.ts",
-            },
+            alias: [
+                {
+                    find: "\\.svg$",
+                    replace: "./src/__mocks__/mock-file.ts",
+                },
+            ],
         },
     };
 });
