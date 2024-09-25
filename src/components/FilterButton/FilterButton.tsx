@@ -7,41 +7,42 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { FunctionComponent } from 'preact';
+import { FunctionComponent } from "preact";
 
-import { useTranslation } from '../../context/translation';
-import AdjustmentsIcon from '../../icons/adjustments.svg';
+import { Adjustments as AdjustmentsIcon } from "@/icons";
+
+import { useTranslation } from "../../context/translation";
 
 export interface FilterButtonProps {
-  displayFilter: () => void;
-  type: string;
-  title?: string;
+    displayFilter: () => void;
+    type: string;
+    title?: string;
 }
 export const FilterButton: FunctionComponent<FilterButtonProps> = ({
-  displayFilter,
-  type,
-  title,
+    displayFilter,
+    type,
+    title,
 }: FilterButtonProps) => {
-  const translation = useTranslation();
+    const translation = useTranslation();
 
-  return type == 'mobile' ? (
-    <div className="ds-sdk-filter-button">
-      <button
-        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm  outline outline-gray-200 hover:outline-gray-800 h-[32px]"
-        onClick={displayFilter}
-      >
-        <AdjustmentsIcon className="w-md" />
-        {translation.Filter.title}
-      </button>
-    </div>
-  ) : (
-    <div className="ds-sdk-filter-button-desktop">
-      <button
-        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]"
-        onClick={displayFilter}
-      >
-        {title}
-      </button>
-    </div>
-  );
+    return type == "mobile" ? (
+        <div className="ds-sdk-filter-button">
+            <button
+                className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm  outline outline-gray-200 hover:outline-gray-800 h-[32px]"
+                onClick={displayFilter}
+            >
+                <AdjustmentsIcon className="w-md" />
+                {translation.Filter.title}
+            </button>
+        </div>
+    ) : (
+        <div className="ds-sdk-filter-button-desktop">
+            <button
+                className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]"
+                onClick={displayFilter}
+            >
+                {title}
+            </button>
+        </div>
+    );
 };

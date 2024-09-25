@@ -7,6 +7,6 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './CategoryFilters';
-export * from './Facets';
-export * from './Pagination';
+export * from "./CategoryFilters";
+export * from "./Facets";
+export * from "./Pagination";

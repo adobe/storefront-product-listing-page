@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './FilterButton';
-export { FilterButton as default } from './FilterButton';
+export * from "./FilterButton";
+export { FilterButton as default } from "./FilterButton";

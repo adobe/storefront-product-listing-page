@@ -7,23 +7,19 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, test } from "vitest";
 
-import { ImageCarousel } from './ImageCarousel';
+import { ImageCarousel } from "./ImageCarousel";
 
-describe('WidgetSDK - UIKit/ImageCarousel', () => {
-  test('renders', () => {
-    const { container } = render(
-      <ImageCarousel
-        images={[]}
-        productName=""
-        carouselIndex={0}
-        setCarouselIndex={() => {}}
-      />
-    );
+describe("WidgetSDK - UIKit/ImageCarousel", () => {
+    test("renders", () => {
+        const { container } = render(
+            <ImageCarousel images={[]} productName="" carouselIndex={0} setCarouselIndex={() => {}} />,
+        );
 
-    const elem = container.querySelector('.ds-sdk-product-image-carousel');
+        const elem = container.querySelector(".ds-sdk-product-image-carousel");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

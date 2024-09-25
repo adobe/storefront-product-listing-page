@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './SliderDoubleControl';
-export { SliderDoubleControl as default } from './SliderDoubleControl';
+export * from "./SliderDoubleControl";
+export { SliderDoubleControl as default } from "./SliderDoubleControl";

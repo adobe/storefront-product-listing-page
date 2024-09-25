@@ -7,18 +7,18 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-/// <reference types="@types/jest" />;
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, it } from "vitest";
 
-import Breadcrumbs from './Breadcrumbs';
-import { pages } from './MockPages';
+import Breadcrumbs from "./Breadcrumbs";
+import { pages } from "./MockPages";
 
-describe('WidgetSDK - UIKit/Breadcrumbs', () => {
-  it('renders', () => {
-    const { container } = render(<Breadcrumbs pages={pages} />);
+describe("WidgetSDK - UIKit/Breadcrumbs", () => {
+    it("renders", () => {
+        const { container } = render(<Breadcrumbs pages={pages} />);
 
-    const elem = container.querySelector('.ds-sdk-breadcrumbs');
+        const elem = container.querySelector(".ds-sdk-breadcrumbs");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

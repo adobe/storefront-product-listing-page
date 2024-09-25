@@ -7,18 +7,17 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, test } from "vitest";
 
-import { SearchBar } from './SearchBar';
+import { SearchBar } from "./SearchBar";
 
-describe('WidgetSDK - UIKit/SearchBar', () => {
-  test('renders', () => {
-    const { container } = render(
-      <SearchBar phrase="" onKeyPress={() => {}} onClear={() => {}} />
-    );
+describe("WidgetSDK - UIKit/SearchBar", () => {
+    test("renders", () => {
+        const { container } = render(<SearchBar phrase="" onKeyPress={() => {}} onClear={() => {}} />);
 
-    const elem = container.querySelector('.ds-sdk-search-bar');
+        const elem = container.querySelector(".ds-sdk-search-bar");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

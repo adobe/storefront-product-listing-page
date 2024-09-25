@@ -7,26 +7,27 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, test } from "vitest";
 
-import { LabelledInput } from './LabelledInput';
+import { LabelledInput } from "./LabelledInput";
 
-describe('WidgetSDK - UIKit/InputButtonGroup', () => {
-  test('renders', () => {
-    const { container } = render(
-      <LabelledInput
-        type="checkbox"
-        checked={false}
-        name=""
-        onChange={() => {}}
-        label=""
-        value=""
-        attribute=""
-      />
-    );
+describe("WidgetSDK - UIKit/InputButtonGroup", () => {
+    test("renders", () => {
+        const { container } = render(
+            <LabelledInput
+                type="checkbox"
+                checked={false}
+                name=""
+                onChange={() => {}}
+                label=""
+                value=""
+                attribute=""
+            />,
+        );
 
-    const elem = container.querySelector('.ds-sdk-labelled-input');
+        const elem = container.querySelector(".ds-sdk-labelled-input");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

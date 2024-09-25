@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './SwatchButton';
-export { SwatchButton as default } from './SwatchButton';
+export * from "./SwatchButton";
+export { SwatchButton as default } from "./SwatchButton";

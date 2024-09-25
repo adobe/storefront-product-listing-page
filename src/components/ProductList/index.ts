@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './ProductList';
-export { ProductList as default } from './ProductList';
+export * from "./ProductList";
+export { ProductList as default } from "./ProductList";

@@ -7,20 +7,17 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, test } from "vitest";
 
-import { WishlistButton } from './WishlistButton';
+import { WishlistButton } from "./WishlistButton";
 
-describe('WidgetSDK - UIKit/FilterButton', () => {
-  test('renders', () => {
-    const { container } = render(
-      <WishlistButton type="inLineWithName" productSku="SKU-123" />
-    );
+describe("WidgetSDK - UIKit/FilterButton", () => {
+    test("renders", () => {
+        const { container } = render(<WishlistButton type="inLineWithName" productSku="SKU-123" />);
 
-    const elem = container.querySelector(
-      `.ds-sdk-wishlist-inLineWithName-button`
-    );
+        const elem = container.querySelector(`.ds-sdk-wishlist-inLineWithName-button`);
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

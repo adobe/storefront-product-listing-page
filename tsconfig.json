@@ -1,40 +1,46 @@
 {
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
-    "jsxFactory": "",
-    "jsxFragmentFactory": "",
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "noUnusedLocals": false,
-    "baseUrl": ".",
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "declaration": true,
-    "declarationMap": true,
-    "allowJs": true,
-    "checkJs": false,
-    "resolveJsonModule": true,
-    "noUnusedParameters": true,
-    "types": ["node", "jest"],
-    "typeRoots": ["./src/types", "./node_modules/@types"],
-    "paths": {
-      "react": ["preact/compat"],
-      "react-dom/test-utils": ["preact/test-utils"],
-      "react-dom": ["preact/compat"],
-      "react/jsx-runtime": ["preact/jsx-runtime"]
-    }
-  },
-  "include": [
-    "./src/**/*",
-    "./src/types",
-    "**/*.ts",
-    "**/*.tsx",
-    "config/storybook/addon.js"
-  ],
-  "lib": ["ES2015", "DOM", "DOM.Iterable", "ESNext"],
-  "exclude": ["node_modules", "dist"]
+    "files": [],
+    "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+    "exclude": ["**/*.test.js"]
 }
+
+// {
+//   "compilerOptions": {
+//     "jsx": "react-jsx",
+//     "jsxImportSource": "preact",
+//     "jsxFactory": "",
+//     "jsxFragmentFactory": "",
+//     "forceConsistentCasingInFileNames": true,
+//     "outDir": "./dist",
+//     "noUnusedLocals": false,
+//     "baseUrl": ".",
+//     "target": "esnext",
+//     "module": "esnext",
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "moduleResolution": "node",
+//     "declaration": true,
+//     "declarationMap": true,
+//     "allowJs": true,
+//     "checkJs": false,
+//     "resolveJsonModule": true,
+//     "noUnusedParameters": true,
+//     "types": ["node", "jest"],
+//     "typeRoots": ["./src/types", "./node_modules/@types"],
+//     "paths": {
+//       "react": ["preact/compat"],
+//       "react-dom/test-utils": ["preact/test-utils"],
+//       "react-dom": ["preact/compat"],
+//       "react/jsx-runtime": ["preact/jsx-runtime"]
+//     }
+//   },
+//   "include": [
+//     "./src/**/*",
+//     "./src/types",
+//     "**/*.ts",
+//     "**/*.tsx",
+//     "config/storybook/addon.js"
+//   ],
+//   "lib": ["ES2015", "DOM", "DOM.Iterable", "ESNext"],
+//   "exclude": ["node_modules", "dist"]
+// }

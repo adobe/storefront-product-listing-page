@@ -7,23 +7,24 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, test, vi } from "vitest";
 
-import { SortDropdown } from './SortDropdown';
+import { SortDropdown } from "./SortDropdown";
 
-describe('WidgetSDK - UIKit/SortDropdown', () => {
-  test('renders', () => {
-    const handleChange = jest.fn();
-    const { container } = render(
-      <SortDropdown
-        value="relevance_DESC"
-        sortOptions={[{ label: 'Most Relevant', value: 'relevance_DESC' }]}
-        onChange={handleChange}
-      />
-    );
+describe("WidgetSDK - UIKit/SortDropdown", () => {
+    test("renders", () => {
+        const handleChange = vi.fn();
+        const { container } = render(
+            <SortDropdown
+                value="relevance_DESC"
+                sortOptions={[{ label: "Most Relevant", value: "relevance_DESC" }]}
+                onChange={handleChange}
+            />,
+        );
 
-    const elem = container.querySelector('.ds-sdk-sort-dropdown');
+        const elem = container.querySelector(".ds-sdk-sort-dropdown");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

@@ -1,0 +1,26 @@
+name: build-deploy-qa
+
+on:
+  push:
+    branches: 
+      - develop
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: use node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: |
+          ls -al src/icons
+      - run: yarn test
+      - run: yarn build
+        

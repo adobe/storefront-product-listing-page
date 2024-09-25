@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './Shimmer';
-export { Shimmer as default } from './Shimmer';
+export * from "./Shimmer";
+export { Shimmer as default } from "./Shimmer";

@@ -7,46 +7,46 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
-import { PriceFacet } from 'src/types/interface';
+import { render } from "@testing-library/preact";
+import { describe, expect, test } from "vitest";
 
-import { SliderDoubleControl } from './SliderDoubleControl';
+import { PriceFacet } from "@/types/interface";
 
-describe('PLP widget/SliderDoubleControl', () => {
-  test('renders', () => {
-    const filterData: PriceFacet = {
-      title: 'Price',
-      attribute: 'price',
-      buckets: [
-        {
-          title: '10.0-25.0',
-          __typename: 'RangeBucket',
-          from: 10,
-          to: 25,
-          count: 1,
-        },
-        {
-          title: '25.0-50.0',
-          __typename: 'RangeBucket',
-          from: 25,
-          to: 50,
-          count: 10,
-        },
-        {
-          title: '50.0-75.0',
-          __typename: 'RangeBucket',
-          from: 50,
-          to: 75,
-          count: 1,
-        },
-      ],
-    };
-    const { container } = render(
-      <SliderDoubleControl filterData={filterData} />
-    );
+import { SliderDoubleControl } from "./SliderDoubleControl";
 
-    const elem = container.querySelector('.ds-sdk-slider');
+describe("PLP widget/SliderDoubleControl", () => {
+    test("renders", () => {
+        const filterData: PriceFacet = {
+            title: "Price",
+            attribute: "price",
+            buckets: [
+                {
+                    title: "10.0-25.0",
+                    __typename: "RangeBucket",
+                    from: 10,
+                    to: 25,
+                    count: 1,
+                },
+                {
+                    title: "25.0-50.0",
+                    __typename: "RangeBucket",
+                    from: 25,
+                    to: 50,
+                    count: 10,
+                },
+                {
+                    title: "50.0-75.0",
+                    __typename: "RangeBucket",
+                    from: 50,
+                    to: 75,
+                    count: 1,
+                },
+            ],
+        };
+        const { container } = render(<SliderDoubleControl filterData={filterData} />);
 
-    expect(!!elem).toEqual(true);
-  });
+        const elem = container.querySelector(".ds-sdk-slider");
+
+        expect(!!elem).toEqual(true);
+    });
 });

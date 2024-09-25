@@ -7,19 +7,17 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-/// <reference types="@types/jest" />;
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, it } from "vitest";
 
-import Pagination from './Pagination';
+import Pagination from "./Pagination";
 
-describe('PLP widget/Pagination', () => {
-  it('renders', () => {
-    const { container } = render(
-      <Pagination currentPage={1} totalPages={3} onPageChange={() => {}} />
-    );
+describe("PLP widget/Pagination", () => {
+    it("renders", () => {
+        const { container } = render(<Pagination currentPage={1} totalPages={3} onPageChange={() => {}} />);
 
-    const elem = container.querySelector('.ds-plp-pagination');
+        const elem = container.querySelector(".ds-plp-pagination");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

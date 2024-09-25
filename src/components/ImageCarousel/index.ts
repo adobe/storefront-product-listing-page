@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './ImageCarousel';
-export { ImageCarousel as default } from './ImageCarousel';
+export * from "./ImageCarousel";
+export { ImageCarousel as default } from "./ImageCarousel";

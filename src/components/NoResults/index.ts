@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './NoResults';
-export { NoResults as default } from './NoResults';
+export * from "./NoResults";
+export { NoResults as default } from "./NoResults";

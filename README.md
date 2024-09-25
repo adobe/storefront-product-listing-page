@@ -312,9 +312,9 @@ Follow the below instructions on how to host with CDN and update your Commerce s
 1. Now the Live Search extension needs to be updated to include your new url. Find the `magento-live-search` extension code in your adobe commerce code base. Locate the directory `LiveSearchProductListing`.
 1. We will be updating two files under `magento-live-search > LiveSearchProductListing`: `etc/config.xml` & `etc/csp_whitelist.xml`
 1. Changes for `etc/config.xml`: change the live search url in `<frontend_url>`to match the one you created with your hosting/CDN solution url above. See below.
-1. ![image](./config_xml.png)
+1. ![image](./docs/config_xml.png)
 1. Changes for `etc/csp_whitelist.xml`: find all references to the live search SaaS product list page (`plp-widgets-ui.magento.ds.com`) and replace with your hosting/CDN solution url. See below.
-1. ![image](./csp_whitelist_xml.png)
+1. ![image](./docs/csp_whitelist_xml.png)
 1. Those are all the required changes. Now redeploy your adobe commerce store code and see your new custom product listing page in your storefront.
 
 _The purpose of this project is to provide a dev-ready starting point for developers to implement the product listing page. The project, repo, and any accompanying assets included herein (“Assets”) are provided “as-is” for your use solely at your sole discretion, risk, and responsibility. By using these Assets, you agree Adobe will in no event be responsible for any use of the Assets, including but not limited to any customizations made thereto, by you or any third party. Adobe will not provide any support of any kind for any customizations made to the Assets by anyone._

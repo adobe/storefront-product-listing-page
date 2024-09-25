@@ -7,25 +7,20 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { render } from '@testing-library/preact';
+import { render } from "@testing-library/preact";
+import { describe, expect, test, vi } from "vitest";
 
-import { SwatchButton } from './SwatchButton';
+import { SwatchButton } from "./SwatchButton";
 
-describe('WidgetSDK - UIKit/SwatchButton', () => {
-  test('renders', () => {
-    const handleChange = jest.fn();
-    const { container } = render(
-      <SwatchButton
-        id="test"
-        value="test"
-        type="TEXT"
-        checked={true}
-        onClick={handleChange}
-      />
-    );
+describe("WidgetSDK - UIKit/SwatchButton", () => {
+    test("renders", () => {
+        const handleChange = vi.fn();
+        const { container } = render(
+            <SwatchButton id="test" value="test" type="TEXT" checked onClick={handleChange} />,
+        );
 
-    const elem = container.querySelector('.ds-sdk-swatch-button_test');
+        const elem = container.querySelector(".ds-sdk-swatch-button_test");
 
-    expect(!!elem).toEqual(true);
-  });
+        expect(!!elem).toEqual(true);
+    });
 });

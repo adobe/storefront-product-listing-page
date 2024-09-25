@@ -7,26 +7,26 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { Facet, Product, ProductView } from './fragments';
+import { Facet, Product, ProductView } from "./fragments";
 
-const ATTRIBUTE_METADATA_QUERY = `
+const ATTRIBUTE_METADATA_QUERY = /* GraphQL */ `
     query attributeMetadata {
         attributeMetadata {
-        sortable {
-            label
-            attribute
-            numeric
-        }
-        filterableInSearch {
-            label
-            attribute
-            numeric
-        }
+            sortable {
+                label
+                attribute
+                numeric
+            }
+            filterableInSearch {
+                label
+                attribute
+                numeric
+            }
         }
     }
 `;
 
-const QUICK_SEARCH_QUERY = `
+const QUICK_SEARCH_QUERY = /* GraphQL */ `
     query quickSearch(
         $phrase: String!
         $pageSize: Int = 20
@@ -57,7 +57,7 @@ const QUICK_SEARCH_QUERY = `
     ${Product}
 `;
 
-const PRODUCT_SEARCH_QUERY = `
+const PRODUCT_SEARCH_QUERY = /* GraphQL */ `
     query productSearch(
         $phrase: String!
         $pageSize: Int
@@ -101,15 +101,9 @@ const PRODUCT_SEARCH_QUERY = `
     ${Facet}
 `;
 
-const REFINE_PRODUCT_QUERY = `
-    query refineProduct(
-        $optionIds: [String!]!
-        $sku: String!
-    ) {
-        refineProduct(
-            optionIds: $optionIds
-            sku: $sku
-        ) {
+const REFINE_PRODUCT_QUERY = /* GraphQL */ `
+    query refineProduct($optionIds: [String!]!, $sku: String!) {
+        refineProduct(optionIds: $optionIds, sku: $sku) {
             __typename
             id
             sku
@@ -177,49 +171,49 @@ const REFINE_PRODUCT_QUERY = `
     }
 `;
 
-const GET_CUSTOMER_CART = `
+const GET_CUSTOMER_CART = /* GraphQL */ `
     query customerCart {
         customerCart {
             id
             items {
-            id
-            product {
-                name
-                sku
-            }
-            quantity
+                id
+                product {
+                    name
+                    sku
+                }
+                quantity
             }
         }
     }
 `;
 
-const GET_CUSTOMER_WISHLISTS = `
+const GET_CUSTOMER_WISHLISTS = /* GraphQL */ `
     query customer {
-      customer {
-        wishlists {
-          id
-          name
-          items_count
-          items_v2 {
-            items {
-            id
-              product {
-              uid
-              name
-              sku
-              }
+        customer {
+            wishlists {
+                id
+                name
+                items_count
+                items_v2 {
+                    items {
+                        id
+                        product {
+                            uid
+                            name
+                            sku
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
 `;
 
 export {
-  ATTRIBUTE_METADATA_QUERY,
-  PRODUCT_SEARCH_QUERY,
-  QUICK_SEARCH_QUERY,
-  REFINE_PRODUCT_QUERY,
-  GET_CUSTOMER_CART,
-  GET_CUSTOMER_WISHLISTS,
+    ATTRIBUTE_METADATA_QUERY,
+    PRODUCT_SEARCH_QUERY,
+    QUICK_SEARCH_QUERY,
+    REFINE_PRODUCT_QUERY,
+    GET_CUSTOMER_CART,
+    GET_CUSTOMER_WISHLISTS,
 };

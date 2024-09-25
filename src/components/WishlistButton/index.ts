@@ -7,5 +7,5 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export * from './WishlistButton';
-export { WishlistButton as default } from './WishlistButton';
+export * from "./WishlistButton";
+export { WishlistButton as default } from "./WishlistButton";
