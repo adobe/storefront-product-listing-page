@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             banner(BANNER_CONTENT),
+            preact(),
             svgr({
                 svgrOptions: {
                     ref: true,
@@ -34,7 +35,6 @@ export default defineConfig(({ mode }) => {
                 },
                 include: "**/*.svg",
             }),
-            preact(),
             dts({
                 compilerOptions: {
                     emitDeclarationOnly: true,
@@ -78,12 +78,6 @@ export default defineConfig(({ mode }) => {
             globals: true,
             environment: "jsdom",
             setupFiles: "./vitest.setup.ts",
-            alias: [
-                {
-                    find: "\\.svg$",
-                    replace: "./src/__mocks__/mock-file.ts",
-                },
-            ],
         },
     };
 });
