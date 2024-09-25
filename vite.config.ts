@@ -76,7 +76,11 @@ export default defineConfig(({ mode }) => {
             globals: true,
             environment: "jsdom",
             setupFiles: "./vitest.setup.ts",
-            include: ["**/*.{test,spec}.?(c|m)[jt]s?(x)", "**/*.svg"],
+            deps: {
+                web: {
+                    transformAssets: false,
+                },
+            },
         },
     };
 });
