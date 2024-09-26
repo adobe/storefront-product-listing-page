@@ -1974,10 +1974,6 @@ video {
   height: 100%;
 }
 
-.ds-sdk-product-image-hover {
-  transition: background-image .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
-}
-
 .first\:ml-0:first-child {
   margin-left: 0px;
 }
@@ -2128,7 +2124,7 @@ video {
   content: '✕';
 }
 
-.ds-sdk-product-image-hover {
+.ds-sdk-product-image {
   transition: background-image .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
 }
 
