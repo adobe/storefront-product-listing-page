@@ -42,7 +42,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
             : `radio-group-${attribute}`
         }
         type={type}
-        className="ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-gray-600 min-w-[16px]"
+        className="ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px]"
         checked={checked}
         aria-checked={checked}
         onInput={onChange}
@@ -50,7 +50,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
       />
       <label
         htmlFor={name}
-        className="ds-sdk-labelled-input__label ml-sm block-display text-sm font-light text-gray-700 cursor-pointer"
+        className="ds-sdk-labelled-input__label ml-sm block-display text-base text-[#171513] font-light cursor-pointer"
       >
         {label}
         {count && (

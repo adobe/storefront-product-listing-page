@@ -112,7 +112,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   return (
-    <div className="ds-sdk-input pt-md">
+    <div className="ds-sdk-input pt-[1.4rem]">
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
@@ -121,7 +121,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
         </label>
       )}
       <fieldset className="ds-sdk-input__options mt-md">
-        <div className="space-y-4">
+        <div className="space-y-2">
           {buckets.slice(0, numberOfOptions).map((option) => {
             if (!option.title) {
               return null;
@@ -146,13 +146,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           })}
           {!showMore && buckets.length > numberOfOptionsShown && (
             <div
-              className="ds-sdk-input__fieldset__show-more flex items-center text-gray-700 cursor-pointer"
+              className="ds-sdk-input__fieldset__show-more flex items-center text-gray-700 cursor-pointer pt-[1.5rem]"
               onClick={() => setShowMore(true)}
             >
-              <PlusIcon className="h-md w-md fill-gray-500" />
+              <PlusIcon className="h-[1.2rem] w-[1.2rem] fill-[#904745]" />
               <button
                 type="button"
-                className="ml-sm font-light cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm"
+                className="ml-sm text-[#904745] font-light cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm"
               >
                 {translation.InputButtonGroup.showmore}
               </button>

@@ -1,26 +1,63 @@
 /* https://cssguidelin.es/#bem-like-naming */
 .sfsdk-product-list {
 }
-.livesearch-plp .ds-widgets .ds-sdk-product-list__grid{
+
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid {
     column-gap: 1.25rem;
     row-gap: 2rem;
 }
+
 .livesearch-plp {
     margin: 0 auto;
     max-width: 90%;
     padding-left: 15px;
     padding-right: 15px;
 }
-.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item>div:last-child{
+
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item > div:last-child {
     align-self: flex-start;
 }
 
 .livesearch-plp .ds-widgets .ds-sdk-product-list {
     background-color: #ffffff;
 }
-body{
+
+body {
     background-color: #ffffff;
 }
+
+
+[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+[type=checkbox]:checked:focus, [type=checkbox]:checked:hover, [type=checkbox]:indeterminate {
+    background: none;
+}
+
+[type=checkbox]:checked {
+    background: none;
+}
+
+.ds-sdk-labelled-input input::before {
+    background-color: #fff;
+    border: 2px solid #904745;
+    border-radius: 5px;
+    content: "";
+    display: block;
+    left: 10px;
+    position: absolute;
+    width: 19px;
+    height: 19px;
+
+}
+
+.ds-sdk-labelled-input input:checked::before {
+    background-color: #904745;
+}
+
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) { } */
 
