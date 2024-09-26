@@ -1,7 +1,7 @@
-.ds-sdk-product-image-hover {
+.ds-sdk-product-image {
   background-image: var(--image-url);
 }
 
-.ds-sdk-product-image-hover:hover {
+.ds-sdk-product-image.hover-enabled:hover {
   background-image: var(--hover-url);
 }

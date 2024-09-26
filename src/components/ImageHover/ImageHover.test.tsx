@@ -19,7 +19,7 @@ describe('WidgetSDK - UIKit/ImageCarousel', () => {
       />
     );
 
-    const elem = container.querySelector('.ds-sdk-product-image-hover');
+    const elem = container.querySelector('.ds-sdk-product-image');
 
     expect(!!elem).toEqual(true);
   });

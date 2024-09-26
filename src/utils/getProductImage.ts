@@ -13,6 +13,7 @@ import {
   getSegmentedOptions,
   isSportsWear} from './productUtils';
 
+const isValidImageUrl = (url: string | undefined) => url && !url.includes('product/no_selection');
 
 const getProductImageURLs = (
   images: ProductViewMedia[],
@@ -26,7 +27,7 @@ const getProductImageURLs = (
   // const topImageUrl = "http://master-7rqtwti-wdxwuaerh4gbm.eu-4.magentosite.cloud/media/catalog/product/3/1/31t0a-sopll._ac_.jpg";
   for (const image of images) {
     const imageUrl = image.url?.replace(/^https?:\/\//, '');
-    if (imageUrl) {
+    if (isValidImageUrl(imageUrl)) {
       if (image.roles?.includes('image')) {
         topImageUrl = imageUrl;
       } else {
@@ -61,6 +62,10 @@ export interface ResolveImageUrlOptions {
 }
 
 const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions): string => {
+  if (!isValidImageUrl(url)) {
+    return '';
+  }
+
   const [base, query] = url.split('?');
   const params = new URLSearchParams(query);
 
@@ -150,6 +155,10 @@ function getProductImagesFromAttribute(productView: ProductView, categoryId?: st
 
 function getAbsoluteImageUrl(productView: ProductView, urls: string[]) {
   return urls.map((url) => {
+    if (!isValidImageUrl(url)) {
+      return '';
+    }
+
     if (url.startsWith('http')) {
       return url;
     }
