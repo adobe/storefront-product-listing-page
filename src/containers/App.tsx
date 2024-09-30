@@ -128,6 +128,13 @@ export const App: FunctionComponent = () => {
                 ) : (
                   <>
                     <div className="flex w-full h-full">
+                      {screenSize.mobile ? (
+                      <ProductsHeader
+                          facets={productsCtx.facets}
+                          totalCount={productsCtx.totalCount}
+                          screenSize={screenSize}
+                      />):''
+                      }
                     </div>
                     <SelectedFilters />
                     <ProductsContainer
