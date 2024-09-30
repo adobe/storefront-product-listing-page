@@ -33,7 +33,7 @@ export const el_GR = {
   },
   SortDropdown: {
     title: 'Ταξινόμηση κατά',
-    option: 'Ταξινόμηση κατά: {selectedOption}',
+    option: 'Ταξινόμηση κατά',
     relevanceLabel: 'Το πιο σχετικό',
     positionLabel: 'Θέση',
   },

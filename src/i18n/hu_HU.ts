@@ -33,7 +33,7 @@ export const hu_HU = {
   },
   SortDropdown: {
     title: 'Rendezési szempont',
-    option: 'Rendezési szempont: {selectedOption}',
+    option: 'Rendezési szempont',
     relevanceLabel: 'Legrelevánsabb',
     positionLabel: 'Pozíció',
   },

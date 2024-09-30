@@ -33,7 +33,7 @@ export const ca_ES = {
   },
   SortDropdown: {
     title: 'Ordenar per',
-    option: 'Ordena per: {selectedOption}',
+    option: 'Ordena per',
     relevanceLabel: 'El més rellevant',
     positionLabel: 'Posició',
   },

@@ -65,7 +65,7 @@ export const App: FunctionComponent = () => {
               />
               <div
                 className={`ds-widgets_results flex flex-col items-center ${
-                  productsCtx.categoryName ? 'pt-16' : 'pt-28'
+                  productsCtx.categoryName ? 'pt-0' : 'pt-28'
                 } w-full h-full`}
               >
                 <ProductsHeader
@@ -111,6 +111,11 @@ export const App: FunctionComponent = () => {
                               : ''
                           }`}
                         />
+                        <ProductsHeader
+                            facets={productsCtx.facets}
+                            totalCount={productsCtx.totalCount}
+                            screenSize={screenSize}
+                        />
                       </div>
                     )}
                 </div>
@@ -123,11 +128,6 @@ export const App: FunctionComponent = () => {
                 ) : (
                   <>
                     <div className="flex w-full h-full">
-                      <ProductsHeader
-                        facets={productsCtx.facets}
-                        totalCount={productsCtx.totalCount}
-                        screenSize={screenSize}
-                      />
                     </div>
                     <SelectedFilters />
                     <ProductsContainer

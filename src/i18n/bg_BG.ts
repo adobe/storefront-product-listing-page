@@ -33,7 +33,7 @@ export const bg_BG = {
   },
   SortDropdown: {
     title: 'Сортиране по',
-    option: 'Сортиране по: {selectedOption}',
+    option: 'Сортиране по',
     relevanceLabel: 'Най-подходящи',
     positionLabel: 'Позиция',
   },

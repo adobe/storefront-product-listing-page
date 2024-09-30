@@ -33,7 +33,7 @@ export const sv_SE = {
   },
   SortDropdown: {
     title: 'Sortera på',
-    option: 'Sortera på: {selectedOption}',
+    option: 'Sortera på',
     relevanceLabel: 'Mest relevant',
     positionLabel: 'Position',
   },

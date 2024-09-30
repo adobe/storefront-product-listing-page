@@ -33,7 +33,7 @@ export const lt_LT = {
   },
   SortDropdown: {
     title: 'Rikiuoti pagal',
-    option: 'Rikiuoti pagal: {selectedOption}',
+    option: 'Rikiuoti pagal',
     relevanceLabel: 'Svarbiausias',
     positionLabel: 'Padėtis',
   },

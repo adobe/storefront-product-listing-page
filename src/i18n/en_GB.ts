@@ -33,7 +33,7 @@ export const en_GB = {
   },
   SortDropdown: {
     title: 'Sort by',
-    option: 'Sort by: {selectedOption}',
+    option: 'Sort by',
     relevanceLabel: 'Most Relevant',
     positionLabel: 'Position',
   },

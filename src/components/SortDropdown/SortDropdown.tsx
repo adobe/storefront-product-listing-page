@@ -85,17 +85,16 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
         class="ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md outline outline-1 outline-gray-200 hover:outline-gray-600 h-[32px] z-9"
       >
         <button
-          className="group flex justify-center items-center font-normal text-sm text-gray-700 rounded-md hover:cursor-pointer border-none bg-[#904745] hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
+          className="group flex justify-center items-center font-normal text-sm text-white rounded-md hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-full w-full px-sm"
           ref={sortOptionButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
           onBlur={() => setIsFocus(false)}
         >
-          <SortIcon className="h-md w-md mr-sm stroke-gray-600 m-auto" />
-          {selectedOption ? sortOption : translation.SortDropdown.title}
+          {selectedOption ? sortOption.toUpperCase() : translation.SortDropdown.title.toUpperCase()}
           <Chevron
-            className={`flex-shrink-0 m-auto ml-sm h-md w-md stroke-1 stroke-gray-600 ${
-              isDropdownOpen ? '' : 'rotate-180'
+            className={`flex-shrink-0 m-auto ml-sm h-md w-md stroke-1 stroke-white ${
+              isDropdownOpen ? 'rotate-180' : ''
             }`}
           />
         </button>
@@ -103,15 +102,15 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
           <ul
             ref={listRef}
             tabIndex={-1}
-            className="ds-sdk-sort-dropdown__items origin-top-right absolute hover:cursor-pointer right-0 w-full rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
+            className="ds-sdk-sort-dropdown__items origin-top-right absolute hover:cursor-pointer right-0 w-full rounded-md shadow-2xl bg-[#904745] ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
           >
             {sortOptions.map((option, i) => (
               <li
                 key={i}
                 aria-selected={option.value === selectedOption?.value}
                 onMouseOver={() => setActiveIndex(i)}
-                className={`py-xs hover:bg-gray-100 hover:text-gray-900 ${
-                  i === activeIndex ? 'bg-gray-100 text-gray-900' : ''
+                className={`py-xs ${
+                  i === activeIndex ? '' : ''
                 }}`}
               >
                 <a
@@ -119,8 +118,8 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
               no-underline active:no-underline focus:no-underline hover:no-underline
               hover:text-gray-900 ${
                 option.value === selectedOption?.value
-                  ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-gray-900'
-                  : 'font-normal text-gray-800'
+                  ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-white'
+                  : 'font-normal text-white'
               }`}
                   onClick={() => select(option.value)}
                 >

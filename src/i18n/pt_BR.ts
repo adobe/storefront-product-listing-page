@@ -33,7 +33,7 @@ export const pt_BR = {
   },
   SortDropdown: {
     title: 'Classificar por',
-    option: 'Classificar por: {selectedOption}',
+    option: 'Classificar por',
     relevanceLabel: 'Mais relevantes',
     positionLabel: 'Posição',
   },

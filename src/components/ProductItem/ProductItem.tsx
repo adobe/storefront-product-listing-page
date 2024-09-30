@@ -286,7 +286,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
-                  <div className="block">{getProductAttribute('profumo_per')}</div>
+                  <div className="block text-center text-[0.9rem]">{getProductAttribute('profumo_per')}</div>
                   <ProductPrice
                       item={refinedProduct ?? item}
                       isBundle={isBundle}

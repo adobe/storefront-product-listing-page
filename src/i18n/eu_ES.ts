@@ -33,7 +33,7 @@ export const eu_ES = {
   },
   SortDropdown: {
     title: 'Ordenatu',
-    option: 'Ordenatu honen arabera: {selectedOption}',
+    option: 'Ordenatu honen arabera',
     relevanceLabel: 'Garrantzitsuena',
     positionLabel: 'Posizioa',
   },

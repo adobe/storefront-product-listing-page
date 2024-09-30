@@ -33,7 +33,7 @@ export const ko_KR = {
   },
   SortDropdown: {
     title: '정렬 기준',
-    option: '정렬 기준: {selectedOption}',
+    option: '정렬 기준',
     relevanceLabel: '관련성 가장 높음',
     positionLabel: '위치',
   },

@@ -33,7 +33,7 @@ export const ro_RO = {
   },
   SortDropdown: {
     title: 'Sortați după',
-    option: 'Sortați după: {selectedOption}',
+    option: 'Sortați după',
     relevanceLabel: 'Cele mai relevante',
     positionLabel: 'Poziție',
   },

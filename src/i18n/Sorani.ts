@@ -33,7 +33,7 @@ export const Sorani = {
   },
   SortDropdown: {
     title: 'پۆلێنکردن بەگوێرەی',
-    option: 'پۆلێنکردن بەگوێرەی: {selectedOption}',
+    option: 'پۆلێنکردن بەگوێرەی',
     relevanceLabel: 'پەیوەندیدارترین',
     positionLabel: 'شوێن',
   },

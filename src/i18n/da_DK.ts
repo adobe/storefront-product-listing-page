@@ -33,7 +33,7 @@ export const da_DK = {
   },
   SortDropdown: {
     title: 'Sortér efter',
-    option: 'Sortér efter: {selectedOption}',
+    option: 'Sortér efter',
     relevanceLabel: 'Mest relevant',
     positionLabel: 'Position',
   },

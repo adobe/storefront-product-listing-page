@@ -33,7 +33,7 @@ export const nl_NL = {
   },
   SortDropdown: {
     title: 'Sorteren op',
-    option: 'Sorteren op: {selectedOption}',
+    option: 'Sorteren op',
     relevanceLabel: 'Meest relevant',
     positionLabel: 'Positie',
   },

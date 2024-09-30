@@ -33,7 +33,7 @@ export const bn_IN = {
   },
   SortDropdown: {
     title: 'ক্রমানুসারে সাজান',
-    option: 'ক্রমানুসারে সাজান: {selectedOption}',
+    option: 'ক্রমানুসারে সাজান',
     relevanceLabel: 'সবচেয়ে প্রাসঙ্গিক',
     positionLabel: 'অবস্থান',
   },

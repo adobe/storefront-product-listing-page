@@ -33,7 +33,7 @@ export const et_EE = {
   },
   SortDropdown: {
     title: 'Sortimisjärjekord',
-    option: 'Sortimisjärjekord: {selectedOption}',
+    option: 'Sortimisjärjekord',
     relevanceLabel: 'Kõige asjakohasem',
     positionLabel: 'Asukoht',
   },
