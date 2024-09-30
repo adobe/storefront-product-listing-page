@@ -20,12 +20,14 @@ export interface SortDropdownProps {
   value: string;
   sortOptions: SortOption[];
   onChange: (sortBy: string) => void;
+  isMobile: boolean;
 }
 
 export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   value,
   sortOptions,
   onChange,
+  isMobile,
 }: SortDropdownProps) => {
   const sortOptionButton = useRef<HTMLButtonElement | null>(null);
   const sortOptionMenu = useRef<HTMLDivElement | null>(null);
@@ -102,28 +104,34 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
           <ul
             ref={listRef}
             tabIndex={-1}
-            className="ds-sdk-sort-dropdown__items origin-top-right absolute hover:cursor-pointer right-0 w-full rounded-md shadow-2xl bg-[#904745] ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20"
+            className={`ds-sdk-sort-dropdown__items origin-top-right absolute 
+            hover:cursor-pointer right-0 w-full rounded-md shadow-2xl 
+            ${!isMobile ? 'bg-[#904745]' : ''} ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20`}
           >
             {sortOptions.map((option, i) => (
               <li
                 key={i}
                 aria-selected={option.value === selectedOption?.value}
                 onMouseOver={() => setActiveIndex(i)}
-                className={`py-xs ${
+                className={`py-xs  ${
                   i === activeIndex ? '' : ''
-                }}`}
+                }`}
               >
                 <a
-                  className={`ds-sdk-sort-dropdown__items--item block-display px-md py-sm text-sm mb-0
+                  className={`ds-sdk-sort-dropdown__items--item block-display px-md py-sm text-sm ${!isMobile?'text-[#131313]':''} mb-0
               no-underline active:no-underline focus:no-underline hover:no-underline
-              hover:text-gray-900 ${
-                option.value === selectedOption?.value
-                  ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-white'
-                  : 'font-normal text-white'
-              }`}
+              hover:text-gray-900
+              ${option.value === selectedOption?.value && isMobile
+                  ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-[#131313]'
+                  : 'font-normal text-[#131313]'}
+              ${option.value === selectedOption?.value && !isMobile
+                      ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-white'
+                      : 'font-normal text-[#131313]'}`}
                   onClick={() => select(option.value)}
-                >
-                  {option.label}
+                >{option.value === selectedOption?.value
+                      ? (!isMobile?'':'\u2713 ') +option.label
+                      : option.label
+                }
                 </a>
               </li>
             ))}

@@ -19,6 +19,7 @@ describe('WidgetSDK - UIKit/SortDropdown', () => {
         value="relevance_DESC"
         sortOptions={[{ label: 'Most Relevant', value: 'relevance_DESC' }]}
         onChange={handleChange}
+        isMobile
       />
     );
 

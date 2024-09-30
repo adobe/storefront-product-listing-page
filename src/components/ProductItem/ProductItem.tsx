@@ -315,12 +315,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             </div>
           </a>
           <div>
-            {screenSize.mobile && <GoButton onClick={handleGoProduct}/>}
-            {
-              isHovering &&
-                screenSize.desktop && (
-                    <GoButton onClick={handleGoProduct}/>
-                )}
+            {isHovering  && (<GoButton onClick={handleGoProduct}/>)}
           </div>
         </div>
       </div>

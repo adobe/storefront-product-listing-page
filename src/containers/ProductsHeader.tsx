@@ -121,6 +121,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
               sortOptions={sortOptions}
               value={sortBy}
               onChange={onSortChange}
+              isMobile={screenSize.mobile}
             />
           </>
         )}

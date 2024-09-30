@@ -1244,6 +1244,10 @@ video {
   .\!text-primary {
     color: var(--color-primary) !important;
   }
+  .text-\[\#131313\] {
+    --tw-text-opacity: 1;
+    color: rgb(19 19 19 / var(--tw-text-opacity));
+  }
   .text-\[\#171513\] {
     --tw-text-opacity: 1;
     color: rgb(23 21 19 / var(--tw-text-opacity));

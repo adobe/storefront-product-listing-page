@@ -27,11 +27,10 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   return type == 'mobile' ? (
     <div className="ds-sdk-filter-button">
       <button
-        className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm  outline outline-gray-200 hover:outline-gray-800 h-[32px]"
+        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 rounded-md p-sm  outline outline-gray-200 hover:outline-gray-800 h-[32px]"
         onClick={displayFilter}
       >
-        <AdjustmentsIcon className="w-md" />
-        {translation.Filter.title}
+        {translation.Filter.title?.toUpperCase()}
       </button>
     </div>
   ) : (
