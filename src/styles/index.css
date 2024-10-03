@@ -1186,14 +1186,14 @@ video {
     font-size: var(--font-2xl);
     line-height: var(--leading-loose);
   }
-  .text-\[0\.9rem\] {
-    font-size: 0.9rem;
+  .text-\[0\.88rem\] {
+    font-size: 0.88rem;
+  }
+  .text-\[1\.188rem\] {
+    font-size: 1.188rem;
   }
   .text-\[12px\] {
     font-size: 12px;
-  }
-  .text-\[1rem\] {
-    font-size: 1rem;
   }
   .text-base {
     font-size: var(--font-md);
@@ -1527,9 +1527,9 @@ video {
   border-top-color: solid 1px #f55d66;
 }
 
-.hover\:bg-\[\#f55d66\]:hover {
+.hover\:bg-\[\#904745\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(245 93 102 / var(--tw-bg-opacity));
+  background-color: rgb(144 71 69 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-100:hover {

@@ -280,11 +280,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
               <div className="flex flex-row justify-center pt-2">
                 <div className="flex flex-col">
-                  <div class="leading-none text-[1rem] uppercase text-black font-['FuturaBT-Light'] text-center pt-6">{getProductAttribute('manufacturer')}</div>
-                  <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
+                  <div class="leading-none text-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center pt-6">{getProductAttribute('manufacturer')}</div>
+                  <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1.188rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
-                  <div className="block text-center text-[0.9rem]">{getProductAttribute('profumo_per')}</div>
+                  <div className="block text-center text-[0.88rem]">{getProductAttribute('profumo_per')}</div>
                   <ProductPrice
                       item={refinedProduct ?? item}
                       isBundle={isBundle}
