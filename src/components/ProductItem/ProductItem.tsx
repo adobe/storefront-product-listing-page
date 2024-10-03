@@ -12,7 +12,7 @@ import { useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
-import { useCart, useProducts, useSensor, useStore } from '../../context';
+import { useCart, useProducts, useStore } from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -68,8 +68,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const {
     config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
   } = useStore();
-
-  const { screenSize } = useSensor();
 
   const handleMouseOver = () => {
     setIsHovering(true);

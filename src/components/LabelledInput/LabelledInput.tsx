@@ -9,6 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 import { ChangeEvent } from 'preact/compat';
+import {useSensor} from '../../context';
 
 // Maybe someday extend the `type` field to allow more inputs like `range` or `time`
 export interface LabelledInputProps {
@@ -32,6 +33,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
   value,
   count,
 }) => {
+    const { screenSize } = useSensor();
   return (
     <div className="ds-sdk-labelled-input flex items-center">
       <input
@@ -42,7 +44,8 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
             : `radio-group-${attribute}`
         }
         type={type}
-        className="ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px]"
+        className={screenSize.mobile?"ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[16px]":
+            "ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[10px]"}
         checked={checked}
         aria-checked={checked}
         onInput={onChange}

@@ -1496,6 +1496,16 @@ video {
   transform: translate(-50%, -50%);
 }
 
+.before\:left-\[10px\]::before {
+  content: var(--tw-content);
+  left: 10px;
+}
+
+.before\:left-\[16px\]::before {
+  content: var(--tw-content);
+  left: 16px;
+}
+
 .first\:ml-0:first-child {
   margin-left: 0px;
 }

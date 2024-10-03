@@ -13,7 +13,6 @@ import { useEffect, useRef } from 'preact/hooks';
 import { useTranslation } from '../../context/translation';
 import { useAccessibleDropdown } from '../../hooks/useAccessibleDropdown';
 import Chevron from '../../icons/chevron.svg';
-import SortIcon from '../../icons/sort.svg';
 import { SortOption } from '../../types/interface';
 
 export interface SortDropdownProps {
@@ -106,7 +105,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
             tabIndex={-1}
             className={`ds-sdk-sort-dropdown__items origin-top-right absolute 
             hover:cursor-pointer right-0 w-full rounded-md shadow-2xl 
-            ${!isMobile ? 'bg-[#904745]' : ''} ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20`}
+            ${!isMobile ? 'bg-[#904745]' : 'bg-white'} ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20`}
           >
             {sortOptions.map((option, i) => (
               <li
@@ -118,9 +117,8 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
                 }`}
               >
                 <a
-                  className={`ds-sdk-sort-dropdown__items--item block-display px-md py-sm text-sm ${!isMobile?'text-[#131313]':''} mb-0
-              no-underline active:no-underline focus:no-underline hover:no-underline
-              hover:text-gray-900
+                  className={`ds-sdk-sort-dropdown__items--item block-display px-md py-sm text-sm ${!isMobile?'text-[#131313]':''} 
+                   mb-0 no-underline active:no-underline focus:no-underline hover:no-underline hover:text-gray-900
               ${option.value === selectedOption?.value && isMobile
                   ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-[#131313]'
                   : 'font-normal text-[#131313]'}
