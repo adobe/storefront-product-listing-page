@@ -537,6 +537,9 @@ video {
   .right-0 {
     right: 0px;
   }
+  .top-0 {
+    top: 0px;
+  }
   .top-\[6\.4rem\] {
     top: 6.4rem;
   }
@@ -622,6 +625,9 @@ video {
   }
   .mt-8 {
     margin-top: 2rem;
+  }
+  .mt-\[-2px\] {
+    margin-top: -2px;
   }
   .mt-md {
     margin-top: var(--spacing-md);
@@ -727,6 +733,9 @@ video {
   }
   .w-\[24px\] {
     width: 24px;
+  }
+  .w-\[30px\] {
+    width: 30px;
   }
   .w-fit {
     width: -moz-fit-content;
@@ -1338,6 +1347,10 @@ video {
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
   /* font-size: 1.6rem; */
+
+  /* Colors */
+  --color-body: #fff;
+  --color-on-body: #222;
   /* Elsie base design */
   --color-brand-300: #6d6d6d;
   --color-brand-500: #454545;

@@ -18,7 +18,7 @@ import {
   SearchSort,
 } from '@adobe/magento-storefront-events-sdk/dist/types/types/schemas';
 
-import { ProductSearchResponse } from '../types/interface';
+import { ProductSearchResponse, RedirectRouteFunc } from '../types/interface';
 
 const updateSearchInputCtx = (
   searchUnitId: string,
@@ -29,82 +29,79 @@ const updateSearchInputCtx = (
   currentPage: number,
   sort: Array<SearchSort>
 ): void => {
-  const mse = window.magentoStorefrontEvents;
-  if (!mse) {
-    // don't break search if events are broken/not loading
-    return;
-  }
+  window.adobeDataLayer.push((dl: any) => {
+    const searchInputCtx = dl.getState('searchInputContext') ?? { units: [] };
 
-  const searchInputCtx = mse.context.getSearchInput() ?? { units: [] };
+    // create search input unit
+    const searchInputUnit: SearchInputUnit = {
+      searchUnitId,
+      searchRequestId,
+      queryTypes: ['products', 'suggestions'],
+      phrase,
+      pageSize,
+      currentPage,
+      filter: filters,
+      sort,
+    };
 
-  // create search input unit
-  const searchInputUnit: SearchInputUnit = {
-    searchUnitId,
-    searchRequestId,
-    queryTypes: ['products', 'suggestions'],
-    phrase,
-    pageSize,
-    currentPage,
-    filter: filters,
-    sort,
-  };
+    // find search input unit index
+    const searchInputUnitIndex = searchInputCtx.units.findIndex(
+      (unit: any) => unit.searchUnitId === searchUnitId
+    );
 
-  // find search input unit index
-  const searchInputUnitIndex = searchInputCtx.units.findIndex(
-    (unit) => unit.searchUnitId === searchUnitId
-  );
+    // update search input unit
+    if (searchInputUnitIndex < 0) {
+      searchInputCtx.units.push(searchInputUnit);
+    } else {
+      searchInputCtx.units[searchInputUnitIndex] = searchInputUnit;
+    }
 
-  // update search input unit
-  if (searchInputUnitIndex < 0) {
-    searchInputCtx.units.push(searchInputUnit);
-  } else {
-    searchInputCtx.units[searchInputUnitIndex] = searchInputUnit;
-  }
-
-  mse.context.setSearchInput(searchInputCtx);
+    dl.push({ searchInputContext: searchInputCtx });
+  });
 };
 
 const updateSearchResultsCtx = (
   searchUnitId: string,
   searchRequestId: string,
-  results: ProductSearchResponse['data']['productSearch']
+  results: ProductSearchResponse['data']['productSearch'],
+  route?: RedirectRouteFunc
 ): void => {
-  const mse = window.magentoStorefrontEvents;
-  if (!mse) {
-    // don't break search if events are broken/not loading
-    return;
-  }
-  const searchResultsCtx = mse.context.getSearchResults() ?? { units: [] };
+  window.adobeDataLayer.push((dl: any) => {
+    const searchResultsCtx = dl.getState('searchResultsContext') ?? {
+      units: [],
+    };
 
-  // find search result unit index
-  const searchResultUnitIndex = searchResultsCtx.units.findIndex(
-    (unit) => unit.searchUnitId === searchUnitId
-  );
+    // find search result unit index
+    const searchResultUnitIndex = searchResultsCtx.units.findIndex(
+      (unit: any) => unit.searchUnitId === searchUnitId
+    );
 
-  // create search result unit
-  const searchResultUnit: SearchResultUnit = {
-    searchUnitId,
-    searchRequestId,
-    products: createProducts(results.items),
-    categories: [],
-    suggestions: createSuggestions(results.suggestions),
-    page: results?.page_info?.current_page || 1,
-    perPage: results?.page_info?.page_size || 20,
-    facets: createFacets(results.facets),
-  };
+    // create search result unit
+    const searchResultUnit: SearchResultUnit = {
+      searchUnitId,
+      searchRequestId,
+      products: createProducts(results.items, route),
+      categories: [],
+      suggestions: createSuggestions(results.suggestions),
+      page: results?.page_info?.current_page || 1,
+      perPage: results?.page_info?.page_size || 20,
+      facets: createFacets(results.facets),
+    };
 
-  // update search result unit
-  if (searchResultUnitIndex < 0) {
-    searchResultsCtx.units.push(searchResultUnit);
-  } else {
-    searchResultsCtx.units[searchResultUnitIndex] = searchResultUnit;
-  }
+    // update search result unit
+    if (searchResultUnitIndex < 0) {
+      searchResultsCtx.units.push(searchResultUnit);
+    } else {
+      searchResultsCtx.units[searchResultUnitIndex] = searchResultUnit;
+    }
 
-  mse.context.setSearchResults(searchResultsCtx);
+    dl.push({ searchResultsContext: searchResultsCtx });
+  });
 };
 
 const createProducts = (
-  items: ProductSearchResponse['data']['productSearch']['items']
+  items: ProductSearchResponse['data']['productSearch']['items'],
+  route?: RedirectRouteFunc
 ): SearchResultProduct[] => {
   if (!items) {
     return [];
@@ -113,7 +110,12 @@ const createProducts = (
   const products: SearchResultProduct[] = items.map((item, index) => ({
     name: item?.product?.name,
     sku: item?.product?.sku,
-    url: item?.product?.canonical_url ?? '',
+    url: route
+      ? route({
+          sku: item?.productView?.sku,
+          urlKey: item?.productView?.urlKey,
+        })
+      : item?.product?.canonical_url ?? '',
     imageUrl: item?.productView?.images?.length
       ? item?.productView?.images[0].url ?? ''
       : '',

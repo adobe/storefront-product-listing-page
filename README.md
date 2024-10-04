@@ -36,7 +36,7 @@ Node and NPM setup: https://docs.npmjs.com/downloading-and-installing-node-js-an
 
 Within the root of the project (~/storefront-product-listing-page):
 
-```
+```sh
 npm install
 ```
 
@@ -44,7 +44,7 @@ npm install
 
 Install storybook: https://storybook.js.org/docs/react/get-started/install
 
-```
+```sh
 npm run storybook
 ```
 
@@ -52,25 +52,25 @@ npm run storybook
 
 build tailwind styles and run locally
 
-```
+```sh
 npm run tailwind:build
 npm run dev
 ```
 
 note: for styles to update you must run `npm run tailwind:build`
 
-And open `localhost:8080/v1/index.html` in your favorite browser.
+And open `localhost:8080/v2/index.html` in your favorite browser.
 
 ### Unit Testing
 
-```
+```sh
 npm run test
 ```
 
 ### Build
 
-```
-npm run tailwind:build //builds tailwind styles
+```sh
+npm run tailwind:build # builds tailwind styles
 npm run build
 ```
 
@@ -80,7 +80,7 @@ search.js will be built to ./dist/
 
 import the script:
 
-```
+```html
 <script type="text/javascript" src="search.js"></script>
 ```
 
@@ -90,71 +90,83 @@ Most of these will be passed with the extension if you have your storefront setu
 
 #### Store Variables needed:
 
-```
-      ENVIRONMENT_ID
-      WEBSITE_CODE
-      STORE_CODE
-      STORE_VIEW_CODE
-      CUSTOMER_GROUP_CODE
-      API_KEY
-      SANDBOX_KEY // input this key into webpack.dev.js & webpack.prod.js
+```sh
+ENVIRONMENT_ID
+WEBSITE_CODE
+STORE_CODE
+STORE_VIEW_CODE
+CUSTOMER_GROUP_CODE
+API_KEY
+SANDBOX_KEY # input this key into webpack.dev.js & webpack.prod.js
 ```
 
 - To set up sandbox keys please see here: https://experienceleague.adobe.com/docs/commerce-merchant-services/catalog-service/installation.html?lang=en
 
 #### insert into store details config
 
-```
+```ts
 const storeDetails = {
-      environmentId: 'ENVIRONMENT_ID',
-      websiteCode: 'WEBSITE_CODE',
-      storeCode: 'STORE_CODE',
-      storeViewCode: 'STORE_VIEW_CODE',
-      config: {
-        minQueryLength: '2',
-        pageSize: 8,
-        perPageConfig: {
-          pageSizeOptions: '12,24,36',
-          defaultPageSizeOption: '24',
-        },
-        currencySymbol: '$',
-        currencyRate: '1',
-        displaySearchBox: true,
-        displayOutOfStock: true,
-        allowAllProducts: false,
-        currentCategoryUrlPath?: string;
-        categoryName: '', // name of category to display
-        displaySearchBox: false, // display search box
-        displayOutOfStock: '', // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
-        displayMode: '', // "" for search || "PAGE" for category search
-        locale: '', //add locale for translations
-        priceSlider: false, //enable slider for price - EXPERIMENTAL, default is false
-        imageCarousel: false, //enable multiple image carousel - EXPERIMENTAL, default is false
-        listview: false; //add listview as an option - EXPERIMENTAL, default is false
-        optimizeImages: true, // optimize images with Fastly
-        imageBaseWidth: 200,
-        resolveCartId?: resolveCartId // Luma specific addToCart method. Enabled with the extension
-        refreshCart?: refreshCart // Luma specific addToCart method. Enabled with the extension
-        addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action
-      },
-      context: {
-        customerGroup: 'CUSTOMER_GROUP_CODE',
-      },
-      apiKey: 'API_KEY',
-    };
+  environmentId: 'ENVIRONMENT_ID',
+  websiteCode: 'WEBSITE_CODE',
+  storeCode: 'STORE_CODE',
+  storeViewCode: 'STORE_VIEW_CODE',
+  config: {
+    minQueryLength: '2',
+    pageSize: 8,
+    perPageConfig: {
+      pageSizeOptions: '12,24,36',
+      defaultPageSizeOption: '24',
+    },
+    currencySymbol: '$',
+    currencyRate: '1',
+    allowAllProducts: false,
+    currentCategoryUrlPath?: string,
+    currentCategoryId?: string,
+    /* name of category to display */
+    categoryName: '',
+    /* display search box */
+    displaySearchBox: false,
+    /* '1' will return from php escapeJs and boolean is returned if called from data-service-graphql */
+    displayOutOfStock: '',
+    /* "" for search || "PAGE" for category search */
+    displayMode: '',
+    /* add locale for translations */
+    locale: '',
+    /* enable slider for price - EXPERIMENTAL, default is false */
+    priceSlider: false,
+    /* enable multiple image carousel - EXPERIMENTAL, default is false */
+    imageCarousel: false,
+    /* add listview as an option - EXPERIMENTAL, default is false */
+    listview: false,
+    /* optimize images with Fastly */
+    optimizeImages: true,
+    imageBaseWidth: 200,
+    /* Luma specific addToCart method. Enabled with the extension */
+    resolveCartId: resolveCartId(),
+    /* Luma specific addToCart method. Enabled with the extension */
+    refreshCart: refreshCart(),
+    /* custom add to cart callback function. Called on addToCart action */
+    addToCart: (sku, options, quantity) => {},
+  },
+  context: {
+    customerGroup: 'CUSTOMER_GROUP_CODE',
+  },
+  apiKey: 'API_KEY',
+  apiUrl: 'https://www.aemshop.net/cs-graphql',
+};
 ```
 
 Append LiveSearchPLP to the storefront window:
 
-```
+```js
 const root = document.querySelector('div.search-plp-root');
 
 setTimeout(async () => {
-      while (typeof window.LiveSearchPLP !== 'function') {
-        console.log('waiting for window.LiveSearchPLP to be available');
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
-      window.LiveSearchPLP({ storeDetails, root });
+  while (typeof window.LiveSearchPLP !== 'function') {
+    console.log('waiting for window.LiveSearchPLP to be available');
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+  window.LiveSearchPLP({ storeDetails, root });
 }, 1000);
 ```
 
@@ -172,7 +184,7 @@ So how do we use CSS variables to style our components? Great question 😄
 
 Let's say as if I want to style an element with the theme's primary color. Normally, in CSS we would have done the following:
 
-```
+```tsx
 <style>
  .primaryColor {
     color: var(--primary-color)
@@ -186,11 +198,8 @@ Let's say as if I want to style an element with the theme's primary color. Norma
 
 Using Tailwind the following produces the exact same result:
 
-```
-<div class="text-brand-700">
-  Yippee I am a brand color!
-</div>
-
+```tsx
+<div class="text-primary">Yippee I am a primary color!</div>
 ```
 
 Looking at the config file you will notice that the CSS variable is `--color-primary` is mapped to the Tailwind CSS theme color key `primary`. this means anywhere in Tailwind you would use a Color key in a class you can now use the word `primary`.
@@ -203,7 +212,7 @@ Now default behavior:
 
 Follow the [tailwind nesting documentation](https://tailwindcss.com/docs/using-with-preprocessors#nesting). Your [postcss.config](./postcss.config.js) will look like this:
 
-```
+```js
 module.exports = {
   plugins: [
     require('postcss-import'),
@@ -217,7 +226,7 @@ module.exports = {
 
 From there you should be able to nest the tailwind classes:
 
-```
+```css
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -225,13 +234,13 @@ From there you should be able to nest the tailwind classes:
 
 within `.ds-widgets` in [token.css](./src/styles/tokens.css)
 
-```
+```css
 .ds-widgets {
   @import 'tailwindcss/base';
   @import 'tailwindcss/components';
   @import 'tailwindcss/utilities';
 
-  ...
+  ...;
 }
 ```
 
@@ -248,7 +257,7 @@ To extend and customize this repo, you must first be familiar with react:
 
 Example Implemention - adding a button to [ProductItem](./src/components/ProductItem/ProductItem.tsx):
 
-```
+```tsx
 export const ProductItem: FunctionComponent<ProductProps> = ({
   item,
   currencySymbol,

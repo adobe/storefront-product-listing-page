@@ -22,21 +22,23 @@ const getSortOptionsfromMetadata = (
   translation: Language,
   sortMetadata: SortMetadata[],
   displayOutOfStock?: string | boolean,
-  categoryPath?: string
+  categoryPath?: string,
+  categoryId?: string
 ): SortOption[] => {
-  const sortOptions = categoryPath
-    ? [
-        {
-          label: translation.SortDropdown.positionLabel,
-          value: 'position_ASC',
-        },
-      ]
-    : [
-        {
-          label: translation.SortDropdown.relevanceLabel,
-          value: 'relevance_DESC',
-        },
-      ];
+  const sortOptions =
+    categoryPath || categoryId
+      ? [
+          {
+            label: translation.SortDropdown.positionLabel,
+            value: 'position_ASC',
+          },
+        ]
+      : [
+          {
+            label: translation.SortDropdown.relevanceLabel,
+            value: 'relevance_DESC',
+          },
+        ];
   const displayInStockOnly = displayOutOfStock != '1'; // '!=' is intentional for conversion
 
   if (sortMetadata && sortMetadata.length > 0) {

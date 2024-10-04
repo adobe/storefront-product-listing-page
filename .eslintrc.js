@@ -77,6 +77,7 @@ module.exports = {
     document: true,
     window: true,
     API_URL: true,
+    WIDGET_CONFIG_URL: true,
     API_KEY: true,
     SANDBOX_KEY: true,
     TEST_URL: true,

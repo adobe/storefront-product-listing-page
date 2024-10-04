@@ -128,10 +128,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
 
   const onProductClick = () => {
-    window.magentoStorefrontEvents?.publish.searchProductClick(
-      SEARCH_UNIT_ID,
-      product?.sku
-    );
+    window.adobeDataLayer.push((dl: any) => {
+      dl.push({
+        event: 'search-product-click',
+        eventInfo: {
+          ...dl.getState(),
+          sku: product?.sku,
+          searchUnitId: SEARCH_UNIT_ID,
+        },
+      });
+    });
   };
 
   const productUrl = setRoute
@@ -367,12 +373,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-        <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>
+      <div className="pb-4 mt-sm">
+        {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+        {isHovering && screenSize.desktop && (
+          <AddToCartButton onClick={handleAddToCart} />
+        )}
+      </div>
     </div>
   );
 };

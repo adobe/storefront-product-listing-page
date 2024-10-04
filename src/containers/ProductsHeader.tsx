@@ -62,7 +62,8 @@ export const ProductsHeader: FunctionComponent<Props> = ({
         translation,
         attributeMetadata?.sortable,
         storeCtx?.config?.displayOutOfStock,
-        storeCtx?.config?.currentCategoryUrlPath
+        storeCtx?.config?.currentCategoryUrlPath,
+        storeCtx?.config?.currentCategoryId
       )
     );
   }, [storeCtx, translation, attributeMetadata]);
@@ -71,9 +72,11 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     getSortOptions();
   }, [getSortOptions]);
 
-  const defaultSortOption = storeCtx.config?.currentCategoryUrlPath
-    ? 'position_ASC'
-    : 'relevance_DESC';
+  const defaultSortOption =
+    storeCtx.config?.currentCategoryUrlPath ||
+    storeCtx.config?.currentCategoryId
+      ? 'position_ASC'
+      : 'relevance_DESC';
   const sortFromUrl = getValueFromUrl('product_list_order');
   const sortByDefault = sortFromUrl ? sortFromUrl : defaultSortOption;
   const [sortBy, setSortBy] = useState<string>(sortByDefault);

@@ -4,7 +4,11 @@
   @import 'tailwindcss/components';
   @import 'tailwindcss/utilities';
 
-  /* font-size: 1.6rem; */
+  /* font-size: 1.6rem; Ü/
+
+  /* Colors */
+  --color-body: #fff;
+  --color-on-body: #222;
 
   /* Elsie base design */
   --color-brand-300: #6d6d6d;
