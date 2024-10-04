@@ -253,7 +253,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
       >
-        <div class="pb-[5rem]">
+        <div class="pb-[2.1rem]">
           <a
               href={productUrl as string}
               onClick={onProductClick}
@@ -278,13 +278,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                     />
                 )}
               </div>
-              <div className="flex flex-row justify-center pt-2">
+              <div className="flex flex-row justify-center">
                 <div className="flex flex-col">
-                  <div class="leading-none text-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center pt-6">{getProductAttribute('manufacturer')}</div>
+                  <div class="leading-none text-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center">{getProductAttribute('manufacturer')}</div>
                   <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1.188rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
-                  <div className="block text-center text-[0.88rem]">{getProductAttribute('profumo_per')}</div>
+                  <div className="block text-center font-['FuturaBT-Light'] text-[0.88rem]">{getProductAttribute('profumo_per')}</div>
                   <ProductPrice
                       item={refinedProduct ?? item}
                       isBundle={isBundle}

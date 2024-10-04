@@ -56,7 +56,21 @@ body {
 .ds-sdk-labelled-input input:checked::before {
     background-color: #904745;
 }
+.livesearch-plp .ds-widgets .ds-widgets-_actions {
+    max-width: 12rem;
+}
 
+@media (min-width: 1024px) {
+    .livesearch-plp .ds-widgets .ds-widgets-_actions {
+        max-width: 13rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .livesearch-plp .ds-widgets .ds-widgets-_actions {
+        max-width: 13rem;
+    }
+}
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) { } */
 

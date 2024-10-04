@@ -24,7 +24,7 @@ export const GoButton: FunctionComponent<GoButtonProps> = ({
     return (
         <div className="ds-sdk-go-button absolute w-full bottom-[0] left-[0]">
             <div
-                class="go-button text hover:no-underline bg-black hover:bg-[#904745] hover:border-t-[solid_1px_#f55d66]"
+                class="go-button text hover:no-underline bg-black hover:bg-[#904745] hover:border-t-[solid_1px_#f55d66] cursor-pointer"
                 onClick={onClick}>
                 {translatedText}
             </div>

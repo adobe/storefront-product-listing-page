@@ -36,7 +36,7 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   ) : (
     <div className="ds-sdk-filter-button-desktop">
       <button
-        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]"
+        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 rounded-md p-sm text-sm font-['FuturaBT-Light'] h-[32px]"
         onClick={displayFilter}
       >
         {title?.toUpperCase()}

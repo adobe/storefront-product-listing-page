@@ -83,10 +83,10 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div
         ref={sortOptionMenu}
-        class="ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md outline outline-1 outline-gray-200 hover:outline-gray-600 h-[32px] z-9"
+        class="ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md h-[32px] z-9"
       >
         <button
-          className="group flex justify-center items-center font-normal text-sm text-white rounded-md hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-full w-full px-sm"
+          className={`group flex justify-center items-center font-normal text-sm text-white font-['FuturaBT-Light'] ${isDropdownOpen ? 'rounded-t-md' : 'rounded-md'} hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-full w-full px-[2.2rem]`}
           ref={sortOptionButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
@@ -103,9 +103,9 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
           <ul
             ref={listRef}
             tabIndex={-1}
-            className={`ds-sdk-sort-dropdown__items origin-top-right absolute 
-            hover:cursor-pointer right-0 w-full rounded-md shadow-2xl 
-            ${!isMobile ? 'bg-[#904745]' : 'bg-white'} ring-1 ring-black ring-opacity-5 focus:outline-none mt-2 z-20`}
+            className={`ds-sdk-sort-dropdown__items origin-top-right absolute border-
+            hover:cursor-pointer right-0 w-full rounded-b-md shadow-2xl 
+            ${!isMobile ? 'bg-[#904745]' : 'bg-white'} ring-1 ring-black ring-opacity-5 focus:outline-none z-20`}
           >
             {sortOptions.map((option, i) => (
               <li
@@ -117,7 +117,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
                 }`}
               >
                 <a
-                  className={`ds-sdk-sort-dropdown__items--item block-display px-md py-sm text-sm ${!isMobile?'text-[#131313]':''} 
+                  className={`ds-sdk-sort-dropdown__items--item block-display px-md text-sm font-['FuturaBT-Light'] ${!isMobile?'text-white':''} 
                    mb-0 no-underline active:no-underline focus:no-underline hover:no-underline hover:text-gray-900
               ${option.value === selectedOption?.value && isMobile
                   ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-[#131313]'
