@@ -152,6 +152,7 @@ const storeDetails = {
     customerGroup: 'CUSTOMER_GROUP_CODE',
   },
   apiKey: 'API_KEY',
+  apiUrl: 'https://www.aemshop.net/cs-graphql',
 };
 ```
 
