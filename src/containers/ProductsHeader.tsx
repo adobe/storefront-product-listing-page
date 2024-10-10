@@ -11,7 +11,7 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import ViewSwitcher from 'src/components/ViewSwitcher';
 
-import Facets from '../components/Facets';
+import Facets, {SelectedFilters} from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
 import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
@@ -84,13 +84,12 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
+    <div className="flex flex-col lg:max-w-full ml-auto w-full h-full">
       <div
         className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between' : 'justify-end'
+          screenSize.mobile ? 'justify-between flex-wrap pb-[0.25rem]' : 'justify-between'
         }`}
       >
-        <div>
           {screenSize.mobile
             ? totalCount > 0 && (
                 <div className="pb-4">
@@ -112,17 +111,17 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                   placeholder={translation.SearchBar.placeholder}
                 />
               )}
-        </div>
         {totalCount > 0 && (
           <>
+            {!screenSize.mobile && <SelectedFilters/>}
             {storeCtx?.config?.listview && <ViewSwitcher />}
-
             <SortDropdown
               sortOptions={sortOptions}
               value={sortBy}
               onChange={onSortChange}
               isMobile={screenSize.mobile}
             />
+            {screenSize.mobile && <SelectedFilters/>}
           </>
         )}
       </div>

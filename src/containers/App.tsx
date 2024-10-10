@@ -73,8 +73,6 @@ export const App: FunctionComponent = () => {
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
-                <SelectedFilters />
-
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
@@ -136,7 +134,6 @@ export const App: FunctionComponent = () => {
                       />):''
                       }
                     </div>
-                    <SelectedFilters />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />

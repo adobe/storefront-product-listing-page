@@ -578,6 +578,9 @@ video {
   .mb-6 {
     margin-bottom: 1.5rem;
   }
+  .mb-\[0\.5rem\] {
+    margin-bottom: 0.5rem;
+  }
   .mb-\[1px\] {
     margin-bottom: 1px;
   }
@@ -701,6 +704,9 @@ video {
   .max-h-\[250px\] {
     max-height: 250px;
   }
+  .max-h-\[2rem\] {
+    max-height: 2rem;
+  }
   .max-h-\[371px\] {
     max-height: 371px;
   }
@@ -727,6 +733,9 @@ video {
   }
   .w-\[12px\] {
     width: 12px;
+  }
+  .w-\[14rem\] {
+    width: 14rem;
   }
   .w-\[15px\] {
     width: 15px;
@@ -919,8 +928,14 @@ video {
   .overflow-y-auto {
     overflow-y: auto;
   }
+  .overflow-x-scroll {
+    overflow-x: scroll;
+  }
   .whitespace-nowrap {
     white-space: nowrap;
+  }
+  .rounded-\[15px\] {
+    border-radius: 15px;
   }
   .rounded-full {
     border-radius: 9999px;
@@ -1057,6 +1072,9 @@ video {
   .p-4 {
     padding: 1rem;
   }
+  .p-\[0\.27rem\] {
+    padding: 0.27rem;
+  }
   .p-sm {
     padding: var(--spacing-sm);
   }
@@ -1086,6 +1104,10 @@ video {
   .px-sm {
     padding-left: var(--spacing-sm);
     padding-right: var(--spacing-sm);
+  }
+  .py-0 {
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   .py-1 {
     padding-top: 0.25rem;
@@ -1119,8 +1141,8 @@ video {
   .pb-4 {
     padding-bottom: 1rem;
   }
-  .pb-6 {
-    padding-bottom: 1.5rem;
+  .pb-\[0\.25rem\] {
+    padding-bottom: 0.25rem;
   }
   .pb-\[2\.1rem\] {
     padding-bottom: 2.1rem;
@@ -1364,6 +1386,9 @@ video {
   .opacity-0 {
     opacity: 0;
   }
+  .opacity-50 {
+    opacity: 0.5;
+  }
   .shadow-2xl {
     --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
@@ -1533,6 +1558,11 @@ video {
   border-top-color: solid 1px #f55d66;
 }
 
+.hover\:bg-\[\#904547\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 69 71 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-\[\#904745\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(144 71 69 / var(--tw-bg-opacity));
@@ -1569,16 +1599,21 @@ video {
   color: var(--color-primary);
 }
 
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .hover\:no-underline:hover {
   text-decoration-line: none;
 }
 
-.hover\:outline-gray-600:hover {
-  outline-color: var(--color-gray-6);
+.hover\:opacity-100:hover {
+  opacity: 1;
 }
 
-.hover\:outline-gray-800:hover {
-  outline-color: var(--color-gray-8);
+.hover\:outline-gray-600:hover {
+  outline-color: var(--color-gray-6);
 }
 
 .focus\:border-none:focus {
@@ -1661,10 +1696,6 @@ video {
 
   .sm\:pb-24 {
     padding-bottom: 6rem;
-  }
-
-  .sm\:pb-6 {
-    padding-bottom: 1.5rem;
   }
 }
 
