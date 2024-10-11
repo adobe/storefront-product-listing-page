@@ -24,10 +24,6 @@ const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
         to: bucket.to,
       })
   );
-
-  console.log(buckets)
-  console.log(processedBuckets)
-
   const searchCtx = useSearch();
 
   const filter = searchCtx?.filters?.find(
@@ -36,22 +32,19 @@ const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
 
   const isSelected = (title: string) => {
     const selected = filter
-      ? processedBuckets[title].from === filter.range?.from &&
+        ? processedBuckets[title].from === filter.range?.from &&
         processedBuckets[title].to === filter.range?.to
-      : false;
+        : false;
     return selected;
   };
 
   const onChange = (value: string) => {
-    const fromRange = processedBuckets[value] ? processedBuckets[value].from : parseInt(value.split('-')[0], 10)
-    const toRange = processedBuckets[value] ? processedBuckets[value].to : parseInt(value.split('-')[1], 10)
-
     if (!filter) {
       const newFilter = {
         attribute,
         range: {
-          from: fromRange,
-          to: toRange,
+          from: processedBuckets[value].from,
+          to: processedBuckets[value].to,
         },
       };
       searchCtx.createFilter(newFilter);
@@ -61,8 +54,8 @@ const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
     const newFilter = {
       ...filter,
       range: {
-        from: fromRange,
-        to: toRange,
+        from: processedBuckets[value].from,
+        to: processedBuckets[value].to,
       },
     };
     searchCtx.updateFilter(newFilter);

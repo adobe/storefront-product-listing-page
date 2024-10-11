@@ -32,12 +32,12 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
     <>
       {isOpen && (
           <div className="fixed inset-0 z-50 flex bg-black bg-opacity-50">
-            <div className="relative mt-auto w-full bg-white h-[80%] md:h-full shadow-lg overflow-auto animate-slideUp md:animate-slideRight">
+            <div className="relative mt-auto w-full bg-white h-[80%] md:h-full shadow-lg overflow-auto animate-slideUp pb-20 md:animate-slideRight md:max-w-[500px]">
               <div className="p-12">{children}</div>
             </div>
-            <div class="apply-buttons md:animate-slideRight">
-              <button class="apply-buttons_button" onClick={() => searchCtx.clearFilters()}>clear filters</button>
-              <button class="apply-buttons_button apply-buttons_button--view" onClick={onClose}>view {totalCount} results</button>
+            <div class="apply-buttons absolute left-0 right-0 bottom-0 flex p-4 gap-4 md:animate-slideRight md:max-w-[485px] ">
+              <button class="apply-buttons_button border border-solid border-black content-center h-16 flex-1 bg-white text-black capitalize" onClick={() => searchCtx.clearFilters()}>clear filters</button>
+              <button class="apply-buttons_button border border-solid border-black content-center h-16 flex-1 bg-black text-white capitalize" onClick={onClose}>view {totalCount} results</button>
             </div>
           </div>
       )}

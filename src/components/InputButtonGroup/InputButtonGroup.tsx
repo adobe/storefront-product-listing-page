@@ -1,10 +1,8 @@
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/compat';
-
 import { useProducts, useTranslation } from '../../context';
-import PlusIcon from '../../icons/plus.svg';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
+import { toggleFilters } from "../SortDropdown";
 
 export type InputButtonGroupOnChangeProps = {
   value: string;
@@ -90,26 +88,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
     return bucket.title;
   };
 
-  const toggleFilters = (event) => {
-    const clicked = event.target;
-    const toBeActiveFilterBlock = clicked.nextElementSibling;
-    const parrentDiv = clicked.closest('.ds-sdk-input')
-    const borderDiv = parrentDiv.querySelector('.ds-sdk-input__border')
-
-    if (toBeActiveFilterBlock.classList.contains('none-display')) {
-      const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
-      currentFilterBlock?.classList.add('none-display')
-      currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
-      toBeActiveFilterBlock?.classList.remove('none-display')
-      borderDiv.classList.add('mt-md');
-      parrentDiv.classList.add('active');
-    } else {
-      toBeActiveFilterBlock?.classList.add('none-display')
-      borderDiv.classList.remove('mt-md');
-      parrentDiv.classList.remove('active');
-    }
-  }
-
   return (
     <div className="ds-sdk-input">
       {inputGroupTitleSlot ? (
@@ -118,7 +96,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           (isHidden ? (
               <label
                   className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
-                  onClick={toggleFilters}>
+                  onClick={(event) => toggleFilters(event)}>
                 {title}
               </label>
           ) : (
@@ -154,7 +132,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
                 count={null}
                 onChange={onChange}
                 type={type}
-                isRangeInput={true}
               />
           )}
         </div>

@@ -10,10 +10,9 @@ it.
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import useScalarFacet from 'src/hooks/useScalarFacet';
-import { getValueFromUrl, handleUrlSort } from 'src/utils/handleUrlFilters';
+import { getValueFromUrl } from 'src/utils/handleUrlFilters';
 import {
   defaultSortOptions,
-  generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from 'src/utils/sort';
 
@@ -23,7 +22,7 @@ import {
   useStore,
   useTranslation,
 } from '../../context';
-import { Facet as FacetType, PriceFacet } from '../../types/interface';
+import { Facet as FacetType } from '../../types/interface';
 import FilterSelectionGroup from '../FilterSelection';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 import { SelectedFilters } from './SelectedFilters';
@@ -33,6 +32,48 @@ interface FacetsProps {
   searchFacets: FacetType[];
   totalCount?: number;
   displayFilter: () => void;
+}
+
+export const scrollFilter = (
+    event: Omit<MouseEvent, "currentTarget"> & { readonly currentTarget: HTMLDivElement },
+    displayFunction: (() => void) | undefined
+) => {
+  displayFunction?.();
+
+  const clicked = event.target;
+  const filterNumber = Number(clicked.id.split('-')[1])
+  const targetNode = document.querySelector('.mobile-filters-container');
+  const config = { attributes: false, childList: true, subtree: true };
+
+  const wait = async (time) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, time);
+    });
+  }
+  const callback = async (mutationList, observer) => {
+    for (const mutation of mutationList) {
+      if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+        await wait(300);
+        const filterInput = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input');
+        const filterToShow = filterInput[filterNumber];
+        const filterToHide = filterInput.querySelector('fieldset:not(.none-display)');
+
+        filterToHide.forEach(element => {
+          element.closest('.ds-sdk-input')?.classList.remove('active')
+          element.classList.add('none-display')
+          element.nextElementSibling?.classList.remove('mt-md')
+        })
+
+        filterToShow.classList.add('active');
+        filterToShow.querySelector('fieldset')?.classList.remove('none-display');
+        filterToShow.querySelector('.ds-sdk-input__border')?.classList.add('mt-md');
+        break;
+      }
+    }
+  };
+
+  const observer = new MutationObserver(callback);
+  observer.observe(targetNode, config);
 }
 
 export const Facets: FunctionComponent<FacetsProps> = ({
@@ -77,33 +118,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   }, [getSortOptions]);
 
   const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;
-  const defaultSortOption =
-    isCategory
-      ? 'position_ASC'
-      : 'relevance_DESC';
-  const sortFromUrl = getValueFromUrl('product_list_order');
-  const sortByDefault = sortFromUrl ? sortFromUrl : defaultSortOption;
-  const [sortBy, setSortBy] = useState<string>(sortByDefault);
-  const onSortChange = (sortOption: string) => {
-    setSortBy(sortOption);
-    searchCtx.setSort(generateGQLSortInput(sortOption));
-    handleUrlSort(sortOption);
-  };
-  const wait = async (time) => {
-    return new Promise(resolve => {
-      setTimeout(resolve, time);
-    });
-  }
-  const handleTesting = async (facet: FacetType) => {
-    document.querySelector('.ds-sdk-filterGroup')?.classList.remove('open');
-    await wait(257);
-    setSelectedFacet((prevFacet) => {
-      if (!prevFacet || prevFacet.title !== facet.title) {
-        return facet;
-      }
-      return null;
-    });
-  };
 
   const getSelectedFilters = (facet: FacetType) => {
     const { attribute } = facet;
@@ -125,43 +139,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
     onChange(value, selected);
   }
 
-  const scrollFilter = (event) => {
-    displayFilter?.();
-
-    const clicked = event.target;
-    const filterNumber = Number(clicked.id.split('-')[1])
-    const targetNode = document.querySelector('.mobile-filters-container');
-    const config = { attributes: false, childList: true, subtree: true };
-
-    const wait = async (time) => {
-      return new Promise(resolve => {
-        setTimeout(resolve, time);
-      });
-    }
-    const callback = async (mutationList, observer) => {
-      for (const mutation of mutationList) {
-        if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
-          await wait(300);
-          const filterToShow = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input')[filterNumber]
-          const filterToHide = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input fieldset:not(.none-display)')
-
-          filterToHide.forEach(element => {
-            element.closest('.ds-sdk-input')?.classList.remove('active')
-            element.classList.add('none-display')
-            element.nextElementSibling?.classList.remove('mt-md')
-          })
-
-          filterToShow.classList.add('active');
-          filterToShow.querySelector('fieldset')?.classList.remove('none-display');
-          filterToShow.querySelector('.ds-sdk-input__border')?.classList.add('mt-md');
-          break;
-        }
-      }
-    };
-    const observer = new MutationObserver(callback);
-    observer.observe(targetNode, config);
-  }
-
   return (
     <div className="ds-plp-facets flex flex-col">
       <div className="border-t border-b border-neutral-450">
@@ -169,7 +146,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
           <div className="flex justify-between">
             <form className="ds-plp-facets__list flex gap-x-3.2rem">
               <div class="ds-sdk-input py-md">
-                <div class="flex items-center gap-x-1 cursor-pointer" onClick={scrollFilter}>
+                <div class="flex items-center gap-x-1 cursor-pointer" onClick={(event) => scrollFilter(event, displayFilter)}>
                   <label id={'filter-0'}
                          className="flex flex-row gap-4 ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer">
                     <SortFilterIcon className="h-[18px] w-[18px] fill-neutral-800" />
@@ -186,9 +163,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                             key={facet.attribute}
                             filterData={facet}
                             iteration={index}
-                            handleFilter={() => handleTesting(facet)}
                             selectedNumber={getSelectedFilters(facet)}
-                            selectedFacet={selectedFacet}
                             displayFilter={displayFilter}
                         />
                     );
@@ -197,9 +172,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                         key={facet.attribute}
                         filterData={facet}
                         iteration={index}
-                        handleFilter={() => handleTesting(facet)}
                         selectedNumber={getSelectedFilters(facet)}
-                        selectedFacet={selectedFacet}
                         displayFilter={displayFilter}
                     />
                   case 'CategoryView':
@@ -208,9 +181,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                             key={facet.attribute}
                             filterData={facet}
                             iteration={index}
-                            handleFilter={() => handleTesting(facet)}
                             selectedNumber={getSelectedFilters(facet)}
-                            selectedFacet={selectedFacet}
                             displayFilter={displayFilter}
                         />
                     );

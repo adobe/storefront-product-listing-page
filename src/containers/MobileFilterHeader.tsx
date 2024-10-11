@@ -127,7 +127,7 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
               </div>
             </div>
           )}
-        <div class="mobile-filters-container">
+        <div class="mobile-filters-container z-900">
           <Drawer
               isOpen={showMobileFacet}
               onClose={() => setShowMobileFacet(!showMobileFacet)}

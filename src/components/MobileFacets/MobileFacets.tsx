@@ -23,7 +23,6 @@ interface FacetsProps {
   value: string;
   sortOptions: SortOption[];
   onChange: (sortBy: string) => void;
-  mobile?: boolean;
 }
 
 export const MobileFacets: FunctionComponent<FacetsProps> = ({
@@ -31,8 +30,7 @@ export const MobileFacets: FunctionComponent<FacetsProps> = ({
   onClose,
   value,
   sortOptions,
-  onChange,
-  mobile
+  onChange
 }: FacetsProps) => {
   const {
     config: { priceSlider },
@@ -41,7 +39,7 @@ export const MobileFacets: FunctionComponent<FacetsProps> = ({
   return (
     <div className="ds-plp-facets flex flex-col">
         <div className={'flex flex-row'}>
-            <h1>Sort&Filter</h1>
+            <h1 className={'text-2xl mb-8'}>Sort & Filter</h1>
             <CloseIcon
                 className="h-[28px] w-[28px] rotate-45 inline-block cursor-pointer fill-neutral-800 ml-auto"
                 onClick={onClose}

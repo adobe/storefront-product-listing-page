@@ -20,7 +20,7 @@ export interface PillProps {
 }
 
 const defaultIcon = (
-  <CloseIcon className="h-[20px] w-[20px] rotate-45 inline-block ml-sm cursor-pointer  fill-neutral-800" />
+  <CloseIcon className="h-[20px] w-[20px] rotate-45 inline-block ml-sm cursor-pointer relative top-[-3px] fill-neutral-800" />
 );
 
 // TODO: add support later to pass classes to the container div
@@ -36,7 +36,7 @@ export const Pill: FunctionComponent<PillProps> = ({
   };
 
   const baseStyles =
-    'ds-sdk-pill inline-flex justify-content items-center w-fit min-h-[32px]';
+    'ds-sdk-pill inline-flex justify-content items-center w-fit min-h-[32px] px-4 py-2';
 
   const typeClass = type
     ? typeStyles[type]

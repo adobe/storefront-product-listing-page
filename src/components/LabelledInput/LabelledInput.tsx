@@ -25,7 +25,6 @@ export interface LabelledInputProps {
   label: string;
   value: string;
   count?: number | null;
-  isRangeInput?: boolean | null
 }
 
 export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
@@ -37,8 +36,6 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
      attribute,
      value,
      count,
-     key,
-     isRangeInput
  }) => {
     const href = `${window.location.origin}/${window.location.pathname.split('/')[1]}/${value}`
     return (
@@ -60,42 +57,6 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
                 </a>
             </div>
         ) : (
-            <>
-                {isRangeInput && (
-                    <div className="ds-sdk-labelled-input flex gap-4 items-center">
-                        <input type={'number'} value={''} id={'from-price'} />
-                        <input type={'number'} value={''} id={'to-price'} />
-aa
-                        <input
-                            id={name}
-                            name={
-                                type === 'checkbox'
-                                    ? `checkbox-group-${attribute}`
-                                    : `radio-group-${attribute}`
-                            }
-                            type={type}
-                            className="ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-neutral-800 min-w-[16px]"
-                            checked={checked}
-                            aria-checked={checked}
-                            onInput={(e) => {console.log(e.currentTarget.value); onChange({value: e.currentTarget.value, selected: e.currentTarget.checked, type})}}
-                            value={value}
-                        />
-                        <label
-                            htmlFor={name}
-                            className="ds-sdk-labelled-input__label ml-sm block-display h-max-content text-neutral-800 font-body-1-default text-[12px] cursor-pointer"
-                        >
-                            {label}
-                            {count && (
-                                <span className="text-[12px] text-neutral-800 ml-1 font-details-overline">
-                    {`(${count})`}
-                  </span>
-                            )}
-                        </label>
-
-                    </div>
-                )}
-
-                {!isRangeInput && (
                     <div className="ds-sdk-labelled-input flex gap-4 items-center">
                         <input
                             id={name}
@@ -124,8 +85,6 @@ aa
                         </label>
 
                     </div>
-                )}
-            </>
         )
     );
 };

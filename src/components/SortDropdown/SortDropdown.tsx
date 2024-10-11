@@ -21,32 +21,38 @@ export interface SortDropdownProps {
   mobile?: boolean;
 }
 
+export const toggleFilters = (event: Omit<MouseEvent, "currentTarget"> & { readonly currentTarget: HTMLLabelElement }) => {
+  const clicked = event.target;
+  const toBeActiveFilterBlock = clicked.nextElementSibling;
+  const parrentDiv = clicked.closest('.ds-sdk-input')
+  const borderDiv = parrentDiv.querySelector('.ds-sdk-input__border')
+
+  if (toBeActiveFilterBlock.classList.contains('none-display')) {
+    const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
+    currentFilterBlock?.classList.add('none-display')
+    currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
+    toBeActiveFilterBlock?.classList.remove('none-display')
+    borderDiv.classList.add('mt-md');
+    parrentDiv.classList.add('active');
+  } else {
+    toBeActiveFilterBlock?.classList.add('none-display')
+    borderDiv.classList.remove('mt-md');
+    parrentDiv.classList.remove('active');
+  }
+}
+
 export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   value,
   sortOptions,
   onChange,
-  mobile
 }: SortDropdownProps) => {
-  const sortOptionButton = useRef<HTMLButtonElement | null>(null);
   const sortOptionMenu = useRef<HTMLDivElement | null>(null);
-
   const selectedOption = sortOptions.find((e) => e.value === value);
-
   const translation = useTranslation();
-  const sortOptionTranslation = translation.SortDropdown.option;
-  const sortOption = sortOptionTranslation.replace(
-    '{selectedOption}',
-    `${selectedOption?.label}`
-  );
-
   const {
-    isDropdownOpen,
     setIsDropdownOpen,
-    activeIndex,
-    setActiveIndex,
     select,
     setIsFocus,
-    listRef,
   } = useAccessibleDropdown({
     options: sortOptions,
     value,
@@ -78,30 +84,12 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     };
   }, [sortOptionMenu]);
 
-  const toggleFilters = (event) => {
-    const clicked = event.target;
-    const toBeActiveFilterBlock = clicked.nextElementSibling;
-    const parrentDiv = clicked.closest('.ds-sdk-input')
-    const borderDiv = parrentDiv.querySelector('.ds-sdk-input__border')
-
-    if (toBeActiveFilterBlock.classList.contains('none-display')) {
-      const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
-      currentFilterBlock?.classList.add('none-display')
-      currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
-      toBeActiveFilterBlock?.classList.remove('none-display')
-      borderDiv.classList.add('mt-md');
-    } else {
-      toBeActiveFilterBlock?.classList.add('none-display')
-      borderDiv.classList.remove('mt-md');
-    }
-  }
-
   return (
     <>
       <div ref={sortOptionMenu} class="ds-sdk-input">
         <label
             className={'ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row'}
-            onClick={toggleFilters}
+            onClick={(event) => toggleFilters(event)}
         >
           {translation.SortDropdown.title}
         </label>
