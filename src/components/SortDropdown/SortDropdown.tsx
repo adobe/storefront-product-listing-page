@@ -98,14 +98,18 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
         <fieldset className={'ds-sdk-input__options mt-4 md:mt-0 none-display'}>
           <div className={'space-y-4'}>
             {sortOptions.map((option, i) => (
-              <div className={'ds-sdk-labelled-input flex gap-4 items-center'}>
-                <input type={'radio'}
+              <div
+                key={`div-${i}`}
+                className={'ds-sdk-labelled-input flex gap-4 items-center'}>
+                <input key={`input-${i}`}
+                       type={'radio'}
                        value={'option.value'}
                        checked={option.value === selectedOption?.value}
                        onClick={() => select(option.value)}
                        className={'ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-neutral-800 min-w-[16px]'}
                 />
-                <label for={'sortby-' + option.value}
+                <label key={`label-${i}`}
+                       for={`sortby-${  option.value}`}
                        onClick={() => select(option.value)}
                        className={'ds-sdk-labelled-input__label ml-sm block-display h-max-content text-neutral-800 font-body-1-default text-[12px] cursor-pointer'}
                 >
@@ -115,7 +119,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
             ))}
           </div>
         </fieldset>
-        <div className={'ds-sdk-input__border border-t border-neutral-500'}></div>
+        <div className={'ds-sdk-input__border border-t border-neutral-500'} />
       </div>
     </>
   );

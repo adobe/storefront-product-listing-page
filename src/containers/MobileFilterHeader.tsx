@@ -11,8 +11,8 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { Drawer } from 'src/components/Drawer/Drawer';
 import MobileFacets from 'src/components/MobileFacets';
-import Chevron from '../icons/chevron.svg';
 
+import { CategoryFilters } from "../components";
 import { FilterButton } from '../components/FilterButton';
 import {
   useAttributeMetadata,
@@ -28,7 +28,6 @@ import {
   generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from '../utils/sort';
-import { CategoryFilters } from "../components";
 
 interface Props {
   facets: Facet[];
@@ -101,21 +100,14 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
     return null;
   }
 
-  const [showFilters, setShowFilters] = useState(true);
   return (
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
       {!screenSize.mobile && productsCtx.totalCount && (
         <CategoryFilters
-          loading={productsCtx.loading}
           pageLoading={productsCtx.pageLoading}
           facets={productsCtx.facets}
           totalCount={productsCtx.totalCount}
-          categoryName={productsCtx.categoryName ?? ''}
-          phrase={productsCtx.variables.phrase ?? ''}
-          showFilters={showFilters}
-          setShowFilters={setShowFilters}
           displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-          filterCount={searchCtx.filterCount}
         />
       )}
       {screenSize.mobile && (
@@ -140,7 +132,6 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
             sortOptions={sortOptions}
             value={sortBy}
             onChange={onSortChange}
-            mobile
           />
         </Drawer>
       </div>

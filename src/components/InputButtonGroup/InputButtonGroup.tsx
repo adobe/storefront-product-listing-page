@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'preact';
+
 import { useProducts, useTranslation } from '../../context';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';

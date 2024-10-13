@@ -21,11 +21,11 @@ import {
   useStore,
   useTranslation,
 } from '../../context';
+import SortFilterIcon from "../../icons/sortfilter.svg";
 import { Facet as FacetType } from '../../types/interface';
 import FilterSelectionGroup from '../FilterSelection';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 import { SelectedFilters } from './SelectedFilters';
-import SortFilterIcon from "../../icons/sortfilter.svg";
 
 interface FacetsProps {
   searchFacets: FacetType[];
@@ -49,7 +49,7 @@ export const scrollFilter = (
       setTimeout(resolve, time);
     });
   }
-  const callback = async (mutationList, observer) => {
+  const callback = async (mutationList) => {
     for (const mutation of mutationList) {
       if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
         await wait(300);
@@ -171,13 +171,15 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                       />
                     );
                   case 'RangeBucket':
-                    <ScalarFacet
-                      key={facet.attribute}
-                      filterData={facet}
-                      iteration={index}
-                      selectedNumber={getSelectedFilters(facet)}
-                      displayFilter={displayFilter}
-                    />
+                    return(
+                      <ScalarFacet
+                        key={facet.attribute}
+                        filterData={facet}
+                        iteration={index}
+                        selectedNumber={getSelectedFilters(facet)}
+                        displayFilter={displayFilter}
+                      />
+                    );
                   case 'CategoryView':
                     return (
                       <ScalarFacet

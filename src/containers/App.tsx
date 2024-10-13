@@ -14,7 +14,6 @@ import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
 
-import {FranchiseViewSelector} from "../components/Facets/FranchiseViewSelector";
 import {
   useProducts,
   useSearch,
@@ -35,7 +34,6 @@ export const App: FunctionComponent = () => {
   const [showFilters, setShowFilters] = useState(true);
 
   const loadingLabel = translation.Loading.title;
-  const displayByFranchise = categoryConfig?.pcm_display_by_franchise === '1';
 
   return (
     <>

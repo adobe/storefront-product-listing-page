@@ -13,16 +13,10 @@ import { Facet } from '../../types/interface';
 import { Facets } from '../Facets';
 
 interface CategoryFiltersProps {
-  loading: boolean;
   pageLoading: boolean;
   totalCount: number;
   facets: Facet[];
-  categoryName: string;
-  phrase: string;
-  showFilters: boolean;
-  setShowFilters: (showFilters: boolean) => void;
   displayFilter: () => void;
-  filterCount: number;
 }
 
 export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({

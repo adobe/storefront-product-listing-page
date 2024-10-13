@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'preact';
+
 import { scrollFilter } from "../Facets";
 
 export type FilterSelectionTitleSlot = (label: string) => FunctionComponent;

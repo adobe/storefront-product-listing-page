@@ -10,12 +10,12 @@ it.
 import { FunctionComponent } from 'preact';
 
 import { useStore } from '../../context';
+import CloseIcon from "../../icons/plus.svg";
 import { Facet as FacetType, PriceFacet, SortOption } from '../../types/interface';
 import SliderDoubleControl from '../SliderDoubleControl';
+import { SortDropdown } from "../SortDropdown";
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
-import CloseIcon from "../../icons/plus.svg";
-import { SortDropdown } from "../SortDropdown";
 
 interface FacetsProps {
   searchFacets: FacetType[];

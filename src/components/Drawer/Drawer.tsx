@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 
-import CloseIcon from '../../icons/plus.svg';
 import { useSearch } from "../../context";
 
 interface DrawerProps {
