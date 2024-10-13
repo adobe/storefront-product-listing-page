@@ -10,7 +10,6 @@ it.
 import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import useScalarFacet from 'src/hooks/useScalarFacet';
-import { getValueFromUrl } from 'src/utils/handleUrlFilters';
 import {
   defaultSortOptions,
   getSortOptionsfromMetadata,
@@ -35,15 +34,15 @@ interface FacetsProps {
 }
 
 export const scrollFilter = (
-    event: Omit<MouseEvent, "currentTarget"> & { readonly currentTarget: HTMLDivElement },
-    displayFunction: (() => void) | undefined
+  event: Omit<MouseEvent, "currentTarget"> & { readonly currentTarget: HTMLDivElement },
+  displayFunction: (() => void) | undefined
 ) => {
   displayFunction?.();
 
   const clicked = event.target;
   const filterNumber = Number(clicked.id.split('-')[1])
   const targetNode = document.querySelector('.mobile-filters-container');
-  const config = { attributes: false, childList: true, subtree: true };
+  const config = {attributes: false, childList: true, subtree: true};
 
   const wait = async (time) => {
     return new Promise(resolve => {
@@ -73,7 +72,10 @@ export const scrollFilter = (
   };
 
   const observer = new MutationObserver(callback);
-  observer.observe(targetNode, config);
+
+  if (targetNode) {
+    observer.observe(targetNode, config);
+    }
 }
 
 export const Facets: FunctionComponent<FacetsProps> = ({
@@ -81,7 +83,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   totalCount,
   displayFilter,
 }: FacetsProps) => {
-  const { config } = useStore();
+  const {config} = useStore();
   const searchCtx = useSearch();
   const attributeMetadata = useAttributeMetadata();
   const translation = useTranslation();
@@ -120,14 +122,14 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;
 
   const getSelectedFilters = (facet: FacetType) => {
-    const { attribute } = facet;
+    const {attribute} = facet;
     const categoryFiltered = searchCtx.filters.find(
       (item) => item.attribute === attribute
     );
     return categoryFiltered?.in?.length ?? 0;
   };
 
-  const { isSelected, onChange } = useScalarFacet(selectedFacet);
+  const {isSelected, onChange} = useScalarFacet(selectedFacet);
 
   const onFacetChange = (value: string, selected?: boolean, type?: string) => {
     if (type?.includes('link')) {
@@ -146,10 +148,11 @@ export const Facets: FunctionComponent<FacetsProps> = ({
           <div className="flex justify-between">
             <form className="ds-plp-facets__list flex gap-x-3.2rem">
               <div class="ds-sdk-input py-md">
-                <div class="flex items-center gap-x-1 cursor-pointer" onClick={(event) => scrollFilter(event, displayFilter)}>
+                <div class="flex items-center gap-x-1 cursor-pointer"
+                     onClick={(event) => scrollFilter(event, displayFilter)}>
                   <label id={'filter-0'}
                          className="flex flex-row gap-4 ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer">
-                    <SortFilterIcon className="h-[18px] w-[18px] fill-neutral-800" />
+                    <SortFilterIcon className="h-[18px] w-[18px] fill-neutral-800"/>
                     {translation.Filter.title}
                   </label>
                 </div>
@@ -159,31 +162,31 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                 switch (bucketType) {
                   case 'ScalarBucket':
                     return (
-                        <ScalarFacet
-                            key={facet.attribute}
-                            filterData={facet}
-                            iteration={index}
-                            selectedNumber={getSelectedFilters(facet)}
-                            displayFilter={displayFilter}
-                        />
-                    );
-                  case 'RangeBucket':
-                    <ScalarFacet
+                      <ScalarFacet
                         key={facet.attribute}
                         filterData={facet}
                         iteration={index}
                         selectedNumber={getSelectedFilters(facet)}
                         displayFilter={displayFilter}
+                      />
+                    );
+                  case 'RangeBucket':
+                    <ScalarFacet
+                      key={facet.attribute}
+                      filterData={facet}
+                      iteration={index}
+                      selectedNumber={getSelectedFilters(facet)}
+                      displayFilter={displayFilter}
                     />
                   case 'CategoryView':
                     return (
-                        <ScalarFacet
-                            key={facet.attribute}
-                            filterData={facet}
-                            iteration={index}
-                            selectedNumber={getSelectedFilters(facet)}
-                            displayFilter={displayFilter}
-                        />
+                      <ScalarFacet
+                        key={facet.attribute}
+                        filterData={facet}
+                        iteration={index}
+                        selectedNumber={getSelectedFilters(facet)}
+                        displayFilter={displayFilter}
+                      />
                     );
                   default:
                     return null;
@@ -197,14 +200,14 @@ export const Facets: FunctionComponent<FacetsProps> = ({
         </div>
         <div className="px-[12px] md:px-[24px] lg:px-[48px] w-full filters-facets">
           {selectedFacet && (
-              <FilterSelectionGroup
-                  title={selectedFacet.title}
-                  attribute={selectedFacet.attribute}
-                  buckets={selectedFacet.buckets as any}
-                  isSelected={isSelected}
-                  onChange={(args) => onFacetChange(args.value, args.selected, args.type)}
-                  type={isCategory && selectedFacet?.buckets[0]?.__typename === 'CategoryView' ? 'link' : 'checkbox'}
-              />
+            <FilterSelectionGroup
+              title={selectedFacet.title}
+              attribute={selectedFacet.attribute}
+              buckets={selectedFacet.buckets as any}
+              isSelected={isSelected}
+              onChange={(args) => onFacetChange(args.value, args.selected, args.type)}
+              type={isCategory && selectedFacet?.buckets[0]?.__typename === 'CategoryView' ? 'link' : 'checkbox'}
+            />
           )}
         </div>
       </div>

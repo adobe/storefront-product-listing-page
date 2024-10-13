@@ -22,6 +22,7 @@ export type Bucket = {
   name?: string;
   __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
+
 export interface InputButtonGroupProps {
   title: string;
   attribute: string;
@@ -59,13 +60,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
     if (bucket.__typename === 'RangeBucket') {
       const fromPrice = bucket.from
         ? `${currencySymbol}${formatPrice(
-            parseInt(bucket.from.toFixed(0), 10)
-          )}`
+          parseInt(bucket.from.toFixed(0), 10)
+        )}`
         : '0';
       const toPrice = bucket.to
         ? ` - ${currencySymbol}${formatPrice(
-            parseInt(bucket.to.toFixed(0), 10)
-          )}`
+          parseInt(bucket.to.toFixed(0), 10)
+        )}`
         : translation.InputButtonGroup.priceRange;
       return `${fromPrice}${toPrice}`;
     }
@@ -93,15 +94,16 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-          (isHidden ? (
-              <label
-                  className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
-                  onClick={(event) => toggleFilters(event)}>
-                {title}
-              </label>
-          ) : (
-              <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display flex flex-row">{title}</label>
-          ))
+        (isHidden ? (
+          <label
+            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
+            onClick={(event) => toggleFilters(event)}>
+            {title}
+          </label>
+        ) : (
+          <label
+            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display flex flex-row">{title}</label>
+        ))
       )}
       <fieldset className={`ds-sdk-input__options mt-4 md:mt-0 ${isHidden ? 'none-display' : ''}`}>
         <div className="space-y-4">
@@ -123,20 +125,20 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
             );
           })}
           {attribute === 'price' && (
-              <LabelledInput
-                name={`range-radio-${attribute}`}
-                attribute={attribute}
-                label={'Range price'}
-                checked={false}
-                value={'125.0-555.0'}
-                count={null}
-                onChange={onChange}
-                type={type}
-              />
+            <LabelledInput
+              name={`range-radio-${attribute}`}
+              attribute={attribute}
+              label={'Range price'}
+              checked={false}
+              value={'125.0-555.0'}
+              count={null}
+              onChange={onChange}
+              type={type}
+            />
           )}
         </div>
       </fieldset>
-      <div className="ds-sdk-input__border border-t border-neutral-500" />
+      <div className="ds-sdk-input__border border-t border-neutral-500"/>
     </div>
   );
 };

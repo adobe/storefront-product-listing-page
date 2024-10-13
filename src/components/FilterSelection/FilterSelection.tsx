@@ -29,8 +29,8 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
           onClick={(event) => scrollFilter(event, displayFilter)}
         >
           <label
-              id={`filter-${iteration+1}`}
-              className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer"
+            id={`filter-${iteration + 1}`}
+            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer"
           >
             {title}{' '}
             {!!selectedNumber && (

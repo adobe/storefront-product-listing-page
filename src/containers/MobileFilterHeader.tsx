@@ -28,7 +28,7 @@ import {
   generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from '../utils/sort';
-import {CategoryFilters} from "../components";
+import { CategoryFilters } from "../components";
 
 interface Props {
   facets: Facet[];
@@ -40,6 +40,7 @@ interface Props {
     columns: number;
   };
 }
+
 export const MobileFilterHeader: FunctionComponent<Props> = ({
   facets,
   totalCount,
@@ -102,47 +103,47 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
 
   const [showFilters, setShowFilters] = useState(true);
   return (
-      <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-        {!screenSize.mobile && productsCtx.totalCount && (
-            <CategoryFilters
-                loading={productsCtx.loading}
-                pageLoading={productsCtx.pageLoading}
-                facets={productsCtx.facets}
-                totalCount={productsCtx.totalCount}
-                categoryName={productsCtx.categoryName ?? ''}
-                phrase={productsCtx.variables.phrase ?? ''}
-                showFilters={showFilters}
-                setShowFilters={setShowFilters}
-                displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                filterCount={searchCtx.filterCount}
+    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
+      {!screenSize.mobile && productsCtx.totalCount && (
+        <CategoryFilters
+          loading={productsCtx.loading}
+          pageLoading={productsCtx.pageLoading}
+          facets={productsCtx.facets}
+          totalCount={productsCtx.totalCount}
+          categoryName={productsCtx.categoryName ?? ''}
+          phrase={productsCtx.variables.phrase ?? ''}
+          showFilters={showFilters}
+          setShowFilters={setShowFilters}
+          displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+          filterCount={searchCtx.filterCount}
+        />
+      )}
+      {screenSize.mobile && (
+        <div className="flex border-t border-b border-neutral-400 bg-black">
+          <div className="flex justify-center w-full py-md border-r border-neutral-400">
+            <FilterButton
+              displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+              type="mobile"
             />
-        )}
-        {screenSize.mobile && (
-            <div className="flex border-t border-b border-neutral-400 bg-black">
-              <div className="flex justify-center w-full py-md border-r border-neutral-400">
-                <FilterButton
-                    displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                    type="mobile"
-                />
-              </div>
-            </div>
-          )}
-        <div class="mobile-filters-container z-900">
-          <Drawer
-              isOpen={showMobileFacet}
-              onClose={() => setShowMobileFacet(!showMobileFacet)}
-              totalCount={totalCount}
-          >
-            <MobileFacets
-                searchFacets={facets}
-                onClose={() => setShowMobileFacet(!showMobileFacet)}
-                sortOptions={sortOptions}
-                value={sortBy}
-                onChange={onSortChange}
-                mobile
-            />
-          </Drawer>
+          </div>
         </div>
+      )}
+      <div class="mobile-filters-container z-900">
+        <Drawer
+          isOpen={showMobileFacet}
+          onClose={() => setShowMobileFacet(!showMobileFacet)}
+          totalCount={totalCount}
+        >
+          <MobileFacets
+            searchFacets={facets}
+            onClose={() => setShowMobileFacet(!showMobileFacet)}
+            sortOptions={sortOptions}
+            value={sortBy}
+            onChange={onSortChange}
+            mobile
+          />
+        </Drawer>
       </div>
+    </div>
   );
 };

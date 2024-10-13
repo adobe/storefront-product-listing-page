@@ -8,8 +8,8 @@ it.
 */
 import { FunctionComponent } from 'preact';
 import { FilterSelection } from 'src/components/FilterSelection';
-
 import { Facet as FacetType, PriceFacet } from '../../../types/interface';
+
 export type DisplayFilterType = () => void;
 
 interface ScalarFacetProps {

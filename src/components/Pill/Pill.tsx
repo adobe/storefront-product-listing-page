@@ -11,6 +11,7 @@ import { FunctionComponent } from 'preact';
 import { JSXInternal } from 'preact/src/jsx';
 
 import CloseIcon from '../../icons/plus.svg';
+
 export interface PillProps {
   label: string;
   onClick: () => void;
@@ -20,7 +21,8 @@ export interface PillProps {
 }
 
 const defaultIcon = (
-  <CloseIcon className="h-[20px] w-[20px] rotate-45 inline-block ml-sm cursor-pointer relative top-[-3px] fill-neutral-800" />
+  <CloseIcon
+    className="h-[20px] w-[20px] rotate-45 inline-block ml-sm cursor-pointer relative top-[-3px] fill-neutral-800"/>
 );
 
 // TODO: add support later to pass classes to the container div

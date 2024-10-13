@@ -21,7 +21,9 @@ export interface SortDropdownProps {
   mobile?: boolean;
 }
 
-export const toggleFilters = (event: Omit<MouseEvent, "currentTarget"> & { readonly currentTarget: HTMLLabelElement }) => {
+export const toggleFilters = (event: Omit<MouseEvent, "currentTarget"> & {
+  readonly currentTarget: HTMLLabelElement
+}) => {
   const clicked = event.target;
   const toBeActiveFilterBlock = clicked.nextElementSibling;
   const parrentDiv = clicked.closest('.ds-sdk-input')
@@ -88,8 +90,8 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div ref={sortOptionMenu} class="ds-sdk-input">
         <label
-            className={'ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row'}
-            onClick={(event) => toggleFilters(event)}
+          className={'ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row'}
+          onClick={(event) => toggleFilters(event)}
         >
           {translation.SortDropdown.title}
         </label>
