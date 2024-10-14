@@ -9,7 +9,6 @@ export interface FilterSelectionProps {
   attribute?: string;
   filterSelectionTitleSlot?: FilterSelectionTitleSlot;
   displayFilter?: () => void;
-  selectedNumber?: number;
   iteration: number;
 }
 
@@ -17,7 +16,6 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
   title,
   filterSelectionTitleSlot,
   displayFilter,
-  selectedNumber,
   iteration,
 }) => {
   return (
@@ -33,10 +31,7 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
             id={`filter-${iteration + 1}`}
             className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer"
           >
-            {title}{' '}
-            {!!selectedNumber && (
-              <span className="font-normal text-neutral-700">{`(${selectedNumber})`}</span>
-            )}
+            {title}
           </label>
         </div>
       )}

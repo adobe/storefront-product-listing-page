@@ -17,13 +17,11 @@ interface ScalarFacetProps {
   filterData: FacetType | PriceFacet;
   iteration: number;
   displayFilter?: DisplayFilterType;
-  selectedNumber?: number;
 }
 
 export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
   filterData,
   iteration,
-  selectedNumber,
   displayFilter,
 }) => {
   return (
@@ -32,7 +30,6 @@ export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
         title={filterData.title}
         attribute={filterData.attribute}
         displayFilter={displayFilter}
-        selectedNumber={selectedNumber}
         iteration={iteration}
       />
     </>

@@ -8,16 +8,10 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useCallback, useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import useScalarFacet from 'src/hooks/useScalarFacet';
-import {
-  defaultSortOptions,
-  getSortOptionsfromMetadata,
-} from 'src/utils/sort';
 
 import {
-  useAttributeMetadata,
-  useSearch,
   useStore,
   useTranslation,
 } from '../../context';
@@ -84,50 +78,10 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   displayFilter,
 }: FacetsProps) => {
   const {config} = useStore();
-  const searchCtx = useSearch();
-  const attributeMetadata = useAttributeMetadata();
   const translation = useTranslation();
-
-  const attributesToFilter = [
-    'featured',
-    'new',
-    'price',
-  ];
-
   const searchFacetsSliced = searchFacets?.slice(0, 4)
-
-  const filteredAttributes = attributeMetadata?.sortable.filter((item) =>
-    attributesToFilter.includes(item.attribute)
-  );
-
-  const [selectedFacet, setSelectedFacet] = useState<FacetType | null>(null);
-  const [sortOptions, setSortOptions] = useState(defaultSortOptions());
-
-  const getSortOptions = useCallback(() => {
-    setSortOptions(
-      getSortOptionsfromMetadata(
-        translation,
-        filteredAttributes,
-        config?.displayOutOfStock,
-        config?.currentCategoryUrlPath,
-        config?.currentCategoryId
-      )
-    );
-  }, [config, translation, attributeMetadata]);
-
-  useEffect(() => {
-    getSortOptions();
-  }, [getSortOptions]);
-
+  const [selectedFacet] = useState<FacetType | null>(null);
   const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;
-
-  const getSelectedFilters = (facet: FacetType) => {
-    const {attribute} = facet;
-    const categoryFiltered = searchCtx.filters.find(
-      (item) => item.attribute === attribute
-    );
-    return categoryFiltered?.in?.length ?? 0;
-  };
 
   const {isSelected, onChange} = useScalarFacet(selectedFacet);
 
@@ -166,7 +120,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                         key={facet.attribute}
                         filterData={facet}
                         iteration={index}
-                        selectedNumber={getSelectedFilters(facet)}
                         displayFilter={displayFilter}
                       />
                     );
@@ -176,7 +129,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                         key={facet.attribute}
                         filterData={facet}
                         iteration={index}
-                        selectedNumber={getSelectedFilters(facet)}
                         displayFilter={displayFilter}
                       />
                     );
@@ -186,7 +138,6 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                         key={facet.attribute}
                         filterData={facet}
                         iteration={index}
-                        selectedNumber={getSelectedFilters(facet)}
                         displayFilter={displayFilter}
                       />
                     );
