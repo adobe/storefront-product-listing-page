@@ -12,7 +12,7 @@ import { FacetFilter, PriceFacet } from '../types/interface';
 
 type ProcessedBucket = { from: number; to: number };
 
-const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
+const useRangeFacet = ({attribute, buckets}: PriceFacet) => {
   const processedBuckets: {
     [key: string]: ProcessedBucket;
   } = {};
@@ -24,7 +24,6 @@ const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
         to: bucket.to,
       })
   );
-
   const searchCtx = useSearch();
 
   const filter = searchCtx?.filters?.find(
@@ -34,7 +33,7 @@ const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
   const isSelected = (title: string) => {
     const selected = filter
       ? processedBuckets[title].from === filter.range?.from &&
-        processedBuckets[title].to === filter.range?.to
+      processedBuckets[title].to === filter.range?.to
       : false;
     return selected;
   };
@@ -62,7 +61,7 @@ const useRangeFacet = ({ attribute, buckets }: PriceFacet) => {
     searchCtx.updateFilter(newFilter);
   };
 
-  return { isSelected, onChange };
+  return {isSelected, onChange};
 };
 
 export default useRangeFacet;

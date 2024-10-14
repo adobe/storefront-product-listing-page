@@ -13,27 +13,23 @@ import { Facet } from '../../types/interface';
 import { Facets } from '../Facets';
 
 interface CategoryFiltersProps {
-  loading: boolean;
   pageLoading: boolean;
   totalCount: number;
   facets: Facet[];
-  categoryName: string;
-  phrase: string;
-  showFilters: boolean;
-  setShowFilters: (showFilters: boolean) => void;
-  filterCount: number;
+  displayFilter: () => void;
 }
 
 export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   pageLoading,
   totalCount,
   facets,
+  displayFilter,
 }) => {
 
   return (
-    <div className="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] px-2 flex-col">
+    <div className="sm:flex ds-widgets-_actions relative max-width-[480px] flex-[25] flex-col">
       {!pageLoading && facets.length > 0 && (
-        <Facets searchFacets={facets} totalCount={totalCount} />
+        <Facets searchFacets={facets} totalCount={totalCount} displayFilter={displayFilter} />
       )}
     </div>
   );

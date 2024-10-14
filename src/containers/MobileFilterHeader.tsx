@@ -12,8 +12,8 @@ import { useCallback, useEffect, useState } from 'preact/hooks';
 import { Drawer } from 'src/components/Drawer/Drawer';
 import MobileFacets from 'src/components/MobileFacets';
 
+import { CategoryFilters } from "../components";
 import { FilterButton } from '../components/FilterButton';
-import { SortDropdown } from '../components/SortDropdown';
 import {
   useAttributeMetadata,
   useProducts,
@@ -39,6 +39,7 @@ interface Props {
     columns: number;
   };
 }
+
 export const MobileFilterHeader: FunctionComponent<Props> = ({
   facets,
   totalCount,
@@ -101,33 +102,39 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
 
   return (
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-      <div className="flex border-t border-b border-neutral-400">
-        {screenSize.mobile && (
-          <div className="flex justify-center w-1/2 py-md border-r border-neutral-400">
+      {!screenSize.mobile && productsCtx.totalCount && (
+        <CategoryFilters
+          pageLoading={productsCtx.pageLoading}
+          facets={productsCtx.facets}
+          totalCount={productsCtx.totalCount}
+          displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+        />
+      )}
+      {screenSize.mobile && (
+        <div className="flex border-t border-b border-neutral-400 bg-black">
+          <div className="flex justify-center w-full py-md border-r border-neutral-400">
             <FilterButton
               displayFilter={() => setShowMobileFacet(!showMobileFacet)}
               type="mobile"
             />
           </div>
-        )}
-
-        <div className="flex justify-center w-1/2 py-md">
-          <SortDropdown
-            sortOptions={sortOptions}
-            value={sortBy}
-            onChange={onSortChange}
-            mobile
-          />
         </div>
-      </div>
-      {screenSize.mobile && (
+      )}
+      <div class="mobile-filters-container z-900">
         <Drawer
           isOpen={showMobileFacet}
           onClose={() => setShowMobileFacet(!showMobileFacet)}
+          totalCount={totalCount}
         >
-          <MobileFacets searchFacets={facets} />
+          <MobileFacets
+            searchFacets={facets}
+            onClose={() => setShowMobileFacet(!showMobileFacet)}
+            sortOptions={sortOptions}
+            value={sortBy}
+            onChange={onSortChange}
+          />
         </Drawer>
-      )}
+      </div>
     </div>
   );
 };

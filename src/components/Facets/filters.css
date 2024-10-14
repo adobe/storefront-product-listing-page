@@ -12,13 +12,44 @@
 
 .franchise-selector {
   align-items: start;
+  float: right
+}
+
+.mobile-filters-container .apply-buttons {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.mobile-filters-container form .ds-sdk-input > label::after {
+  content: '+';
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 20px;
+  line-height: 12px;
+}
+
+.mobile-filters-container form .ds-sdk-input.active > label::after {
+  content: '-';
+}
+
+@media (min-width: 768px) {
+  .grid-setting {
+    flex: 1 0 100%;
+  }
 }
 
 @media (max-width: 768px) {
   .franchise-selector {
+    float: none;
     align-self: end;
     padding-right: 12px;
     margin-top: 15px;
     margin-bottom: 15px;
   }
+}
+
+.ds-sdk-input:after {
+  content: '';
+  display: block;
+
 }

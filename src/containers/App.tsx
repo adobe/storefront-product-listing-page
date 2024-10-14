@@ -14,8 +14,6 @@ import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
 
-import { CategoryFilters } from '../components/CategoryFilters';
-import {FranchiseViewSelector} from "../components/Facets/FranchiseViewSelector";
 import {
   useProducts,
   useSearch,
@@ -32,11 +30,10 @@ export const App: FunctionComponent = () => {
   const productsCtx = useProducts();
   const { screenSize } = useSensor();
   const translation = useTranslation();
-  const { displayMode, categoryConfig } = useStore().config;
+  const { displayMode } = useStore().config;
   const [showFilters, setShowFilters] = useState(true);
 
   const loadingLabel = translation.Loading.title;
-  const displayByFranchise = categoryConfig?.pcm_display_by_franchise === '1';
 
   return (
     <>
@@ -52,32 +49,27 @@ export const App: FunctionComponent = () => {
             )}
             <Enrichment position={'below-title'} />
             <div className="flex flex-col">
-              {productsCtx.totalCount && (
-                <CategoryFilters
-                  loading={productsCtx.loading}
-                  pageLoading={productsCtx.pageLoading}
-                  facets={productsCtx.facets}
-                  totalCount={productsCtx.totalCount}
-                  categoryName={productsCtx.categoryName ?? ''}
-                  phrase={productsCtx.variables.phrase ?? ''}
-                  showFilters={showFilters}
-                  setShowFilters={setShowFilters}
-                  filterCount={searchCtx.filterCount}
+              <div className="flex w-full h-full testing">
+                <MobileFilterHeader
+                    facets={productsCtx.facets}
+                    totalCount={productsCtx.totalCount}
+                    screenSize={screenSize}
                 />
-              )}
-              <Enrichment position={'above-grid'} />
-              <div
-                className={`ds-widgets_results flex flex-col items-center flex-[75] ds-widgets-results__center-container `}
-              >
-                <ProductsContainer showFilters={showFilters} />
               </div>
+              <div
+                  className={`ds-widgets_results flex flex-col items-center flex-[75] ds-widgets-results__center-container `}
+              >
+                <ProductsContainer showFilters={showFilters}/>
+              </div>
+              <Enrichment position={'above-grid'}/>
             </div>
           </div>
         ) : (
-          <div className="ds-widgets bg-body py-2">
-            {searchCtx.phrase && (
-              <div className="product-list-page-header flex flex-col gap-4 justify-center items-center h-[180px] lg:h-[248px]">
-                <h1 className="text-center capitalize">
+            <div className="ds-widgets bg-body py-2">
+              {searchCtx.phrase && (
+                  <div
+                      className="product-list-page-header flex flex-col gap-4 justify-center items-center h-[180px] lg:h-[248px]">
+                    <h1 className="text-center capitalize">
                   {searchCtx.phrase}
                 </h1>
               </div>
@@ -117,9 +109,6 @@ export const App: FunctionComponent = () => {
                         screenSize={screenSize}
                       />
                     </div>
-                    {displayByFranchise && (
-                      <FranchiseViewSelector />
-                    )}
                     <Enrichment position={'above-grid'} />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}

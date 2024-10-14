@@ -1,10 +1,9 @@
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/compat';
 
 import { useProducts, useTranslation } from '../../context';
-import PlusIcon from '../../icons/plus.svg';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
+import { toggleFilters } from "../SortDropdown";
 
 export type InputButtonGroupOnChangeProps = {
   value: string;
@@ -24,6 +23,7 @@ export type Bucket = {
   name?: string;
   __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
+
 export interface InputButtonGroupProps {
   title: string;
   attribute: string;
@@ -32,9 +32,9 @@ export interface InputButtonGroupProps {
   onChange: InputButtonGroupOnChange;
   type: 'radio' | 'checkbox';
   inputGroupTitleSlot?: InputButtonGroupTitleSlot;
+  isHidden: boolean;
 }
 
-const numberOfOptionsShown = 5;
 export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   title,
   attribute,
@@ -43,15 +43,10 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   onChange,
   type,
   inputGroupTitleSlot,
+  isHidden
 }) => {
   const translation = useTranslation();
   const productsCtx = useProducts();
-
-  const [showMore, setShowMore] = useState(
-    buckets.length < numberOfOptionsShown
-  );
-
-  const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
 
   const formatLabel = (title: string, bucket: Bucket) => {
     const {
@@ -66,13 +61,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
     if (bucket.__typename === 'RangeBucket') {
       const fromPrice = bucket.from
         ? `${currencySymbol}${formatPrice(
-            parseInt(bucket.from.toFixed(0), 10)
-          )}`
+          parseInt(bucket.from.toFixed(0), 10)
+        )}`
         : '0';
       const toPrice = bucket.to
         ? ` - ${currencySymbol}${formatPrice(
-            parseInt(bucket.to.toFixed(0), 10)
-          )}`
+          parseInt(bucket.to.toFixed(0), 10)
+        )}`
         : translation.InputButtonGroup.priceRange;
       return `${fromPrice}${toPrice}`;
     }
@@ -96,17 +91,24 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   return (
-    <div className="ds-sdk-input pt-md">
+    <div className="ds-sdk-input">
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold">
-          {title}
-        </label>
+        (isHidden ? (
+          <label
+            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
+            onClick={(event) => toggleFilters(event)}>
+            {title}
+          </label>
+        ) : (
+          <label
+            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display flex flex-row">{title}</label>
+        ))
       )}
-      <fieldset className="ds-sdk-input__options">
+      <fieldset className={`ds-sdk-input__options mt-4 md:mt-0 ${isHidden ? 'none-display' : ''}`}>
         <div className="space-y-4">
-          {buckets.slice(0, numberOfOptions).map((option) => {
+          {buckets.map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';
             return (
@@ -123,25 +125,21 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
               />
             );
           })}
-          {!showMore && buckets.length > numberOfOptionsShown && (
-            <div
-              className="ds-sdk-input__fieldset__show-more flex items-center text-neutral-800 cursor-pointer"
-              onClick={() => setShowMore(true)}
-            >
-              <PlusIcon className="h-md w-md fill-neutral-800" />
-              <button
-                type="button"
-                className="ml-sm cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none"
-              >
-                <span className="font-button-2 text-[12px]">
-                  {translation.InputButtonGroup.showmore}
-                </span>
-              </button>
-            </div>
+          {attribute === 'price' && (
+            <LabelledInput
+              name={`range-radio-${attribute}`}
+              attribute={attribute}
+              label={'Range price'}
+              checked={false}
+              value={'125.0-555.0'}
+              count={null}
+              onChange={onChange}
+              type={type}
+            />
           )}
         </div>
       </fieldset>
-      <div className="ds-sdk-input__border border-t mt-md border-neutral-500" />
+      <div className="ds-sdk-input__border border-t border-neutral-500"/>
     </div>
   );
 };

@@ -10,29 +10,27 @@ import { FunctionComponent } from 'preact';
 import { FilterSelection } from 'src/components/FilterSelection';
 
 import { Facet as FacetType, PriceFacet } from '../../../types/interface';
-export type HandleFilterType = () => void;
+
+export type DisplayFilterType = () => void;
 
 interface ScalarFacetProps {
   filterData: FacetType | PriceFacet;
-  handleFilter?: HandleFilterType;
-  selectedNumber?: number;
-  selectedFacet?: FacetType | PriceFacet | null;
+  iteration: number;
+  displayFilter?: DisplayFilterType;
 }
 
 export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
   filterData,
-  handleFilter,
-  selectedNumber,
-  selectedFacet
+  iteration,
+  displayFilter,
 }) => {
   return (
     <>
       <FilterSelection
         title={filterData.title}
         attribute={filterData.attribute}
-        handleFilter={handleFilter}
-        selectedNumber={selectedNumber}
-        selectedFacet={selectedFacet}
+        displayFilter={displayFilter}
+        iteration={iteration}
       />
     </>
   );

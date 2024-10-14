@@ -29,6 +29,7 @@ export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
       buckets={filterData.buckets as any}
       type={'checkbox'}
       isSelected={isSelected}
+      isHidden={true}
       onChange={(args) => onChange(args.value, args.selected)}
     />
   );

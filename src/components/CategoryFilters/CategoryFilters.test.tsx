@@ -16,15 +16,9 @@ describe('PLP widget/CategoryFilters', () => {
   it('renders', () => {
     const { container } = render(
       <CategoryFilters
-        loading={true}
         pageLoading={false}
         totalCount={1}
         facets={[]}
-        categoryName=""
-        phrase=""
-        showFilters={true}
-        setShowFilters={() => true}
-        filterCount={0}
       />
     );
 

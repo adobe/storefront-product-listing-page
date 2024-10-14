@@ -10,34 +10,57 @@ it.
 import { FunctionComponent } from 'preact';
 
 import { useStore } from '../../context';
-import { Facet as FacetType, PriceFacet } from '../../types/interface';
+import CloseIcon from "../../icons/plus.svg";
+import { Facet as FacetType, PriceFacet, SortOption } from '../../types/interface';
 import SliderDoubleControl from '../SliderDoubleControl';
+import { SortDropdown } from "../SortDropdown";
 import { RangeFacet } from './Range/RangeFacet';
 import { ScalarFacet } from './Scalar/ScalarFacet';
 
 interface FacetsProps {
   searchFacets: FacetType[];
+  onClose: () => void;
+  value: string;
+  sortOptions: SortOption[];
+  onChange: (sortBy: string) => void;
 }
 
 export const MobileFacets: FunctionComponent<FacetsProps> = ({
   searchFacets,
+  onClose,
+  value,
+  sortOptions,
+  onChange
 }: FacetsProps) => {
   const {
-    config: { priceSlider },
+    config: {priceSlider},
   } = useStore();
 
   return (
     <div className="ds-plp-facets flex flex-col">
-      <h1>Filter Products</h1>
+      <div className={'flex flex-row'}>
+        <h1 className={'text-2xl mb-8'}>Sort & Filter</h1>
+        <CloseIcon
+          className="h-[28px] w-[28px] rotate-45 inline-block cursor-pointer fill-neutral-800 ml-auto"
+          onClick={onClose}
+        />
+      </div>
+
       <form className="ds-plp-facets__list border-t border-neutral-500">
+        <SortDropdown
+          sortOptions={sortOptions}
+          value={value}
+          onChange={onChange}
+          mobile
+        />
         {searchFacets?.map((facet) => {
           const bucketType = facet?.buckets[0]?.__typename;
           switch (bucketType) {
             case 'ScalarBucket':
-              return <ScalarFacet key={facet.attribute} filterData={facet} />;
+              return <ScalarFacet key={facet.attribute} filterData={facet}/>;
             case 'RangeBucket':
               return priceSlider ? (
-                <SliderDoubleControl filterData={facet as PriceFacet} />
+                <SliderDoubleControl filterData={facet as PriceFacet}/>
               ) : (
                 <RangeFacet
                   key={facet.attribute}
@@ -45,7 +68,7 @@ export const MobileFacets: FunctionComponent<FacetsProps> = ({
                 />
               );
             case 'CategoryView':
-              return <ScalarFacet key={facet.attribute} filterData={facet} />;
+              return <ScalarFacet key={facet.attribute} filterData={facet}/>;
             default:
               return null;
           }
