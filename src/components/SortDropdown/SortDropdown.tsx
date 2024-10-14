@@ -33,6 +33,7 @@ export const toggleFilters = (event: Omit<MouseEvent, "currentTarget"> & {
     const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
     currentFilterBlock?.classList.add('none-display')
     currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
+    currentFilterBlock?.closest('.ds-sdk-input').classList.remove('active')
     toBeActiveFilterBlock?.classList.remove('none-display')
     borderDiv.classList.add('mt-md');
     parrentDiv.classList.add('active');
