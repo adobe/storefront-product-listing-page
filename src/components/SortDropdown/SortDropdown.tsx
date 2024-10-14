@@ -111,7 +111,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
                 <label key={`label-${i}`}
                        for={`sortby-${  option.value}`}
                        onClick={() => select(option.value)}
-                       className={'ds-sdk-labelled-input__label ml-sm block-display h-max-content text-neutral-800 font-body-1-default text-[12px] cursor-pointer'}
+                       className={'ds-sdk-labelled-input__label block-display h-max-content leading-12 text-[12px] cursor-pointer'}
                 >
                   {option.label}
                 </label>

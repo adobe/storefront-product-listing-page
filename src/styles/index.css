@@ -1674,6 +1674,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     line-height: var(--leading-tight);
   }
 
+  .leading-12 {
+    line-height: 2.5rem;
+  }
+
   .font-light {
     font-weight: var(--font-light);
   }

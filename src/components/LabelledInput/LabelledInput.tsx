@@ -40,7 +40,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
   const href = `${window.location.origin}/${window.location.pathname.split('/')[1]}/${value}`
   return (
     type === 'link' || attribute === 'categories' ? (
-      <div className="ds-sdk-labelled-input flex gap-4 items-center">
+      <div className="ds-sdk-labelled-input flex gap-4 text-[12px] leading-12 items-center">
         <a href={href}
            onClick={(e) => {
              if (type === 'link') {
@@ -74,13 +74,13 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
         />
         <label
           htmlFor={name}
-          className="ds-sdk-labelled-input__label ml-sm block-display h-max-content text-neutral-800 font-body-1-default text-[12px] cursor-pointer"
+          className="ds-sdk-labelled-input__label block-display h-max-content text-[12px] leading-12 cursor-pointer"
         >
           {label}
           {count && (
-            <span className="text-[12px] text-neutral-800 ml-1 font-details-overline">
-                    {`(${count})`}
-                  </span>
+            <span className="text-[12px] ml-1 font-details-overline">
+              {`(${count})`}
+            </span>
           )}
         </label>
 
