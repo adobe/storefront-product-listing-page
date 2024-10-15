@@ -1189,9 +1189,6 @@ video {
   .pt-3\.5 {
     padding-top: 0.875rem;
   }
-  .pt-\[1\.4rem\] {
-    padding-top: 1.4rem;
-  }
   .pt-\[1\.5rem\] {
     padding-top: 1.5rem;
   }
@@ -1535,9 +1532,9 @@ video {
   left: 10px;
 }
 
-.before\:left-\[16px\]::before {
+.before\:left-\[2rem\]::before {
   content: var(--tw-content);
-  left: 16px;
+  left: 2rem;
 }
 
 .first\:ml-0:first-child {

@@ -19,7 +19,7 @@ export const SelectedFilters: FunctionComponent = ({}) => {
   const translation = useTranslation();
 
   return (
-    <div className="inline-flex relative overflow-x-scroll w-full scrollbar-search">
+    <div className={`inline-flex relative overflow-x-scroll w-full ${searchCtx.filters?.length > 0 ? 'scrollbar-search' : ''}`}>
       {searchCtx.filters?.length > 0 && (
         <div className="ds-plp-facets__pills flex">
           {searchCtx.filters.map((filter) => (

@@ -112,7 +112,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   };
 
   return (
-    <div className="ds-sdk-input pt-[1.4rem]">
+    <div className="ds-sdk-input">
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
@@ -160,7 +160,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
           )}
         </div>
       </fieldset>
-      <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
+      <div className="ds-sdk-input__border border-t my-[1.3rem] border-gray-200" />
     </div>
   );
 };
