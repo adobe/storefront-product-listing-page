@@ -10,25 +10,42 @@ it.
 import { FunctionComponent } from 'preact';
 
 import { useTranslation } from '../../context/translation';
-import AdjustmentsIcon from '../../icons/adjustments.svg';
+
+import {useEffect, useState, useRef} from 'preact/compat';
 
 export interface FilterButtonProps {
-  displayFilter: () => void;
-  type: string;
-  title?: string;
+    displayFilter: () => void;
+    type: string;
+    title?: string;
+    isFilterActive?:boolean
 }
 export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   displayFilter,
   type,
   title,
+  isFilterActive,
 }: FilterButtonProps) => {
   const translation = useTranslation();
+  const mobileFilterButtonRef = useRef<HTMLButtonElement | null>(null);
+  const handleClick = (): void => {
+      displayFilter();
+      if (mobileFilterButtonRef && mobileFilterButtonRef.current) {
+          if (mobileFilterButtonRef.current.classList.contains('bg-black')) {
+               mobileFilterButtonRef.current.classList.remove('bg-black');
+               mobileFilterButtonRef.current.classList.add('bg-[#904745]');
+          } else {
+              mobileFilterButtonRef.current.classList.remove('bg-[#904745]');
+              mobileFilterButtonRef.current.classList.add('bg-black');
+          }
+      }
+  };
 
-  return type == 'mobile' ? (
+    return type == 'mobile' ? (
     <div className="ds-sdk-filter-button">
       <button
-        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 text-sm rounded-md p-sm h-[32px]"
-        onClick={displayFilter}
+        className={`flex items-center ${isFilterActive?'bg-black':'bg-[#904745]'} text-white ring-black ring-opacity-5 text-sm rounded-md p-sm h-[32px] font-['FuturaBT-Light']`}
+        onClick={() => handleClick()}
+        ref={mobileFilterButtonRef}
       >
         {translation.Filter.title?.toUpperCase()}
       </button>

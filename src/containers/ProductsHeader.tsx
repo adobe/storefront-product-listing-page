@@ -96,6 +96,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                   <FilterButton
                     displayFilter={() => setShowMobileFacet(!showMobileFacet)}
                     type="mobile"
+                    isFilterActive={searchCtx.filters?.length > 0}
                   />
                 </div>
               )
