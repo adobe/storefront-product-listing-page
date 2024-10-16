@@ -1132,6 +1132,10 @@ video {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
+  .py-\[0\.485rem\] {
+    padding-top: 0.485rem;
+    padding-bottom: 0.485rem;
+  }
   .py-sm {
     padding-top: var(--spacing-sm);
     padding-bottom: var(--spacing-sm);

@@ -128,25 +128,22 @@ export const ProductsHeader: FunctionComponent<Props> = ({
           )}
         </div>
         {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets}/>}
-        <div className="flex justify-center gap-x-[0.2rem]">
-          {searchCtx.filters.length > 0 ? (
+        {screenSize.mobile && showMobileFacet &&
+            <div className="flex justify-center gap-x-[0.2rem]">
               <div className="ds-sdk-filter-button">
                 <button
-                    className="text-black border-black border-[1px] ring-black ring-opacity-5 text-sm rounded-md p-sm  font-['FuturaBT-Light']"
+                    className="text-black border-black border-[1px] ring-black ring-opacity-5 text-sm rounded-md px-sm py-[0.485rem] font-['FuturaBT-Light']"
                     onClick={() => searchCtx.clearFilters()}
                 >
-                  {translation.Filter.clearAll}
+                  {translation.Filter.clearAll.toUpperCase()}
                 </button>
               </div>
-          ) : ''}
-          {searchCtx.filters.length > 0 ? (
               <ApplyFilterButton
                   displayFilter={() => setShowMobileFacet(!showMobileFacet)}
-                  title={'Applica'}
+                  title={translation.Filter.apply}
               />
-
-          ) : ''}
-        </div>
+            </div>
+        }
       </div>
   );
 };

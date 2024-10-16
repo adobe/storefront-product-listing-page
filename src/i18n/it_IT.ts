@@ -13,6 +13,7 @@ export const it_IT = {
     showTitle: 'Mostra filtri',
     hideTitle: 'Nascondi filtri',
     clearAll: 'Cancella tutto',
+    apply: 'Applica',
   },
   InputButtonGroup: {
     title: 'Categorie',

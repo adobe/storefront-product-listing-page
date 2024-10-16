@@ -13,6 +13,7 @@ export const en_US = {
     showTitle: 'Show filters',
     hideTitle: 'Hide filters',
     clearAll: 'Clear all',
+    apply: 'Apply',
   },
   InputButtonGroup: {
     title: 'Categories',
