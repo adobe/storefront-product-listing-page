@@ -13,35 +13,13 @@ import { useEffect, useRef } from 'preact/hooks';
 import { useTranslation } from '../../context/translation';
 import { useAccessibleDropdown } from '../../hooks/useAccessibleDropdown';
 import { SortOption } from '../../types/interface';
+import { toggleFilters } from '../Facets/ToggleFilters';
 
 export interface SortDropdownProps {
   value: string;
   sortOptions: SortOption[];
   onChange: (sortBy: string) => void;
   mobile?: boolean;
-}
-
-export const toggleFilters = (event: Omit<MouseEvent, "currentTarget"> & {
-  readonly currentTarget: HTMLLabelElement
-}) => {
-  const clicked = event.target;
-  const toBeActiveFilterBlock = clicked.nextElementSibling;
-  const parrentDiv = clicked.closest('.ds-sdk-input')
-  const borderDiv = parrentDiv.querySelector('.ds-sdk-input__border')
-
-  if (toBeActiveFilterBlock.classList.contains('none-display')) {
-    const currentFilterBlock = clicked.closest('form').querySelector('fieldset:not(.none-display)')
-    currentFilterBlock?.classList.add('none-display')
-    currentFilterBlock?.nextElementSibling?.classList.remove('mt-md')
-    currentFilterBlock?.closest('.ds-sdk-input').classList.remove('active')
-    toBeActiveFilterBlock?.classList.remove('none-display')
-    borderDiv.classList.add('mt-md');
-    parrentDiv.classList.add('active');
-  } else {
-    toBeActiveFilterBlock?.classList.add('none-display')
-    borderDiv.classList.remove('mt-md');
-    parrentDiv.classList.remove('active');
-  }
 }
 
 export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
@@ -91,7 +69,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div ref={sortOptionMenu} class="ds-sdk-input">
         <label
-          className={'ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row'}
+          className={'ds-sdk-input__label text-neutral-900 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row'}
           onClick={(event) => toggleFilters(event)}
         >
           {translation.SortDropdown.title}

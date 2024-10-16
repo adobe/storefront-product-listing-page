@@ -49,9 +49,9 @@ export const scrollFilter = (
         await wait(300);
         const filterInput = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input');
         const filterToShow = filterInput[filterNumber];
-        const filterToHide = filterInput.querySelector('fieldset:not(.none-display)');
+        const filterToHide = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input fieldset:not(.none-display)');
 
-        filterToHide.forEach(element => {
+        filterToHide?.forEach(element => {
           element.closest('.ds-sdk-input')?.classList.remove('active')
           element.classList.add('none-display')
           element.nextElementSibling?.classList.remove('mt-md')
@@ -105,7 +105,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
                 <div class="flex items-center gap-x-1 cursor-pointer"
                      onClick={(event) => scrollFilter(event, displayFilter)}>
                   <label id={'filter-0'}
-                         className="flex flex-row gap-4 ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold cursor-pointer">
+                         className="flex flex-row gap-4 ds-sdk-input__label text-neutral-900 text-sm font-semibold cursor-pointer">
                     <SortFilterIcon className="h-[18px] w-[18px] fill-neutral-800"/>
                     {translation.Filter.title}
                   </label>
