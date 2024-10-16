@@ -29,6 +29,7 @@ import {
   generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from '../utils/sort';
+import {ApplyFilterButton} from "../components/ApplyFilterButton";
 
 interface Props {
   facets: Facet[];
@@ -84,24 +85,24 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className="flex flex-col lg:max-w-full ml-auto w-full h-full">
-      <div
-        className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between flex-wrap pb-[0.25rem]' : 'justify-between'
-        }`}
-      >
+      <div className="flex flex-col lg:max-w-full ml-auto w-full h-full">
+        <div
+            className={`flex gap-x-2.5 mb-[1px] ${
+                screenSize.mobile ? 'justify-between flex-wrap pb-[0.25rem]' : 'justify-between'
+            }`}
+        >
           {screenSize.mobile
-            ? totalCount > 0 && (
-                <div className="pb-4">
-                  <FilterButton
+              ? totalCount > 0 && (
+              <div className="pb-4">
+                <FilterButton
                     displayFilter={() => setShowMobileFacet(!showMobileFacet)}
                     type="mobile"
                     isFilterActive={searchCtx.filters?.length > 0}
-                  />
-                </div>
-              )
-            : storeCtx.config.displaySearchBox && (
-                <SearchBar
+                />
+              </div>
+          )
+              : storeCtx.config.displaySearchBox && (
+              <SearchBar
                   phrase={searchCtx.phrase}
                   onKeyPress={(e: any) => {
                     if (e.key === 'Enter') {
@@ -110,23 +111,42 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                   }}
                   onClear={() => searchCtx.setPhrase('')}
                   placeholder={translation.SearchBar.placeholder}
+              />
+          )}
+          {totalCount > 0 && (
+              <>
+                {!screenSize.mobile && <SelectedFilters/>}
+                {storeCtx?.config?.listview && <ViewSwitcher/>}
+                <SortDropdown
+                    sortOptions={sortOptions}
+                    value={sortBy}
+                    onChange={onSortChange}
+                    isMobile={screenSize.mobile}
                 />
-              )}
-        {totalCount > 0 && (
-          <>
-            {!screenSize.mobile && <SelectedFilters/>}
-            {storeCtx?.config?.listview && <ViewSwitcher />}
-            <SortDropdown
-              sortOptions={sortOptions}
-              value={sortBy}
-              onChange={onSortChange}
-              isMobile={screenSize.mobile}
-            />
-            {screenSize.mobile && <SelectedFilters/>}
-          </>
-        )}
+                {screenSize.mobile && <SelectedFilters/>}
+              </>
+          )}
+        </div>
+        {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets}/>}
+        <div className="flex justify-center gap-x-[0.2rem]">
+          {searchCtx.filters.length > 0 ? (
+              <div className="ds-sdk-filter-button">
+                <button
+                    className="text-black border-black border-[1px] ring-black ring-opacity-5 text-sm rounded-md p-sm  font-['FuturaBT-Light']"
+                    onClick={() => searchCtx.clearFilters()}
+                >
+                  {translation.Filter.clearAll}
+                </button>
+              </div>
+          ) : ''}
+          {searchCtx.filters.length > 0 ? (
+              <ApplyFilterButton
+                  displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                  title={'Applica'}
+              />
+
+          ) : ''}
+        </div>
       </div>
-      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
-    </div>
   );
 };

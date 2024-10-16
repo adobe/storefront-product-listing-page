@@ -561,6 +561,10 @@ video {
     margin-top: 0px;
     margin-bottom: 0px;
   }
+  .my-\[1\.3rem\] {
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+  }
   .my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -899,6 +903,10 @@ video {
   .gap-x-5 {
     -moz-column-gap: 1.25rem;
          column-gap: 1.25rem;
+  }
+  .gap-x-\[0\.2rem\] {
+    -moz-column-gap: 0.2rem;
+         column-gap: 0.2rem;
   }
   .gap-x-md {
     -moz-column-gap: var(--spacing-md);
