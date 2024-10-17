@@ -3,7 +3,7 @@ import { FunctionComponent } from 'preact';
 import { useProducts, useTranslation } from '../../context';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
-import { toggleFilters } from "../SortDropdown";
+import { toggleFilters } from "../Facets/ToggleFilters";
 
 export type InputButtonGroupOnChangeProps = {
   value: string;
@@ -97,13 +97,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       ) : (
         (isHidden ? (
           <label
-            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
+            className="ds-sdk-input__label text-neutral-900 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
             onClick={(event) => toggleFilters(event)}>
             {title}
           </label>
         ) : (
           <label
-            className="ds-sdk-input__label text-neutral-900 font-headline-1 text-sm font-semibold py-md w-full h-full ib-display flex flex-row">{title}</label>
+            className="ds-sdk-input__label text-neutral-900 text-sm font-semibold py-md w-full h-full ib-display flex flex-row">{title}</label>
         ))
       )}
       <fieldset className={`ds-sdk-input__options mt-4 md:mt-0 ${isHidden ? 'none-display' : ''}`}>
@@ -125,18 +125,6 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
               />
             );
           })}
-          {attribute === 'price' && (
-            <LabelledInput
-              name={`range-radio-${attribute}`}
-              attribute={attribute}
-              label={'Range price'}
-              checked={false}
-              value={'125.0-555.0'}
-              count={null}
-              onChange={onChange}
-              type={type}
-            />
-          )}
         </div>
       </fieldset>
       <div className="ds-sdk-input__border border-t border-neutral-500"/>
