@@ -97,47 +97,47 @@ export const App: FunctionComponent = () => {
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
-                    !productsCtx.loading &&
-                    productsCtx.facets.length > 0 && (
-                      <div className="flex w-full h-full">
-                        <FilterButton
-                          displayFilter={() => setShowFilters(true)}
-                          type="desktop"
-                          title={`${translation.Filter.showTitle}${
-                            searchCtx.filterCount > 0
-                              ? ` (${searchCtx.filterCount})`
-                              : ''
-                          }`}
-                        />
-                        <ProductsHeader
-                            facets={productsCtx.facets}
-                            totalCount={productsCtx.totalCount}
-                            screenSize={screenSize}
-                        />
-                      </div>
-                    )}
+                      !productsCtx.loading &&
+                      productsCtx.facets.length > 0 && (
+                          <div className="flex w-full h-full">
+                            <FilterButton
+                                displayFilter={() => setShowFilters(true)}
+                                type="desktop"
+                                title={`${translation.Filter.showTitle}${
+                                    searchCtx.filterCount > 0
+                                        ? ` (${searchCtx.filterCount})`
+                                        : ''
+                                }`}
+                            />
+                            <ProductsHeader
+                                facets={productsCtx.facets}
+                                totalCount={productsCtx.totalCount}
+                                screenSize={screenSize}
+                            />
+                          </div>
+                      )}
                 </div>
-                {productsCtx.loading ? (
-                  screenSize.mobile ? (
-                    <Loading label={loadingLabel} />
-                  ) : (
-                    <Shimmer />
-                  )
-                ) : (
-                  <>
-                    <div className="flex w-full h-full">
-                      {screenSize.mobile ? (
+                <div className="flex w-full h-full">
+                  {screenSize.mobile ? (
                       <ProductsHeader
                           facets={productsCtx.facets}
                           totalCount={productsCtx.totalCount}
                           screenSize={screenSize}
-                      />):''
-                      }
-                    </div>
-                    <ProductsContainer
-                      showFilters={showFilters && productsCtx.facets.length > 0}
-                    />
-                  </>
+                      />) : ''
+                  }
+                </div>
+                {productsCtx.loading ? (
+                    screenSize.mobile ? (
+                        <Loading label={loadingLabel}/>
+                    ) : (
+                        <Shimmer/>
+                    )
+                ) : (
+                    <>
+                      <ProductsContainer
+                          showFilters={showFilters && productsCtx.facets.length > 0}
+                      />
+                    </>
                 )}
               </div>
             </div>

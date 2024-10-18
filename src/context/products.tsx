@@ -245,7 +245,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const searchProducts = async () => {
     try {
       setLoading(true);
-      moveToTop();
+      // moveToTop();
       if (checkMinQueryLength()) {
         const filters = [...variables.filter];
 
