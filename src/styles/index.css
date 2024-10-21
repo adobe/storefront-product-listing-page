@@ -614,6 +614,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     z-index: 900;
   }
 
+  .m-0 {
+    margin: 0;
+  }
+
   .m-4 {
     margin: 1rem;
   }
@@ -1534,6 +1538,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .py-2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+
+  .py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 
   .py-\[10px\] {

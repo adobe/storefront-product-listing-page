@@ -24,7 +24,7 @@ import { SelectedFilters } from './SelectedFilters';
 interface FacetsProps {
   searchFacets: FacetType[];
   totalCount?: number;
-  displayFilter: () => void;
+  displayFilter?: () => void;
 }
 
 export const scrollFilter = (
@@ -33,17 +33,17 @@ export const scrollFilter = (
 ) => {
   displayFunction?.();
 
-  const clicked = event.target;
+  const clicked = event.currentTarget;
   const filterNumber = Number(clicked.id.split('-')[1])
   const targetNode = document.querySelector('.mobile-filters-container');
   const config = {attributes: false, childList: true, subtree: true};
 
-  const wait = async (time) => {
+  const wait = async (time:number) => {
     return new Promise(resolve => {
       setTimeout(resolve, time);
     });
   }
-  const callback = async (mutationList) => {
+  const callback = async (mutationList:MutationRecord[]) => {
     for (const mutation of mutationList) {
       if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
         await wait(300);

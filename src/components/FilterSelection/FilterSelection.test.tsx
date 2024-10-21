@@ -4,8 +4,7 @@ import { FilterSelection, FilterSelectionProps } from './FilterSelection';
 
 const mockFilterSelectionProps: FilterSelectionProps = {
   title: 'Filter Title',
-  handleFilter: () => {},
-  selectedNumber: 5,
+  iteration: 1,
 };
 
 describe('WidgetSDK - FilterSelection', () => {
@@ -13,8 +12,7 @@ describe('WidgetSDK - FilterSelection', () => {
     const { container } = render(
       <FilterSelection
         title={mockFilterSelectionProps.title}
-        handleFilter={mockFilterSelectionProps.handleFilter}
-        selectedNumber={mockFilterSelectionProps.selectedNumber}
+        iteration={mockFilterSelectionProps.iteration}
       />
     );
 

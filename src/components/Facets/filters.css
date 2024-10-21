@@ -32,6 +32,14 @@
   content: '-';
 }
 
+.mobile-filters-container .range-input {
+  border: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+.mobile-filters-container .price-range-submit {
+  font-family: var(--ff-gt-america-expanded)
+}
+
 @media (min-width: 768px) {
   .grid-setting {
     flex: 1 0 100%;

@@ -32,6 +32,7 @@ export const RangeFacet: FunctionComponent<RangeFacetProps> = ({
       onChange={(e) => {
         onChange(e.value);
       }}
+      isHidden={false}
     />
   );
 };
