@@ -21,7 +21,7 @@ export const SelectedFilters: FunctionComponent = ({}) => {
   return (
     <div className={`inline-flex relative overflow-x-scroll w-full ${searchCtx.filters?.length > 0 ? 'scrollbar-search' : ''}`}>
       {searchCtx.filters?.length > 0 && (
-        <div className="ds-plp-facets__pills flex">
+        <div className="ds-plp-facets__pills flex gap-x-[0.25rem]">
           {searchCtx.filters.map((filter) => (
             <div key={filter.attribute} className="flex mb-[0.5rem]">
               {filter.in?.map((option) => (

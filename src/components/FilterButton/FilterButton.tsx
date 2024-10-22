@@ -43,7 +43,7 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
     return type == 'mobile' ? (
     <div className="ds-sdk-filter-button">
       <button
-        className={`flex items-center ${isFilterActive?'bg-black':'bg-[#904745]'} text-white ring-black ring-opacity-5 text-sm rounded-md p-sm h-[32px] font-['FuturaBT-Light']`}
+        className={`flex items-center ${isFilterActive?'bg-black':'bg-[#904745]'} text-white ring-black ring-opacity-5 text-sm rounded-md p-sm h-[32px] font-['FuturaBT-Light'] px-[0.75rem]`}
         onClick={() => handleClick()}
         ref={mobileFilterButtonRef}
       >

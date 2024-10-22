@@ -87,12 +87,12 @@ export const ProductsHeader: FunctionComponent<Props> = ({
       <div className="flex flex-col lg:max-w-full ml-auto w-full h-full">
         <div
             className={`flex gap-x-2.5 mb-[1px] ${
-                screenSize.mobile ? 'justify-between flex-wrap pb-[0.25rem]' : 'justify-between'
+                screenSize.mobile ? 'justify-between flex-wrap pb-[0.44rem]' : 'justify-between'
             }`}
         >
           {screenSize.mobile
               ? totalCount > 0 && (
-              <div className="pb-4">
+              <div className="pb-[0.8rem]">
                 <FilterButton
                     displayFilter={() => setShowMobileFacet(!showMobileFacet)}
                     type="mobile"
