@@ -117,11 +117,11 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
             />
             <label
               htmlFor={name}
-              className="ds-sdk-labelled-input__label block-display h-max-content text-[12px] leading-12 cursor-pointer"
+              className="ds-sdk-labelled-input__label block-display h-max-content text-[14px] leading-12 cursor-pointer"
             >
               {label}
               {count && (
-                <span className="text-[12px] ml-1 font-details-overline">
+                <span className="text-[14px] ml-1 font-details-overline">
                 {`(${count})`}
               </span>
               )}

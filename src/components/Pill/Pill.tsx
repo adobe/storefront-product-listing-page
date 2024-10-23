@@ -33,7 +33,7 @@ export const Pill: FunctionComponent<PillProps> = ({
   type,
 }) => {
   const typeStyles: { [key in NonNullable<PillProps['type']>]: string } = {
-    transparent: 'rounded-full px-4 py-1',
+    transparent: 'border border-neutral-450 px-4 py-1',
     filter: 'border border-neutral-450 px-2 py-1',
   };
 

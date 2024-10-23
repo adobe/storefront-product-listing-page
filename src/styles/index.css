@@ -769,6 +769,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     height: 4rem;
   }
 
+  .h-20 {
+    height: 5rem;
+  }
+
   .h-\[100\%\] {
     height: 100%;
   }
