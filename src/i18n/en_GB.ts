@@ -58,4 +58,10 @@ export const en_GB = {
   SearchBar: {
     placeholder: 'Search...',
   },
+  ShowMoreButton:{
+    title:"Show more",
+  },
+  ProductsCounter:{
+    title:"{current} of {total} products"
+  }
 };

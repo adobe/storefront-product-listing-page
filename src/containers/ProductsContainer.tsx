@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionalComponent, FunctionComponent } from 'preact';
-import { useEffect } from 'preact/hooks';
+import {MutableRef, useEffect, useRef} from 'preact/hooks';
 import { ProductCardShimmer } from 'src/components/ProductCardShimmer';
 import { useProducts, useSensor, useTranslation } from 'src/context';
 import { PageSizeOption } from 'src/types/interface';
@@ -114,42 +114,56 @@ export const ProductsContainer: FunctionComponent<Props> = ({
   }
 
   return (
-    <>
-      {loading ? (
+      <>
         <div
-          style={{
-            gridTemplateColumns: `repeat(${screenSize.columns}, minmax(0, 1fr))`,
-          }}
-          className="ds-sdk-product-list__grid mt-md grid grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
+            className={`flex flex-row justify-between max-w-full ${
+                showFilters ? 'mx-auto' : 'mr-auto'
+            } w-full h-full`}
         >
-          {' '}
-          {productCardArray.map((_, index) => (
-            <ProductCardShimmer key={index} />
-          ))}
+          {totalPages > 1 && (
+              <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
+                  isOnTop={true}
+              />
+          )}
         </div>
+      {loading ? (
+          <div
+              style={{
+                gridTemplateColumns: `repeat(${screenSize.columns}, minmax(0, 1fr))`,
+              }}
+              className="ds-sdk-product-list__grid mt-md grid grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
+          >
+            {' '}
+            {productCardArray.map((_, index) => (
+                <ProductCardShimmer key={index}/>
+            ))}
+          </div>
       ) : (
-        <ProductList
-          products={items}
-          numberOfColumns={screenSize.columns}
-          showFilters={showFilters}
-        />
+          <div className={`key-${currentPage}`}>
+            <ProductList
+                products={items}
+                numberOfColumns={screenSize.columns}
+                showFilters={showFilters}
+            />
+          </div>
       )}
-      <div
-        className={`flex flex-row justify-between max-w-full ${
-          showFilters ? 'mx-auto' : 'mr-auto'
-        } w-full h-full`}
-      >
-        <div>
-          {getPageSizeTranslation(pageSize, pageSizeOptions, PerPagePicker)}
+        <div
+            className={`flex flex-row justify-between max-w-full ${
+                showFilters ? 'mx-auto' : 'mr-auto'
+            } w-full h-full`}
+        >
+          {totalPages > 1 && (
+              <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
+                  isOnTop={false}
+              />
+          )}
         </div>
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={goToPage}
-          />
-        )}
-      </div>
-    </>
+      </>
   );
 };

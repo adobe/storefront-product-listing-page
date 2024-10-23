@@ -50,16 +50,14 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
     : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
-
   useEffect(() => {
     refreshCart && refreshCart();
   }, [itemAdded]);
-
   return (
     <div
       className={classNames(
         'ds-sdk-product-list bg-body pb-2xl sm:pb-24',
-        className
+        className + ' key-' + Math.floor(Math.random() * 11)
       )}
     >
       {cartUpdated && (

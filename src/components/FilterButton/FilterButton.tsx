@@ -53,7 +53,7 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   ) : (
     <div className="ds-sdk-filter-button-desktop w-[14rem]">
       <button
-        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 rounded-md p-sm text-sm font-['FuturaBT-Light']"
+        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 py-[0.45rem] rounded-md p-sm text-sm font-['FuturaBT-Light']"
         onClick={displayFilter}
       >
         {title?.toUpperCase()}

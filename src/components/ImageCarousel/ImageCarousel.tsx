@@ -63,7 +63,7 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
         >
           <div className="overflow-hidden relative max-w-[278px]">
             <div
-                className={`flex transition ease-out duration-40 ${!screenSize.mobile ? 'h-[341px]' : ''}`}
+                className={`flex transition ease-out duration-40 ${!screenSize.mobile ? 'image-wrapper-desktop' : ''}`}
               style={{
                 transform: `translateX(-${carouselIndex * 100}%)`,
               }}

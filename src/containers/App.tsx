@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import {MutableRef, useRef, useState} from 'preact/hooks';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
@@ -24,6 +24,7 @@ import {
 } from '../context';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
+import {Product} from "../types/interface";
 
 export const App: FunctionComponent = () => {
   const searchCtx = useSearch();
@@ -32,7 +33,11 @@ export const App: FunctionComponent = () => {
   const translation = useTranslation();
   const { displayMode } = useStore().config;
   const [showFilters, setShowFilters] = useState(false);
-
+  const prevProds:MutableRef<any[]>=useRef([]);
+  productsCtx.items= productsCtx.items.concat(prevProds.current);
+  productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
+      self.findIndex((o) => o.product.sku === obj.product.sku));
+  prevProds.current=productsCtx.items;
   const loadingLabel = translation.Loading.title;
 
   let title = productsCtx.categoryName || '';
@@ -41,6 +46,7 @@ export const App: FunctionComponent = () => {
     title = text.replace('{phrase}', `"${productsCtx.variables.phrase ?? ''}"`);
   }
   const getResults = (totalCount: number) => {
+    // prevProds.current=productsCtx.items;
     const resultsTranslation = translation.CategoryFilters.products;
     const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
     return results;

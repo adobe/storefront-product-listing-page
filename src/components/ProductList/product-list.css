@@ -89,3 +89,15 @@ body {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 /* @media only screen and (min-width: 1200px) { } */
+
+@media only screen and (min-width: 1730px) {
+    .image-wrapper-desktop {
+        height: 341px
+    }
+}
+
+@media only screen and (min-width: 961px) and (max-width: 1730px) {
+    .image-wrapper-desktop {
+        height: 18vw;
+    }
+}

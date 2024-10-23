@@ -61,4 +61,13 @@ export const it_IT = {
   GoButton:{
     text:"Vai"
   },
+  ShowMoreButton:{
+    title:"Mostra più prodotti"
+  },
+  PreviousButton:{
+    title:"Mostra i risultati precedenti"
+  },
+  ProductsCounter:{
+    title:"Hai visualizzato {current} di {total} prodotti"
+  }
 };

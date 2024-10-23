@@ -71,4 +71,13 @@ export const en_US = {
   GoButton:{
     text:"Go"
   },
+  ShowMoreButton:{
+    title:"Show more",
+  },
+  PreviousButton:{
+    title:"Show previous page",
+  },
+  ProductsCounter:{
+    title:"{current} of {total} products"
+  }
 };

@@ -10,27 +10,27 @@ it.
 import { FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 
-import { useProducts } from '../../context';
+import { useProducts,useTranslation} from '../../context';
 import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
 import Chevron from '../../icons/chevron.svg';
-
 interface PaginationProps {
   onPageChange: (page: number | string) => void;
   totalPages: number;
   currentPage: number;
+  isOnTop:boolean;
 }
 
 export const Pagination: FunctionComponent<PaginationProps> = ({
   onPageChange,
   totalPages,
-  currentPage,
+  currentPage, isOnTop
 }) => {
   const productsCtx = useProducts();
   const paginationRange = usePagination({
     currentPage,
     totalPages,
   });
-
+  const translation = useTranslation();
   useEffect(() => {
     const { currentPage, totalPages } = productsCtx;
     if (currentPage > totalPages) {
@@ -50,55 +50,29 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
       onPageChange(currentPage + 1);
     }
   };
+  const paginationTranslation = translation.ProductsCounter.title.replace('{current}', `${productsCtx.items.length}`);
+  const counterTranslation=paginationTranslation.replace('{total}', `${productsCtx.totalCount}`);
 
-  return (
-    <ul className="ds-plp-pagination flex justify-center items-center mt-2 mb-6 list-none">
-      <Chevron
-        className={`h-sm w-sm transform rotate-90 ${
-          currentPage === 1
-            ? 'stroke-gray-400 cursor-not-allowed'
-            : 'stroke-gray-600 cursor-pointer'
-        }`}
-        onClick={onPrevious}
-      />
+  return (<div className="block w-full">
+    {isOnTop && currentPage > 1 && (
+        <div>
+          <div className='text-center'>{counterTranslation}</div>
+          <button
+              className='p-[0.63rem] w-full border-[solid] border-[1px] border-black bg-black text-white uppercase avenir_medium hover:border-[#f55d66] hover:bg-[#e3787d]'
+              onClick={onPrevious}>{translation.PreviousButton.title}</button>
+        </div>
+    )}
 
-      {paginationRange?.map((page: number | string) => {
-        if (page === ELLIPSIS) {
-          return (
-            <li
-              key={page}
-              className="ds-plp-pagination__dots text-gray-500 mx-sm my-auto"
-            >
-              ...
-            </li>
-          );
-        }
 
-        return (
-          <li
-            key={page}
-            className={`ds-plp-pagination__item flex items-center cursor-pointer text-center text-gray-500 my-auto mx-sm ${
-              currentPage === page
-                ? 'ds-plp-pagination__item--current text-black font-medium underline underline-offset-4 decoration-black'
-                : ''
-            }`}
-            onClick={() => onPageChange(page)}
-          >
-            {page}
-          </li>
-        );
-      })}
-
-      <Chevron
-        className={`h-sm w-sm transform -rotate-90 ${
-          currentPage === totalPages
-            ? 'stroke-gray-400 cursor-not-allowed'
-            : 'stroke-gray-600 cursor-pointer'
-        }`}
-        onClick={onNext}
-      />
-    </ul>
-  );
+    {!isOnTop && (
+        <div>
+          <div className='text-center'>{counterTranslation}</div>
+          <button
+              className='p-[0.63rem] w-full border-[solid] border-[1px] border-black bg-black text-white uppercase avenir_medium hover:border-[#f55d66] hover:bg-[#e3787d]'
+              onClick={onNext}>{translation.ShowMoreButton.title}</button>
+        </div>
+    )}
+  </div>);
 };
 
 export default Pagination;

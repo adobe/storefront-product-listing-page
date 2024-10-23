@@ -86,7 +86,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
         class={`ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md z-9 ${!isMobile ? 'max-h-[2rem]' : 'h-[32px]'}`}
       >
         <button
-          className={`group flex justify-center items-center font-normal text-sm text-white font-['FuturaBT-Light'] ${isDropdownOpen ? 'rounded-t-md' : 'rounded-md'} hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-full w-full pr-[1.8rem] pl-[2rem] ${!isMobile ? 'py-sm whitespace-nowrap' : 'py-0'}`}
+          className={`group flex justify-center items-center font-normal text-sm text-white font-['FuturaBT-Light'] ${isDropdownOpen ? 'rounded-t-md' : 'rounded-md'} hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-auto w-full pr-[1.8rem] pl-[2rem] ${!isMobile ? 'py-[0.45rem] whitespace-nowrap' : 'py-[0.45rem]'}`}
           ref={sortOptionButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
