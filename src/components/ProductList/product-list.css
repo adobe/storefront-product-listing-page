@@ -1,6 +1,6 @@
 /* https://cssguidelin.es/#bem-like-naming */
 .ds-sdk-product-list .franchises h2 {
-  font-size: var(--heading-font-size-xxxs);
+  font-size: var(--heading-font-size-xs);
   font-family: var(--ff-gt-america-expanded-bold);
   margin-bottom: 10px;
 }
@@ -22,23 +22,22 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 30px;
+  margin: 32px 12px 24px;
 }
 
 .ds-sdk-product-list .franchises .franchise-header a {
+  font-size: var(--body-font-size-mobile-m);
   text-decoration: underline;
 }
 
 @media only screen and (min-width: 1025px) {
   .ds-sdk-product-list .franchises h2 {
-    font-size: var(--heading-font-size-l);
+    font-size: var(--heading-font-size-m);
     margin-bottom: 0;
   }
 
   .ds-sdk-product-list .franchises .franchise-header {
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 50px;
+    margin: 16px 12px 24px;
   }
 }
 
