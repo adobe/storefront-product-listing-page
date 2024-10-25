@@ -14,7 +14,7 @@ import {useEffect, useState} from 'preact/hooks';
 import './product-list.css';
 
 import {Alert} from '../../components/Alert';
-import {useProducts, useSearch, useStore} from '../../context';
+import {useProducts, useSearch, useStore, useSensor} from '../../context';
 import {Product} from '../../types/interface';
 import {classNames} from '../../utils/dom';
 import ProductItem, {ProductProps} from '../ProductItem';
@@ -48,6 +48,8 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
   const storeCtx = useStore();
 
   const totalProductsCount = franchises[franchise]?.count;
+  const { screenSize } = useSensor();
+  const styleColumnNumber = screenSize.mobile ? numberOfColumns/2 : numberOfColumns;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +85,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
         }) ?? franchises[franchise].title}>View all {totalProductsCount} results</a>
       </div>
       <div style={{
-        gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
+        gridTemplateColumns: `repeat(${styleColumnNumber}, minmax(0, 1fr))`,
       }}
            className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm xl:gap-x-6">
         {franchises[franchise].items.slice(0, numberOfColumns * page).map((item: Product) => (
@@ -104,7 +106,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
         ))}
       </div>
       {page * numberOfColumns < totalProductsCount &&
-        <button onClick={() => setPage((p) => p + NEXT_NUMBER_OF_ROWS)} className="button secondary load-more">Load More</button>
+        <button onClick={() => setPage((p) => p + NEXT_NUMBER_OF_ROWS)} className="button primary load-more">Load More</button>
       }
 
     </div>
@@ -149,6 +151,9 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const className = showFilters
     ? 'ds-sdk-product-list bg-body w-full max-w-full pb-2xl sm:pb-24'
     : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
+
+  const { screenSize } = useSensor();
+  const styleColumnNumber = screenSize.mobile ? numberOfColumns/2 : numberOfColumns;
 
   useEffect(() => {
     refreshCart && refreshCart();
@@ -229,7 +234,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
       ) : (
         <div
           style={{
-            gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
+            gridTemplateColumns: `repeat(${styleColumnNumber}, minmax(0, 1fr))`,
           }}
           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm md:gap-x-9 md:gap-y-9"
         >

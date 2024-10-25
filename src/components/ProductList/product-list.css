@@ -2,7 +2,7 @@
 .ds-sdk-product-list .franchises h2 {
   font-size: var(--heading-font-size-xs);
   font-family: var(--ff-gt-america-expanded-bold);
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 .ds-sdk-product-list .franchises {
@@ -28,6 +28,7 @@
 .ds-sdk-product-list .franchises .franchise-header a {
   font-size: var(--body-font-size-mobile-m);
   text-decoration: underline;
+  text-transform: capitalize;
 }
 
 @media only screen and (min-width: 1025px) {
