@@ -614,6 +614,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     z-index: 900;
   }
 
+  .z-1000 {
+    z-index: 1000;
+  }
+
   .m-0 {
     margin: 0;
   }

@@ -79,7 +79,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
 }: FacetsProps) => {
   const {config} = useStore();
   const translation = useTranslation();
-  const searchFacetsSliced = searchFacets?.slice(0, 4)
+  const searchFacetsSliced = searchFacets?.slice(0, 3)
   const [selectedFacet] = useState<FacetType | null>(null);
   const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;
 
