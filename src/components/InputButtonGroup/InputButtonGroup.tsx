@@ -130,7 +130,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
             <LabelledInput
               name={`range-radio-${attribute}`}
               attribute={attribute}
-              label={'Range price'}
+              label={'Go'}
               checked={false}
               value={fullPriceRange}
               count={null}
