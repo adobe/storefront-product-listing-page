@@ -164,20 +164,20 @@ export const ProductPriceRange: FunctionComponent<ProductPriceRangeProps> = ({
 
           {isBundle && (
             <div className="ds-sdk-product-price--bundle">
-              <p className="text-sm font-medium text-gray-900 my-auto text-center">
+              <p className="text-[0.875rem] font-medium text-gray-900 my-auto text-center">
                   {getDiscountedPrice()}
               </p>
             </div>
           )}
 
           {isGrouped && (
-            <p className="ds-sdk-product-price--grouped text-sm font-medium text-gray-900 my-auto text-center">
+            <p className="ds-sdk-product-price--grouped text-[0.875rem] font-medium text-gray-900 my-auto text-center">
                 {getDiscountedPrice()}
             </p>
           )}
 
           {isGiftCard && (
-            <p className="ds-sdk-product-price--gift-card text-sm font-medium text-gray-900 my-auto">
+            <p className="ds-sdk-product-price--gift-card text-[0.875rem] font-medium text-gray-900 my-auto">
               {getPriceFormat(item, currencySymbol, currencyRate, true)}
             </p>
           )}
@@ -185,7 +185,7 @@ export const ProductPriceRange: FunctionComponent<ProductPriceRangeProps> = ({
           {!isGrouped &&
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
-              <p className="ds-sdk-product-price--configurable text-sm font-medium text-gray-900 my-auto text-center">
+              <p className="ds-sdk-product-price--configurable text-[0.875rem] font-medium text-gray-900 my-auto text-center">
                 {getDiscountedPrice()}
               </p>
             )}

@@ -27,7 +27,7 @@ export const Shimmer: FunctionComponent = () => {
           <div className="ds-widgets_actions_header flex justify-between items-center mb-md" />
           <div className="flex pb-4 w-full h-full">
             <div className="ds-sdk-filter-button-desktop">
-              <button className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-sm h-[32px]">
+              <button className="flex items-center bg-gray-100 ring-black ring-opacity-5 rounded-md p-sm text-[0.875rem] h-[32px]">
                 <ButtonShimmer />
               </button>
             </div>
@@ -47,7 +47,7 @@ export const Shimmer: FunctionComponent = () => {
             </div>
           </div>
           <div
-            className="ds-sdk-product-list__grid mt-md grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
+            className="ds-sdk-product-list__grid mt-[1.25rem] grid-cols-1 gap-y-8 gap-x-md sm:grid-cols-2 md:grid-cols-3 xl:gap-x-4 pl-8"
             style={{
               display: 'grid',
               gridTemplateColumns: ` repeat(${numberOfColumns}, minmax(0, 1fr))`,

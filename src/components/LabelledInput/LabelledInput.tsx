@@ -45,7 +45,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
         }
         type={type}
         className={screenSize.mobile?"ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[2rem]":
-            "ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[10px]"}
+            "ds-sdk-labelled-input__input focus:ring-0 h-md w-md text-[0.75rem] border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[10px]"}
         checked={checked}
         aria-checked={checked}
         onInput={onChange}
@@ -53,7 +53,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
       />
       <label
         htmlFor={name}
-        className="ds-sdk-labelled-input__label ml-sm block-display text-base text-[#171513] font-['FuturaBT-Light'] cursor-pointer"
+        className="ds-sdk-labelled-input__label ml-sm mb-0 block-display text-[1rem] text-[#171513] font-['FuturaBT-Light'] cursor-pointer"
       >
         {label}
         {count && (

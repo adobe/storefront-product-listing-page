@@ -56,9 +56,9 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   return (<div className="block w-full">
     {isOnTop && currentPage > 1 && (
         <div>
-          <div className='text-center'>{counterTranslation}</div>
+          <div className='text-center text-[1rem]'>{counterTranslation}</div>
           <button
-              className='p-[0.63rem] w-full border-[solid] border-[1px] border-black bg-black text-white uppercase avenir_medium hover:border-[#f55d66] hover:bg-[#e3787d]'
+              className="p-[0.63rem] w-full text-[1rem] border-[solid] border-[1px] border-black bg-black text-white uppercase font-['AvenirNextCyr-Medium'] hover:border-[#f55d66] hover:bg-[#e3787d]"
               onClick={onPrevious}>{translation.PreviousButton.title}</button>
         </div>
     )}
@@ -66,9 +66,9 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
 
     {!isOnTop && (
         <div>
-          <div className='text-center'>{counterTranslation}</div>
+          <div className='text-center text-[1rem]'>{counterTranslation}</div>
           <button
-              className='p-[0.63rem] w-full border-[solid] border-[1px] border-black bg-black text-white uppercase avenir_medium hover:border-[#f55d66] hover:bg-[#e3787d]'
+              className='p-[0.63rem] w-full text-[1rem] border-[solid] border-[1px] border-black bg-black text-white uppercase avenir_medium hover:border-[#f55d66] hover:bg-[#e3787d]'
               onClick={onNext}>{translation.ShowMoreButton.title}</button>
         </div>
     )}

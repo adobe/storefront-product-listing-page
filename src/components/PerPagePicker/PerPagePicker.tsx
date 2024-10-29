@@ -76,7 +76,7 @@ export const PerPagePicker: FunctionalComponent<PerPagePickerProps> = ({
         className="ds-sdk-per-page-picker ml-2 mr-2 relative inline-block text-left bg-gray-100 rounded-md outline outline-1 outline-gray-200 hover:outline-gray-600 h-[32px]"
       >
         <button
-          className="group flex justify-center items-center font-normal text-sm text-gray-700 rounded-md hover:cursor-pointer border-none bg-transparent hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
+          className="group flex justify-center items-center font-normal text-[0.875rem] text-gray-700 rounded-md hover:cursor-pointer border-none bg-transparent hover:border-none hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none h-full w-full px-sm"
           ref={pageSizeButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
@@ -104,7 +104,7 @@ export const PerPagePicker: FunctionalComponent<PerPagePickerProps> = ({
                 }}`}
               >
                 <a
-                  className={`ds-sdk-per-page-picker__items--item block-display px-md py-sm text-sm mb-0
+                  className={`ds-sdk-per-page-picker__items--item block-display px-md py-sm text-[0.875rem] mb-0
               no-underline active:no-underline focus:no-underline hover:no-underline
               hover:text-gray-900 ${
                 option.value === selectedOption?.value

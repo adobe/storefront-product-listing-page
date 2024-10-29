@@ -92,7 +92,7 @@ export const App: FunctionComponent = () => {
                     <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
                       {title && <span> {title}</span>}
                       {!productsCtx.loading && (
-                        <span className="text-primary text-sm">
+                        <span className="text-primary text-[0.875rem]">
                           {getResults(productsCtx.totalCount)}
                         </span>
                       )}

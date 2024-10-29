@@ -49,7 +49,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
     <div class="sm:flex ds-widgets-_actions relative max-w-[21rem] w-full h-full px-2 flex-col overflow-y-auto">
       <div className="ds-widgets_actions_header flex justify-between items-center mb-md hidden">
         {title && <span> {title}</span>}
-        {!loading && <span className="text-primary text-sm">{results}</span>}
+        {!loading && <span className="text-primary text-[0.875rem]">{results}</span>}
       </div>
 
       {!pageLoading && facets.length > 0 && (

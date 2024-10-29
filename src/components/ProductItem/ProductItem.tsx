@@ -186,10 +186,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 onClick={onProductClick}
                 className="!text-primary hover:no-underline hover:text-primary"
               >
-                <div className="ds-sdk-product-item__product-name mt-xs text-sm text-primary">
+                <div className="ds-sdk-product-item__product-name mt-xs text-[0.875rem] text-primary">
                   {product.name !== null && htmlStringDecode(product.name)}
                 </div>
-                <div className="ds-sdk-product-item__product-sku mt-xs text-sm text-primary">
+                <div className="ds-sdk-product-item__product-sku mt-xs text-[0.875rem] text-primary">
                   SKU:
                   {product.sku !== null && htmlStringDecode(product.sku)}
                 </div>
@@ -215,7 +215,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </a>
           </div>
-          <div className="product-description text-sm text-primary mt-xs">
+          <div className="product-description text-[0.875rem] text-primary mt-xs">
             <a
               href={productUrl as string}
               onClick={onProductClick}
@@ -302,7 +302,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
-              <div className="ds-sdk-wishlist ml-auto mt-md">
+              <div className="ds-sdk-wishlist ml-auto mt-[1.25rem]">
                 <WishlistButton
                   productSku={item.product.sku}
                   type={widgetConfig.addToWishlist.placement}

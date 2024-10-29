@@ -116,11 +116,11 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-base font-normal text-gray-900 font-['FuturaBT-Light']">
+        <label className="ds-sdk-input__label text-[1rem] font-normal text-gray-900 font-['FuturaBT-Light']">
           {title}
         </label>
       )}
-      <fieldset className="ds-sdk-input__options mt-md">
+      <fieldset className="ds-sdk-input__options mt-[1.25rem]">
         <div className="space-y-2">
           {buckets.slice(0, numberOfOptions).map((option) => {
             if (!option.title) {
@@ -152,7 +152,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
               <PlusIcon className="h-[1.2rem] w-[1.2rem] fill-[#904745]" />
               <button
                 type="button"
-                className="ml-sm text-[#904745] font-light cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-sm"
+                className="ml-sm text-[#904745] font-light cursor-pointer border-none bg-transparent hover:border-none	hover:bg-transparent focus:border-none focus:bg-transparent active:border-none active:bg-transparent active:shadow-none text-[0.875rem]"
               >
                 {translation.InputButtonGroup.showmore}
               </button>

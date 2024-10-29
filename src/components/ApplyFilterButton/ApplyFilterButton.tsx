@@ -23,7 +23,7 @@ export const ApplyFilterButton: FunctionComponent<ApplyFilterButtonProps> = ({
     return (
         <div className="ds-sdk-filter-button">
             <button
-                className="bg-black text-white ring-black ring-opacity-5 text-sm rounded-[0.7rem] w-[9.45rem] h-[2.6rem] font-['FuturaBT-Light']"
+                className="bg-black text-white ring-black ring-opacity-5 text-[0.875rem] rounded-[0.7rem] w-[9.45rem] h-[2.6rem] font-['FuturaBT-Light']"
                 onClick={displayFilter}
             >
                 {title}

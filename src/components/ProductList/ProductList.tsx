@@ -83,7 +83,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
 
       {listview && viewType === 'listview' ? (
         <div className="w-full">
-          <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
+          <div className="ds-sdk-product-list__list-view-default mt-[1.25rem] grid grid-cols-none pt-[15px] w-full gap-[10px]">
             {products?.map((product) => (
               <ProductItem
                 item={product}
@@ -105,7 +105,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           style={{
             gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
           }}
-          className="ds-sdk-product-list__grid mt-md grid gap-y-5 gap-x-5"
+          className="ds-sdk-product-list__grid mt-[1.25rem] grid gap-y-5 gap-x-5"
         >
           {products?.map((product) => (
             <ProductItem

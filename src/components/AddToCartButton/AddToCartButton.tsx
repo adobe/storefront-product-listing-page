@@ -20,7 +20,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   return (
     <div className="ds-sdk-add-to-cart-button">
       <button
-        className="flex items-center justify-center text-white text-sm rounded-full h-[32px] w-full p-sm"
+        className="flex items-center justify-center text-white text-[0.875rem] rounded-full h-[32px] w-full p-sm"
         style={{
           'background-color': `#464646`,
         }}

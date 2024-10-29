@@ -626,8 +626,8 @@ video {
   .mt-\[-2px\] {
     margin-top: -2px;
   }
-  .mt-md {
-    margin-top: var(--spacing-md);
+  .mt-\[1\.25rem\] {
+    margin-top: 1.25rem;
   }
   .mt-xs {
     margin-top: var(--spacing-xs);
@@ -1230,6 +1230,9 @@ video {
   .text-center {
     text-align: center;
   }
+  .font-\[\'AvenirNextCyr-Medium\'\] {
+    font-family: 'AvenirNextCyr-Medium';
+  }
   .font-\[\'FuturaBT-Light\'\] {
     font-family: 'FuturaBT-Light';
   }
@@ -1243,6 +1246,12 @@ video {
     font-size: var(--font-2xl);
     line-height: var(--leading-loose);
   }
+  .text-\[0\.75rem\] {
+    font-size: 0.75rem;
+  }
+  .text-\[0\.875rem\] {
+    font-size: 0.875rem;
+  }
   .text-\[0\.88rem\] {
     font-size: 0.88rem;
   }
@@ -1252,17 +1261,12 @@ video {
   .text-\[12px\] {
     font-size: 12px;
   }
-  .text-base {
-    font-size: var(--font-md);
-    line-height: var(--leading-snug);
+  .text-\[1rem\] {
+    font-size: 1rem;
   }
   .text-lg {
     font-size: var(--font-lg);
     line-height: var(--leading-normal);
-  }
-  .text-sm {
-    font-size: var(--font-sm);
-    line-height: var(--leading-tight);
   }
   .text-xs {
     font-size: var(--font-xs);
@@ -1531,7 +1535,7 @@ video {
 }
 
 .ds-widgets input[type='checkbox'] {
-  font-size: 80%;
+  font-size: 1rem;
   margin: 0;
   top: 0;
 }

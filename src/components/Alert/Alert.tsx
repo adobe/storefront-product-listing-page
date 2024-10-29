@@ -46,11 +46,11 @@ export const Alert: FunctionComponent<AlertProps> = ({
                     />
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">
+                    <h3 className="text-[0.875rem] font-medium text-red-800">
                       {title}
                     </h3>
                     {description.length > 0 && (
-                      <div className="mt-2 text-sm text-red-700">
+                      <div className="mt-2 text-[0.875rem] text-red-700">
                         <p>{description}</p>
                       </div>
                     )}
@@ -69,11 +69,11 @@ export const Alert: FunctionComponent<AlertProps> = ({
                     />
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-yellow-800">
+                    <h3 className="text-[0.875rem] font-medium text-yellow-800">
                       {title}
                     </h3>
                     {description.length > 0 && (
-                      <div className="mt-2 text-sm text-yellow-700">
+                      <div className="mt-2 text-[0.875rem] text-yellow-700">
                         <p>{description}</p>
                       </div>
                     )}
@@ -93,16 +93,16 @@ export const Alert: FunctionComponent<AlertProps> = ({
                   </div>
                   <div className="ml-3 flex-1 md:flex md:justify-between">
                     <div>
-                      <h3 className="text-sm font-medium text-blue-800">
+                      <h3 className="text-[0.875rem] font-medium text-blue-800">
                         {title}
                       </h3>
                       {description.length > 0 && (
-                        <div className="mt-2 text-sm text-blue-700">
+                        <div className="mt-2 text-[0.875rem] text-blue-700">
                           <p>{description}</p>
                         </div>
                       )}
                     </div>
-                    <div className="mt-4 text-sm md:ml-6">
+                    <div className="mt-4 text-[0.875rem] md:ml-6">
                       <a
                         href={url}
                         className="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600"
@@ -126,11 +126,11 @@ export const Alert: FunctionComponent<AlertProps> = ({
                     />
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-green-800">
+                    <h3 className="text-[0.875rem] font-medium text-green-800">
                       {title}
                     </h3>
                     {description.length > 0 && (
-                      <div className="mt-2 text-sm text-green-700">
+                      <div className="mt-2 text-[0.875rem] text-green-700">
                         <p>{description}</p>
                       </div>
                     )}

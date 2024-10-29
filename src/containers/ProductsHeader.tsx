@@ -131,7 +131,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
             <div className="flex justify-center gap-x-[0.2rem]">
               <div className="ds-sdk-filter-button">
                 <button
-                    className="text-black border-black border-[1px] ring-black ring-opacity-5 text-sm rounded-[0.7rem] w-[9.45rem] h-[2.6rem] font-['FuturaBT-Light']"
+                    className="text-black border-black border-[1px] ring-black ring-opacity-5 text-[0.875rem] rounded-[0.7rem] w-[9.45rem] h-[2.6rem] font-['FuturaBT-Light']"
                     onClick={() => searchCtx.clearFilters()}
                 >
                   {translation.Filter.clearAll+'(' + searchCtx.filterCount + ')'}

@@ -26,7 +26,7 @@ export const ViewSwitcher: FunctionComponent = () => {
       <button
         className={`flex items-center ${
           viewType === 'gridview' ? 'bg-gray-100' : ''
-        } ring-black ring-opacity-5  p-sm text-sm h-[32px] border border-gray-300`}
+        } ring-black ring-opacity-5  p-sm text-[0.875rem] h-[32px] border border-gray-300`}
         onClick={() => handleClick('gridview')}
       >
         <GridView className="h-[20px] w-[20px]" />
@@ -34,7 +34,7 @@ export const ViewSwitcher: FunctionComponent = () => {
       <button
         className={`flex items-center ${
           viewType === 'listview' ? 'bg-gray-100' : ''
-        } ring-black ring-opacity-5 p-sm text-sm h-[32px] border border-gray-300`}
+        } ring-black ring-opacity-5 p-sm text-[0.875rem] h-[32px] border border-gray-300`}
         onClick={() => handleClick('listview')}
       >
         <ListView className="h-[20px] w-[20px]" />

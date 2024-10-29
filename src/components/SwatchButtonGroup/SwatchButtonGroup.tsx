@@ -42,7 +42,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
             return (
               swatch &&
               swatch.type == 'COLOR_HEX' && (
-                <div className="ds-sdk-product-item__product-swatch-item mr-2 text-sm text-primary">
+                <div className="ds-sdk-product-item__product-swatch-item mr-2 text-[0.875rem] text-primary">
                   <SwatchButton
                     id={swatch.id}
                     value={swatch.value}
@@ -55,7 +55,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
             );
           })}
           <a href={productUrl as string} className="hover:no-underline">
-            <div className="ds-sdk-product-item__product-swatch-item text-sm text-primary">
+            <div className="ds-sdk-product-item__product-swatch-item text-[0.875rem] text-primary">
               <SwatchButton
                 id={'show-more'}
                 value={`+${swatches.length - numberOfOptions}`}
@@ -72,7 +72,7 @@ export const SwatchButtonGroup: FunctionComponent<SwatchButtonGroupProps> = ({
           return (
             swatch &&
             swatch.type == 'COLOR_HEX' && (
-              <div className="ds-sdk-product-item__product-swatch-item text-sm text-primary">
+              <div className="ds-sdk-product-item__product-swatch-item text-[0.875rem] text-primary">
                 <SwatchButton
                   id={swatch.id}
                   value={swatch.value}
