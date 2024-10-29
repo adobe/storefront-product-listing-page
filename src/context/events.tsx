@@ -126,8 +126,7 @@ const createProducts = (
     rank: index,
     ratingCount: item?.productView?.attributes.find((attr) => attr.name === 'bv_rating_count')?.value ?? '0',
     ratingAverage: item?.productView?.attributes.find((attr) => attr.name === 'bv_rating_average')?.value ?? '0',
-    articleNumber: item?.productView?.attributes.find((attr) => attr.name === 'pim_article_code')?.value || '',
-    modelNumber: item?.productView?.attributes.find((attr) => attr.name === 'pim_model_code')?.value || '',
+    optionID: item?.productView?.options?.[0]?.values?.[0]?.id,
     season: item?.productView?.attributes.find((attr) => attr.name === 'pim_season_dev')?.value || '',
   }));
 
