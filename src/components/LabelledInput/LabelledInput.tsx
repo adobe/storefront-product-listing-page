@@ -61,7 +61,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
 
   return (
     type === 'link' || attribute === 'categories' ? (
-      <div className="ds-sdk-labelled-input flex gap-4 text-[12px] leading-12 items-center">
+      <div className="ds-sdk-labelled-input flex gap-4 text-[14px] leading-12 items-center">
         <a href={href}
            onClick={(e) => {
              if (type === 'link') {
