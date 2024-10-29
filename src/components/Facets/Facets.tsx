@@ -28,12 +28,15 @@ interface FacetsProps {
 }
 
 export const scrollFilter = (
-  event: Omit<MouseEvent, "currentTarget"> & { readonly currentTarget: HTMLDivElement },
-  displayFunction: (() => void) | undefined
+  event: any,
+  displayFunction: (() => void) | undefined,
+  click?: boolean
 ) => {
   displayFunction?.();
-
-  const clicked = event.currentTarget;
+  console.log(event.target)
+  console.log(event.currentTarget)
+  console.log(click)
+  const clicked = event.target;
   const filterNumber = Number(clicked.id.split('-')[1])
   const targetNode = document.querySelector('.mobile-filters-container');
   const config = {attributes: false, childList: true, subtree: true};
@@ -48,18 +51,27 @@ export const scrollFilter = (
       if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
         await wait(300);
         const filterInput = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input');
-        const filterToShow = filterInput[filterNumber];
+        const filterToShow = filterInput[filterNumber] || null;
         const filterToHide = document.querySelectorAll('.mobile-filters-container form .ds-sdk-input fieldset:not(.none-display)');
 
-        filterToHide?.forEach(element => {
-          element.closest('.ds-sdk-input')?.classList.remove('active')
-          element.classList.add('none-display')
-          element.nextElementSibling?.classList.remove('mt-md')
-        })
+        if (filterToShow !== null) {
+          filterToHide?.forEach(element => {
+            element.closest('.ds-sdk-input')?.contains(clicked.querySelector('input'))
+            element.closest('.ds-sdk-input')?.classList.remove('active')
+            element.classList.add('none-display')
+            element.nextElementSibling?.classList.remove('mt-md')
+          })
 
-        filterToShow.classList.add('active');
-        filterToShow.querySelector('fieldset')?.classList.remove('none-display');
-        filterToShow.querySelector('.ds-sdk-input__border')?.classList.add('mt-md');
+          if ("classList" in filterToShow) {
+            filterToShow.classList.add('active');
+          }
+
+          if ("querySelector" in filterToShow) {
+            filterToShow.querySelector('fieldset')?.classList.remove('none-display');
+            filterToShow.querySelector('.ds-sdk-input__border')?.classList.add('mt-md');
+          }
+        }
+        observer.disconnect()
         break;
       }
     }
@@ -69,7 +81,7 @@ export const scrollFilter = (
 
   if (targetNode) {
     observer.observe(targetNode, config);
-    }
+  }
 }
 
 export const Facets: FunctionComponent<FacetsProps> = ({

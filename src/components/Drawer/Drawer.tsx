@@ -32,7 +32,7 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
     onClose();
   }
 
-  const greyFilterClose = (event) => {
+  const greyFilterClose = (event:any) => {
     const target = event.target
 
     if (target.classList.contains('mainBgContainer')) {

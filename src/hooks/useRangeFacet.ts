@@ -25,9 +25,6 @@ const useRangeFacet = ({attribute, buckets}: PriceFacet) => {
       })
   );
 
-  console.log(buckets)
-  console.log(processedBuckets)
-
   const searchCtx = useSearch();
 
   const filter = searchCtx?.filters?.find(
