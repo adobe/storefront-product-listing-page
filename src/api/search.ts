@@ -113,8 +113,6 @@ const getFranchiseSearch = async ({
     ${ProductView}
     ${FranchiseQueryFragment}
   `;
-  console.log('franchisequery');
-  console.log(query);
   const variables = {
     pageSize,
     currentPage,
