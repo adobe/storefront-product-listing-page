@@ -27,10 +27,24 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
     }
   }, [isOpen]);
 
+  const onClearFilter = () => {
+    searchCtx.clearFilters();
+    onClose();
+  }
+
+  const greyFilterClose = (event:any) => {
+    const target = event.target
+
+    if (target.classList.contains('mainBgContainer')) {
+      onClose()
+    }
+  }
+
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex bg-black bg-opacity-50 mainBgContainer"
+          onClick={greyFilterClose}>
           <div
             className="relative mt-auto w-full bg-white h-[80%] md:h-full shadow-lg overflow-auto animate-slideUp pb-20 md:animate-slideRight md:max-w-[500px]">
             <div className="p-12">{children}</div>
@@ -38,11 +52,11 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
           <div
             class="apply-buttons absolute left-0 right-0 bottom-0 flex p-4 gap-4 md:animate-slideRight md:max-w-[485px] ">
             <button
-              class="apply-buttons_button border border-solid border-black content-center h-16 flex-1 bg-white text-black capitalize"
-              onClick={() => searchCtx.clearFilters()}>clear filters
+              class="apply-buttons_button border border-solid border-black content-center h-20 flex-1 bg-white text-black capitalize"
+              onClick={onClearFilter}>clear filters
             </button>
             <button
-              class="apply-buttons_button border border-solid border-black content-center h-16 flex-1 bg-black text-white capitalize"
+              class="apply-buttons_button border border-solid border-black content-center h-20 flex-1 bg-black text-white capitalize"
               onClick={onClose}>view {totalCount} results
             </button>
           </div>

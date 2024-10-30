@@ -16,7 +16,7 @@ interface CategoryFiltersProps {
   pageLoading: boolean;
   totalCount: number;
   facets: Facet[];
-  displayFilter: () => void;
+  displayFilter?: () => void;
 }
 
 export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({

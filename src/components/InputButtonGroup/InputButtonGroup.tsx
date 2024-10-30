@@ -2,8 +2,8 @@ import { FunctionComponent } from 'preact';
 
 import { useProducts, useTranslation } from '../../context';
 import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
-import { LabelledInput } from '../LabelledInput';
 import { toggleFilters } from "../Facets/ToggleFilters";
+import { LabelledInput } from '../LabelledInput';
 
 export type InputButtonGroupOnChangeProps = {
   value: string;
@@ -47,6 +47,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
 }) => {
   const translation = useTranslation();
   const productsCtx = useProducts();
+  const fullPriceRange = '0-*';
 
   const formatLabel = (title: string, bucket: Bucket) => {
     const {
@@ -125,6 +126,19 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
               />
             );
           })}
+          {attribute === 'price' && (
+            <LabelledInput
+              name={`range-radio-${attribute}`}
+              attribute={attribute}
+              label={'Go'}
+              checked={false}
+              value={fullPriceRange}
+              count={null}
+              onChange={onChange}
+              type={type}
+              isRangeInput={true}
+            />
+          )}
         </div>
       </fieldset>
       <div className="ds-sdk-input__border border-t border-neutral-500"/>

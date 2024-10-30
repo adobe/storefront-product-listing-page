@@ -25,7 +25,7 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
       ) : (
         <div
           className="flex items-center gap-x-1 cursor-pointer"
-          onClick={(event) => scrollFilter(event, displayFilter)}
+          onClick={(event) => scrollFilter(event, displayFilter, true)}
         >
           <label
             id={`filter-${iteration + 1}`}

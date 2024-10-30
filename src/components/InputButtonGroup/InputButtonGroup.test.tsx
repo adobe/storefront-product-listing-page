@@ -9,7 +9,10 @@ it.
 
 import { render } from '@testing-library/preact';
 
-import { InputButtonGroup, InputButtonGroupProps } from './InputButtonGroup';
+import {
+  InputButtonGroup,
+  InputButtonGroupProps,
+} from './InputButtonGroup';
 
 const mockButtonGroup: InputButtonGroupProps = {
   title: 'button',
@@ -18,6 +21,7 @@ const mockButtonGroup: InputButtonGroupProps = {
   isSelected: () => true,
   onChange: () => {},
   type: 'radio',
+  isHidden: true,
 };
 
 describe('WidgetSDK - UIKit/InputButtonGroup', () => {
@@ -30,6 +34,7 @@ describe('WidgetSDK - UIKit/InputButtonGroup', () => {
         isSelected={mockButtonGroup.isSelected}
         onChange={mockButtonGroup.onChange}
         type={mockButtonGroup.type}
+        isHidden={mockButtonGroup.isHidden}
       />
     );
 

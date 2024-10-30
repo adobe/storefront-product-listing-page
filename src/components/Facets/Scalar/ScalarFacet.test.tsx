@@ -15,7 +15,7 @@ import { ScalarFacet } from './ScalarFacet';
 
 describe('PLP widget/RangeFacet', () => {
   it('renders', () => {
-    const { container } = render(<ScalarFacet filterData={{} as PriceFacet} />);
+    const { container } = render(<ScalarFacet iteration={1} filterData={{} as PriceFacet} />);
 
     const elem = container.querySelector('.ds-sdk-input');
 
