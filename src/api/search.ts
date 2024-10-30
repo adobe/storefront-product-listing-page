@@ -41,6 +41,18 @@ const getHeaders = (headers: MagentoHeaders) => {
   };
 };
 
+
+const discontinuedFilter = {
+  attribute: 'pcm_product_salability',
+  in: ['STANDARD','COMING_SOON','DRAW_CAMPAIGN','EARLY_ACCESS','SOLD_OUT','PRE_ORDER','NOT_SOLD_ONLINE'],
+};
+
+const discontinuedFilterString = `{
+              attribute: "pcm_product_salability",
+              in: ["STANDARD", "COMING_SOON", "DRAW_CAMPAIGN", "EARLY_ACCESS", "SOLD_OUT", "PRE_ORDER", "NOT_SOLD_ONLINE"],
+            }`;
+const isSlugger = window.location.hostname.indexOf('slugger') !== -1;
+
 const getFranchiseSearch = async ({
   environmentId,
   websiteCode,
@@ -88,10 +100,7 @@ const getFranchiseSearch = async ({
           current_page: $currentPage
           filter: [
             { attribute: "categoryPath", eq: "${category}" },
-            { 
-              attribute: "pcm_product_salability",
-              in: ["STANDARD", "COMING_SOON", "DRAW_CAMPAIGN", "EARLY_ACCESS", "SOLD_OUT", "PRE_ORDER", "NOT_SOLD_ONLINE"],
-            }
+            ${isSlugger ? '' : discontinuedFilterString}
           ]
         ) {
           items {
@@ -104,7 +113,6 @@ const getFranchiseSearch = async ({
     ${ProductView}
     ${FranchiseQueryFragment}
   `;
-
   const variables = {
     pageSize,
     currentPage,
@@ -172,12 +180,10 @@ const getProductSearch = async ({
     eq: 'true',
   };
 
-  const discontinuedFilter = {
-    attribute: 'pcm_product_salability',
-    in: ['STANDARD','COMING_SOON','DRAW_CAMPAIGN','EARLY_ACCESS','SOLD_OUT','PRE_ORDER','NOT_SOLD_ONLINE'],
-  };
 
+  if (!isSlugger) {
   variables.filter?.push(discontinuedFilter);
+  }
 
   if (displayInStockOnly) {
     variables.filter.push(inStockFilter);
