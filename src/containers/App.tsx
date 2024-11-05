@@ -33,11 +33,15 @@ export const App: FunctionComponent = () => {
   const translation = useTranslation();
   const { displayMode } = useStore().config;
   const [showFilters, setShowFilters] = useState(false);
-  const prevProds:MutableRef<any[]>=useRef([]);
-  productsCtx.items= productsCtx.items.concat(prevProds.current);
-  productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
-      self.findIndex((o) => o.product.sku === obj.product.sku));
-  prevProds.current=productsCtx.items;
+  // const prevProds:MutableRef<any[]>=useRef([]);
+  // console.log('prevProds.current',prevProds.current);
+  // productsCtx.items= productsCtx.items.concat(prevProds.current);
+  // productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
+  //     self.findIndex((o) => o.product.sku === obj.product.sku));
+  // prevProds.current=productsCtx.items;
+  // console.log('productsCtx.items',productsCtx.items);
+  // console.log('productsCtx',productsCtx);
+  // console.log('searchCtx',searchCtx);
   const loadingLabel = translation.Loading.title;
 
   let title = productsCtx.categoryName || '';

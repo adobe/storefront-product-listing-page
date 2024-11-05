@@ -8,7 +8,7 @@ it.
 */
 
 import { createContext } from 'preact';
-import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
+import {MutableRef, useContext, useEffect, useMemo, useRef, useState} from 'preact/hooks';
 
 import { getProductSearch, refineProductSearch } from '../api/search';
 import {
@@ -36,6 +36,7 @@ import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
 import { useTranslation } from './translation';
+import {products} from "../components/ProductList/MockData";
 
 interface WithChildrenProps {
   children?: any;
@@ -48,6 +49,10 @@ const ProductsContext = createContext<{
   setItems: (items: Product[]) => void;
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  loadNextPage: number;
+  setLoadNextPage: (page: number) => void;
+  loadPrevPage: number;
+  setLoadPrevPage: (page: number) => void;
   pageSize: number;
   setPageSize: (size: number) => void;
   totalCount: number;
@@ -91,6 +96,10 @@ const ProductsContext = createContext<{
   setItems: () => {},
   currentPage: 1,
   setCurrentPage: () => {},
+  loadNextPage: 1,
+  setLoadNextPage: () => {},
+  loadPrevPage: 1,
+  setLoadPrevPage: () => {},
   pageSize: DEFAULT_PAGE_SIZE,
   setPageSize: () => {},
   totalCount: 0,
@@ -147,6 +156,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
+  const [loadNextPage, setLoadNextPage] = useState<number>(pageDefault);
+  const [loadPrevPage, setLoadPrevPage] = useState<number>(pageDefault);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -183,6 +194,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       pageSize,
       displayOutOfStock: storeCtx.config.displayOutOfStock,
       currentPage,
+      loadNextPage,
+      loadPrevPage,
     };
   }, [
     searchCtx.phrase,
@@ -209,6 +222,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     setItems,
     currentPage,
     setCurrentPage,
+    loadNextPage,
+    setLoadNextPage,
+    loadPrevPage,
+    setLoadPrevPage,
     pageSize,
     setPageSize,
     totalCount,
@@ -241,8 +258,16 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
   };
-
-  const searchProducts = async () => {
+  const prevProds:MutableRef<any[]>=useRef([]);
+  const nextPage:MutableRef<number>=useRef(currentPage+1);
+  const prevPage:MutableRef<number>=useRef(currentPage-1);
+  // console.log('prevProds.current',prevProds.current);
+  console.log('items',items);
+  // productsCtx.items= productsCtx.items.concat(prevProds.current);
+  // productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
+  //     self.findIndex((o) => o.product.sku === obj.product.sku));
+  // prevProds.current=items;
+  const searchProducts = async (pagination?: boolean, currPage?: number) => {
     try {
       setLoading(true);
       // moveToTop();
@@ -250,7 +275,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         const filters = [...variables.filter];
 
         handleCategorySearch(categoryPath, filters);
-
+        if (currPage) {
+          console.log('variables.currentPage',currPage);
+          variables.currentPage = currPage;
+        }
         const data = await getProductSearch({
           ...variables,
           ...storeCtx,
@@ -258,8 +286,31 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           filter: filters,
           categorySearch: !!categoryPath,
         });
+        console.log('pagination', pagination);
+        console.log('filters', searchCtx.filters);
+        console.log('!!curr', currentPage);
+        setLoadNextPage(currentPage + 1);
+        setLoadPrevPage(currentPage - 1);
+        if (pagination) {
+          if (currentPage == prevPage.current) {
+            let dataItems = data?.productSearch?.items || [];
+            prevProds.current = dataItems.concat(prevProds.current);
+          } else {
+            prevProds.current = prevProds.current.concat(data?.productSearch?.items || []);
+          }
+          console.log(currentPage, nextPage.current, prevPage.current);
+          setItems(prevProds.current);
+          nextPage.current = currentPage >= nextPage.current ? currentPage + 1 : nextPage.current;
+          prevPage.current = currentPage <= prevPage.current ? currentPage - 1 : prevPage.current;
+          setLoadNextPage(nextPage.current);
+          setLoadPrevPage(prevPage.current);
+        } else {
+          prevProds.current = data?.productSearch?.items || [];
+          setItems(data?.productSearch?.items || []);
+        }
+        console.log('nextPage', nextPage.current);
+        console.log('prevPage', prevPage.current);
 
-        setItems(data?.productSearch?.items || []);
         setFacets(data?.productSearch?.facets || []);
         setTotalCount(data?.productSearch?.total_count || 0);
         setTotalPages(data?.productSearch?.page_info?.total_pages || 1);
@@ -325,6 +376,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     totalPages: number | undefined
   ) => {
     if (totalCount && totalCount > 0 && totalPages === 1) {
+      console.log('paginationCheck');
       setCurrentPage(1);
       handleUrlPagination(1);
     }
@@ -368,6 +420,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
   useEffect(() => {
     if (attributeMetadataCtx.filterableInSearch) {
+      // if(searchCtx.filters.length==0 && currentPage>1){
+      //   console.log('searchCtx.filters 1');
+      //
+      //   searchProducts(false,1);
+      //   setCurrentPage(1);
+      //   handleUrlPagination(1);
+      // }
+      // console.log('searchCtx.filters 2');
       searchProducts();
     }
   }, [searchCtx.filters]);
@@ -377,15 +437,25 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       const filtersFromUrl = getFiltersFromUrl(
         attributeMetadataCtx.filterableInSearch
       );
+      console.log('attributeMetadataCtx.filterableInSearch');
+
       searchCtx.setFilters(filtersFromUrl);
     }
   }, [attributeMetadataCtx.filterableInSearch]);
 
   useEffect(() => {
     if (!loading) {
+      console.log('searchCtx.phrase, searchCtx.sort, pageSize');
       searchProducts();
     }
-  }, [searchCtx.phrase, searchCtx.sort, currentPage, pageSize]);
+  }, [searchCtx.phrase, searchCtx.sort, pageSize]);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log('page change');
+      searchProducts(true);
+    }
+  }, [currentPage]);
 
   return (
     <ProductsContext.Provider value={context}>

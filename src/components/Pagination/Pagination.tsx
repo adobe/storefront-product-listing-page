@@ -11,8 +11,6 @@ import { FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
 
 import { useProducts,useTranslation} from '../../context';
-import { ELLIPSIS, usePagination } from '../../hooks/usePagination';
-import Chevron from '../../icons/chevron.svg';
 interface PaginationProps {
   onPageChange: (page: number | string) => void;
   totalPages: number;
@@ -26,11 +24,9 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   currentPage, isOnTop
 }) => {
   const productsCtx = useProducts();
-  const paginationRange = usePagination({
-    currentPage,
-    totalPages,
-  });
   const translation = useTranslation();
+  // console.log('!!!next page!!',productsCtx.loadNextPage)
+  // console.log('!!!prev page!!',productsCtx.loadPrevPage)
   useEffect(() => {
     const { currentPage, totalPages } = productsCtx;
     if (currentPage > totalPages) {
@@ -41,20 +37,23 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   }, []);
   const onPrevious = () => {
     if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+      onPageChange(productsCtx.loadPrevPage);
     }
   };
 
   const onNext = () => {
     if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+      onPageChange(productsCtx.loadNextPage);
     }
   };
   const paginationTranslation = translation.ProductsCounter.title.replace('{current}', `${productsCtx.items.length}`);
   const counterTranslation=paginationTranslation.replace('{total}', `${productsCtx.totalCount}`);
-
+// console.log('(productsCtx.items.length !=(currentPage * productsCtx.pageSize))',(productsCtx.items.length !=(currentPage * productsCtx.pageSize)));
+// console.log('(currentPage * productsCtx.pageSize))',(currentPage * productsCtx.pageSize));
+// console.log('productsCtx.items.length',productsCtx.items.length);
+// console.log('currentPage',currentPage);
   return (<div className="block w-full">
-    {isOnTop && currentPage > 1 && (
+    {isOnTop && currentPage > 1 && productsCtx.loadPrevPage!=0 && (
         <div>
           <div className='text-center text-[1rem]'>{counterTranslation}</div>
           <button
@@ -64,7 +63,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
     )}
 
 
-    {!isOnTop && (
+    {!isOnTop && (productsCtx.items.length != productsCtx.totalCount) && productsCtx.loadNextPage <= totalPages && (
         <div>
           <div className='text-center text-[1rem]'>{counterTranslation}</div>
           <button
