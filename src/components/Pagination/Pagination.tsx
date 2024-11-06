@@ -23,6 +23,8 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   totalPages,
   currentPage, isOnTop
 }) => {
+  console.log('********************PAGINATION LOG START********************************',isOnTop);
+
   const productsCtx = useProducts();
   const translation = useTranslation();
   // console.log('!!!next page!!',productsCtx.loadNextPage)
@@ -50,8 +52,13 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   const counterTranslation=paginationTranslation.replace('{total}', `${productsCtx.totalCount}`);
 // console.log('(productsCtx.items.length !=(currentPage * productsCtx.pageSize))',(productsCtx.items.length !=(currentPage * productsCtx.pageSize)));
 // console.log('(currentPage * productsCtx.pageSize))',(currentPage * productsCtx.pageSize));
-// console.log('productsCtx.items.length',productsCtx.items.length);
+// console.log('PAGINATION productsCtx.items.length',productsCtx.items.length);
+// console.log('PAGINATION productsCtx.totalCount',productsCtx.totalCount);
+// console.log('PAGINATION totalPages',totalPages);
+// console.log('PAGINATION productsCtx.loadNextPage',productsCtx.loadNextPage);
 // console.log('currentPage',currentPage);
+  console.log('********************PAGINATION LOG END********************************');
+
   return (<div className="block w-full">
     {isOnTop && currentPage > 1 && productsCtx.loadPrevPage!=0 && (
         <div>

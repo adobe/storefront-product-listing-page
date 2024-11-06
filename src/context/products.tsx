@@ -133,8 +133,12 @@ const ProductsContext = createContext<{
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
+  console.log('********************ProductsContextProvider LOG START********************************');
+
   const urlValue = getValueFromUrl('p');
+  console.log('ProductsContextProvider urlValue',urlValue);
   const pageDefault = urlValue ? Number(urlValue) : 1;
+  console.log('ProductsContextProvider pageDefault',pageDefault);
 
   const searchCtx = useSearch();
   const storeCtx = useStore();
@@ -156,8 +160,13 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
+  console.log('ProductsContextProvider currentPage',currentPage);
+
   const [loadNextPage, setLoadNextPage] = useState<number>(pageDefault);
   const [loadPrevPage, setLoadPrevPage] = useState<number>(pageDefault);
+  console.log('ProductsContextProvider loadNextPage',loadNextPage);
+  console.log('ProductsContextProvider loadPrevPage',loadPrevPage);
+
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -258,16 +267,20 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
   };
-  const prevProds:MutableRef<any[]>=useRef([]);
-  const nextPage:MutableRef<number>=useRef(currentPage+1);
-  const prevPage:MutableRef<number>=useRef(currentPage-1);
+  const prevProds: MutableRef<any[]> = useRef([]);
+  const nextPage: MutableRef<number> = useRef(currentPage + 1);
+  const prevPage: MutableRef<number> = useRef(currentPage - 1);
+  const prevFiltersCount: MutableRef<number> = useRef(searchCtx.filters.length);
   // console.log('prevProds.current',prevProds.current);
-  console.log('items',items);
+  console.log('ProductsContextProvider items',items);
+  console.log('ProductsContextProvider prevFiltersCount',prevFiltersCount.current);
   // productsCtx.items= productsCtx.items.concat(prevProds.current);
   // productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
   //     self.findIndex((o) => o.product.sku === obj.product.sku));
   // prevProds.current=items;
   const searchProducts = async (pagination?: boolean, currPage?: number) => {
+    console.log('********************SEARCHPRODUCTS LOG START********************************');
+
     try {
       setLoading(true);
       // moveToTop();
@@ -276,7 +289,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
         handleCategorySearch(categoryPath, filters);
         if (currPage) {
-          console.log('variables.currentPage',currPage);
+          console.log('SEARCHPRODUCTS variables.currentPage',currPage);
           variables.currentPage = currPage;
         }
         const data = await getProductSearch({
@@ -286,11 +299,12 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           filter: filters,
           categorySearch: !!categoryPath,
         });
-        console.log('pagination', pagination);
-        console.log('filters', searchCtx.filters);
-        console.log('!!curr', currentPage);
+        console.log('SEARCHPRODUCTS pagination', pagination);
+        console.log('SEARCHPRODUCTS filters', searchCtx.filters);
+        console.log('SEARCHPRODUCTS !!curr', currentPage);
         setLoadNextPage(currentPage + 1);
         setLoadPrevPage(currentPage - 1);
+        prevFiltersCount.current=searchCtx.filters.length;
         if (pagination) {
           if (currentPage == prevPage.current) {
             let dataItems = data?.productSearch?.items || [];
@@ -307,9 +321,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         } else {
           prevProds.current = data?.productSearch?.items || [];
           setItems(data?.productSearch?.items || []);
+          nextPage.current = currPage ? currPage + 1 : currentPage + 1;
+          prevPage.current = currPage ? currPage - 1 : currentPage - 1;
+          setLoadNextPage(nextPage.current);
+          setLoadPrevPage(prevPage.current);
+
         }
-        console.log('nextPage', nextPage.current);
-        console.log('prevPage', prevPage.current);
+        console.log('SEARCHPRODUCTS nextPage', nextPage.current);
+        console.log('SEARCHPRODUCTS prevPage', prevPage.current);
 
         setFacets(data?.productSearch?.facets || []);
         setTotalCount(data?.productSearch?.total_count || 0);
@@ -325,6 +344,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       }
       setLoading(false);
       setPageLoading(false);
+      console.log('********************SEARCHPRODUCTS LOG END********************************');
     } catch (error) {
       setLoading(false);
       setPageLoading(false);
@@ -419,16 +439,32 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   };
 
   useEffect(() => {
+    console.log('********************searchCtx.filters LOG START********************************');
     if (attributeMetadataCtx.filterableInSearch) {
-      // if(searchCtx.filters.length==0 && currentPage>1){
-      //   console.log('searchCtx.filters 1');
-      //
-      //   searchProducts(false,1);
-      //   setCurrentPage(1);
-      //   handleUrlPagination(1);
-      // }
-      // console.log('searchCtx.filters 2');
-      searchProducts();
+      console.log('searchCtx.filters prevFiltersCount', prevFiltersCount.current);
+      console.log('searchCtx.filters.length', searchCtx.filters.length);
+      if (searchCtx.filters.length == 0) {
+        console.log('searchCtx.filters 1');
+        searchProducts();
+        // searchProducts(false,1);
+        // setCurrentPage(1);
+        // handleUrlPagination(1);
+      }
+      if (searchCtx.filters.length == 0 && prevFiltersCount.current != 0) {
+        console.log('searchCtx.filters 2');
+        setCurrentPage(1);
+        handleUrlPagination(1);
+        searchProducts(false, 1);
+      }
+      if (searchCtx.filters.length != 0) {
+        console.log('searchCtx.filters 2');
+        setCurrentPage(1);
+        handleUrlPagination(1);
+        searchProducts(false, 1);
+      }
+      // searchProducts(false,1);
+      console.log('********************searchCtx.filters LOG END********************************');
+
     }
   }, [searchCtx.filters]);
 
@@ -456,6 +492,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       searchProducts(true);
     }
   }, [currentPage]);
+  console.log('********************ProductsContextProvider LOG END********************************');
 
   return (
     <ProductsContext.Provider value={context}>

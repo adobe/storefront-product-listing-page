@@ -142,7 +142,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
             ))}
           </div>
       ) : (
-          <div className={`key-${currentPage}`}>
+          <div className={`key-${currentPage} ${showFilters ? 'filters-opened':''}`}>
             <ProductList
                 products={items}
                 numberOfColumns={screenSize.columns}
