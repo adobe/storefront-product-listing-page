@@ -443,24 +443,42 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     if (attributeMetadataCtx.filterableInSearch) {
       console.log('searchCtx.filters prevFiltersCount', prevFiltersCount.current);
       console.log('searchCtx.filters.length', searchCtx.filters.length);
-      if (searchCtx.filters.length == 0) {
-        console.log('searchCtx.filters 1');
+      if (searchCtx.filters.length == 0) {//Default page load
+        console.log('!Default page load no filters searchCtx.filters 1');
+        console.log('!Default page load items length', items.length);
         searchProducts();
         // searchProducts(false,1);
         // setCurrentPage(1);
         // handleUrlPagination(1);
       }
-      if (searchCtx.filters.length == 0 && prevFiltersCount.current != 0) {
-        console.log('searchCtx.filters 2');
+      if (searchCtx.filters.length == 0 && prevFiltersCount.current != 0) {//Clear filters
+        console.log('!Clear filters searchCtx.filters 2');
+        console.log('!Clear filters items length', items.length);
+
+        console.log('searchCtx.filters 2',searchCtx.filters);
+        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
+        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
         setCurrentPage(1);
         handleUrlPagination(1);
         searchProducts(false, 1);
       }
-      if (searchCtx.filters.length != 0) {
-        console.log('searchCtx.filters 2');
+      if (searchCtx.filters.length != 0 && items.length != 0) {//Enabled Filters
+        console.log('!Enabled Filters searchCtx.filters 3');
+        console.log('!Enabled Filters items length', items.length);
+        console.log('searchCtx.filters 3', searchCtx.filters);
+        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
+        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
         setCurrentPage(1);
         handleUrlPagination(1);
         searchProducts(false, 1);
+      }
+      if (searchCtx.filters.length != 0 && items.length == 0) {//Enabled Filters from url params
+        console.log('!Enabled Filters from url params searchCtx.filters 4');
+        console.log('!Enabled Filters from url params items length', items.length);
+        console.log('searchCtx.filters 4', searchCtx.filters);
+        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
+        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
+        searchProducts();
       }
       // searchProducts(false,1);
       console.log('********************searchCtx.filters LOG END********************************');
