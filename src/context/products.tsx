@@ -283,6 +283,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
     try {
       setLoading(true);
+      disableScroll();
       // moveToTop();
       if (checkMinQueryLength()) {
         const filters = [...variables.filter];
@@ -342,6 +343,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           data?.productSearch?.page_info?.total_pages
         );
       }
+      enableScroll();
       setLoading(false);
       setPageLoading(false);
       console.log('********************SEARCHPRODUCTS LOG END********************************');
@@ -401,7 +403,25 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       handleUrlPagination(1);
     }
   };
+  const disableScroll = () => {
+    // Get the current page scroll position
+    let scrollTop =
+        window.scrollY ||
+        document.documentElement.scrollTop;
+    let scrollLeft =
+        window.scrollX ||
+        document.documentElement.scrollLeft;
 
+        // if any scroll is attempted,
+        // set this to the previous value
+        window.onscroll = function () {
+          window.scrollTo(scrollLeft, scrollTop);
+        };
+  };
+  const enableScroll = () => {
+    window.onscroll = function () {
+    };
+  };
   const handleCategorySearch = (
     categoryPath: string | undefined,
     filters: FacetFilter[]

@@ -8,18 +8,27 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useSensor } from 'src/context';
+import {useProducts, useSensor, useStore} from 'src/context';
 
 import ButtonShimmer from '../ButtonShimmer';
 import FacetsShimmer from '../FacetsShimmer';
 import ProductCardShimmer from '../ProductCardShimmer';
+import {DEFAULT_PAGE_SIZE} from "../../utils/constants";
+import {getValueFromUrl} from "../../utils/handleUrlFilters";
 
 export const Shimmer: FunctionComponent = () => {
-  const productCardArray = Array.from({ length: 8 });
   const facetsArray = Array.from({ length: 4 });
   const { screenSize } = useSensor();
   const numberOfColumns = screenSize.columns;
-
+  const pageSizeValue = getValueFromUrl('page_size');
+  const storeCtx = useStore();
+  const defaultPageSizeOption =
+      Number(storeCtx?.config?.perPageConfig?.defaultPageSizeOption) ||
+      DEFAULT_PAGE_SIZE;
+  const pageSizeDefault = pageSizeValue
+      ? Number(pageSizeValue)
+      : defaultPageSizeOption;
+  const productCardArray = Array.from({ length: pageSizeDefault });
   return (
     <div className="ds-widgets bg-body py-2">
       <div className="flex">
