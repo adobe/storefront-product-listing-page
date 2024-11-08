@@ -18,7 +18,6 @@ import {useProducts, useSearch, useStore} from '../../context';
 import {Product} from '../../types/interface';
 import {classNames} from '../../utils/dom';
 import ProductItem, {ProductProps} from '../ProductItem';
-import useMerchandisingData from "./merchandise";
 
 type FranchiseProps = Omit<ProductProps, "item"> & {
   franchise: string;
@@ -176,32 +175,26 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   }, [itemAdded]);
 
   // eslint-disable-next-line no-undef
-  const insertMerchandise = (productList: JSX.Element[], merchandise:{positions:string}[], currentPage:number) => {
-    merchandise.forEach((merchandise) => {
-      const positionsArray = JSON.parse(merchandise.positions);
-      positionsArray.forEach((position: string) => {
-        if(currentPage === 1) {
-          const merchandiseElement = (
-              <div className={`enrichment-container position-${position}`}/>
-          );
-          productList.splice(Number(position) - 1, 0, merchandiseElement);
-        }
-      });
-    });
+  const insertMerchandise = (productList: JSX.Element[], positions:Array<number>, currentPage:number) => {
+    for (const position of positions) {
+      if (currentPage === 1) {
+        const merchandiseElement = (
+            <div className={`enrichment-container position-${position}`}/>
+        );
+        productList.splice(position - 1, 0, merchandiseElement);
+      }
+    }
     return productList;
   };
 
-  const merchandisingData = useMerchandisingData();
+  const merchandisingData = useStore().inGridPromoIndexes || [];
   const finalProductList = insertMerchandise(renderProductList(products ?? [], setError, currencySymbol, currencyRate, categoryConfig, setRoute, refineProduct, setCartUpdated, setItemAdded, addToCart, disableAllPurchases), merchandisingData, currentPage);
-  const hasRendered = useRef(false);
   useEffect(() => {
-    if (hasRendered.current) {
+
       // custom event
       const event = new CustomEvent('product-list-rendered');
       window.dispatchEvent(event);
-    } else {
-      hasRendered.current = true;
-    }
+
   }, [finalProductList]);
 
   return (
