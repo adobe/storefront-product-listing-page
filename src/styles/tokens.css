@@ -82,7 +82,7 @@
 }
 
 .ds-widgets input[type='checkbox'] {
-  font-size: 80%;
+  font-size: 1rem;
   margin: 0;
   top: 0;
 }

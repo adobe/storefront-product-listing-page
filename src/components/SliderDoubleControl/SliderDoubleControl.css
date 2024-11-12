@@ -19,7 +19,7 @@ input[type='range']::-webkit-slider-thumb {
   pointer-events: all;
   width: 12px;
   height: 12px;
-  background-color: #383838;
+  background-color: #904745;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #c6c6c6;
   cursor: pointer;
@@ -30,14 +30,14 @@ input[type='range']::-moz-range-thumb {
   pointer-events: all;
   width: 12px;
   height: 12px;
-  background-color: #383838;
+  background-color: #904745;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #c6c6c6;
   cursor: pointer;
 }
 
 input[type='range']::-webkit-slider-thumb:hover {
-  background: #383838;
+  background: #904745;
 }
 
 input[type='number'] {

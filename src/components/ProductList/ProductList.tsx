@@ -23,12 +23,14 @@ export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   products: Array<Product> | null | undefined;
   numberOfColumns: number;
   showFilters: boolean;
+  prevProducts: Array<Product>| null | undefined;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({
   products,
   numberOfColumns,
   showFilters,
+  prevProducts
 }) => {
   const productsCtx = useProducts();
   const {
@@ -50,16 +52,16 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const className = showFilters
     ? 'ds-sdk-product-list bg-body max-w-full pl-3 pb-2xl sm:pb-24'
     : 'ds-sdk-product-list bg-body w-full mx-auto pb-2xl sm:pb-24';
-
   useEffect(() => {
     refreshCart && refreshCart();
   }, [itemAdded]);
 
+  console.log('******prevProducts',prevProducts);
   return (
     <div
       className={classNames(
         'ds-sdk-product-list bg-body pb-2xl sm:pb-24',
-        className
+        className + ' key-' + Math.floor(Math.random() * 11)
       )}
     >
       {cartUpdated && (
@@ -85,7 +87,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
 
       {listview && viewType === 'listview' ? (
         <div className="w-full">
-          <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
+          <div className="ds-sdk-product-list__list-view-default mt-[1.25rem] grid grid-cols-none pt-[15px] w-full gap-[10px]">
             {products?.map((product) => (
               <ProductItem
                 item={product}
@@ -107,7 +109,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           style={{
             gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
           }}
-          className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-2xl xl:gap-x-8"
+          className="ds-sdk-product-list__grid mt-[1.25rem] grid gap-y-5 gap-x-5"
         >
           {products?.map((product) => (
             <ProductItem

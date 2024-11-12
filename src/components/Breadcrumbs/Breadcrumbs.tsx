@@ -35,7 +35,7 @@ export const Breadcrumbs: FunctionComponent<BreadcrumbsProps> = ({
 
               <a
                 href={page.href}
-                className={`ml-2 text-sm font-normal hover:text-gray-900 first:ml-0 ${
+                className={`ml-2 text-[0.875rem] font-normal hover:text-gray-900 first:ml-0 ${
                   page.current
                     ? 'ds-sdk-breadcrumbs__item--current text-gray-500 font-light'
                     : 'text-black'

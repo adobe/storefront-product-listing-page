@@ -33,7 +33,7 @@ export const fa_IR = {
   },
   SortDropdown: {
     title: 'مرتب‌سازی براساس',
-    option: 'مرتب‌سازی براساس: {selectedOption}',
+    option: 'مرتب‌سازی براساس',
     relevanceLabel: 'مرتبط‌ترین',
     positionLabel: 'موقعیت',
   },

@@ -8,7 +8,7 @@ it.
 */
 
 import { createContext } from 'preact';
-import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
+import {MutableRef, useContext, useEffect, useMemo, useRef, useState} from 'preact/hooks';
 
 import { getProductSearch, refineProductSearch } from '../api/search';
 import {
@@ -26,7 +26,6 @@ import {
   DEFAULT_PAGE_SIZE_OPTIONS,
   SEARCH_SORT_DEFAULT,
 } from '../utils/constants';
-import { moveToTop } from '../utils/dom';
 import {
   getFiltersFromUrl,
   getValueFromUrl,
@@ -46,8 +45,14 @@ const ProductsContext = createContext<{
   loading: boolean;
   items: Product[];
   setItems: (items: Product[]) => void;
+  prevItems: Product[];
+  setPrevItems: (items: Product[]) => void;
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  loadNextPage: number;
+  setLoadNextPage: (page: number) => void;
+  loadPrevPage: number;
+  setLoadPrevPage: (page: number) => void;
   pageSize: number;
   setPageSize: (size: number) => void;
   totalCount: number;
@@ -89,8 +94,14 @@ const ProductsContext = createContext<{
   loading: false,
   items: [],
   setItems: () => {},
+  prevItems: [],
+  setPrevItems: () => {},
   currentPage: 1,
   setCurrentPage: () => {},
+  loadNextPage: 1,
+  setLoadNextPage: () => {},
+  loadPrevPage: 1,
+  setLoadPrevPage: () => {},
   pageSize: DEFAULT_PAGE_SIZE,
   setPageSize: () => {},
   totalCount: 0,
@@ -124,8 +135,12 @@ const ProductsContext = createContext<{
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
+  console.log('********************ProductsContextProvider LOG START********************************');
+
   const urlValue = getValueFromUrl('p');
+  console.log('ProductsContextProvider urlValue',urlValue);
   const pageDefault = urlValue ? Number(urlValue) : 1;
+  console.log('ProductsContextProvider pageDefault',pageDefault);
 
   const searchCtx = useSearch();
   const storeCtx = useStore();
@@ -147,6 +162,13 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
+  console.log('ProductsContextProvider currentPage',currentPage);
+
+  const [loadNextPage, setLoadNextPage] = useState<number>(pageDefault);
+  const [loadPrevPage, setLoadPrevPage] = useState<number>(pageDefault);
+  console.log('ProductsContextProvider loadNextPage',loadNextPage);
+  console.log('ProductsContextProvider loadPrevPage',loadPrevPage);
+  const [prevItems, setPrevItems] = useState<Product[]>([]);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -183,6 +205,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       pageSize,
       displayOutOfStock: storeCtx.config.displayOutOfStock,
       currentPage,
+      loadNextPage,
+      loadPrevPage,
     };
   }, [
     searchCtx.phrase,
@@ -207,8 +231,14 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     loading,
     items,
     setItems,
+    prevItems,
+    setPrevItems,
     currentPage,
     setCurrentPage,
+    loadNextPage,
+    setLoadNextPage,
+    loadPrevPage,
+    setLoadPrevPage,
     pageSize,
     setPageSize,
     totalCount,
@@ -241,16 +271,32 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     resolveCartId: storeCtx.config.resolveCartId,
     addToCart: storeCtx.config.addToCart,
   };
+  const prevProds: MutableRef<any[]> = useRef([]);
+  const nextPage: MutableRef<number> = useRef(currentPage + 1);
+  const prevPage: MutableRef<number> = useRef(currentPage - 1);
+  const prevFiltersCount: MutableRef<number> = useRef(searchCtx.filters.length);
+  // console.log('prevProds.current',prevProds.current);
+  console.log('ProductsContextProvider items',items);
+  console.log('ProductsContextProvider prevFiltersCount',prevFiltersCount.current);
+  // productsCtx.items= productsCtx.items.concat(prevProds.current);
+  // productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
+  //     self.findIndex((o) => o.product.sku === obj.product.sku));
+  // prevProds.current=items;
+  const searchProducts = async (pagination?: boolean, currPage?: number) => {
+    console.log('********************SEARCHPRODUCTS LOG START********************************');
 
-  const searchProducts = async () => {
     try {
       setLoading(true);
-      moveToTop();
+      disableScroll();
+      // moveToTop();
       if (checkMinQueryLength()) {
         const filters = [...variables.filter];
 
         handleCategorySearch(categoryPath, filters);
-
+        if (currPage) {
+          console.log('SEARCHPRODUCTS variables.currentPage',currPage);
+          variables.currentPage = currPage;
+        }
         const data = await getProductSearch({
           ...variables,
           ...storeCtx,
@@ -258,8 +304,39 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           filter: filters,
           categorySearch: !!categoryPath,
         });
+        console.log('SEARCHPRODUCTS pagination', pagination);
+        console.log('SEARCHPRODUCTS filters', searchCtx.filters);
+        console.log('SEARCHPRODUCTS !!curr', currentPage);
+        setLoadNextPage(currentPage + 1);
+        setLoadPrevPage(currentPage - 1);
+        prevFiltersCount.current=searchCtx.filters.length;
+        if (pagination) {
+          if (currentPage == prevPage.current) {
+            let dataItems = data?.productSearch?.items || [];
+            setPrevItems(prevProds.current);
+            prevProds.current = dataItems.concat(prevProds.current);
+          } else {
+            setPrevItems(prevProds.current);
+            prevProds.current = prevProds.current.concat(data?.productSearch?.items || []);
+          }
+          console.log(currentPage, nextPage.current, prevPage.current);
+          setItems(prevProds.current);
+          nextPage.current = currentPage >= nextPage.current ? currentPage + 1 : nextPage.current;
+          prevPage.current = currentPage <= prevPage.current ? currentPage - 1 : prevPage.current;
+          setLoadNextPage(nextPage.current);
+          setLoadPrevPage(prevPage.current);
+        } else {
+          prevProds.current = data?.productSearch?.items || [];
+          setItems(data?.productSearch?.items || []);
+          nextPage.current = currPage ? currPage + 1 : currentPage + 1;
+          prevPage.current = currPage ? currPage - 1 : currentPage - 1;
+          setLoadNextPage(nextPage.current);
+          setLoadPrevPage(prevPage.current);
 
-        setItems(data?.productSearch?.items || []);
+        }
+        console.log('SEARCHPRODUCTS nextPage', nextPage.current);
+        console.log('SEARCHPRODUCTS prevPage', prevPage.current);
+
         setFacets(data?.productSearch?.facets || []);
         setTotalCount(data?.productSearch?.total_count || 0);
         setTotalPages(data?.productSearch?.page_info?.total_pages || 1);
@@ -272,8 +349,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           data?.productSearch?.page_info?.total_pages
         );
       }
+      enableScroll();
       setLoading(false);
       setPageLoading(false);
+      console.log('********************SEARCHPRODUCTS LOG END********************************');
     } catch (error) {
       setLoading(false);
       setPageLoading(false);
@@ -325,11 +404,30 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     totalPages: number | undefined
   ) => {
     if (totalCount && totalCount > 0 && totalPages === 1) {
+      console.log('paginationCheck');
       setCurrentPage(1);
       handleUrlPagination(1);
     }
   };
+  const disableScroll = () => {
+    // Get the current page scroll position
+    let scrollTop =
+        window.scrollY ||
+        document.documentElement.scrollTop;
+    let scrollLeft =
+        window.scrollX ||
+        document.documentElement.scrollLeft;
 
+        // if any scroll is attempted,
+        // set this to the previous value
+        window.onscroll = function () {
+          window.scrollTo(scrollLeft, scrollTop);
+        };
+  };
+  const enableScroll = () => {
+    window.onscroll = function () {
+    };
+  };
   const handleCategorySearch = (
     categoryPath: string | undefined,
     filters: FacetFilter[]
@@ -367,8 +465,50 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   };
 
   useEffect(() => {
+    console.log('********************searchCtx.filters LOG START********************************');
     if (attributeMetadataCtx.filterableInSearch) {
-      searchProducts();
+      console.log('searchCtx.filters prevFiltersCount', prevFiltersCount.current);
+      console.log('searchCtx.filters.length', searchCtx.filters.length);
+      if (searchCtx.filters.length == 0) {//Default page load
+        console.log('!Default page load no filters searchCtx.filters 1');
+        console.log('!Default page load items length', items.length);
+        searchProducts();
+        // searchProducts(false,1);
+        // setCurrentPage(1);
+        // handleUrlPagination(1);
+      }
+      if (searchCtx.filters.length == 0 && prevFiltersCount.current != 0) {//Clear filters
+        console.log('!Clear filters searchCtx.filters 2');
+        console.log('!Clear filters items length', items.length);
+
+        console.log('searchCtx.filters 2',searchCtx.filters);
+        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
+        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
+        setCurrentPage(1);
+        handleUrlPagination(1);
+        searchProducts(false, 1);
+      }
+      if (searchCtx.filters.length != 0 && items.length != 0) {//Enabled Filters
+        console.log('!Enabled Filters searchCtx.filters 3');
+        console.log('!Enabled Filters items length', items.length);
+        console.log('searchCtx.filters 3', searchCtx.filters);
+        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
+        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
+        setCurrentPage(1);
+        handleUrlPagination(1);
+        searchProducts(false, 1);
+      }
+      if (searchCtx.filters.length != 0 && items.length == 0) {//Enabled Filters from url params
+        console.log('!Enabled Filters from url params searchCtx.filters 4');
+        console.log('!Enabled Filters from url params items length', items.length);
+        console.log('searchCtx.filters 4', searchCtx.filters);
+        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
+        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
+        searchProducts();
+      }
+      // searchProducts(false,1);
+      console.log('********************searchCtx.filters LOG END********************************');
+
     }
   }, [searchCtx.filters]);
 
@@ -377,15 +517,26 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       const filtersFromUrl = getFiltersFromUrl(
         attributeMetadataCtx.filterableInSearch
       );
+      console.log('attributeMetadataCtx.filterableInSearch');
+
       searchCtx.setFilters(filtersFromUrl);
     }
   }, [attributeMetadataCtx.filterableInSearch]);
 
   useEffect(() => {
     if (!loading) {
+      console.log('searchCtx.phrase, searchCtx.sort, pageSize');
       searchProducts();
     }
-  }, [searchCtx.phrase, searchCtx.sort, currentPage, pageSize]);
+  }, [searchCtx.phrase, searchCtx.sort, pageSize]);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log('page change');
+      searchProducts(true);
+    }
+  }, [currentPage]);
+  console.log('********************ProductsContextProvider LOG END********************************');
 
   return (
     <ProductsContext.Provider value={context}>

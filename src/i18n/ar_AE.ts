@@ -33,7 +33,7 @@ export const ar_AE = {
   },
   SortDropdown: {
     title: 'فرز حسب',
-    option: 'فرز حسب: {selectedOption}',
+    option: 'فرز حسب',
     relevanceLabel: 'الأكثر صلة',
     positionLabel: 'الموضع',
   },

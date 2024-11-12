@@ -33,7 +33,7 @@ export const id_ID = {
   },
   SortDropdown: {
     title: 'Urut berdasarkan',
-    option: 'Urut berdasarkan: {selectedOption}',
+    option: 'Urut berdasarkan',
     relevanceLabel: 'Paling Relevan',
     positionLabel: 'Posisi',
   },

@@ -7,18 +7,21 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-/// <reference types="@types/jest" />;
 import { render } from '@testing-library/preact';
 
-import Pagination from './Pagination';
+import { ApplyFilterButton } from './ApplyFilterButton';
 
-describe('PLP widget/Pagination', () => {
-  it('renders', () => {
+describe('WidgetSDK - UIKit/FilterButton', () => {
+  test('renders', () => {
     const { container } = render(
-      <Pagination currentPage={1} totalPages={3} onPageChange={() => {}} isOnTop={false} />
+      <ApplyFilterButton
+        displayFilter={() => {
+          return;
+        }}
+      />
     );
 
-    const elem = container.querySelector('.ds-plp-pagination');
+    const elem = container.querySelector('.ds-sdk-filter-button');
 
     expect(!!elem).toEqual(true);
   });

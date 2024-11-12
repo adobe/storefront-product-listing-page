@@ -33,7 +33,7 @@ export const lv_LV = {
   },
   SortDropdown: {
     title: 'Kārtot pēc',
-    option: 'Kārtot pēc: {selectedOption}',
+    option: 'Kārtot pēc',
     relevanceLabel: 'Visatbilstošākais',
     positionLabel: 'Pozīcija',
   },

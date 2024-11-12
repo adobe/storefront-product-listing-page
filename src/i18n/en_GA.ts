@@ -33,7 +33,7 @@ export const en_GA = {
   },
   SortDropdown: {
     title: 'Sórtáil de réir',
-    option: 'Sórtáil de réir: {selectedOption}',
+    option: 'Sórtáil de réir',
     relevanceLabel: 'Is Ábhartha',
     positionLabel: 'Post',
   },

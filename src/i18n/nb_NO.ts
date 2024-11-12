@@ -33,7 +33,7 @@ export const nb_NO = {
   },
   SortDropdown: {
     title: 'Sorter etter',
-    option: 'Sorter etter: {selectedOption}',
+    option: 'Sorter etter',
     relevanceLabel: 'Mest aktuelle',
     positionLabel: 'Plassering',
   },

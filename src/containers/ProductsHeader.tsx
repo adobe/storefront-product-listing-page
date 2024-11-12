@@ -11,7 +11,7 @@ import { FunctionComponent } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import ViewSwitcher from 'src/components/ViewSwitcher';
 
-import Facets from '../components/Facets';
+import Facets, {SelectedFilters} from '../components/Facets';
 import { FilterButton } from '../components/FilterButton';
 import { SearchBar } from '../components/SearchBar';
 import { SortDropdown } from '../components/SortDropdown';
@@ -29,6 +29,7 @@ import {
   generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from '../utils/sort';
+import {ApplyFilterButton} from "../components/ApplyFilterButton";
 
 interface Props {
   facets: Facet[];
@@ -82,26 +83,25 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     searchCtx.setSort(generateGQLSortInput(sortOption));
     handleUrlSort(sortOption);
   };
-
   return (
-    <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-      <div
-        className={`flex gap-x-2.5 mb-[1px] ${
-          screenSize.mobile ? 'justify-between' : 'justify-end'
-        }`}
-      >
-        <div>
+      <div className="flex flex-col lg:max-w-full ml-auto w-full h-full">
+        <div
+            className={`flex gap-x-2.5 mb-[1px] ${
+                screenSize.mobile ? 'justify-between flex-wrap pb-[0.44rem]' : 'justify-between'
+            }`}
+        >
           {screenSize.mobile
-            ? totalCount > 0 && (
-                <div className="pb-4">
-                  <FilterButton
+              ? totalCount > 0 && (
+              <div className="pb-[0.8rem]">
+                <FilterButton
                     displayFilter={() => setShowMobileFacet(!showMobileFacet)}
                     type="mobile"
-                  />
-                </div>
-              )
-            : storeCtx.config.displaySearchBox && (
-                <SearchBar
+                    isFilterActive={searchCtx.filters?.length > 0}
+                />
+              </div>
+          )
+              : storeCtx.config.displaySearchBox && (
+              <SearchBar
                   phrase={searchCtx.phrase}
                   onKeyPress={(e: any) => {
                     if (e.key === 'Enter') {
@@ -110,22 +110,39 @@ export const ProductsHeader: FunctionComponent<Props> = ({
                   }}
                   onClear={() => searchCtx.setPhrase('')}
                   placeholder={translation.SearchBar.placeholder}
+              />
+          )}
+          {totalCount > 0 && (
+              <>
+                {!screenSize.mobile && <SelectedFilters/>}
+                {storeCtx?.config?.listview && <ViewSwitcher/>}
+                <SortDropdown
+                    sortOptions={sortOptions}
+                    value={sortBy}
+                    onChange={onSortChange}
+                    isMobile={screenSize.mobile}
                 />
-              )}
+                {screenSize.mobile && <SelectedFilters/>}
+              </>
+          )}
         </div>
-        {totalCount > 0 && (
-          <>
-            {storeCtx?.config?.listview && <ViewSwitcher />}
-
-            <SortDropdown
-              sortOptions={sortOptions}
-              value={sortBy}
-              onChange={onSortChange}
-            />
-          </>
-        )}
+        {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets}/>}
+        {screenSize.mobile && showMobileFacet &&
+            <div className="flex justify-center gap-x-[0.2rem]">
+              <div className="ds-sdk-filter-button">
+                <button
+                    className="text-black border-black border-[1px] ring-black ring-opacity-5 text-[0.875rem] rounded-[0.7rem] w-[9.45rem] h-[2.6rem] font-['FuturaBT-Light']"
+                    onClick={() => searchCtx.clearFilters()}
+                >
+                  {translation.Filter.clearAll+'(' + searchCtx.filterCount + ')'}
+                </button>
+              </div>
+              <ApplyFilterButton
+                  displayFilter={() => setShowMobileFacet(!showMobileFacet)}
+                  title={translation.Filter.apply}
+              />
+            </div>
+        }
       </div>
-      {screenSize.mobile && showMobileFacet && <Facets searchFacets={facets} />}
-    </div>
   );
 };

@@ -33,7 +33,7 @@ export const tr_TR = {
   },
   SortDropdown: {
     title: 'Sırala',
-    option: 'Sıralama ölçütü: {selectedOption}',
+    option: 'Sıralama ölçütü',
     relevanceLabel: 'En Çok İlişkili',
     positionLabel: 'Konum',
   },

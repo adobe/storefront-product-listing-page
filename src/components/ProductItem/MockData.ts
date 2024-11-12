@@ -128,6 +128,7 @@ export const sampleProductNoImage: Product = {
     custom_attributes: null,
     add_to_cart_allowed: null,
     options: null,
+    attributes:[{value:'Zoe',name:'manufacturer'}],
   },
   highlights: [
     {
@@ -300,6 +301,7 @@ export const sampleProductDiscounted: Product = {
     custom_attributes: null,
     add_to_cart_allowed: null,
     options: null,
+    attributes:[{value:'Zoe',name:'manufacturer'}],
   },
   highlights: [
     {
@@ -472,6 +474,7 @@ export const sampleProductNotDiscounted: Product = {
     custom_attributes: null,
     add_to_cart_allowed: null,
     options: null,
+    attributes:[{value:'Zoe',name:'manufacturer'}],
   },
   highlights: [
     {

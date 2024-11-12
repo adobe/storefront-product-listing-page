@@ -2,6 +2,79 @@
 .sfsdk-product-list {
 }
 
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid {
+    column-gap: 1.25rem;
+    row-gap: 2rem;
+}
+
+.livesearch-plp {
+    margin: 0 auto;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item > div:last-child {
+    align-self: flex-start;
+}
+
+.livesearch-plp .ds-widgets .ds-sdk-product-list {
+    background-color: #ffffff;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+
+[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+[type=checkbox]:checked:focus, [type=checkbox]:checked:hover, [type=checkbox]:indeterminate {
+    background: none;
+}
+
+[type=checkbox]:checked {
+    background: none;
+}
+
+.ds-sdk-labelled-input input::before {
+    background-color: #fff;
+    border: 2px solid #904745;
+    border-radius: 5px;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 19px;
+    height: 19px;
+
+}
+
+.ds-sdk-labelled-input input:checked::before {
+    background-color: #904745;
+}
+.livesearch-plp .ds-widgets .ds-widgets-_actions {
+    max-width: 12rem;
+}
+
+@media (min-width: 1024px) {
+    .livesearch-plp .ds-widgets .ds-widgets-_actions {
+        max-width: 13rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .livesearch-plp .ds-widgets .ds-widgets-_actions {
+        max-width: 13rem;
+    }
+}
+.page-main {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) { } */
 
@@ -16,3 +89,22 @@
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 /* @media only screen and (min-width: 1200px) { } */
+
+@media only screen and (min-width: 1730px) {
+    .image-wrapper-desktop {
+        height: 341px
+    }
+
+    .filters-opened .image-wrapper-desktop {
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 961px) and (max-width: 1730px) {
+    .image-wrapper-desktop {
+        height: 18vw;
+    }
+    .filters-opened .image-wrapper-desktop {
+        height: auto;
+    }
+}

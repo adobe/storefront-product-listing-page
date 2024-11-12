@@ -33,7 +33,7 @@ export const fr_FR = {
   },
   SortDropdown: {
     title: 'Trier par',
-    option: 'Trier par : {selectedOption}',
+    option: 'Trier par ',
     relevanceLabel: 'Pertinence',
     positionLabel: 'Position',
   },

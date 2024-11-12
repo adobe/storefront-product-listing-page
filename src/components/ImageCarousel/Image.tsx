@@ -16,7 +16,7 @@ export const Image = ({
   const imageRef = useRef<HTMLImageElement>(null);
   const [imageUrl, setImageUrl] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const entry = useIntersectionObserver(imageRef, { rootMargin: '200px' });
+  const entry = useIntersectionObserver(imageRef, { rootMargin: '278px' });
 
   useEffect(() => {
     if (!entry) return;

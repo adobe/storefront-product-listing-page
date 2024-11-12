@@ -33,7 +33,7 @@ export const ru_RU = {
   },
   SortDropdown: {
     title: 'Сортировка по',
-    option: 'Сортировать по: {selectedOption}',
+    option: 'Сортировать по',
     relevanceLabel: 'Самые подходящие',
     positionLabel: 'Положение',
   },

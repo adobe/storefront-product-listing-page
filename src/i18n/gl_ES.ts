@@ -33,7 +33,7 @@ export const gl_ES = {
   },
   SortDropdown: {
     title: 'Ordenar por',
-    option: 'Ordenar por: {selectedOption}',
+    option: 'Ordenar por',
     relevanceLabel: 'Máis relevante',
     positionLabel: 'Posición',
   },

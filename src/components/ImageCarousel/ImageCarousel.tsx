@@ -11,6 +11,7 @@ import { FunctionComponent } from 'preact';
 import { SetStateAction, useState } from 'react';
 
 import { Image } from './Image';
+import {useSensor} from "../../context";
 
 export interface ImageCarouselProps {
   images: string[] | { src: string; srcset: any }[];
@@ -44,12 +45,12 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
       setCarouselIndex((prev: number) => prev + 1);
     }
   };
-
+  const { screenSize } = useSensor();
   return (
     <>
-      <div class="ds-sdk-product-image-carousel max-h-[250px] max-w-2xl m-auto">
+      <div class="ds-sdk-product-image-carousel max-h-[371px] max-w-2xl m-auto">
         <div
-          className="flex flex-nowrap overflow-hidden relative rounded-lg w-full h-full"
+          className="flex flex-nowrap overflow-hidden relative rounded-lg w-full h-full justify-evenly"
           onTouchStart={(e) => setSwipeIndex(e.touches[0].clientX)}
           onTouchEnd={(e) => {
             const endIndex = e.changedTouches[0].clientX;
@@ -60,9 +61,9 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
             }
           }}
         >
-          <div className="overflow-hidden relative max-w-[200px]">
+          <div className="overflow-hidden relative max-w-[278px]">
             <div
-              className={`flex transition ease-out duration-40`}
+                className={`flex transition ease-out duration-40 ${!screenSize.mobile ? 'image-wrapper-desktop' : ''}`}
               style={{
                 transform: `translateX(-${carouselIndex * 100}%)`,
               }}

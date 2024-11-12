@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import {MutableRef, useRef, useState} from 'preact/hooks';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
 import Shimmer from 'src/components/Shimmer';
@@ -24,6 +24,7 @@ import {
 } from '../context';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';
+import {Product} from "../types/interface";
 
 export const App: FunctionComponent = () => {
   const searchCtx = useSearch();
@@ -31,8 +32,16 @@ export const App: FunctionComponent = () => {
   const { screenSize } = useSensor();
   const translation = useTranslation();
   const { displayMode } = useStore().config;
-  const [showFilters, setShowFilters] = useState(true);
-
+  const [showFilters, setShowFilters] = useState(false);
+  // const prevProds:MutableRef<any[]>=useRef([]);
+  // console.log('prevProds.current',prevProds.current);
+  // productsCtx.items= productsCtx.items.concat(prevProds.current);
+  // productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
+  //     self.findIndex((o) => o.product.sku === obj.product.sku));
+  // prevProds.current=productsCtx.items;
+  // console.log('productsCtx.items',productsCtx.items);
+  // console.log('productsCtx',productsCtx);
+  // console.log('searchCtx',searchCtx);
   const loadingLabel = translation.Loading.title;
 
   let title = productsCtx.categoryName || '';
@@ -41,11 +50,12 @@ export const App: FunctionComponent = () => {
     title = text.replace('{phrase}', `"${productsCtx.variables.phrase ?? ''}"`);
   }
   const getResults = (totalCount: number) => {
+    // prevProds.current=productsCtx.items;
     const resultsTranslation = translation.CategoryFilters.products;
     const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
     return results;
   };
-
+console.log('loading', productsCtx.loading);
   return (
     <>
       {!(displayMode === 'PAGE') &&
@@ -65,7 +75,7 @@ export const App: FunctionComponent = () => {
               />
               <div
                 className={`ds-widgets_results flex flex-col items-center ${
-                  productsCtx.categoryName ? 'pt-16' : 'pt-28'
+                  productsCtx.categoryName ? 'pt-0' : 'pt-28'
                 } w-full h-full`}
               >
                 <ProductsHeader
@@ -73,8 +83,6 @@ export const App: FunctionComponent = () => {
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
-                <SelectedFilters />
-
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
@@ -88,7 +96,7 @@ export const App: FunctionComponent = () => {
                     <div className="ds-widgets_actions_header flex justify-between items-center mb-md">
                       {title && <span> {title}</span>}
                       {!productsCtx.loading && (
-                        <span className="text-primary text-sm">
+                        <span className="text-primary text-[0.875rem]">
                           {getResults(productsCtx.totalCount)}
                         </span>
                       )}
@@ -98,42 +106,54 @@ export const App: FunctionComponent = () => {
               </div>
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
                 <div className="flex w-full h-full">
-                  {!screenSize.mobile &&
-                    !productsCtx.loading &&
-                    productsCtx.facets.length > 0 && (
-                      <div className="flex w-full h-full">
-                        <FilterButton
-                          displayFilter={() => setShowFilters(true)}
-                          type="desktop"
-                          title={`${translation.Filter.showTitle}${
-                            searchCtx.filterCount > 0
-                              ? ` (${searchCtx.filterCount})`
-                              : ''
-                          }`}
-                        />
-                      </div>
-                    )}
+                  {!screenSize.mobile && productsCtx.facets.length > 0 && (
+                          <div className="flex w-full h-full">
+                            <FilterButton
+                                displayFilter={() => setShowFilters(true)}
+                                type="desktop"
+                                title={`${translation.Filter.showTitle}${
+                                    searchCtx.filterCount > 0
+                                        ? ` (${searchCtx.filterCount})`
+                                        : ''
+                                }`}
+                            />
+                            <ProductsHeader
+                                facets={productsCtx.facets}
+                                totalCount={productsCtx.totalCount}
+                                screenSize={screenSize}
+                            />
+                          </div>
+                      )}
                 </div>
-                {productsCtx.loading ? (
-                  screenSize.mobile ? (
-                    <Loading label={loadingLabel} />
-                  ) : (
-                    <Shimmer />
-                  )
-                ) : (
-                  <>
-                    <div className="flex w-full h-full">
+                <div className="flex w-full h-full">
+                  {screenSize.mobile ? (
                       <ProductsHeader
-                        facets={productsCtx.facets}
-                        totalCount={productsCtx.totalCount}
-                        screenSize={screenSize}
-                      />
-                    </div>
-                    <SelectedFilters />
-                    <ProductsContainer
-                      showFilters={showFilters && productsCtx.facets.length > 0}
-                    />
-                  </>
+                          facets={productsCtx.facets}
+                          totalCount={productsCtx.totalCount}
+                          screenSize={screenSize}
+                      />) : ''
+                  }
+                </div>
+                {screenSize.mobile ? (
+                    productsCtx.items.length==0 ? (
+                        <Loading label={loadingLabel}/>
+                    ) : (
+                        <>
+                          <ProductsContainer
+                              showFilters={showFilters && productsCtx.facets.length > 0}
+                          />
+                        </>
+                    )
+                ) : (
+                    productsCtx.items.length==0 ? (
+                        <Shimmer/>
+                    ) : (
+                        <>
+                          <ProductsContainer
+                              showFilters={showFilters && productsCtx.facets.length > 0}
+                          />
+                        </>
+                    )
                 )}
               </div>
             </div>

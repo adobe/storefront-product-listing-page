@@ -33,7 +33,7 @@ export const hi_IN = {
   },
   SortDropdown: {
     title: 'इसके अनुसार क्रमबद्ध करें',
-    option: 'इसके अनुसार क्रमबद्ध करें: {selectedOption}',
+    option: 'इसके अनुसार क्रमबद्ध करें',
     relevanceLabel: 'सबसे अधिक प्रासंगिक',
     positionLabel: 'पद',
   },

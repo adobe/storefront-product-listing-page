@@ -33,7 +33,7 @@ export const fi_FI = {
   },
   SortDropdown: {
     title: 'Lajitteluperuste',
-    option: 'Lajitteluperuste: {selectedOption}',
+    option: 'Lajitteluperuste',
     relevanceLabel: 'Olennaisimmat',
     positionLabel: 'Sijainti',
   },

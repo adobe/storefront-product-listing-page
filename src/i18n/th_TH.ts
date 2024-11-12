@@ -33,7 +33,7 @@ export const th_TH = {
   },
   SortDropdown: {
     title: 'เรียงตาม',
-    option: 'เรียงตาม: {selectedOption}',
+    option: 'เรียงตาม',
     relevanceLabel: 'เกี่ยวข้องมากที่สุด',
     positionLabel: 'ตำแหน่ง',
   },

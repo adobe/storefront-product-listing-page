@@ -33,7 +33,7 @@ export const cs_CZ = {
   },
   SortDropdown: {
     title: 'Seřadit podle',
-    option: 'Seřadit podle: {selectedOption}',
+    option: 'Seřadit podle',
     relevanceLabel: 'Nejrelevantnější',
     positionLabel: 'Umístění',
   },

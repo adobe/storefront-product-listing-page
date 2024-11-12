@@ -27,7 +27,7 @@ export const FacetsShimmer: FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
+      <div className="ds-sdk-input__border border-t mt-[1.25rem] border-gray-200" />
     </>
   );
 };

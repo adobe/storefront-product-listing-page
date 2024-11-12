@@ -1,0 +1,16 @@
+span.price-text{
+  font-size: 1.13rem;
+  color: #000;
+  font-family: 'FuturaBT-Light';
+  font-weight: 400;
+}
+span.price-text.text-bold{
+  font-weight: 700;
+}
+span.line-through.text{
+  color:#aaaaaa;
+  font-size: 1.15rem;
+  padding-left: 0.16rem;
+  font-family: 'FuturaBT-Light';
+  font-weight: 400;
+}

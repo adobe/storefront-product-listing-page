@@ -242,6 +242,7 @@ export interface Product {
           title: null | string;
           values: null | SwatchValues[];
         }[];
+    attributes: [{ value: string,name:string|string[] }];
   };
   highlights: Array<Highlights>;
 }
