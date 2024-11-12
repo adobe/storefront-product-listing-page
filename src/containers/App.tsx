@@ -55,7 +55,7 @@ export const App: FunctionComponent = () => {
     const results = resultsTranslation.replace('{totalCount}', `${totalCount}`);
     return results;
   };
-
+console.log('loading', productsCtx.loading);
   return (
     <>
       {!(displayMode === 'PAGE') &&
@@ -106,9 +106,7 @@ export const App: FunctionComponent = () => {
               </div>
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
                 <div className="flex w-full h-full">
-                  {!screenSize.mobile &&
-                      !productsCtx.loading &&
-                      productsCtx.facets.length > 0 && (
+                  {!screenSize.mobile && productsCtx.facets.length > 0 && (
                           <div className="flex w-full h-full">
                             <FilterButton
                                 displayFilter={() => setShowFilters(true)}
@@ -136,18 +134,26 @@ export const App: FunctionComponent = () => {
                       />) : ''
                   }
                 </div>
-                {productsCtx.loading ? (
-                    screenSize.mobile ? (
+                {screenSize.mobile ? (
+                    productsCtx.items.length==0 ? (
                         <Loading label={loadingLabel}/>
                     ) : (
-                        <Shimmer/>
+                        <>
+                          <ProductsContainer
+                              showFilters={showFilters && productsCtx.facets.length > 0}
+                          />
+                        </>
                     )
                 ) : (
-                    <>
-                      <ProductsContainer
-                          showFilters={showFilters && productsCtx.facets.length > 0}
-                      />
-                    </>
+                    productsCtx.items.length==0 ? (
+                        <Shimmer/>
+                    ) : (
+                        <>
+                          <ProductsContainer
+                              showFilters={showFilters && productsCtx.facets.length > 0}
+                          />
+                        </>
+                    )
                 )}
               </div>
             </div>

@@ -23,12 +23,14 @@ export interface ProductListProps extends HTMLAttributes<HTMLDivElement> {
   products: Array<Product> | null | undefined;
   numberOfColumns: number;
   showFilters: boolean;
+  prevProducts: Array<Product>| null | undefined;
 }
 
 export const ProductList: FunctionComponent<ProductListProps> = ({
   products,
   numberOfColumns,
   showFilters,
+  prevProducts
 }) => {
   const productsCtx = useProducts();
   const {
@@ -53,6 +55,8 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   useEffect(() => {
     refreshCart && refreshCart();
   }, [itemAdded]);
+
+  console.log('******prevProducts',prevProducts);
   return (
     <div
       className={classNames(

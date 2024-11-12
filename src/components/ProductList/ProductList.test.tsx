@@ -14,7 +14,7 @@ import { ProductList } from './ProductList';
 describe('WidgetSDK - UIKit/ProductList', () => {
   test('renders', () => {
     const { container } = render(
-      <ProductList products={[]} numberOfColumns={0} showFilters={true} />
+      <ProductList products={[]} numberOfColumns={0} showFilters={true} prevProducts={[]} />
     );
 
     const elem = container.querySelector('.ds-sdk-product-list');

@@ -26,7 +26,6 @@ import {
   DEFAULT_PAGE_SIZE_OPTIONS,
   SEARCH_SORT_DEFAULT,
 } from '../utils/constants';
-import { moveToTop } from '../utils/dom';
 import {
   getFiltersFromUrl,
   getValueFromUrl,
@@ -36,7 +35,6 @@ import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
 import { useTranslation } from './translation';
-import {products} from "../components/ProductList/MockData";
 
 interface WithChildrenProps {
   children?: any;
@@ -47,6 +45,8 @@ const ProductsContext = createContext<{
   loading: boolean;
   items: Product[];
   setItems: (items: Product[]) => void;
+  prevItems: Product[];
+  setPrevItems: (items: Product[]) => void;
   currentPage: number;
   setCurrentPage: (page: number) => void;
   loadNextPage: number;
@@ -94,6 +94,8 @@ const ProductsContext = createContext<{
   loading: false,
   items: [],
   setItems: () => {},
+  prevItems: [],
+  setPrevItems: () => {},
   currentPage: 1,
   setCurrentPage: () => {},
   loadNextPage: 1,
@@ -166,7 +168,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [loadPrevPage, setLoadPrevPage] = useState<number>(pageDefault);
   console.log('ProductsContextProvider loadNextPage',loadNextPage);
   console.log('ProductsContextProvider loadPrevPage',loadPrevPage);
-
+  const [prevItems, setPrevItems] = useState<Product[]>([]);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -229,6 +231,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     loading,
     items,
     setItems,
+    prevItems,
+    setPrevItems,
     currentPage,
     setCurrentPage,
     loadNextPage,
@@ -309,8 +313,10 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
         if (pagination) {
           if (currentPage == prevPage.current) {
             let dataItems = data?.productSearch?.items || [];
+            setPrevItems(prevProds.current);
             prevProds.current = dataItems.concat(prevProds.current);
           } else {
+            setPrevItems(prevProds.current);
             prevProds.current = prevProds.current.concat(data?.productSearch?.items || []);
           }
           console.log(currentPage, nextPage.current, prevPage.current);
