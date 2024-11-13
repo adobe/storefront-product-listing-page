@@ -99,7 +99,7 @@ export const ProductPriceRange: FunctionComponent<ProductPriceRangeProps> = ({
                 const originalPrice = ((minPrice !== '' || maxPrice !== '') ?
                     <span class="line-through text inline-block">
                     {minPrice} - {maxPrice} </span> : '');
-                return <span className="price-text font-bold">
+                return <span className="price-text">
                    {getProductPrice(item, currencySymbol, currencyRate, false, true)}<span> - </span>
                     {getProductPrice(item, currencySymbol, currencyRate, true, true)}
                     {originalPrice}
