@@ -135,7 +135,7 @@ console.log('loading', productsCtx.loading);
                   }
                 </div>
                 {screenSize.mobile ? (
-                    productsCtx.items.length==0 ? (
+                    productsCtx.loading ? (
                         <Loading label={loadingLabel}/>
                     ) : (
                         <>
@@ -145,7 +145,7 @@ console.log('loading', productsCtx.loading);
                         </>
                     )
                 ) : (
-                    productsCtx.items.length==0 ? (
+                    productsCtx.loading ? (
                         <Shimmer/>
                     ) : (
                         <>
