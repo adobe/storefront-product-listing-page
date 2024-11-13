@@ -198,7 +198,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
 
   return (
     <div className="ds-sdk-input pt-md">
-      <label className="ds-sdk-input__label text-[1rem] font-normal text-gray-900 font-['FuturaBT-Light']">
+      <label className="ds-sdk-input__label text-[1rem] font-normal text-gray-900 font-['FuturaBT-Medium']">
         {filterData.title}
       </label>
 
