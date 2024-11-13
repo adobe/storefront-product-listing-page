@@ -286,7 +286,11 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     console.log('********************SEARCHPRODUCTS LOG START********************************');
 
     try {
-      setLoading(true);
+      if (pagination) {
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
       disableScroll();
       // moveToTop();
       if (checkMinQueryLength()) {
