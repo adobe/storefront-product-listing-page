@@ -253,7 +253,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
       >
-        <div class="pb-[2.1rem]">
+        <div class="pb-[3.1rem]">
           <a
               href={productUrl as string}
               onClick={onProductClick}
