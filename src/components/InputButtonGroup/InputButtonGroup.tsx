@@ -116,7 +116,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       {inputGroupTitleSlot ? (
         inputGroupTitleSlot(title)
       ) : (
-        <label className="ds-sdk-input__label text-[1rem] font-normal text-gray-900 font-['FuturaBT-Light']">
+        <label className="ds-sdk-input__label text-[1rem] font-normal text-gray-900 font-['FuturaBT-Medium']">
           {title}
         </label>
       )}
