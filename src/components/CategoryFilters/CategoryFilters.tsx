@@ -35,6 +35,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
   phrase,
   setShowFilters,
   filterCount,
+  showFilters,
 }) => {
   const translation = useTranslation();
   let title = categoryName || '';
@@ -61,6 +62,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
               title={`${translation.Filter.hideTitle}${
                 filterCount > 0 ? ` (${filterCount})` : ''
               }`}
+              isFiltersOpen={showFilters}
             />
           </div>
           <Facets searchFacets={facets} />

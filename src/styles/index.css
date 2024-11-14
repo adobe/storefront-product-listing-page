@@ -1206,9 +1206,6 @@ video {
   .pt-16 {
     padding-top: 4rem;
   }
-  .pt-28 {
-    padding-top: 7rem;
-  }
   .pt-3 {
     padding-top: 0.75rem;
   }
@@ -1271,9 +1268,6 @@ video {
   .text-xs {
     font-size: var(--font-xs);
     line-height: var(--leading-none);
-  }
-  .font-bold {
-    font-weight: var(--font-bold);
   }
   .font-light {
     font-weight: var(--font-light);
