@@ -17,13 +17,14 @@ export interface FilterButtonProps {
     displayFilter: () => void;
     type: string;
     title?: string;
-    isFilterActive?:boolean
+    isFilterActive?: boolean;
+    isFiltersOpen?: boolean;
 }
 export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   displayFilter,
   type,
   title,
-  isFilterActive,
+  isFiltersOpen
 }: FilterButtonProps) => {
   const translation = useTranslation();
   const mobileFilterButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -43,7 +44,7 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
     return type == 'mobile' ? (
     <div className="ds-sdk-filter-button">
       <button
-        className={`flex items-center ${isFilterActive?'bg-black':'bg-[#904745]'} text-white ring-black ring-opacity-5 text-[0.875rem] rounded-md p-sm h-[32px] font-['FuturaBT-Light'] px-[0.75rem]`}
+        className={`flex items-center ${isFiltersOpen ? 'bg-black' : 'bg-[#904745]'} text-white ring-black ring-opacity-5 text-[0.875rem] rounded-md p-sm h-[32px] font-['FuturaBT-Light'] px-[0.75rem]`}
         onClick={() => handleClick()}
         ref={mobileFilterButtonRef}
       >
@@ -53,8 +54,9 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
   ) : (
     <div className="ds-sdk-filter-button-desktop w-[14rem]">
       <button
-        className="flex items-center bg-[#904745] text-white ring-black ring-opacity-5 py-[0.45rem] rounded-md p-sm text-[0.875rem] font-['FuturaBT-Light']"
-        onClick={displayFilter}
+          className={`flex items-center ${isFiltersOpen ? 'bg-black' : 'bg-[#904745]'} text-white ring-black ring-opacity-5 py-[0.45rem] rounded-md p-sm text-[0.875rem] font-['FuturaBT-Light']`}
+        onClick={() => handleClick()}
+        ref={mobileFilterButtonRef}
       >
         {title?.toUpperCase()}
       </button>

@@ -114,6 +114,7 @@ console.log('loading', productsCtx.loading);
                                         ? ` (${searchCtx.filterCount})`
                                         : ''
                                 }`}
+                                isFiltersOpen={showFilters}
                             />
                             <ProductsHeader
                                 facets={productsCtx.facets}
