@@ -1164,8 +1164,8 @@ video {
   .pb-\[1\.5rem\] {
     padding-bottom: 1.5rem;
   }
-  .pb-\[2\.1rem\] {
-    padding-bottom: 2.1rem;
+  .pb-\[3\.1rem\] {
+    padding-bottom: 3.1rem;
   }
   .pl-3 {
     padding-left: 0.75rem;
@@ -1205,9 +1205,6 @@ video {
   }
   .pt-16 {
     padding-top: 4rem;
-  }
-  .pt-28 {
-    padding-top: 7rem;
   }
   .pt-3 {
     padding-top: 0.75rem;
@@ -1271,9 +1268,6 @@ video {
   .text-xs {
     font-size: var(--font-xs);
     line-height: var(--leading-none);
-  }
-  .font-bold {
-    font-weight: var(--font-bold);
   }
   .font-light {
     font-weight: var(--font-light);

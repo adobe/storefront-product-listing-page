@@ -185,7 +185,7 @@ export const ProductPriceRange: FunctionComponent<ProductPriceRangeProps> = ({
           {!isGrouped &&
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
-              <p className="ds-sdk-product-price--configurable text-[0.875rem] font-medium text-gray-900 my-auto text-center">
+              <p className="ds-sdk-product-price--configurable font-medium text-gray-900 my-auto text-center">
                 {getDiscountedPrice()}
               </p>
             )}
