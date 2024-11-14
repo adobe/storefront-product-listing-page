@@ -69,9 +69,10 @@ const generateOptimizedImages = (
   baseImageWidth: number
 ): { src: string; srcset: any }[] => {
   const baseOptions = {
-    fit: 'crop',
+    fit: 'bounds',
+    canvas: '3:4,offset-y100',
     dpi: 1,
-    height: 341,
+    height: 371,
   };
 
   const imageUrlArray: Array<{ src: string; srcset: any }> = [];
@@ -88,7 +89,7 @@ const generateOptimizedImages = (
         auto: 'webp',
         quality: 80,
         width: baseImageWidth * dpi,
-        height: 341*dpi,
+        height: 371*dpi,
       })} ${dpi}x`;
     });
     imageUrlArray.push({ src, srcset });
