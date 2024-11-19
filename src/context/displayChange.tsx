@@ -16,6 +16,7 @@ interface DisplayChange {
   mobile: boolean;
   tablet: boolean;
   desktop: boolean;
+  desktopSmall: boolean;
   columns: number;
 }
 
@@ -27,6 +28,7 @@ const DefaultScreenSizeObject: DisplayChange = {
   mobile: false,
   tablet: false,
   desktop: false,
+  desktopSmall: false,
   columns: PRODUCT_COLUMNS.desktop,
 };
 
@@ -55,6 +57,9 @@ const getColumn = (screenSize: DisplayChange): number => {
   if (screenSize.mobile) {
     return PRODUCT_COLUMNS.mobile;
   }
+  if (screenSize.desktopSmall) {
+    return PRODUCT_COLUMNS.desktopSmall;
+  }
   // Fallback just incase
   return PRODUCT_COLUMNS.desktop;
 };
@@ -67,7 +72,8 @@ const Resize: FunctionComponent = ({ children }) => {
     result.tablet = window.matchMedia(
       'screen and (min-width: 768px) and (max-width: 960px)'
     ).matches;
-    result.desktop = window.matchMedia('screen and (min-width: 961px)').matches;
+    result.desktopSmall = window.matchMedia('screen and (min-width: 961px) and (max-width: 1024px)').matches;
+    result.desktop = window.matchMedia('screen and (min-width: 1025px)').matches;
     result.columns = getColumn(result);
     return result;
   };
