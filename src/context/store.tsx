@@ -32,6 +32,7 @@ export interface StoreDetailsProps extends WithChildrenProps {
   apiKey: string;
   route?: RedirectRouteFunc; // optional product redirect func prop
   searchQuery?: string; // 'q' default search query param if not provided.
+  inGridPromoIndexes?:Array<number>;
 }
 
 const StoreContext = createContext<StoreDetailsProps>({
@@ -49,6 +50,7 @@ const StoreContext = createContext<StoreDetailsProps>({
   context: {},
   route: undefined,
   searchQuery: 'q',
+  inGridPromoIndexes: [],
 });
 
 const StoreContextProvider = ({
@@ -63,6 +65,7 @@ const StoreContextProvider = ({
   apiKey,
   route,
   searchQuery,
+  inGridPromoIndexes,
 }: StoreDetailsProps) => {
   const storeProps = useMemo(
     () => ({
@@ -83,8 +86,9 @@ const StoreContextProvider = ({
           : apiKey,
       route,
       searchQuery,
+      inGridPromoIndexes,
     }),
-    [environmentId, websiteCode, storeCode, storeViewCode]
+    [environmentId, websiteCode, storeCode, storeViewCode, inGridPromoIndexes]
   );
 
   const storeContext = {

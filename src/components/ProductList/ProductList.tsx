@@ -9,7 +9,7 @@ it.
 
 import {FunctionComponent} from 'preact';
 import {HTMLAttributes} from 'preact/compat';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useRef,useState} from 'preact/hooks';
 
 import './product-list.css';
 
@@ -27,6 +27,25 @@ type FranchiseProps = Omit<ProductProps, "item"> & {
 };
 
 const NEXT_NUMBER_OF_ROWS = 4;
+
+const renderProductList = (products: Product[], setError: (error: boolean) => void, currencySymbol: string, currencyRate: string, categoryConfig: any, setRoute: any, refineProduct: any, setCartUpdated: (updated: boolean) => void, setItemAdded: (item: string) => void, addToCart: any, disableAllPurchases: boolean) => {
+  return products.map((product) => (
+      <ProductItem
+          key={product.productView.id}
+          item={product}
+          setError={setError}
+          currencySymbol={currencySymbol}
+          currencyRate={currencyRate}
+          categoryConfig={categoryConfig}
+          setRoute={setRoute}
+          refineProduct={refineProduct}
+          setCartUpdated={setCartUpdated}
+          setItemAdded={setItemAdded}
+          addToCart={addToCart}
+          disableAllPurchases={disableAllPurchases}
+      />
+  ));
+};
 
 const Franchises : FunctionComponent<FranchiseProps> = ({
    currencySymbol,
@@ -136,10 +155,11 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
     addToCart,
     getMoreFranchiseProducts,
     disableAllPurchases = false,
+
   } = productsCtx;
   const [cartUpdated, setCartUpdated] = useState(false);
   const [itemAdded, setItemAdded] = useState('');
-  const {viewType} = useProducts();
+  const {viewType, currentPage} = useProducts();
   const [error, setError] = useState<boolean>(false);
   const {
     config: {listview},
@@ -153,6 +173,29 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   useEffect(() => {
     refreshCart && refreshCart();
   }, [itemAdded]);
+
+  // eslint-disable-next-line no-undef
+  const insertMerchandise = (productList: JSX.Element[], positions:Array<number>, currentPage:number) => {
+    for (const position of positions) {
+      if (currentPage === 1) {
+        const merchandiseElement = (
+            <div className={`enrichment-container position-${position}`}/>
+        );
+        productList.splice(position - 1, 0, merchandiseElement);
+      }
+    }
+    return productList;
+  };
+
+  const merchandisingData = useStore().inGridPromoIndexes || [];
+  const finalProductList = insertMerchandise(renderProductList(products ?? [], setError, currencySymbol, currencyRate, categoryConfig, setRoute, refineProduct, setCartUpdated, setItemAdded, addToCart, disableAllPurchases), merchandisingData, currentPage);
+  useEffect(() => {
+
+      // custom event
+      const event = new CustomEvent('product-list-rendered');
+      window.dispatchEvent(event);
+
+  }, [finalProductList]);
 
   return (
     <div
@@ -208,22 +251,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
       {!displayFranchises && (listview && viewType === 'listview' ? (
         <div className="w-full">
           <div className="ds-sdk-product-list__list-view-default mt-md grid grid-cols-none pt-[15px] w-full gap-[10px]">
-            {products?.map((product) => (
-              <ProductItem
-                item={product}
-                setError={setError}
-                key={product?.productView?.id}
-                currencySymbol={currencySymbol}
-                currencyRate={currencyRate}
-                categoryConfig={categoryConfig}
-                setRoute={setRoute}
-                refineProduct={refineProduct}
-                setCartUpdated={setCartUpdated}
-                setItemAdded={setItemAdded}
-                addToCart={addToCart}
-                disableAllPurchases={disableAllPurchases}
-              />
-            ))}
+            {finalProductList}
           </div>
         </div>
       ) : (
@@ -233,22 +261,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           }}
           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm md:gap-x-9 md:gap-y-9"
         >
-          {products?.map((product) => (
-            <ProductItem
-              item={product}
-              setError={setError}
-              key={product?.productView?.id}
-              currencySymbol={currencySymbol}
-              currencyRate={currencyRate}
-              categoryConfig={categoryConfig}
-              setRoute={setRoute}
-              refineProduct={refineProduct}
-              setCartUpdated={setCartUpdated}
-              setItemAdded={setItemAdded}
-              addToCart={addToCart}
-              disableAllPurchases={disableAllPurchases}
-            />
-          ))}
+          {finalProductList}
         </div>
       ))}
     </div>

@@ -8,7 +8,7 @@ it.
 */
 
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import Enrichment from 'src/components/Enrichment';
 import FilterButton from 'src/components/FilterButton';
 import Loading from 'src/components/Loading';
@@ -35,6 +35,14 @@ export const App: FunctionComponent = () => {
 
   const loadingLabel = translation.Loading.title;
 
+  useEffect(() => {
+    if (!productsCtx.loading) {
+      // trigger an event when the product list is loaded
+      const event = new CustomEvent('product-list-loaded');
+      window.dispatchEvent(event);
+    }
+  });
+
   return (
     <>
       {!(displayMode === 'PAGE') &&
@@ -56,12 +64,12 @@ export const App: FunctionComponent = () => {
                     screenSize={screenSize}
                 />
               </div>
+              <Enrichment position={'above-grid'}/>
               <div
                   className={`ds-widgets_results flex flex-col items-center flex-[75] ds-widgets-results__center-container `}
               >
                 <ProductsContainer showFilters={showFilters}/>
               </div>
-              <Enrichment position={'above-grid'}/>
             </div>
           </div>
         ) : (

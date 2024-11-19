@@ -12,6 +12,7 @@ const validStoreDetailsKeys: Array<keyof StoreDetailsProps> = [
   'apiKey',
   'route',
   'searchQuery',
+  'inGridPromoIndexes',
 ];
 
 export const sanitizeString = (value: any) => {
