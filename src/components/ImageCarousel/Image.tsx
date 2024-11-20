@@ -30,7 +30,7 @@ export const Image = ({
 
   return (
     <img
-      className={`aspect-auto w-100 h-auto ${
+      className={`aspect-auto w-full h-auto ${
         isVisible ? 'visible' : 'invisible'
       }`}
       ref={imageRef}

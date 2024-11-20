@@ -2,11 +2,6 @@
 .sfsdk-product-list {
 }
 
-.livesearch-plp .ds-widgets .ds-sdk-product-list__grid {
-    column-gap: 1.25rem;
-    row-gap: 2rem;
-}
-
 .livesearch-plp {
     margin: 0 auto;
     max-width: 100%;
@@ -92,7 +87,7 @@ body {
 
 @media only screen and (min-width: 1730px) {
     .image-wrapper-desktop {
-        height: 341px
+        height: auto;
     }
 
     .filters-opened .image-wrapper-desktop {
@@ -102,7 +97,7 @@ body {
 
 @media only screen and (min-width: 961px) and (max-width: 1730px) {
     .image-wrapper-desktop {
-        height: 18vw;
+        height: auto;
     }
     .filters-opened .image-wrapper-desktop {
         height: auto;
