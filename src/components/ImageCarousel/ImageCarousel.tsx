@@ -48,7 +48,7 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
   const { screenSize } = useSensor();
   return (
     <>
-      <div class="ds-sdk-product-image-carousel max-h-[371px] max-w-2xl m-auto">
+      <div class="ds-sdk-product-image-carousel m-auto">
         <div
           className="flex flex-nowrap overflow-hidden relative rounded-lg w-full h-full justify-evenly"
           onTouchStart={(e) => setSwipeIndex(e.touches[0].clientX)}
@@ -61,9 +61,9 @@ export const ImageCarousel: FunctionComponent<ImageCarouselProps> = ({
             }
           }}
         >
-          <div className="overflow-hidden relative max-w-[278px]">
+          <div className="overflow-hidden relative w-full">
             <div
-                className={`flex transition ease-out duration-40 ${!screenSize.mobile ? 'image-wrapper-desktop' : ''}`}
+                className={`inline-block w-full transition ease-out duration-40 ${!screenSize.mobile ? 'image-wrapper-desktop' : ''}`}
               style={{
                 transform: `translateX(-${carouselIndex * 100}%)`,
               }}
