@@ -53,7 +53,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
       </div>
     );
   }
-  
+
   if (type === 'COLOR_HEX') {
     const color = value.toLowerCase();
     const className = `min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
@@ -76,6 +76,8 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   }
 
   if (type === 'IMAGE' && value) {
+    value = value.replace('&quot;', '"');
+    
     const className = `object-cover object-center min-w-[32px] rounded-full p-sm border border-[1.5px] ${outlineColor} h-[32px] outline-transparent`;
     const style = `background: url(${value}) no-repeat center; background-size: contain;`;
     return (
