@@ -62,7 +62,7 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
   );
 
   const [showMobileFacet, setShowMobileFacet] = useState(
-    !!productsCtx.variables.filter?.length
+    false
   );
   const [sortOptions, setSortOptions] = useState(defaultSortOptions());
 
