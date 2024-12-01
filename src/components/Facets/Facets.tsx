@@ -27,7 +27,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   } = useStore();
   return (
     <div className="ds-plp-facets flex flex-col">
-      <form className="ds-plp-facets__list border-t border-gray-200">
+      <form className="ds-plp-facets__list">
         {searchFacets?.map((facet) => {
           const bucketType = facet?.buckets[0]?.__typename;
           switch (bucketType) {
