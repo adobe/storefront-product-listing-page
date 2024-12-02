@@ -28,6 +28,12 @@ export interface ClientProps {
   xRequestId?: string;
 }
 
+export interface CategoryExtraInfo {
+  id: string;
+  url: string;
+  [key: string]: any;
+}
+
 export interface StoreDetailsConfig {
   allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
@@ -39,6 +45,7 @@ export interface StoreDetailsConfig {
   currentCategoryId?: string;
   categoryName?: string;
   categoryConfig?: Record<string, any>;
+  categoriesExtraInfo?: Array<CategoryExtraInfo>;
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayMode?: string;

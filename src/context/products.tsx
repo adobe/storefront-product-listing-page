@@ -184,6 +184,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
   const categoryId = storeCtx.config?.currentCategoryId;
   const categoryConfig = storeCtx.config?.categoryConfig;
+  const categoriesExtraInfo = storeCtx.config?.categoriesExtraInfo;
 
   const viewTypeFromUrl = getValueFromUrl('view_type');
   const [viewType, setViewType] = useState<string>(
@@ -310,17 +311,27 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       return;
     }
 
+    let sortedCategories = categories;
+    /* Sort categories based on id from categoriesExtraInfo */
+    if (categoriesExtraInfo) {
+      sortedCategories = categories.sort((a, b) => {
+        const idA = categoriesExtraInfo.findIndex(item => item.url === a.path);
+        const idB = categoriesExtraInfo.findIndex(item => item.url === b.path)
+        return idA - idB;
+      });
+    }
+
     const result = await getFranchiseSearch({
       ...variables,
       ...storeCtx,
       pageSize: 20,
       currentPage: 1,
       apiUrl: storeCtx.apiUrl,
-      categories: categories.map((c) => c.title),
+      categories: sortedCategories.map((c) => c.title),
     });
 
     Object.keys(result).forEach((key) => {
-      const category = categories.find((c) => c.title.replaceAll('-', '').endsWith(key));
+      const category = sortedCategories.find((c) => c.title.replaceAll('-', '').endsWith(key));
       result[key] = {
         ...category,
         ...result[key],
