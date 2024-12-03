@@ -55,7 +55,7 @@ export const CategoryFilters: FunctionComponent<CategoryFiltersProps> = ({
 
       {!pageLoading && facets.length > 0 && (
         <>
-          <div className="flex pb-[0.85rem] w-full h-full border-b border-black">
+          <div className={`flex ${filterCount > 0 ? 'pb-[3rem]' : 'pb-[0.85rem]'} w-full h-full border-b border-black`}>
             <FilterButton
               displayFilter={() => setShowFilters(false)}
               type="desktop"

@@ -1160,6 +1160,9 @@ video {
   .pb-\[3\.1rem\] {
     padding-bottom: 3.1rem;
   }
+  .pb-\[3rem\] {
+    padding-bottom: 3rem;
+  }
   .pl-2 {
     padding-left: 0.5rem;
   }
