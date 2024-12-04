@@ -95,14 +95,7 @@ export const Facets: FunctionComponent<FacetsProps> = ({
   const {config} = useStore();
   const translation = useTranslation();
 
-  let i = 0;
-  for (let facet of searchFacets) {
-    if (facet.buckets.length < 1) {
-      searchFacets.splice(i, 1);
-    }
-
-    i++;
-  }
+  searchFacets.filter(facet => facet.buckets.length > 0);
 
   const searchFacetsSliced = searchFacets?.slice(0, 3)
   const [selectedFacet] = useState<FacetType | null>(null);
