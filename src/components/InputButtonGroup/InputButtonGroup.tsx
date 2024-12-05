@@ -98,8 +98,10 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       ) : (
         (isHidden ? (
           <label
+            tabindex={0}
             className="ds-sdk-input__label text-neutral-900 text-sm font-semibold py-md w-full h-full ib-display cursor-pointer flex flex-row"
-            onClick={(event) => toggleFilters(event)}>
+            onClick={(event) => toggleFilters(event)}
+            onKeyDown={(event) => toggleFilters(event)}>
             {title}
           </label>
         ) : (

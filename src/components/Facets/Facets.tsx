@@ -29,13 +29,15 @@ interface FacetsProps {
 
 export const scrollFilter = (
   event: any,
-  displayFunction: (() => void) | undefined,
-  click?: boolean
+  displayFunction: (() => void) | undefined
 ) => {
+  const activateEvent = event.type === 'click' || (event.type === 'keydown' && event.key === 'Enter') || false;
+
+  if (!activateEvent) {
+    return;
+  }
+
   displayFunction?.();
-  console.log(event.target)
-  console.log(event.currentTarget)
-  console.log(click)
   const clicked = event.target;
   const filterNumber = Number(clicked.id.split('-')[1])
   const targetNode = document.querySelector('.mobile-filters-container');
@@ -115,7 +117,10 @@ export const Facets: FunctionComponent<FacetsProps> = ({
             <form className="ds-plp-facets__list flex gap-x-3.2rem">
               <div class="ds-sdk-input py-md">
                 <div class="flex items-center gap-x-1 cursor-pointer"
-                     onClick={(event) => scrollFilter(event, displayFilter)}>
+                     tabindex={0}
+                     onClick={(event) => scrollFilter(event, displayFilter)}
+                     onKeyDown={(event) => scrollFilter(event, displayFilter)}
+                     >
                   <label id={'filter-0'}
                          className="flex flex-row gap-4 ds-sdk-input__label text-neutral-900 text-sm font-semibold cursor-pointer">
                     <SortFilterIcon className="h-[18px] w-[18px] fill-neutral-800"/>

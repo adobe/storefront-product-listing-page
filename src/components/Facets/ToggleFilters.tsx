@@ -3,9 +3,13 @@
  *
  * @param event
  */
-export const toggleFilters = (event: Omit<MouseEvent, "currentTarget"> & {
-  readonly currentTarget: HTMLLabelElement
-}) => {
+export const toggleFilters = (event: any) => {
+  const activateEvent = event.type === 'click' || (event.type === 'keydown' && event.key === 'Enter') || false;
+
+  if (!activateEvent) {
+    return;
+  }
+
   const clicked = event.currentTarget;
   const toBeActiveFilterBlock = clicked.nextElementSibling;
   const parrentDiv = clicked.closest('.ds-sdk-input')
