@@ -28,6 +28,7 @@ import {
   generateGQLSortInput,
   getSortOptionsfromMetadata,
 } from '../utils/sort';
+import { FranchiseViewSelector } from "../components/Facets/FranchiseViewSelector";
 
 interface Props {
   facets: Facet[];
@@ -118,6 +119,11 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
               type="mobile"
             />
           </div>
+        </div>
+      )}
+      {screenSize.mobile && (
+        <div className={'mobile-franchise'}>
+          <FranchiseViewSelector/>
         </div>
       )}
       <div class="mobile-filters-container z-1000">

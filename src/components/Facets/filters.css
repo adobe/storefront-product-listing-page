@@ -48,7 +48,6 @@
 
 @media (max-width: 768px) {
   .franchise-selector {
-    float: none;
     align-self: end;
     padding-right: 12px;
     margin-top: 15px;
