@@ -46,9 +46,10 @@ export interface ResolveImageUrlOptions {
   width: number;
   height?: number;
   auto?: string;
-  quality?: number;
+  optimize?: string;
   crop?: boolean;
   fit?: string;
+  'bg-color'?: string;
 }
 
 const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions): string => {
@@ -70,7 +71,6 @@ const generateOptimizedImages = (
 ): { src: string; srcset: any }[] => {
   const baseOptions = {
     fit: 'bounds',
-    canvas: '3:4,offset-y100',
     dpi: 1,
     height: 371,
   };
@@ -87,9 +87,10 @@ const generateOptimizedImages = (
       return `${resolveImageUrl(imageUrl, {
         ...baseOptions,
         auto: 'webp',
-        quality: 80,
+        optimize: 'medium',
         width: baseImageWidth * dpi,
         height: 371*dpi,
+        'bg-color':'255,255,255',
       })} ${dpi}x`;
     });
     imageUrlArray.push({ src, srcset });

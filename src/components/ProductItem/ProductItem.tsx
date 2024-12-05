@@ -95,7 +95,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     : getProductImageURLs(
         productView.images ?? [],
         imageCarousel ? 3 : 1, // number of images to display in carousel
-        product.image?.url ?? undefined
+        product.small_image?.url ?? undefined
       );
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
