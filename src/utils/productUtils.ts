@@ -19,7 +19,9 @@ export function getImageConfigsFromAttribute(productView: ProductView) {
   }
 
   try {
-    return JSON.parse(imageAttributes.value);
+    if (imageAttributes.value) {
+      return JSON.parse(imageAttributes.value);
+    }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error('Error parsing image attributes', e);
