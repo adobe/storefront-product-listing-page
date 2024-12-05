@@ -29,7 +29,7 @@ interface FacetsProps {
 
 export const scrollFilter = (
   event: any,
-  displayFunction: (() => void) | undefined
+  displayFunction: (() => void) | undefined,
 ) => {
   const activateEvent = event.type === 'click' || (event.type === 'keydown' && event.key === 'Enter') || false;
 
@@ -38,6 +38,7 @@ export const scrollFilter = (
   }
 
   displayFunction?.();
+
   const clicked = event.target;
   const filterNumber = Number(clicked.id.split('-')[1])
   const targetNode = document.querySelector('.mobile-filters-container');
@@ -93,6 +94,9 @@ export const Facets: FunctionComponent<FacetsProps> = ({
 }: FacetsProps) => {
   const {config} = useStore();
   const translation = useTranslation();
+
+  searchFacets = searchFacets.filter(facet => facet.buckets.length > 0);
+
   const searchFacetsSliced = searchFacets?.slice(0, 3)
   const [selectedFacet] = useState<FacetType | null>(null);
   const isCategory = config?.currentCategoryUrlPath || config?.currentCategoryId;

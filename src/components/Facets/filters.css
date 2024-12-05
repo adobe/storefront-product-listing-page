@@ -37,7 +37,7 @@
 }
 
 .mobile-filters-container .price-range-submit {
-  font-family: var(--ff-gt-america-expanded)
+  font-family: var(--body-font-family)
 }
 
 @media (min-width: 768px) {
