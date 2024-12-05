@@ -15,7 +15,7 @@ export const DEFAULT_MIN_QUERY_LENGTH = 3;
 export const PRODUCT_COLUMNS = {
   desktop: 4,
   tablet: 3,
-  mobile: 2,
+  mobile: 4,
 };
 
 export const SEARCH_SORT_DEFAULT: ProductSearchSortInput[] = [
