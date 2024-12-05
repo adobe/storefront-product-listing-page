@@ -135,9 +135,10 @@ function getProductImagesFromAttribute(productView: ProductView, categoryId?: st
   const imageConfigs = getImageConfigsFromAttribute(productView);
 
   const colorOptionsFromAttribute = imageConfigs.find((config: any) => config.attribute_id === colorOptionsFromProductOptions?.id);
-  let colorVariantId = colorOptionsFromProductOptions?.values?.[0].id;
-  if (isSportsWear(productView)) {
-    colorVariantId = colorOptionsFromProductOptions?.values?.[0].id;
+  const firstColorOptionsFromProductOptions = colorOptionsFromProductOptions?.values?.[0];
+
+  if (isSportsWear(productView) && firstColorOptionsFromProductOptions) {
+    const colorVariantId = firstColorOptionsFromProductOptions.id;
     const defaultColorOption = colorOptionsFromAttribute.images.find((colorOption: any) => colorOption.id === colorVariantId)
       || colorOptionsFromAttribute.images[0];
   
