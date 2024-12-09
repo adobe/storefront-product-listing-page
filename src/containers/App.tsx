@@ -36,7 +36,7 @@ export const App: FunctionComponent = () => {
   const loadingLabel = translation.Loading.title;
 
   useEffect(() => {
-    if (!productsCtx.loading) {
+    if (productsCtx.loading) {
       // trigger an event when the product list is loaded
       const event = new CustomEvent('product-list-loaded');
       window.dispatchEvent(event);
@@ -103,11 +103,7 @@ export const App: FunctionComponent = () => {
                     )}
                 </div>
                 {productsCtx.loading ? (
-                  screenSize.mobile ? (
-                    <Loading label={loadingLabel} />
-                  ) : (
-                    <Shimmer />
-                  )
+                  <Loading label={loadingLabel} />
                 ) : (
                   <>
                     <div className="flex w-full h-full testing">
