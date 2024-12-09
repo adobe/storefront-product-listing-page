@@ -135,16 +135,17 @@ function getProductImagesFromAttribute(productView: ProductView, categoryId?: st
   const imageConfigs = getImageConfigsFromAttribute(productView);
 
   const colorOptionsFromAttribute = imageConfigs.find((config: any) => config.attribute_id === colorOptionsFromProductOptions?.id);
-  let colorVariantId = colorOptionsFromProductOptions?.values?.[0].id;
-  if (isSportsWear(productView)) {
-    colorVariantId = colorOptionsFromProductOptions?.values?.[0].id;
-    const defaultColorOption = colorOptionsFromAttribute.images.find((colorOption: any) => colorOption.id === colorVariantId)
-      || colorOptionsFromAttribute.images[0];
-  
-    return getAbsoluteImageUrl(productView, [defaultColorOption.image, defaultColorOption.back_view_image]);
-  }
-    
+  const firstColorOptionsFromProductOptions = colorOptionsFromProductOptions?.values?.[0];
+
   if (colorOptionsFromAttribute && colorOptionsFromAttribute.images.length > 0) {
+    if (isSportsWear(productView)) {
+      const colorVariantId = firstColorOptionsFromProductOptions?.id;
+      const defaultColorOption = colorOptionsFromAttribute.images.find((colorOption: any) => colorOption.id === colorVariantId)
+        || colorOptionsFromAttribute.images[0];
+    
+      return getAbsoluteImageUrl(productView, [defaultColorOption.image, defaultColorOption.back_view_image]);
+    }
+    
     const segmentedOptions = categoryId ? getSegmentedOptions(productView, colorOptionsFromProductOptions?.id || null, categoryId) : null;
     const defaultColorOption = colorOptionsFromAttribute.images.find((option: any) => !segmentedOptions || segmentedOptions.includes(option.id));
     return getAbsoluteImageUrl(productView, [defaultColorOption.image, defaultColorOption.back_view_image]);
