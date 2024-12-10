@@ -24,6 +24,7 @@ export const FilterSelection: FunctionComponent<FilterSelectionProps> = ({
         filterSelectionTitleSlot(title)
       ) : (
         <div
+          tabindex={0}
           className="flex items-center gap-x-1 cursor-pointer"
           onClick={(event) => scrollFilter(event, displayFilter)}
           onKeyDown={(event) => scrollFilter(event, displayFilter)}
