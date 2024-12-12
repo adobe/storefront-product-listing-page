@@ -97,13 +97,9 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
     handleUrlSort(sortOption);
   };
 
-  if (totalCount === 0) {
-    return null;
-  }
-
   return (
     <div className="flex flex-col max-w-5xl lg:max-w-full ml-auto w-full h-full">
-      {!screenSize.mobile && productsCtx.totalCount && (
+      {!screenSize.mobile && (
         <CategoryFilters
           pageLoading={productsCtx.pageLoading}
           facets={productsCtx.facets}
