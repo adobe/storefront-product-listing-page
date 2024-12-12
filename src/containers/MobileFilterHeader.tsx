@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from 'preact/hooks';
 import { Drawer } from 'src/components/Drawer/Drawer';
 import MobileFacets from 'src/components/MobileFacets';
 
-import { CategoryFilters } from "../components";
+import { CategoryFilters, SelectedFilters } from "../components";
 import { FilterButton } from '../components/FilterButton';
 import {
   useAttributeMetadata,
@@ -123,7 +123,13 @@ export const MobileFilterHeader: FunctionComponent<Props> = ({
       )}
       {screenSize.mobile && (
         <div className={'mobile-franchise'}>
-          <FranchiseViewSelector/>
+          <div className={'franchise-counter'}>
+            <FranchiseViewSelector/>
+            <SelectedFilters totalCount={totalCount} isCount={true}/>
+          </div>
+          <div className={'mobile-pills'}>
+            <SelectedFilters totalCount={totalCount} isCount={false}/>
+          </div>
         </div>
       )}
       <div class="mobile-filters-container z-1000">
