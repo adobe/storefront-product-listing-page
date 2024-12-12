@@ -35,7 +35,7 @@ export const en_US = {
   SortDropdown: {
     title: 'Sort by',
     option: 'Sort by',
-    relevanceLabel: 'Most Relevant',
+    relevanceLabel: 'Relevance',
     positionLabel: 'Position',
     sortAttributeASC: '{label}: Low to High',
     sortAttributeDESC: '{label}: High to Low',
@@ -44,6 +44,9 @@ export const en_US = {
     productName: 'Product Name',
     productInStock: 'In Stock',
     productLowStock: 'Low Stock',
+    priceLabelAsc: 'Lowest price',
+    priceLabelDesc:'Highest price',
+    createdAtLabel:'Newest first',
   },
   CategoryFilters: {
     results: 'results for {phrase}',
