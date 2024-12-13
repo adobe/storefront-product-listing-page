@@ -2473,10 +2473,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 
 .loading-spinner-on-mobile {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  min-height: 50vh;
 }
 
 .ds-sdk-product-item__product-swatch-item .swatch-color-port-royale {

@@ -21,7 +21,7 @@ export const Loading: FunctionComponent<LoadingProps> = ({ label }) => {
   ).matches;
   return (
     <div
-      className={`ds-sdk-loading flex h-screen justify-center items-center ${
+      className={`ds-sdk-loading flex justify-center items-center ${
         isMobile ? 'loading-spinner-on-mobile' : ''
       }`}
     >
