@@ -84,7 +84,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
             {storeCtx.config.noResultsLinks.map((link) => (
               <li key={link.text} className="inline-block p-[14px] bg-black text-white uppercase">
                 <a href={link.url} className="">
-                  {link.text}
+                  {translation.ProductContainers.noresultsEgift.replace('{variables.egift}', link.text)}
                 </a>
               </li>
             ))}

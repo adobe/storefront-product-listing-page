@@ -61,7 +61,8 @@ export const en_US = {
     minquery:
       'Your search term {variables.phrase} has not reached the minimum of {minQueryLength} characters.',
     resultsText: 'Results',
-    noresults: 'We couldn\'t find any products that match your search. Here are a few other destinations that might help.',
+    noresults: 'Unfortunately, your refinement has no matching result. Please remove a filter or try another category.',
+    noresultsEgift: 'Check out our {variables.egift} for endless options!',
     pagePicker: 'Show {pageSize} per page',
     showAll: 'all',
   },
