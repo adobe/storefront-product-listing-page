@@ -55,7 +55,6 @@ export const App: FunctionComponent = () => {
                 </h1>
               </div>
             )}
-            <Enrichment position={'below-title'} />
             <div className="flex flex-col">
               <div className="flex w-full h-full testing">
                 <MobileFilterHeader
@@ -82,7 +81,6 @@ export const App: FunctionComponent = () => {
                 </h1>
               </div>
             )}
-            <Enrichment position={'below-title'} />
             <div className="flex flex-col">
               <div className="ds-widgets_results flex flex-col items-center flex-[75]">
                 <div className="flex w-full h-full">
