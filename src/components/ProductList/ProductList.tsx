@@ -96,7 +96,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
   return (
     <div className="franchises" key={franchise}>
       <div className="franchise-header">
-        <h2>{franchises[franchise].name.toUpperCase()}</h2>
+        <h2>{franchises[franchise].name?.toUpperCase()}</h2>
         <a href={storeCtx.route?.({
           sku: "",
           urlKey: franchises[franchise].title,
@@ -107,7 +107,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
         gridTemplateColumns: `repeat(${styleColumnNumber}, minmax(0, 1fr))`,
       }}
            className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm xl:gap-x-6">
-        {franchises[franchise].items.slice(0, numberOfColumns * page).map((item: Product) => (
+        {franchises[franchise].items?.slice(0, numberOfColumns * page).map((item: Product) => (
           <ProductItem
             item={item}
             setError={setError}
