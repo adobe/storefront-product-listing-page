@@ -83,7 +83,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
           }
           onClick={onFirst}>
           <Guillemet
-            className={'h-small w-small transform stroke-neutral-600'}
+            className={'h-small w-small transform'}
           />
           {screenSize.desktop && <span>First</span>}
         </a>
@@ -161,8 +161,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
           onClick={onLast}>
           {screenSize.desktop && <span>Last</span>}
           <Guillemet
-            className={`h-small w-small transform rotate-180 stroke-neutral-600'
-            }`}
+            className={'h-small w-small transform rotate-180'}
           />
         </a>
       </li>
