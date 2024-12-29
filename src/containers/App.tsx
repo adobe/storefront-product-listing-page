@@ -74,7 +74,7 @@ console.log('loading', productsCtx.loading);
                 filterCount={searchCtx.filterCount}
               />
               <div
-                className={`ds-widgets_results flex flex-col items-center pt-0 w-full h-full`}
+                  className={`ds-widgets_results flex flex-col items-center pt-0 w-full h-full ${showFilters ? 'max-w-[calc(100%-10.26rem)]' : ''}`}
               >
                 <ProductsHeader
                   facets={productsCtx.facets}
