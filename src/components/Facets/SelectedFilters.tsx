@@ -11,24 +11,25 @@ import { FunctionComponent } from 'preact';
 
 import "./filters.css";
 
-import { useProducts, useSearch, useStore, useTranslation } from '../../context';
+import { useProducts, useSearch, useSensor, useStore, useTranslation } from '../../context';
 import Pill from '../Pill';
 import { formatBinaryLabel, formatRangeLabel } from './format';
 import { FranchiseViewSelector } from "./FranchiseViewSelector";
 
 interface SelectedFiltersProps {
   totalCount?: number;
-  isCount: boolean
+  isCount: boolean;
 }
 
 export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
   totalCount,
-  isCount
+  isCount,
 }) => {
   const searchCtx = useSearch();
   const productsCtx = useProducts();
   const storeCtx = useStore();
   const translation = useTranslation();
+  const { screenSize } = useSensor();
 
   return (
     <>
@@ -37,9 +38,12 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({
           {!searchCtx.displayFranchises && (
             <p className="result-count">{totalCount} Results</p>
           )}
-
-          {storeCtx.config.categoryConfig?.pcm_display_by_franchise === '1' && (
-            <FranchiseViewSelector/>
+          {!screenSize.mobile && (
+            <>
+              {storeCtx.config.categoryConfig?.pcm_display_by_franchise === '0' && (
+                <FranchiseViewSelector/>
+              )}
+            </>
           )}
         </div>
       )}
