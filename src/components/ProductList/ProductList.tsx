@@ -106,7 +106,7 @@ const Franchises : FunctionComponent<FranchiseProps> = ({
       <div style={{
         gridTemplateColumns: `repeat(${styleColumnNumber}, minmax(0, 1fr))`,
       }}
-           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm xl:gap-x-6">
+           className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-xs md:gap-x-4">
         {franchises[franchise].items?.slice(0, numberOfColumns * page).map((item: Product) => (
           <ProductItem
             item={item}
@@ -264,7 +264,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
           style={{
             gridTemplateColumns: `repeat(${styleColumnNumber}, minmax(0, 1fr))`,
           }}
-          className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-sm md:gap-x-9 md:gap-y-9"
+          className="ds-sdk-product-list__grid mt-md grid gap-y-8 gap-x-xs md:gap-x-4 md:gap-y-9"
         >
           {finalProductList}
         </div>

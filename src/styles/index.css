@@ -7,8 +7,8 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
   *,
-  ::before,
-  ::after {
+::before,
+::after {
     box-sizing: border-box;
     /* 1 */
     border-width: 0;
@@ -18,12 +18,10 @@
     border-color: #e5e7eb;
     /* 2 */
   }
-
   ::before,
-  ::after {
+::after {
     --tw-content: '';
   }
-
   /*
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.
@@ -34,7 +32,7 @@
 7. Disable tap highlights on iOS
 */
   html,
-  :host {
+:host {
     line-height: 1.5;
     /* 1 */
     -webkit-text-size-adjust: 100%;
@@ -42,7 +40,7 @@
     -moz-tab-size: 4;
     /* 3 */
     -o-tab-size: 4;
-    tab-size: 4;
+       tab-size: 4;
     /* 3 */
     font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     /* 4 */
@@ -53,7 +51,6 @@
     -webkit-tap-highlight-color: transparent;
     /* 7 */
   }
-
   /*
 1. Remove the margin in all browsers.
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
@@ -64,7 +61,6 @@
     line-height: inherit;
     /* 2 */
   }
-
   /*
 1. Add the correct height in Firefox.
 2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
@@ -78,28 +74,25 @@
     border-top-width: 1px;
     /* 3 */
   }
-
   /*
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
   abbr:where([title]) {
     -webkit-text-decoration: underline dotted;
-    text-decoration: underline dotted;
+            text-decoration: underline dotted;
   }
-
   /*
 Remove the default font size and weight for headings.
 */
   h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-size: inherit;
     font-weight: inherit;
   }
-
   /*
 Reset links to optimize for opt-in styling instead of opt-out.
 */
@@ -107,15 +100,13 @@ Reset links to optimize for opt-in styling instead of opt-out.
     color: inherit;
     text-decoration: inherit;
   }
-
   /*
 Add the correct font weight in Edge and Safari.
 */
   b,
-  strong {
+strong {
     font-weight: bolder;
   }
-
   /*
 1. Use the user's configured `mono` font-family by default.
 2. Use the user's configured `mono` font-feature-settings by default.
@@ -123,9 +114,9 @@ Add the correct font weight in Edge and Safari.
 4. Correct the odd `em` font sizing in all browsers.
 */
   code,
-  kbd,
-  samp,
-  pre {
+kbd,
+samp,
+pre {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     /* 1 */
     font-feature-settings: normal;
@@ -135,29 +126,25 @@ Add the correct font weight in Edge and Safari.
     font-size: 1em;
     /* 4 */
   }
-
   /*
 Add the correct font size in all browsers.
 */
   small {
     font-size: 80%;
   }
-
   /*
 Prevent `sub` and `sup` elements from affecting the line height in all browsers.
 */
   sub,
-  sup {
+sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
     vertical-align: baseline;
   }
-
   sub {
     bottom: -0.25em;
   }
-
   sup {
     top: -0.5em;
   }
@@ -166,7 +153,6 @@ Prevent `sub` and `sup` elements from affecting the line height in all browsers.
 2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
 3. Remove gaps between table borders by default.
 */
-
   table {
     text-indent: 0;
     /* 1 */
@@ -175,17 +161,16 @@ Prevent `sub` and `sup` elements from affecting the line height in all browsers.
     border-collapse: collapse;
     /* 3 */
   }
-
   /*
 1. Change the font styles in all browsers.
 2. Remove the margin in Firefox and Safari.
 3. Remove default padding in all browsers.
 */
   button,
-  input,
-  optgroup,
-  select,
-  textarea {
+input,
+optgroup,
+select,
+textarea {
     font-family: inherit;
     /* 1 */
     font-feature-settings: inherit;
@@ -205,23 +190,21 @@ Prevent `sub` and `sup` elements from affecting the line height in all browsers.
     padding: 0;
     /* 3 */
   }
-
   /*
 Remove the inheritance of text transform in Edge and Firefox.
 */
   button,
-  select {
+select {
     text-transform: none;
   }
-
   /*
 1. Correct the inability to style clickable types in iOS and Safari.
 2. Remove default button styles.
 */
   button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
     -webkit-appearance: button;
     /* 1 */
     background-color: transparent;
@@ -229,36 +212,31 @@ Remove the inheritance of text transform in Edge and Firefox.
     background-image: none;
     /* 2 */
   }
-
   /*
 Use the modern Firefox focus style for all focusable elements.
 */
   :-moz-focusring {
     outline: auto;
   }
-
   /*
 Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
 */
   :-moz-ui-invalid {
     box-shadow: none;
   }
-
   /*
 Add the correct vertical alignment in Chrome and Firefox.
 */
   progress {
     vertical-align: baseline;
   }
-
   /*
 Correct the cursor style of increment and decrement buttons in Safari.
 */
   ::-webkit-inner-spin-button,
-  ::-webkit-outer-spin-button {
+::-webkit-outer-spin-button {
     height: auto;
   }
-
   /*
 1. Correct the odd appearance in Chrome and Safari.
 2. Correct the outline style in Safari.
@@ -269,14 +247,12 @@ Correct the cursor style of increment and decrement buttons in Safari.
     outline-offset: -2px;
     /* 2 */
   }
-
   /*
 Remove the inner padding in Chrome and Safari on macOS.
 */
   ::-webkit-search-decoration {
     -webkit-appearance: none;
   }
-
   /*
 1. Correct the inability to style clickable types in iOS and Safari.
 2. Change font properties to `inherit` in Safari.
@@ -287,64 +263,56 @@ Remove the inner padding in Chrome and Safari on macOS.
     font: inherit;
     /* 2 */
   }
-
   /*
 Add the correct display in Chrome and Safari.
 */
   summary {
     display: list-item;
   }
-
   /*
 Removes the default spacing and border for appropriate elements.
 */
   blockquote,
-  dl,
-  dd,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  hr,
-  figure,
-  p,
-  pre {
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
     margin: 0;
   }
-
   fieldset {
     margin: 0;
     padding: 0;
   }
-
   legend {
     padding: 0;
   }
-
   ol,
-  ul,
-  menu {
+ul,
+menu {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-
   /*
 Reset default styling for dialogs.
 */
   dialog {
     padding: 0;
   }
-
   /*
 Prevent resizing textareas horizontally by default.
 */
   textarea {
     resize: vertical;
   }
-
   /*
 1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
 2. Set the default placeholder color to the user's configured gray 400 color.
@@ -355,63 +323,56 @@ Prevent resizing textareas horizontally by default.
     color: #9ca3af;
     /* 2 */
   }
-
   input::placeholder,
-  textarea::placeholder {
+textarea::placeholder {
     opacity: 1;
     /* 1 */
     color: #9ca3af;
     /* 2 */
   }
-
   /*
 Set the default cursor for buttons.
 */
   button,
-  [role="button"] {
+[role="button"] {
     cursor: pointer;
   }
-
   /*
 Make sure disabled buttons don't get the pointer cursor.
 */
   :disabled {
     cursor: default;
   }
-
   /*
 1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
 2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
    This can trigger a poorly considered lint error in some tools but is included by design.
 */
   img,
-  svg,
-  video,
-  canvas,
-  audio,
-  iframe,
-  embed,
-  object {
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
     display: block;
     /* 1 */
     vertical-align: middle;
     /* 2 */
   }
-
   /*
 Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
 */
   img,
-  video {
+video {
     max-width: 100%;
     height: auto;
   }
-
   /* Make elements with the HTML hidden attribute stay hidden by default */
   [hidden] {
     display: none;
   }
-
   *, ::before, ::after {
     --tw-border-spacing-x: 0;
     --tw-border-spacing-y: 0;
@@ -422,19 +383,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     --tw-skew-y: 0;
     --tw-scale-x: 1;
     --tw-scale-y: 1;
-    --tw-pan-x: ;
-    --tw-pan-y: ;
-    --tw-pinch-zoom: ;
+    --tw-pan-x:  ;
+    --tw-pan-y:  ;
+    --tw-pinch-zoom:  ;
     --tw-scroll-snap-strictness: proximity;
-    --tw-gradient-from-position: ;
-    --tw-gradient-via-position: ;
-    --tw-gradient-to-position: ;
-    --tw-ordinal: ;
-    --tw-slashed-zero: ;
-    --tw-numeric-figure: ;
-    --tw-numeric-spacing: ;
-    --tw-numeric-fraction: ;
-    --tw-ring-inset: ;
+    --tw-gradient-from-position:  ;
+    --tw-gradient-via-position:  ;
+    --tw-gradient-to-position:  ;
+    --tw-ordinal:  ;
+    --tw-slashed-zero:  ;
+    --tw-numeric-figure:  ;
+    --tw-numeric-spacing:  ;
+    --tw-numeric-fraction:  ;
+    --tw-ring-inset:  ;
     --tw-ring-offset-width: 0px;
     --tw-ring-offset-color: #fff;
     --tw-ring-color: rgb(59 130 246 / 0.5);
@@ -442,26 +403,25 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
     --tw-shadow-colored: 0 0 #0000;
-    --tw-blur: ;
-    --tw-brightness: ;
-    --tw-contrast: ;
-    --tw-grayscale: ;
-    --tw-hue-rotate: ;
-    --tw-invert: ;
-    --tw-saturate: ;
-    --tw-sepia: ;
-    --tw-drop-shadow: ;
-    --tw-backdrop-blur: ;
-    --tw-backdrop-brightness: ;
-    --tw-backdrop-contrast: ;
-    --tw-backdrop-grayscale: ;
-    --tw-backdrop-hue-rotate: ;
-    --tw-backdrop-invert: ;
-    --tw-backdrop-opacity: ;
-    --tw-backdrop-saturate: ;
-    --tw-backdrop-sepia: ;
+    --tw-blur:  ;
+    --tw-brightness:  ;
+    --tw-contrast:  ;
+    --tw-grayscale:  ;
+    --tw-hue-rotate:  ;
+    --tw-invert:  ;
+    --tw-saturate:  ;
+    --tw-sepia:  ;
+    --tw-drop-shadow:  ;
+    --tw-backdrop-blur:  ;
+    --tw-backdrop-brightness:  ;
+    --tw-backdrop-contrast:  ;
+    --tw-backdrop-grayscale:  ;
+    --tw-backdrop-hue-rotate:  ;
+    --tw-backdrop-invert:  ;
+    --tw-backdrop-opacity:  ;
+    --tw-backdrop-saturate:  ;
+    --tw-backdrop-sepia:  ;
   }
-
   ::backdrop {
     --tw-border-spacing-x: 0;
     --tw-border-spacing-y: 0;
@@ -472,19 +432,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     --tw-skew-y: 0;
     --tw-scale-x: 1;
     --tw-scale-y: 1;
-    --tw-pan-x: ;
-    --tw-pan-y: ;
-    --tw-pinch-zoom: ;
+    --tw-pan-x:  ;
+    --tw-pan-y:  ;
+    --tw-pinch-zoom:  ;
     --tw-scroll-snap-strictness: proximity;
-    --tw-gradient-from-position: ;
-    --tw-gradient-via-position: ;
-    --tw-gradient-to-position: ;
-    --tw-ordinal: ;
-    --tw-slashed-zero: ;
-    --tw-numeric-figure: ;
-    --tw-numeric-spacing: ;
-    --tw-numeric-fraction: ;
-    --tw-ring-inset: ;
+    --tw-gradient-from-position:  ;
+    --tw-gradient-via-position:  ;
+    --tw-gradient-to-position:  ;
+    --tw-ordinal:  ;
+    --tw-slashed-zero:  ;
+    --tw-numeric-figure:  ;
+    --tw-numeric-spacing:  ;
+    --tw-numeric-fraction:  ;
+    --tw-ring-inset:  ;
     --tw-ring-offset-width: 0px;
     --tw-ring-offset-color: #fff;
     --tw-ring-color: rgb(59 130 246 / 0.5);
@@ -492,30 +452,28 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 0 #0000;
     --tw-shadow-colored: 0 0 #0000;
-    --tw-blur: ;
-    --tw-brightness: ;
-    --tw-contrast: ;
-    --tw-grayscale: ;
-    --tw-hue-rotate: ;
-    --tw-invert: ;
-    --tw-saturate: ;
-    --tw-sepia: ;
-    --tw-drop-shadow: ;
-    --tw-backdrop-blur: ;
-    --tw-backdrop-brightness: ;
-    --tw-backdrop-contrast: ;
-    --tw-backdrop-grayscale: ;
-    --tw-backdrop-hue-rotate: ;
-    --tw-backdrop-invert: ;
-    --tw-backdrop-opacity: ;
-    --tw-backdrop-saturate: ;
-    --tw-backdrop-sepia: ;
+    --tw-blur:  ;
+    --tw-brightness:  ;
+    --tw-contrast:  ;
+    --tw-grayscale:  ;
+    --tw-hue-rotate:  ;
+    --tw-invert:  ;
+    --tw-saturate:  ;
+    --tw-sepia:  ;
+    --tw-drop-shadow:  ;
+    --tw-backdrop-blur:  ;
+    --tw-backdrop-brightness:  ;
+    --tw-backdrop-contrast:  ;
+    --tw-backdrop-grayscale:  ;
+    --tw-backdrop-hue-rotate:  ;
+    --tw-backdrop-invert:  ;
+    --tw-backdrop-opacity:  ;
+    --tw-backdrop-saturate:  ;
+    --tw-backdrop-sepia:  ;
   }
-
   .container {
     width: 100%;
   }
-
   @media (min-width: 640px) {
     .container {
       max-width: 640px;
@@ -541,7 +499,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       max-width: 1536px;
     }
   }
-
   .sr-only {
     position: absolute;
     width: 1px;
@@ -553,485 +510,339 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     white-space: nowrap;
     border-width: 0;
   }
-
   .visible {
     visibility: visible;
   }
-
   .invisible {
     visibility: hidden;
   }
-
   .fixed {
     position: fixed;
   }
-
   .absolute {
     position: absolute;
   }
-
   .relative {
     position: relative;
   }
-
   .inset-0 {
     inset: 0px;
   }
-
   .bottom-0 {
     bottom: 0px;
   }
-
   .left-0 {
     left: 0px;
   }
-
   .left-1\/2 {
     left: 50%;
   }
-
   .right-0 {
     right: 0px;
   }
-
-  .top-full {
-    top: 100%;
-  }
-
-  .top-\[\-3px\] {
+  .top-\[-3px\] {
     top: -3px;
   }
-
   .z-20 {
     z-index: 20;
   }
-
   .z-50 {
     z-index: 50;
   }
-
-  .z-900 {
-    z-index: 900;
-  }
-
-  .z-1000 {
-    z-index: 1000;
-  }
-
   .m-0 {
-    margin: 0;
+    margin: 0px;
   }
-
   .m-4 {
     margin: 1rem;
   }
-
   .m-auto {
     margin: auto;
   }
-
   .mx-auto {
     margin-left: auto;
     margin-right: auto;
   }
-
   .my-0 {
     margin-top: 0px;
     margin-bottom: 0px;
   }
-
   .my-lg {
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
   }
-
   .mb-0 {
     margin-bottom: 0px;
   }
-
   .mb-0\.5 {
     margin-bottom: 0.125rem;
   }
-
-  .mb-\[1px\] {
-    margin-bottom: 1px;
-  }
-
   .mb-8 {
     margin-bottom: 2rem;
   }
-
+  .mb-\[1px\] {
+    margin-bottom: 1px;
+  }
   .mb-md {
     margin-bottom: var(--spacing-md);
   }
-
   .ml-1 {
     margin-left: 0.25rem;
   }
-
   .ml-2 {
     margin-left: 0.5rem;
   }
-
   .ml-3 {
     margin-left: 0.75rem;
   }
-
   .ml-auto {
     margin-left: auto;
   }
-
   .ml-sm {
     margin-left: var(--spacing-sm);
   }
-
   .ml-xs {
     margin-left: var(--spacing-xs);
   }
-
   .mr-2 {
     margin-right: 0.5rem;
   }
-
   .mr-auto {
     margin-right: auto;
   }
-
   .mr-xs {
     margin-right: var(--spacing-xs);
   }
-
-  .mt-0 {
-    margin-top: 0;
-  }
-
   .mt-2 {
     margin-top: 0.5rem;
   }
-
   .mt-4 {
     margin-top: 1rem;
   }
-
   .mt-8 {
     margin-top: 2rem;
   }
-
   .mt-auto {
     margin-top: auto;
   }
-
   .mt-md {
     margin-top: var(--spacing-md);
   }
-
   .mt-sm {
     margin-top: var(--spacing-sm);
   }
-
   .mt-xs {
     margin-top: var(--spacing-xs);
   }
-
   .inline-block {
     display: inline-block;
   }
-
   .inline {
     display: inline;
   }
-
   .flex {
     display: flex;
   }
-
   .inline-flex {
     display: inline-flex;
   }
-
   .grid {
     display: grid;
   }
-
+  .hidden {
+    display: none;
+  }
   .aspect-auto {
     aspect-ratio: auto;
   }
-
-  .h-28 {
-    height: 7rem;
-  }
-
-  .h-3 {
-    height: 0.75rem;
-  }
-
-  .h-5 {
-    height: 1.25rem;
-  }
-
-  .h-16 {
-    height: 4rem;
-  }
-
   .h-20 {
     height: 5rem;
   }
-
+  .h-28 {
+    height: 7rem;
+  }
+  .h-3 {
+    height: 0.75rem;
+  }
+  .h-5 {
+    height: 1.25rem;
+  }
   .h-\[100\%\] {
     height: 100%;
   }
-
   .h-\[15px\] {
     height: 15px;
   }
-
-  .h-\[18px\] {
-    height: 18px;
-  }
-
   .h-\[180px\] {
     height: 180px;
   }
-
+  .h-\[18px\] {
+    height: 18px;
+  }
   .h-\[20px\] {
     height: 20px;
   }
-
   .h-\[28px\] {
     height: 28px;
   }
-
   .h-\[32px\] {
     height: 32px;
   }
-
   .h-\[36px\] {
     height: 36px;
   }
-
   .h-\[38px\] {
     height: 38px;
   }
-
   .h-\[40px\] {
     height: 40px;
   }
-
   .h-\[445px\] {
     height: 445px;
   }
-
   .h-\[44px\] {
     height: 44px;
   }
-
   .h-\[56px\] {
     height: 56px;
   }
-
   .h-\[80\%\] {
     height: 80%;
   }
-
   .h-auto {
     height: auto;
   }
-
   .h-full {
     height: 100%;
   }
-
   .h-md {
     height: var(--spacing-md);
   }
-
-  .h-screen {
-    height: 100vh;
-  }
-
   .h-sm {
     height: var(--spacing-sm);
   }
-
   .h-small {
     height: var(--spacing-small);
   }
-
   .max-h-\[250px\] {
     max-height: 250px;
   }
-
   .max-h-\[45rem\] {
     max-height: 45rem;
   }
-
   .min-h-\[32px\] {
     min-height: 32px;
   }
-
-  .w-1\/2 {
-    width: 50%;
-  }
-
   .w-1\/3 {
     width: 33.333333%;
   }
-
   .w-28 {
     width: 7rem;
   }
-
   .w-5 {
     width: 1.25rem;
   }
-
   .w-96 {
     width: 24rem;
   }
-
   .w-\[14px\] {
     width: 14px;
   }
-
   .w-\[15px\] {
     width: 15px;
   }
-
   .w-\[18px\] {
     width: 18px;
   }
-
   .w-\[20px\] {
     width: 20px;
   }
-
   .w-\[28px\] {
     width: 28px;
   }
-
   .w-\[40px\] {
     width: 40px;
   }
-
   .w-fit {
     width: -moz-fit-content;
     width: fit-content;
   }
-
-  .w-max {
-    width: -moz-max-content;
-    width: max-content;
-  }
-
   .w-full {
     width: 100%;
   }
-
   .w-md {
     width: var(--spacing-md);
   }
-
   .w-sm {
     width: var(--spacing-sm);
   }
-
   .w-small {
     width: var(--spacing-small);
   }
-
   .min-w-\[16px\] {
     min-width: 16px;
   }
-
   .min-w-\[32px\] {
     min-width: 32px;
   }
-
   .min-w-\[44px\] {
     min-width: 44px;
   }
-
   .max-w-2xl {
     max-width: 42rem;
   }
-
   .max-w-5xl {
     max-width: 64rem;
   }
-
-  .max-w-\[200px\] {
-    max-width: 200px;
-  }
-
-  .max-w-\[21rem\] {
-    max-width: 21rem;
-  }
-
-  .max-w-\[500px\] {
-    max-width: 500px;
-  }
-
   .max-w-\[1600px\] {
     max-width: 1600px;
   }
-
+  .max-w-\[200px\] {
+    max-width: 200px;
+  }
+  .max-w-\[21rem\] {
+    max-width: 21rem;
+  }
   .max-w-full {
     max-width: 100%;
   }
-
   .flex-1 {
     flex: 1 1 0%;
   }
-
   .flex-\[25\] {
     flex: 25;
   }
-
   .flex-\[75\] {
     flex: 75;
   }
-
   .flex-shrink-0 {
     flex-shrink: 0;
   }
-
-  .shrink-0 {
-    flex-shrink: 0;
-  }
-
   .origin-top-right {
     transform-origin: top right;
   }
-
   .-translate-x-1\/2 {
     --tw-translate-x: -50%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .-rotate-90 {
     --tw-rotate: -90deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .rotate-180 {
     --tw-rotate: 180deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .rotate-45 {
     --tw-rotate: 45deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .rotate-90 {
     --tw-rotate: 90deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .transform {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   @keyframes slideUp {
     0% {
       transform: translateY(100%);
@@ -1041,875 +852,640 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       transform: translateY(0);
     }
   }
-
-  @keyframes slideRight {
-    0% {
-      transform: translateX(-100%);
-    }
-
-    100% {
-      transform: translateX(0);
-    }
-  }
-
   .animate-slideUp {
     animation: slideUp 0.3s ease-out forwards;
   }
-
   @keyframes spin {
     to {
       transform: rotate(360deg);
     }
   }
-
   .animate-spin {
     animation: spin 1s linear infinite;
   }
-
   .cursor-not-allowed {
     cursor: not-allowed;
   }
-
   .cursor-pointer {
     cursor: pointer;
   }
-
   .resize {
     resize: both;
   }
-
   .list-none {
     list-style-type: none;
   }
-
   .appearance-none {
     -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+       -moz-appearance: none;
+            appearance: none;
   }
-
   .grid-flow-row {
     grid-auto-flow: row;
   }
-
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-
-  .grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .grid-cols-none {
     grid-template-columns: none;
   }
-
   .flex-row {
     flex-direction: row;
   }
-
   .flex-col {
     flex-direction: column;
   }
-
   .flex-wrap {
     flex-wrap: wrap;
   }
-
   .flex-nowrap {
     flex-wrap: nowrap;
   }
-
-  .items-center {
-    align-items: center;
-  }
-
   .content-center {
     align-content: center;
   }
-
+  .items-center {
+    align-items: center;
+  }
   .justify-start {
     justify-content: flex-start;
   }
-
   .justify-end {
     justify-content: flex-end;
   }
-
   .justify-center {
     justify-content: center;
   }
-
   .justify-between {
     justify-content: space-between;
   }
-
   .gap-2 {
     gap: 0.5rem;
   }
-
   .gap-4 {
     gap: 1rem;
   }
-
   .gap-8 {
     gap: 2rem;
   }
-
   .gap-\[10px\] {
     gap: 10px;
   }
-
   .gap-\[12px\] {
     gap: 12px;
   }
-
   .gap-\[16px\] {
     gap: 16px;
   }
-
   .gap-\[6px\] {
     gap: 6px;
   }
-
   .gap-xxsmall {
     gap: var(--spacing-xxsmall);
   }
-
   .gap-x-1 {
     -moz-column-gap: 0.25rem;
-    column-gap: 0.25rem;
+         column-gap: 0.25rem;
   }
-
   .gap-x-2 {
     -moz-column-gap: 0.5rem;
-    column-gap: 0.5rem;
+         column-gap: 0.5rem;
   }
-
   .gap-x-2\.5 {
     -moz-column-gap: 0.625rem;
-    column-gap: 0.625rem;
+         column-gap: 0.625rem;
   }
-
-  .gap-x-6 {
-    -moz-column-gap: 1.5rem;
-    column-gap: 1.5rem;
+  .gap-x-3 {
+    -moz-column-gap: 0.75rem;
+         column-gap: 0.75rem;
   }
-
-  .gap-x-3\.2rem {
-    -moz-column-gap: 3.2rem;
-    column-gap: 3.2rem;
-  }
-
   .gap-x-md {
     -moz-column-gap: var(--spacing-md);
-    column-gap: var(--spacing-md);
+         column-gap: var(--spacing-md);
   }
-
   .gap-x-sm {
     -moz-column-gap: var(--spacing-sm);
-    column-gap: var(--spacing-sm);
+         column-gap: var(--spacing-sm);
   }
-
-  .gap-x-9 {
-    column-gap: 2.4rem;
+  .gap-x-xs {
+    -moz-column-gap: var(--spacing-xs);
+         column-gap: var(--spacing-xs);
   }
-
   .gap-y-8 {
     row-gap: 2rem;
   }
-
-  .gap-y-9 {
-    row-gap: 2.4rem;
-  }
-
   .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0.5rem * var(--tw-space-x-reverse));
     margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
   }
-
   .space-x-3 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0.75rem * var(--tw-space-x-reverse));
     margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
   }
-
   .space-y-4 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-y-reverse: 0;
     margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(1rem * var(--tw-space-y-reverse));
   }
-
   .overflow-auto {
     overflow: auto;
   }
-
   .overflow-hidden {
     overflow: hidden;
   }
-
   .overflow-y-auto {
     overflow-y: auto;
   }
-
   .whitespace-nowrap {
     white-space: nowrap;
   }
-
   .rounded-2 {
     border-radius: var(--shape-border-radius-2);
   }
-
   .rounded-3 {
     border-radius: var(--shape-border-radius-3);
   }
-
   .rounded-full {
     border-radius: 9999px;
   }
-
   .rounded-lg {
     border-radius: 0.5rem;
   }
-
   .border {
     border-width: 1px;
   }
-
   .border-0 {
     border-width: 0px;
   }
-
   .border-3 {
     border-width: var(--shape-border-width-3);
   }
-
   .border-\[1\.5px\] {
     border-width: 1.5px;
   }
-
   .border-b {
     border-bottom-width: 1px;
   }
-
   .border-r {
     border-right-width: 1px;
   }
-
   .border-t {
     border-top-width: 1px;
   }
-
   .border-solid {
     border-style: solid;
   }
-
   .border-none {
     border-style: none;
   }
-
   .border-\[\#ddd\] {
     --tw-border-opacity: 1;
     border-color: rgb(221 221 221 / var(--tw-border-opacity));
   }
-
   .border-black {
     --tw-border-opacity: 1;
     border-color: rgb(0 0 0 / var(--tw-border-opacity));
   }
-
   .border-brand-700 {
     border-color: var(--color-brand-700);
   }
-
   .border-gray-200 {
     --tw-border-opacity: 1;
     border-color: rgb(229 231 235 / var(--tw-border-opacity));
   }
-
   .border-gray-300 {
     --tw-border-opacity: 1;
     border-color: rgb(209 213 219 / var(--tw-border-opacity));
   }
-
   .border-neutral-200 {
     border-color: var(--color-neutral-200);
   }
-
   .border-neutral-300 {
     border-color: var(--color-neutral-300);
   }
-
   .border-neutral-400 {
     border-color: var(--color-neutral-400);
   }
-
-  .border-neutral-450 {
-    border-color: var(--color-neutral-450);
-  }
-
   .border-neutral-500 {
     border-color: var(--color-neutral-500);
   }
-
   .border-transparent {
     border-color: transparent;
   }
-
   .bg-background {
     background-color: var(--background-color);
   }
-
   .bg-black {
     --tw-bg-opacity: 1;
     background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   }
-
   .bg-blue-50 {
     --tw-bg-opacity: 1;
     background-color: rgb(239 246 255 / var(--tw-bg-opacity));
   }
-
   .bg-gray-100 {
     --tw-bg-opacity: 1;
     background-color: rgb(243 244 246 / var(--tw-bg-opacity));
   }
-
   .bg-green-50 {
     --tw-bg-opacity: 1;
     background-color: rgb(240 253 244 / var(--tw-bg-opacity));
   }
-
   .bg-neutral-200 {
     background-color: var(--color-neutral-200);
   }
-
   .bg-neutral-300 {
     background-color: var(--color-neutral-300);
   }
-
   .bg-neutral-400 {
     background-color: var(--color-neutral-400);
   }
-
   .bg-neutral-50 {
     background-color: var(--color-neutral-50);
   }
-
   .bg-red-50 {
     --tw-bg-opacity: 1;
     background-color: rgb(254 242 242 / var(--tw-bg-opacity));
   }
-
   .bg-transparent {
     background-color: transparent;
   }
-
   .bg-white {
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   }
-
   .bg-yellow-50 {
     --tw-bg-opacity: 1;
     background-color: rgb(254 252 232 / var(--tw-bg-opacity));
   }
-
   .bg-opacity-50 {
     --tw-bg-opacity: 0.5;
   }
-
   .bg-cover {
     background-size: cover;
   }
-
   .bg-no-repeat {
     background-repeat: no-repeat;
   }
-
   .fill-brand-300 {
     fill: var(--color-brand-300);
   }
-
   .fill-neutral-800 {
     fill: var(--color-neutral-800);
   }
-
   .stroke-brand-700 {
     stroke: var(--color-brand-700);
   }
-
-  .stroke-neutral-600 {
-    stroke: var(--color-neutral-600);
-  }
-
   .stroke-neutral-50 {
     stroke: var(--color-neutral-50);
   }
-
+  .stroke-neutral-600 {
+    stroke: var(--color-neutral-600);
+  }
   .stroke-1 {
     stroke-width: var(--shape-icon-stroke-1);
   }
-
   .object-cover {
     -o-object-fit: cover;
-    object-fit: cover;
+       object-fit: cover;
   }
-
   .object-center {
     -o-object-position: center;
-    object-position: center;
+       object-position: center;
   }
-
   .p-1 {
     padding: 0.25rem;
   }
-
   .p-1\.5 {
     padding: 0.375rem;
   }
-
-  .p-2 {
-    padding: 0.5rem;
-  }
-
-  .p-4 {
-    padding: 1rem;
-  }
-
   .p-12 {
     padding: 3rem;
   }
-
+  .p-2 {
+    padding: 0.5rem;
+  }
+  .p-4 {
+    padding: 1rem;
+  }
   .p-\[14px\] {
     padding: 14px;
   }
-
   .p-sm {
     padding: var(--spacing-sm);
   }
-
   .p-xs {
     padding: var(--spacing-xs);
   }
-
   .p-xsmall {
     padding: var(--spacing-xsmall);
   }
-
   .px-1 {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
   }
-
   .px-2 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
-
   .px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-
   .px-\[12px\] {
     padding-left: 12px;
     padding-right: 12px;
   }
-
   .px-md {
     padding-left: var(--spacing-md);
     padding-right: var(--spacing-md);
   }
-
   .px-sm {
     padding-left: var(--spacing-sm);
     padding-right: var(--spacing-sm);
   }
-
   .px-xsmall {
     padding-left: var(--spacing-xsmall);
     padding-right: var(--spacing-xsmall);
   }
-
   .py-1 {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
   }
-
   .py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-
   .py-2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
-
   .py-3 {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
   }
-
-  .py-\[10px\] {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
   .py-md {
     padding-top: var(--spacing-md);
     padding-bottom: var(--spacing-md);
   }
-
   .py-sm {
     padding-top: var(--spacing-sm);
     padding-bottom: var(--spacing-sm);
   }
-
   .py-small {
     padding-top: var(--spacing-small);
     padding-bottom: var(--spacing-small);
   }
-
   .py-xs {
     padding-top: var(--spacing-xs);
     padding-bottom: var(--spacing-xs);
   }
-
   .py-xsmall {
     padding-top: var(--spacing-xsmall);
     padding-bottom: var(--spacing-xsmall);
   }
-
   .pb-2 {
     padding-bottom: 0.5rem;
   }
-
-  .pb-2xl {
-    padding-bottom: var(--spacing-2xl);
-  }
-
-  .pb-3 {
-    padding-bottom: 0.75rem;
-  }
-
-  .pb-4 {
-    padding-bottom: 1rem;
-  }
-
-  .pb-6 {
-    padding-bottom: 1.5rem;
-  }
-
-  .pb-\[122\.22\%\] {
-    padding-bottom: 122.22%;
-  }
-
   .pb-20 {
     padding-bottom: 5rem;
   }
-
   .pb-24 {
-    padding-bottom: 2.4rem;
+    padding-bottom: 6rem;
   }
-
-  .pl-3 {
-    padding-left: 0.75rem;
+  .pb-2xl {
+    padding-bottom: var(--spacing-2xl);
   }
-
+  .pb-3 {
+    padding-bottom: 0.75rem;
+  }
+  .pb-4 {
+    padding-bottom: 1rem;
+  }
+  .pb-6 {
+    padding-bottom: 1.5rem;
+  }
+  .pb-\[122\.22\%\] {
+    padding-bottom: 122.22%;
+  }
   .pl-8 {
     padding-left: 2rem;
   }
-
-  .pl-24 {
-    padding-left: 6rem;
-  }
-
   .pr-2 {
     padding-right: 0.5rem;
   }
-
   .pr-5 {
     padding-right: 1.25rem;
   }
-
-  .pr-24 {
-    padding-right: 6rem;
-  }
-
   .pr-lg {
     padding-right: var(--spacing-lg);
   }
-
   .pt-16 {
     padding-top: 4rem;
   }
-
   .pt-\[15px\] {
     padding-top: 15px;
   }
-
   .pt-md {
     padding-top: var(--spacing-md);
   }
-
   .text-left {
     text-align: left;
   }
-
   .text-center {
     text-align: center;
   }
-
   .text-2xl {
     font-size: var(--font-2xl);
     line-height: var(--leading-loose);
   }
-
   .text-\[12px\] {
     font-size: 12px;
   }
-
   .text-\[14px\] {
     font-size: 14px;
   }
-
   .text-base {
     font-size: var(--font-md);
     line-height: var(--leading-snug);
   }
-
   .text-lg {
     font-size: var(--font-lg);
     line-height: var(--leading-normal);
   }
-
   .text-sm {
     font-size: var(--font-sm);
     line-height: var(--leading-tight);
   }
-
-  .leading-12 {
-    line-height: 2.5rem;
-  }
-
   .font-light {
     font-weight: var(--font-light);
   }
-
   .font-medium {
     font-weight: var(--font-medium);
   }
-
   .font-normal {
     font-weight: var(--font-normal);
   }
-
   .font-semibold {
     font-weight: var(--font-semibold);
   }
-
   .uppercase {
     text-transform: uppercase;
   }
-
   .capitalize {
     text-transform: capitalize;
   }
-
   .\!text-brand-700 {
     color: var(--color-brand-700) !important;
   }
-
   .text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
   }
-
   .text-blue-400 {
     --tw-text-opacity: 1;
     color: rgb(96 165 250 / var(--tw-text-opacity));
   }
-
   .text-blue-700 {
     --tw-text-opacity: 1;
     color: rgb(29 78 216 / var(--tw-text-opacity));
   }
-
   .text-blue-800 {
     --tw-text-opacity: 1;
     color: rgb(30 64 175 / var(--tw-text-opacity));
   }
-
   .text-brand-300 {
     color: var(--color-brand-300);
   }
-
   .text-brand-600 {
     color: var(--color-brand-600);
   }
-
   .text-brand-700 {
     color: var(--color-brand-700);
   }
-
   .text-green-400 {
     --tw-text-opacity: 1;
     color: rgb(74 222 128 / var(--tw-text-opacity));
   }
-
   .text-green-500 {
     --tw-text-opacity: 1;
     color: rgb(34 197 94 / var(--tw-text-opacity));
   }
-
   .text-green-700 {
     --tw-text-opacity: 1;
     color: rgb(21 128 61 / var(--tw-text-opacity));
   }
-
   .text-green-800 {
     --tw-text-opacity: 1;
     color: rgb(22 101 52 / var(--tw-text-opacity));
   }
-
   .text-neutral-600 {
     color: var(--color-neutral-600);
   }
-
   .text-neutral-700 {
     color: var(--color-neutral-700);
   }
-
   .text-neutral-800 {
     color: var(--color-neutral-800);
   }
-
   .text-neutral-900 {
     color: var(--color-neutral-900);
   }
-
   .text-red-400 {
     --tw-text-opacity: 1;
     color: rgb(248 113 113 / var(--tw-text-opacity));
   }
-
   .text-red-700 {
     --tw-text-opacity: 1;
     color: rgb(185 28 28 / var(--tw-text-opacity));
   }
-
   .text-red-800 {
     --tw-text-opacity: 1;
     color: rgb(153 27 27 / var(--tw-text-opacity));
   }
-
   .text-white {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
-
   .text-yellow-400 {
     --tw-text-opacity: 1;
     color: rgb(250 204 21 / var(--tw-text-opacity));
   }
-
   .text-yellow-700 {
     --tw-text-opacity: 1;
     color: rgb(161 98 7 / var(--tw-text-opacity));
   }
-
   .text-yellow-800 {
     --tw-text-opacity: 1;
     color: rgb(133 77 14 / var(--tw-text-opacity));
   }
-
   .underline {
     text-decoration-line: underline;
   }
-
   .line-through {
     text-decoration-line: line-through;
   }
-
   .no-underline {
     text-decoration-line: none;
   }
-
   .underline-offset-4 {
     text-underline-offset: 4px;
   }
-
   .accent-neutral-800 {
     accent-color: var(--color-neutral-800);
   }
-
   .opacity-0 {
     opacity: 0;
   }
-
   .shadow-2xl {
     --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
-
   .shadow-lg {
     --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
-
   .outline {
     outline-style: solid;
   }
-
   .outline-brand-700 {
     outline-color: var(--color-brand-700);
   }
-
   .outline-gray-200 {
     outline-color: #e5e7eb;
   }
-
   .outline-neutral-300 {
     outline-color: var(--color-neutral-300);
   }
-
   .outline-transparent {
     outline-color: transparent;
   }
-
   .ring-1 {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
   }
-
   .ring-black {
     --tw-ring-opacity: 1;
     --tw-ring-color: rgb(0 0 0 / var(--tw-ring-opacity));
   }
-
   .ring-opacity-5 {
     --tw-ring-opacity: 0.05;
   }
-
   .blur {
     --tw-blur: blur(8px);
     filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
   }
-
   .\!filter {
     filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
   }
-
   .filter {
     filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
   }
-
   .transition {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -1917,127 +1493,96 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
   }
-
   .transition-opacity {
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
   }
-
   .ease-out {
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
-
   .first\:ml-0:first-child {
     margin-left: 0px;
   }
-
   .hover\:cursor-pointer:hover {
     cursor: pointer;
   }
-
   .hover\:border-none:hover {
     border-style: none;
   }
-
   .hover\:bg-green-100:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(220 252 231 / var(--tw-bg-opacity));
   }
-
   .hover\:bg-neutral-200:hover {
     background-color: var(--color-neutral-200);
   }
-
   .hover\:bg-transparent:hover {
     background-color: transparent;
   }
-
   .hover\:text-blue-600:hover {
     --tw-text-opacity: 1;
     color: rgb(37 99 235 / var(--tw-text-opacity));
   }
-
-  .hover\:text-brand-700:hover {
-    color: var(--color-brand-700);
-  }
-
   .hover\:text-neutral-900:hover {
     color: var(--color-neutral-900);
   }
-
   .hover\:underline:hover {
     text-decoration-line: underline;
   }
-
   .hover\:no-underline:hover {
     text-decoration-line: none;
   }
-
   .focus\:border-none:focus {
     border-style: none;
   }
-
   .focus\:bg-transparent:focus {
     background-color: transparent;
   }
-
   .focus\:no-underline:focus {
     text-decoration-line: none;
   }
-
   .focus\:outline-none:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
-
   .focus\:ring-0:focus {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
   }
-
   .focus\:ring-2:focus {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
   }
-
   .focus\:ring-green-600:focus {
     --tw-ring-opacity: 1;
     --tw-ring-color: rgb(22 163 74 / var(--tw-ring-opacity));
   }
-
   .focus\:ring-offset-2:focus {
     --tw-ring-offset-width: 2px;
   }
-
   .focus\:ring-offset-green-50:focus {
     --tw-ring-offset-color: #f0fdf4;
   }
-
   .active\:border-none:active {
     border-style: none;
   }
-
   .active\:bg-transparent:active {
     background-color: transparent;
   }
-
   .active\:no-underline:active {
     text-decoration-line: none;
   }
-
   .active\:shadow-none:active {
     --tw-shadow: 0 0 #0000;
     --tw-shadow-colored: 0 0 #0000;
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
-
   .group:hover .group-hover\:opacity-100 {
     opacity: 1;
   }
-
   @media (min-width: 640px) {
     .sm\:flex {
       display: flex;
@@ -2065,8 +1610,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
   @media (min-width: 768px) {
-    .md\:h-full {
-      height: 100%;
+    .md\:ml-6 {
+      margin-left: 1.5rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:mt-0 {
+      margin-top: 0px;
+    }
+  }
+  @media (min-width: 768px) {
+    .md\:flex {
+      display: flex;
     }
   }
   @media (min-width: 768px) {
@@ -2075,28 +1630,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
   @media (min-width: 768px) {
-    .md\:ml-6 {
-      margin-left: 1.5rem;
+    .md\:h-full {
+      height: 100%;
     }
   }
   @media (min-width: 768px) {
-    .md\:mt-md {
-      margin-top: var(--spacing-md);
+    .md\:max-w-\[485px\] {
+      max-width: 485px;
     }
   }
   @media (min-width: 768px) {
-    .md\:mt-4 {
-      margin-top: 1rem;
-    }
-  }
-  @media (min-width: 768px) {
-    .md\:pl-24 {
-      padding-left: 6rem;
-    }
-  }
-  @media (min-width: 768px) {
-    .md\:flex {
-      display: flex;
+    .md\:max-w-\[500px\] {
+      max-width: 500px;
     }
   }
   @media (min-width: 768px) {
@@ -2115,13 +1660,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
   @media (min-width: 768px) {
+    .md\:gap-x-4 {
+      -moz-column-gap: 0.8rem;
+           column-gap: 0.8rem;
+    }
     .md\:gap-x-9 {
-      column-gap: 2.4rem;
+      -moz-column-gap: 2.25rem;
+           column-gap: 2.25rem;
     }
   }
   @media (min-width: 768px) {
     .md\:gap-y-9 {
-      row-gap: 2.4rem;
+      row-gap: 2.25rem;
     }
   }
   @media (min-width: 768px) {
@@ -2131,23 +1681,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
   @media (min-width: 768px) {
-    .md\:flex-1-0-100 {
-      flex: 1 0 100%;
-    }
-  }
-  @media (min-width: 768px) {
-    .md\:animate-slideRight {
-      animation: slideRight 0.3s ease-out forwards;
-    }
-  }
-  @media (min-width: 768px) {
-    .md\:max-w-\[485px\] {
-      max-width: 485px;
-    }
-  }
-  @media (min-width: 768px) {
-    .md\:max-w-\[500px\] {
-      max-width: 500px;
+    .md\:pl-24 {
+      padding-left: 6rem;
     }
   }
   @media (min-width: 1024px) {
@@ -2171,14 +1706,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
   @media (min-width: 1024px) {
-    .lg\:max-w-full {
-      max-width: 100%;
-    }
-  }
-  @media (min-width: 1024px) {
     .lg\:px-8 {
       padding-left: 2rem;
       padding-right: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .lg\:px-\[48px\] {
+      padding-left: 48px;
+      padding-right: 48px;
     }
   }
   @media (min-width: 1024px) {
@@ -2193,22 +1729,16 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       padding-bottom: 10px;
     }
   }
-  @media (min-width: 1024px) {
-    .lg\:px-\[48px\] {
-      padding-left: 48px;
-      padding-right: 48px;
-    }
-  }
   @media (min-width: 1280px) {
     .xl\:gap-x-4 {
       -moz-column-gap: 1rem;
-      column-gap: 1rem;
+           column-gap: 1rem;
     }
   }
   @media (min-width: 1280px) {
     .xl\:gap-x-6 {
       -moz-column-gap: 1.5rem;
-      column-gap: 1.5rem;
+           column-gap: 1.5rem;
     }
   }
   @media (prefers-color-scheme: dark) {
@@ -2227,7 +1757,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --color-neutral-200: #f5f5f5;
   --color-neutral-300: #e8e8e8;
   --color-neutral-400: #d6d6d6;
-  --color-neutral-450: #dddddd;
   --color-neutral-500: #b8b8b8;
   --color-neutral-600: #8f8f8f;
   --color-neutral-700: #666;
@@ -2256,43 +1785,60 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --shape-border-width-3: 2px;
   --shape-border-width-4: 4px;
   --type-base-font-family: 'Roboto', sans-serif;
-  --type-display-1-font: normal normal 300 6rem/7.2rem var(--type-base-font-family);
+  --type-display-1-font: normal normal 300 6rem/7.2rem
+    var(--type-base-font-family);
   --type-display-1-letter-spacing: 0.04em;
-  --type-display-2-font: normal normal 300 4.8rem/5.6rem var(--type-base-font-family);
+  --type-display-2-font: normal normal 300 4.8rem/5.6rem
+    var(--type-base-font-family);
   --type-display-2-letter-spacing: 0.04em;
-  --type-display-3-font: normal normal 300 3.4rem/4rem var(--type-base-font-family);
+  --type-display-3-font: normal normal 300 3.4rem/4rem
+    var(--type-base-font-family);
   --type-display-3-letter-spacing: 0.04em;
-  --type-headline-1-font: normal normal 400 2.4rem/3.2rem var(--type-base-font-family);
+  --type-headline-1-font: normal normal 400 2.4rem/3.2rem
+    var(--type-base-font-family);
   --type-headline-1-letter-spacing: 0.04em;
-  --type-headline-2-default-font: normal normal 300 2rem/2.4rem var(--type-base-font-family);
+  --type-headline-2-default-font: normal normal 300 2rem/2.4rem
+    var(--type-base-font-family);
   --type-headline-2-default-letter-spacing: 0.04em;
-  --type-headline-2-strong-font: normal normal 400 2rem/2.4rem var(--type-base-font-family);
+  --type-headline-2-strong-font: normal normal 400 2rem/2.4rem
+    var(--type-base-font-family);
   --type-headline-2-strong-letter-spacing: 0.04em;
-  --type-body-1-default-font: normal normal 300 1.6rem/2.4rem var(--type-base-font-family);
+  --type-body-1-default-font: normal normal 300 1.6rem/2.4rem
+    var(--type-base-font-family);
   --type-body-1-default-letter-spacing: 0.04em;
-  --type-body-1-strong-font: normal normal 400 1.6rem/2.4rem var(--type-base-font-family);
+  --type-body-1-strong-font: normal normal 400 1.6rem/2.4rem
+    var(--type-base-font-family);
   --type-body-1-strong-letter-spacing: 0.04em;
-  --type-body-1-emphasized-font: normal normal 700 1.6rem/2.4rem var(--type-base-font-family);
+  --type-body-1-emphasized-font: normal normal 700 1.6rem/2.4rem
+    var(--type-base-font-family);
   --type-body-1-emphasized-letter-spacing: 0.04em;
-  --type-body-2-default-font: normal normal 300 1.4rem/2rem var(--type-base-font-family);
+  --type-body-2-default-font: normal normal 300 1.4rem/2rem
+    var(--type-base-font-family);
   --type-body-2-default-letter-spacing: 0.04em;
-  --type-body-2-strong-font: normal normal 400 1.4rem/2rem var(--type-base-font-family);
+  --type-body-2-strong-font: normal normal 400 1.4rem/2rem
+    var(--type-base-font-family);
   --type-body-2-strong-letter-spacing: 0.04em;
-  --type-body-2-emphasized-font: normal normal 700 1.4rem/2rem var(--type-base-font-family);
+  --type-body-2-emphasized-font: normal normal 700 1.4rem/2rem
+    var(--type-base-font-family);
   --type-body-2-emphasized-letter-spacing: 0.04em;
-  --type-button-1-font: normal normal 400 2rem/2.6rem var(--type-base-font-family);
+  --type-button-1-font: normal normal 400 2rem/2.6rem
+    var(--type-base-font-family);
   --type-button-1-letter-spacing: 0.08em;
-  --type-button-2-font: normal normal 400 1.6rem/2.4rem var(--type-base-font-family);
+  --type-button-2-font: normal normal 400 1.6rem/2.4rem
+    var(--type-base-font-family);
   --type-button-2-letter-spacing: 0.08em;
-  --type-details-caption-1-font: normal normal 400 1.2rem/1.6rem var(--type-base-font-family);
+  --type-details-caption-1-font: normal normal 400 1.2rem/1.6rem
+    var(--type-base-font-family);
   --type-details-caption-1-letter-spacing: 0.08em;
-  --type-details-caption-2-font: normal normal 300 1.2rem/1.6rem var(--type-base-font-family);
+  --type-details-caption-2-font: normal normal 300 1.2rem/1.6rem
+    var(--type-base-font-family);
   --type-details-caption-2-letter-spacing: 0.08em;
-  --type-details-overline-font: normal normal 400 1.2rem/2rem var(--type-base-font-family);
+  --type-details-overline-font: normal normal 400 1.2rem/2rem
+    var(--type-base-font-family);
   --type-details-overline-letter-spacing: 0.16em;
   /* Additional tokens */
   --type-fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono',
-  monospace;
+    monospace;
   --background-color: var(--color-neutral-50);
   --nav-height: 6.4rem;
   --spacing-xxsmall: 4px;
@@ -2381,7 +1927,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .font-display-3 {
   font: var(--type-display-3-font);
-  letter-spacing: var(--type-display-3-letter-spacing);
+  letter-spacing: var(---type-display-3-letter-spacing);
 }
 
 .font-headline-1 {
@@ -2464,16 +2010,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   display: block;
 }
 
-.none-display {
-  display: none;
-}
-
-.ib-display {
-  display: inline-block;
-}
-
 .loading-spinner-on-mobile {
-  min-height: 50vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .ds-sdk-product-item__product-swatch-item .swatch-color-port-royale {
@@ -2488,100 +2029,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   cursor: pointer;
   padding: 0;
   height: 100%;
-}
-
-.first\:ml-0:first-child {
-  margin-left: 0px;
-}
-
-.hover\:cursor-pointer:hover {
-  cursor: pointer;
-}
-
-.hover\:border-none:hover {
-  border-style: none;
-}
-
-.hover\:bg-green-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-neutral-200:hover {
-  background-color: var(--color-neutral-200);
-}
-
-.hover\:bg-transparent:hover {
-  background-color: transparent;
-}
-
-.hover\:text-blue-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
-}
-
-.hover\:text-brand-700:hover {
-  color: var(--color-brand-700);
-  font-size: var(--font-sm);
-  font-weight: var(--font-medium);
-}
-
-.hover\:text-neutral-900:hover {
-  color: var(--color-neutral-900);
-}
-
-.hover\:underline:hover {
-  text-decoration-line: underline;
-}
-
-.hover\:no-underline:hover {
-  text-decoration-line: none;
-}
-
-.focus\:border-none:focus {
-  border-style: none;
-}
-
-.focus\:bg-transparent:focus {
-  background-color: transparent;
-}
-
-.focus\:no-underline:focus {
-  text-decoration-line: none;
-}
-
-.focus\:outline-none:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.focus\:ring-0:focus {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.focus\:ring-2:focus {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.focus\:ring-green-600:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(22 163 74 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-offset-2:focus {
-  --tw-ring-offset-width: 2px;
-}
-
-.focus\:ring-offset-green-50:focus {
-  --tw-ring-offset-color: #f0fdf4;
-}
-
-.active\:border-none:active {
-  border-style: none;
 }
 
 .add-to-cart-overlay .status-container {
@@ -2642,16 +2089,4 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .ds-sdk-product-image {
   transition: background-image .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) .2s;
-}
-
-@media (min-width: 1280px) {
-  .xl\:gap-x-4 {
-    -moz-column-gap: 1rem;
-    column-gap: 1rem;
-  }
-
-  .xl\:gap-x-6 {
-    -moz-column-gap: 1.5rem;
-    column-gap: 1.5rem;
-  }
 }
