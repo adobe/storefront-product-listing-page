@@ -24,19 +24,7 @@ const getSortOptionsfromMetadata = (
   displayOutOfStock?: string | boolean,
   categoryPath?: string
 ): SortOption[] => {
-  const sortOptions = categoryPath
-    ? [
-        {
-          label: translation.SortDropdown.positionLabel,
-          value: 'position_ASC',
-        },
-      ]
-    : [
-        {
-          label: translation.SortDropdown.relevanceLabel,
-          value: 'relevance_DESC',
-        },
-      ];
+  const sortOptions: SortOption[] = []
   const displayInStockOnly = displayOutOfStock != '1'; // '!=' is intentional for conversion
 
   if (sortMetadata && sortMetadata.length > 0) {
@@ -53,12 +41,22 @@ const getSortOptionsfromMetadata = (
       ) {
         if (e.numeric && e.attribute.includes('price')) {
           sortOptions.push({
-            label: `${e.label}: Low to High`,
+            label: translation.SortDropdown.priceLabelAsc,
             value: `${e.attribute}_ASC`,
           });
           sortOptions.push({
-            label: `${e.label}: High to Low`,
+            label: translation.SortDropdown.priceLabelDesc,
             value: `${e.attribute}_DESC`,
+          });
+        } else if (e.attribute.includes('created_at')) {
+          sortOptions.push({
+            label: translation.SortDropdown.createdAtLabel,
+            value: `${e.attribute}_DESC`,
+          });
+        } else if (e.attribute.includes('name')) {
+          sortOptions.push({
+            label: `${e.label}`,
+            value: `${e.attribute}_ASC`,
           });
         } else {
           sortOptions.push({
@@ -69,7 +67,19 @@ const getSortOptionsfromMetadata = (
       }
     });
   }
-  return sortOptions;
+  if (categoryPath) {
+    sortOptions.push({
+      label: translation.SortDropdown.positionLabel,
+      value: 'position_ASC',
+    })
+  } else {
+    sortOptions.push(
+        {
+          label: translation.SortDropdown.relevanceLabel,
+          value: 'relevance_DESC',
+        });
+  }
+  return sortOptions.reverse();
 };
 
 const generateGQLSortInput = (

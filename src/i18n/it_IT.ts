@@ -35,8 +35,11 @@ export const it_IT = {
   SortDropdown: {
     title: 'Ordina per',
     option: 'Ordina per',
-    relevanceLabel: 'Più rilevante',
+    relevanceLabel: 'Rilevanza',
     positionLabel: 'Posizione',
+    priceLabelAsc: 'Dal meno caro',
+    priceLabelDesc:'Dal più caro',
+    createdAtLabel:'Novità',
   },
   CategoryFilters: {
     results: 'risultati per {phrase}',
