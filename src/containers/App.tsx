@@ -77,7 +77,7 @@ export const App: FunctionComponent = () => {
                   <div
                       className="product-list-page-header flex flex-col gap-4 justify-center items-center h-[180px] lg:h-[248px]">
                     <h1 className="text-center capitalize">
-                  {searchCtx.phrase}
+                  {searchCtx.phrase} | Wilson Sporting Goods
                 </h1>
               </div>
             )}
