@@ -14,6 +14,7 @@
     "build:qa": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.qa.js",
     "build:dev": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.dev.js",
     "build:coverage": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.coverage.js",
+    "build:prod": "npx tailwindcss  -i ./src/styles/tokens.css -o ./src/styles/index.css; webpack --config webpack.prod.js",
     "coverage:e2e": "nyc --reporter=text-summary cross-env NODE_ENV=test npm test:e2e",
     "cover:integration": "nyc --reporter=text-summary cross-env NODE_ENV=test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test 'node server-test.js' http://localhost:8080/v2/ cy:run:chrome",
     "cy:run:chrome": "CHOKIDAR_IGNORED='/node_modules/' NO_COLOR=1 NO_COLOR=1 cypress run --headless --browser chrome",
