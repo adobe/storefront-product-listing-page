@@ -1,6 +1,7 @@
 # storefront-product-listing-page
 
 ## Product Listing Page for Adobe Commerce Storefronts using Live Search
+
 The product listing page provides coverage for both search and browse (PLP) results and includes the faceting, sorting, and product card areas on the page. This is the recommended default storefront PLP provided by Live Search. It provides a search experience that is client side rendered and hosted with a decoupled architecture.
 
 The PLP calls the catalog service which extends the Live Search productSearch query to return product view data. This allows the PLP to render additional product attributes like swatches with a single call.
@@ -11,11 +12,12 @@ Learn more:
 - PLP https://experienceleague.adobe.com/docs/commerce-merchant-services/live-search/live-search-storefront/plp-styling.html?lang=en
 - Catalog Service https://developer.adobe.com/commerce/webapi/graphql/schema/catalog-service/
 
-
 ## Repo containing the Live Search PLP
-This repo is available as a reference implementation *only*, customizations are *not supported*, and subject to change.
+
+This repo is available as a reference implementation _only_, customizations are _not supported_, and subject to change.
 
 Best practices include:
+
 - forking this repo
 - periodically rebasing with develop
 
@@ -48,6 +50,7 @@ npm run test
 ```
 
 ### Build
+
 ```
 npm run build
 ```
@@ -67,15 +70,17 @@ import the script:
 Most of these will be passed with the extension if you have your storefront setup. The SANDBOX_KEY (api key for the sandbox env) is the only key that will need to be set within webpack.
 
 #### Store Variables needed:
+
 ```
-      ENVIRONMENT_ID 
-      WEBSITE_CODE 
-      STORE_CODE 
-      STORE_VIEW_CODE 
-      CUSTOMER_GROUP_CODE 
-      API_KEY 
+      ENVIRONMENT_ID
+      WEBSITE_CODE
+      STORE_CODE
+      STORE_VIEW_CODE
+      CUSTOMER_GROUP_CODE
+      API_KEY
       SANDBOX_KEY // input this key into webpack.dev.js & webpack.prod.js
 ```
+
 - To set up sandbox keys please see here: https://experienceleague.adobe.com/docs/commerce-merchant-services/catalog-service/installation.html?lang=en
 
 #### insert into store details config
@@ -121,7 +126,6 @@ setTimeout(async () => {
 ```
 
 You can see the example in [dev-template.html](./dev-template.html)
-
 
 ### Theming and Styling
 
@@ -199,7 +203,6 @@ within `.ds-widgets` in [token.css](./src/styles/tokens.css)
 Some helpful tools when developing with tailwind:
 
 - [Tailwind CSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
 
 ## Feature flags
 

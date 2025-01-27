@@ -42,6 +42,7 @@ export const fr_FR = {
     products: '{totalCount} produits',
   },
   ProductCard: {
+    addToCart: 'Ajouter au panier',
     asLowAs: 'Prix descendant jusqu’à {discountPrice}',
     startingAt: 'À partir de {productPrice}',
     bundlePrice: 'De {fromBundlePrice} à {toBundlePrice}',

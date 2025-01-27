@@ -1,5 +1,5 @@
 const visitHomePage = (wait = 5000) => {
-    cy.visit("/", wait);
+  cy.visit('/', wait);
 };
 
-Cypress.Commands.add("visitHomePage", visitHomePage);
+Cypress.Commands.add('visitHomePage', visitHomePage);

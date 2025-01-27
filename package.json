@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@adobe/storefront-product-listing-page",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "typings": "./dist/@types/index.d.ts",
   "files": [
@@ -27,8 +27,9 @@
     "server-test": "node server-test.js",
     "lint": "eslint '*/**/*.{ts,tsx}'",
     "lint:fix": "eslint '*/**/*.{ts,tsx}' --fix",
-    "prettier:fix": "prettier 'src/**/*.{ts,tsx,json,md}' --write",
+    "prettier:fix": "prettier './**/*.{ts,tsx,js,css,json,md}' --write",
     "lint:staged": "lint-staged",
+    "format": "prettier --check './**/*.{ts,tsx,js,css,json,md}'",
     "test": "jest --passWithNoTests --color --silent",
     "test:e2e": "cypress open --browser chrome --config-file cypress.config.js",
     "test:e2e:headless": "cypress run --browser chrome --config-file cypress.config.js",

@@ -71,7 +71,14 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['dist/', 'config/'],
+  ignorePatterns: [
+    'dist/',
+    'config/',
+    '**/*.test.tsx',
+    '**/*.test.ts',
+    '**/*.spec.js',
+    '**/__tests__/**',
+  ],
   plugins: ['simple-import-sort', '@typescript-eslint', 'cypress'],
   globals: {
     document: true,

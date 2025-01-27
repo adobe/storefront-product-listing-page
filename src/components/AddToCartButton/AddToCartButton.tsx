@@ -9,6 +9,7 @@ it.
 
 import { FunctionComponent } from 'preact';
 
+import { useTranslation } from '../../context/translation';
 import CartIcon from '../../icons/cart.svg';
 
 export interface AddToCartButtonProps {
@@ -17,6 +18,9 @@ export interface AddToCartButtonProps {
 export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   onClick,
 }: AddToCartButtonProps) => {
+  const translation = useTranslation();
+  const btnLabel = translation.ProductCard.addToCart || 'Add to Cart';
+
   return (
     <div className="ds-sdk-add-to-cart-button">
       <button
@@ -27,7 +31,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
         onClick={onClick}
       >
         <CartIcon className="w-[24px] pr-4" />
-        Add To Cart
+        {btnLabel}
       </button>
     </div>
   );

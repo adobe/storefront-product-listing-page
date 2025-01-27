@@ -1,0 +1,88 @@
+# WORKFLOW: builds, tests, deploys project to QA on merge into the develop branch
+
+name: build-and-deploy-qa
+
+# only run if on develop branch and there are changes in the components folder
+on:
+  # This allows the workflow to be manually triggered
+  workflow_dispatch: 
+    inputs:
+      invalidate_cache:
+        description: "Invalidate CloudFront cache (true/false)"
+        required: false
+        default: "false"
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+# set unique deployment env vars
+
+jobs:
+
+  build_and_deploy_qa:
+    runs-on: ubuntu-24.04
+    environment: qa
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # setup artifactory with internal npm repository dependencies
+      - name: Setup artifactory
+        uses: adobe-commerce/common-workflows/.github/actions/setup-artifactory@v1
+        with:
+          repositories: npm-spectrum-release, npm-react-release, npmjs-local, npm-adobe-release-local, npm-adobe-release
+          username: ${{ secrets.ARTIFACTORY_USERNAME }}
+          apikey: ${{ secrets.ARTIFACTORY_API_KEY }}
+      
+      # setup node.js 20 and cache yarn
+      - name: Use node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+
+      # install dependencies, lint, build, and test
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: yarn format
+      - run: yarn test
+      - run: yarn build:qa
+
+      # deploy to s3 and invalidate cloudfront cache
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: "arn:aws:iam::${{ secrets.DS_QA_AWS_ACCOUNT_ID }}:role/github-actions-${{ vars.REPO_NAME }}-irsa"
+          role-session-name: github-actions-${{ vars.REPO_NAME }}-irsa
+          aws-region: ${{ vars.AWS_REGION }}
+      
+      # Deploy to the S3 bucket/path  
+      - name: Deploy to s3
+        run: |
+          major_version="v$(jq -r .version package.json | cut -f1 -d'.')"
+          echo "MAJOR_VERSION=$major_version" >> $GITHUB_ENV
+          aws s3 sync ./dist s3://${{ vars.BUCKET_NAME }}/$major_version --delete
+      
+      - name: Invalidate cloudFront cache check
+        uses: adobe-commerce/common-workflows/.github/actions/invalidate-cloudfront-cache@v1
+        with:
+          distribution_id: ${{ secrets.DISTRIBUTION_ID }}
+          # space-separated list of quoted "paths" to invalidate. Wrap in '' to prevent YAML parsing errors
+          paths: '"/${{ env.MAJOR_VERSION }}/${{ vars.ARTIFACT_ENTRYPOINT }}"'
+          invalidate_cache: ${{ inputs.invalidate_cache }}
+
+      - name: Notify slack
+        if: always()
+        uses: adobe-commerce/common-workflows/.github/actions/notify-slack@v1
+        with:
+          slack_webhook_url: ${{ secrets.FRONTEND_SLACK_WEBHOOK_URL }}
+          environment: "QA"
+          s3_url: "https://${{ vars.BUCKET_NAME }}/${{ env.MAJOR_VERSION }}/${{ vars.ARTIFACT_ENTRYPOINT }}"

@@ -1,14 +1,122 @@
 /* Tokens */
 
 .ds-widgets {
-  /* ! tailwindcss v3.3.6 | MIT License | https://tailwindcss.com */
+  *,
+  ::before,
+  ::after {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-pan-x: ;
+    --tw-pan-y: ;
+    --tw-pinch-zoom: ;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-gradient-from-position: ;
+    --tw-gradient-via-position: ;
+    --tw-gradient-to-position: ;
+    --tw-ordinal: ;
+    --tw-slashed-zero: ;
+    --tw-numeric-figure: ;
+    --tw-numeric-spacing: ;
+    --tw-numeric-fraction: ;
+    --tw-ring-inset: ;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-blur: ;
+    --tw-brightness: ;
+    --tw-contrast: ;
+    --tw-grayscale: ;
+    --tw-hue-rotate: ;
+    --tw-invert: ;
+    --tw-saturate: ;
+    --tw-sepia: ;
+    --tw-drop-shadow: ;
+    --tw-backdrop-blur: ;
+    --tw-backdrop-brightness: ;
+    --tw-backdrop-contrast: ;
+    --tw-backdrop-grayscale: ;
+    --tw-backdrop-hue-rotate: ;
+    --tw-backdrop-invert: ;
+    --tw-backdrop-opacity: ;
+    --tw-backdrop-saturate: ;
+    --tw-backdrop-sepia: ;
+    --tw-contain-size: ;
+    --tw-contain-layout: ;
+    --tw-contain-paint: ;
+    --tw-contain-style: ;
+  }
+  ::backdrop {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-pan-x: ;
+    --tw-pan-y: ;
+    --tw-pinch-zoom: ;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-gradient-from-position: ;
+    --tw-gradient-via-position: ;
+    --tw-gradient-to-position: ;
+    --tw-ordinal: ;
+    --tw-slashed-zero: ;
+    --tw-numeric-figure: ;
+    --tw-numeric-spacing: ;
+    --tw-numeric-fraction: ;
+    --tw-ring-inset: ;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-blur: ;
+    --tw-brightness: ;
+    --tw-contrast: ;
+    --tw-grayscale: ;
+    --tw-hue-rotate: ;
+    --tw-invert: ;
+    --tw-saturate: ;
+    --tw-sepia: ;
+    --tw-drop-shadow: ;
+    --tw-backdrop-blur: ;
+    --tw-backdrop-brightness: ;
+    --tw-backdrop-contrast: ;
+    --tw-backdrop-grayscale: ;
+    --tw-backdrop-hue-rotate: ;
+    --tw-backdrop-invert: ;
+    --tw-backdrop-opacity: ;
+    --tw-backdrop-saturate: ;
+    --tw-backdrop-sepia: ;
+    --tw-contain-size: ;
+    --tw-contain-layout: ;
+    --tw-contain-paint: ;
+    --tw-contain-style: ;
+  }
+  /* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */
   /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
   *,
-::before,
-::after {
+  ::before,
+  ::after {
     box-sizing: border-box;
     /* 1 */
     border-width: 0;
@@ -19,7 +127,7 @@
     /* 2 */
   }
   ::before,
-::after {
+  ::after {
     --tw-content: '';
   }
   /*
@@ -29,8 +137,10 @@
 4. Use the user's configured `sans` font-family by default.
 5. Use the user's configured `sans` font-feature-settings by default.
 6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
 */
-  html {
+  html,
+  :host {
     line-height: 1.5;
     /* 1 */
     -webkit-text-size-adjust: 100%;
@@ -38,14 +148,17 @@
     -moz-tab-size: 4;
     /* 3 */
     -o-tab-size: 4;
-       tab-size: 4;
+    tab-size: 4;
     /* 3 */
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     /* 4 */
     font-feature-settings: normal;
     /* 5 */
     font-variation-settings: normal;
     /* 6 */
+    -webkit-tap-highlight-color: transparent;
+    /* 7 */
   }
   /*
 1. Remove the margin in all browsers.
@@ -75,17 +188,17 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 */
   abbr:where([title]) {
     -webkit-text-decoration: underline dotted;
-            text-decoration: underline dotted;
+    text-decoration: underline dotted;
   }
   /*
 Remove the default font size and weight for headings.
 */
   h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-size: inherit;
     font-weight: inherit;
   }
@@ -100,7 +213,7 @@ Reset links to optimize for opt-in styling instead of opt-out.
 Add the correct font weight in Edge and Safari.
 */
   b,
-strong {
+  strong {
     font-weight: bolder;
   }
   /*
@@ -110,10 +223,11 @@ strong {
 4. Correct the odd `em` font sizing in all browsers.
 */
   code,
-kbd,
-samp,
-pre {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  kbd,
+  samp,
+  pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      'Liberation Mono', 'Courier New', monospace;
     /* 1 */
     font-feature-settings: normal;
     /* 2 */
@@ -132,7 +246,7 @@ Add the correct font size in all browsers.
 Prevent `sub` and `sup` elements from affecting the line height in all browsers.
 */
   sub,
-sup {
+  sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
@@ -163,10 +277,10 @@ sup {
 3. Remove default padding in all browsers.
 */
   button,
-input,
-optgroup,
-select,
-textarea {
+  input,
+  optgroup,
+  select,
+  textarea {
     font-family: inherit;
     /* 1 */
     font-feature-settings: inherit;
@@ -179,6 +293,8 @@ textarea {
     /* 1 */
     line-height: inherit;
     /* 1 */
+    letter-spacing: inherit;
+    /* 1 */
     color: inherit;
     /* 1 */
     margin: 0;
@@ -190,7 +306,7 @@ textarea {
 Remove the inheritance of text transform in Edge and Firefox.
 */
   button,
-select {
+  select {
     text-transform: none;
   }
   /*
@@ -198,9 +314,9 @@ select {
 2. Remove default button styles.
 */
   button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+  input:where([type='button']),
+  input:where([type='reset']),
+  input:where([type='submit']) {
     -webkit-appearance: button;
     /* 1 */
     background-color: transparent;
@@ -230,7 +346,7 @@ Add the correct vertical alignment in Chrome and Firefox.
 Correct the cursor style of increment and decrement buttons in Safari.
 */
   ::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
+  ::-webkit-outer-spin-button {
     height: auto;
   }
   /*
@@ -269,18 +385,18 @@ Add the correct display in Chrome and Safari.
 Removes the default spacing and border for appropriate elements.
 */
   blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
+  dl,
+  dd,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  hr,
+  figure,
+  p,
+  pre {
     margin: 0;
   }
   fieldset {
@@ -291,8 +407,8 @@ pre {
     padding: 0;
   }
   ol,
-ul,
-menu {
+  ul,
+  menu {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -313,14 +429,15 @@ Prevent resizing textareas horizontally by default.
 1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
 2. Set the default placeholder color to the user's configured gray 400 color.
 */
-  input::-moz-placeholder, textarea::-moz-placeholder {
+  input::-moz-placeholder,
+  textarea::-moz-placeholder {
     opacity: 1;
     /* 1 */
     color: var(--color-gray-4);
     /* 2 */
   }
   input::placeholder,
-textarea::placeholder {
+  textarea::placeholder {
     opacity: 1;
     /* 1 */
     color: var(--color-gray-4);
@@ -330,7 +447,7 @@ textarea::placeholder {
 Set the default cursor for buttons.
 */
   button,
-[role="button"] {
+  [role='button'] {
     cursor: pointer;
   }
   /*
@@ -345,13 +462,13 @@ Make sure disabled buttons don't get the pointer cursor.
    This can trigger a poorly considered lint error in some tools but is included by design.
 */
   img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
     display: block;
     /* 1 */
     vertical-align: middle;
@@ -361,111 +478,13 @@ object {
 Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
 */
   img,
-video {
+  video {
     max-width: 100%;
     height: auto;
   }
   /* Make elements with the HTML hidden attribute stay hidden by default */
-  [hidden] {
+  [hidden]:where(:not([hidden='until-found'])) {
     display: none;
-  }
-  *, ::before, ::after {
-    --tw-border-spacing-x: 0;
-    --tw-border-spacing-y: 0;
-    --tw-translate-x: 0;
-    --tw-translate-y: 0;
-    --tw-rotate: 0;
-    --tw-skew-x: 0;
-    --tw-skew-y: 0;
-    --tw-scale-x: 1;
-    --tw-scale-y: 1;
-    --tw-pan-x:  ;
-    --tw-pan-y:  ;
-    --tw-pinch-zoom:  ;
-    --tw-scroll-snap-strictness: proximity;
-    --tw-gradient-from-position:  ;
-    --tw-gradient-via-position:  ;
-    --tw-gradient-to-position:  ;
-    --tw-ordinal:  ;
-    --tw-slashed-zero:  ;
-    --tw-numeric-figure:  ;
-    --tw-numeric-spacing:  ;
-    --tw-numeric-fraction:  ;
-    --tw-ring-inset:  ;
-    --tw-ring-offset-width: 0px;
-    --tw-ring-offset-color: #fff;
-    --tw-ring-color: rgb(59 130 246 / 0.5);
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --tw-shadow: 0 0 #0000;
-    --tw-shadow-colored: 0 0 #0000;
-    --tw-blur:  ;
-    --tw-brightness:  ;
-    --tw-contrast:  ;
-    --tw-grayscale:  ;
-    --tw-hue-rotate:  ;
-    --tw-invert:  ;
-    --tw-saturate:  ;
-    --tw-sepia:  ;
-    --tw-drop-shadow:  ;
-    --tw-backdrop-blur:  ;
-    --tw-backdrop-brightness:  ;
-    --tw-backdrop-contrast:  ;
-    --tw-backdrop-grayscale:  ;
-    --tw-backdrop-hue-rotate:  ;
-    --tw-backdrop-invert:  ;
-    --tw-backdrop-opacity:  ;
-    --tw-backdrop-saturate:  ;
-    --tw-backdrop-sepia:  ;
-  }
-  ::backdrop {
-    --tw-border-spacing-x: 0;
-    --tw-border-spacing-y: 0;
-    --tw-translate-x: 0;
-    --tw-translate-y: 0;
-    --tw-rotate: 0;
-    --tw-skew-x: 0;
-    --tw-skew-y: 0;
-    --tw-scale-x: 1;
-    --tw-scale-y: 1;
-    --tw-pan-x:  ;
-    --tw-pan-y:  ;
-    --tw-pinch-zoom:  ;
-    --tw-scroll-snap-strictness: proximity;
-    --tw-gradient-from-position:  ;
-    --tw-gradient-via-position:  ;
-    --tw-gradient-to-position:  ;
-    --tw-ordinal:  ;
-    --tw-slashed-zero:  ;
-    --tw-numeric-figure:  ;
-    --tw-numeric-spacing:  ;
-    --tw-numeric-fraction:  ;
-    --tw-ring-inset:  ;
-    --tw-ring-offset-width: 0px;
-    --tw-ring-offset-color: #fff;
-    --tw-ring-color: rgb(59 130 246 / 0.5);
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --tw-shadow: 0 0 #0000;
-    --tw-shadow-colored: 0 0 #0000;
-    --tw-blur:  ;
-    --tw-brightness:  ;
-    --tw-contrast:  ;
-    --tw-grayscale:  ;
-    --tw-hue-rotate:  ;
-    --tw-invert:  ;
-    --tw-saturate:  ;
-    --tw-sepia:  ;
-    --tw-drop-shadow:  ;
-    --tw-backdrop-blur:  ;
-    --tw-backdrop-brightness:  ;
-    --tw-backdrop-contrast:  ;
-    --tw-backdrop-grayscale:  ;
-    --tw-backdrop-hue-rotate:  ;
-    --tw-backdrop-invert:  ;
-    --tw-backdrop-opacity:  ;
-    --tw-backdrop-saturate:  ;
-    --tw-backdrop-sepia:  ;
   }
   .container {
     width: 100%;
@@ -769,26 +788,38 @@ video {
   }
   .-translate-x-1\/2 {
     --tw-translate-x: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   .-rotate-90 {
     --tw-rotate: -90deg;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   .rotate-180 {
     --tw-rotate: 180deg;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   .rotate-45 {
     --tw-rotate: 45deg;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   .rotate-90 {
     --tw-rotate: 90deg;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   .transform {
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   @keyframes spin {
     to {
@@ -812,8 +843,8 @@ video {
   }
   .appearance-none {
     -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -851,21 +882,17 @@ video {
   .gap-\[10px\] {
     gap: 10px;
   }
-  .gap-x-2 {
-    -moz-column-gap: 0.5rem;
-         column-gap: 0.5rem;
-  }
   .gap-x-2\.5 {
     -moz-column-gap: 0.625rem;
-         column-gap: 0.625rem;
+    column-gap: 0.625rem;
   }
   .gap-x-2xl {
     -moz-column-gap: var(--spacing-2xl);
-         column-gap: var(--spacing-2xl);
+    column-gap: var(--spacing-2xl);
   }
   .gap-x-md {
     -moz-column-gap: var(--spacing-md);
-         column-gap: var(--spacing-md);
+    column-gap: var(--spacing-md);
   }
   .gap-y-8 {
     row-gap: 2rem;
@@ -923,7 +950,7 @@ video {
   }
   .border-black {
     --tw-border-opacity: 1;
-    border-color: rgb(0 0 0 / var(--tw-border-opacity));
+    border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
   }
   .border-gray-200 {
     border-color: var(--color-gray-2);
@@ -936,7 +963,7 @@ video {
   }
   .bg-blue-50 {
     --tw-bg-opacity: 1;
-    background-color: rgb(239 246 255 / var(--tw-bg-opacity));
+    background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
   }
   .bg-body {
     background-color: var(--color-body);
@@ -949,22 +976,22 @@ video {
   }
   .bg-green-50 {
     --tw-bg-opacity: 1;
-    background-color: rgb(240 253 244 / var(--tw-bg-opacity));
+    background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
   }
   .bg-red-50 {
     --tw-bg-opacity: 1;
-    background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+    background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
   }
   .bg-transparent {
     background-color: transparent;
   }
   .bg-white {
     --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   }
   .bg-yellow-50 {
     --tw-bg-opacity: 1;
-    background-color: rgb(254 252 232 / var(--tw-bg-opacity));
+    background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
   }
   .fill-gray-500 {
     fill: var(--color-gray-5);
@@ -986,11 +1013,11 @@ video {
   }
   .object-cover {
     -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
   .object-center {
     -o-object-position: center;
-       object-position: center;
+    object-position: center;
   }
   .p-1 {
     padding: 0.25rem;
@@ -1141,19 +1168,19 @@ video {
   }
   .text-black {
     --tw-text-opacity: 1;
-    color: rgb(0 0 0 / var(--tw-text-opacity));
+    color: rgb(0 0 0 / var(--tw-text-opacity, 1));
   }
   .text-blue-400 {
     --tw-text-opacity: 1;
-    color: rgb(96 165 250 / var(--tw-text-opacity));
+    color: rgb(96 165 250 / var(--tw-text-opacity, 1));
   }
   .text-blue-700 {
     --tw-text-opacity: 1;
-    color: rgb(29 78 216 / var(--tw-text-opacity));
+    color: rgb(29 78 216 / var(--tw-text-opacity, 1));
   }
   .text-blue-800 {
     --tw-text-opacity: 1;
-    color: rgb(30 64 175 / var(--tw-text-opacity));
+    color: rgb(30 64 175 / var(--tw-text-opacity, 1));
   }
   .text-gray-500 {
     color: var(--color-gray-5);
@@ -1172,53 +1199,53 @@ video {
   }
   .text-green-400 {
     --tw-text-opacity: 1;
-    color: rgb(74 222 128 / var(--tw-text-opacity));
+    color: rgb(74 222 128 / var(--tw-text-opacity, 1));
   }
   .text-green-500 {
     --tw-text-opacity: 1;
-    color: rgb(34 197 94 / var(--tw-text-opacity));
+    color: rgb(34 197 94 / var(--tw-text-opacity, 1));
   }
   .text-green-700 {
     --tw-text-opacity: 1;
-    color: rgb(21 128 61 / var(--tw-text-opacity));
+    color: rgb(21 128 61 / var(--tw-text-opacity, 1));
   }
   .text-green-800 {
     --tw-text-opacity: 1;
-    color: rgb(22 101 52 / var(--tw-text-opacity));
+    color: rgb(22 101 52 / var(--tw-text-opacity, 1));
   }
   .text-primary {
     color: var(--color-primary);
   }
   .text-red-400 {
     --tw-text-opacity: 1;
-    color: rgb(248 113 113 / var(--tw-text-opacity));
+    color: rgb(248 113 113 / var(--tw-text-opacity, 1));
   }
   .text-red-700 {
     --tw-text-opacity: 1;
-    color: rgb(185 28 28 / var(--tw-text-opacity));
+    color: rgb(185 28 28 / var(--tw-text-opacity, 1));
   }
   .text-red-800 {
     --tw-text-opacity: 1;
-    color: rgb(153 27 27 / var(--tw-text-opacity));
+    color: rgb(153 27 27 / var(--tw-text-opacity, 1));
   }
   .text-secondary {
     color: var(--color-secondary);
   }
   .text-white {
     --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   }
   .text-yellow-400 {
     --tw-text-opacity: 1;
-    color: rgb(250 204 21 / var(--tw-text-opacity));
+    color: rgb(250 204 21 / var(--tw-text-opacity, 1));
   }
   .text-yellow-700 {
     --tw-text-opacity: 1;
-    color: rgb(161 98 7 / var(--tw-text-opacity));
+    color: rgb(161 98 7 / var(--tw-text-opacity, 1));
   }
   .text-yellow-800 {
     --tw-text-opacity: 1;
-    color: rgb(133 77 14 / var(--tw-text-opacity));
+    color: rgb(133 77 14 / var(--tw-text-opacity, 1));
   }
   .underline {
     text-decoration-line: underline;
@@ -1244,7 +1271,8 @@ video {
   .shadow-2xl {
     --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
   .outline {
     outline-style: solid;
@@ -1259,31 +1287,46 @@ video {
     outline-color: transparent;
   }
   .ring-1 {
-    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+      var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+      calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+      var(--tw-shadow, 0 0 #0000);
   }
   .ring-black {
     --tw-ring-opacity: 1;
-    --tw-ring-color: rgb(0 0 0 / var(--tw-ring-opacity));
+    --tw-ring-color: rgb(0 0 0 / var(--tw-ring-opacity, 1));
   }
   .ring-opacity-5 {
     --tw-ring-opacity: 0.05;
   }
   .blur {
     --tw-blur: blur(8px);
-    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+      var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+      var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
   }
   .\!filter {
-    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+      var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+      var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
   }
   .filter {
-    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+      var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+      var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
   }
   .transition {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+      filter, -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+      filter, backdrop-filter;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+      filter, backdrop-filter, -webkit-backdrop-filter;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
   }
@@ -1401,7 +1444,7 @@ video {
 
 .hover\:bg-green-100:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-transparent:hover {
@@ -1410,7 +1453,7 @@ video {
 
 .hover\:text-blue-600:hover {
   --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-gray-900:hover {
@@ -1426,9 +1469,12 @@ video {
 }
 
 .hover\:shadow-lg:hover {
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .hover\:outline-gray-600:hover {
@@ -1457,20 +1503,26 @@ video {
 }
 
 .focus\:ring-0:focus {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+    var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+    calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
 }
 
 .focus\:ring-2:focus {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+    var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+    calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
 }
 
 .focus\:ring-green-600:focus {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(22 163 74 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(22 163 74 / var(--tw-ring-opacity, 1));
 }
 
 .focus\:ring-offset-2:focus {
@@ -1496,17 +1548,12 @@ video {
 .active\:shadow-none:active {
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
-}
-
-@media (prefers-color-scheme: dark) {
-  .dark\:bg-gray-700 {
-    background-color: var(--color-gray-7);
-  }
 }
 
 @media (min-width: 640px) {
@@ -1572,11 +1619,17 @@ video {
 @media (min-width: 1280px) {
   .xl\:gap-x-4 {
     -moz-column-gap: 1rem;
-         column-gap: 1rem;
+    column-gap: 1rem;
   }
 
   .xl\:gap-x-8 {
     -moz-column-gap: 2rem;
-         column-gap: 2rem;
+    column-gap: 2rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark\:bg-gray-700 {
+    background-color: var(--color-gray-7);
   }
 }

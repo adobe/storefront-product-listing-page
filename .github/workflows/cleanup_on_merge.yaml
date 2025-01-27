@@ -1,0 +1,29 @@
+# WORKFLOW: to delete the s3 folder in QA on merge into the develop branch
+
+on:
+  pull_request:
+    types:
+      - closed
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  cleanup_s3_on_merge:
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop' }}
+    runs-on: ubuntu-latest
+    environment: qa
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: "arn:aws:iam::${{ secrets.DS_QA_AWS_ACCOUNT_ID }}:role/github-actions-${{ vars.REPO_NAME }}-irsa"
+          role-session-name: github-actions-${{ vars.REPO_NAME }}-irsa
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: cleanup s3 folder
+        run: |
+            branch_name=$(echo "${{ github.head_ref }}" | sed 's|refs/heads/||') 
+            echo "Deleting s3 folder ${{ vars.BUCKET_NAME }}/$branch_name"
+            aws s3 rm s3://${{ vars.BUCKET_NAME }}/$branch_name --recursive
