@@ -3,7 +3,7 @@ const { merge } = require('webpack-merge');
 const { commonConfig, publicPaths } = require('./webpack.common.js');
 
 module.exports = merge(commonConfig, {
-  mode: 'none',
+  mode: 'production',
   output: {
     publicPath: publicPaths.QA,
   },
@@ -20,7 +20,7 @@ module.exports = merge(commonConfig, {
       TEST_URL: JSON.stringify('https://catalog-service-qa.adobe.io/graphql'),
       API_KEY: JSON.stringify('storefront-catalog-apollo'),
       FLOODGATE_CLIENT_ID: JSON.stringify('ds-live-search-mfe-qa'),
-      'process.env.NODE_ENV': JSON.stringify('qa'),
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
   ],
 

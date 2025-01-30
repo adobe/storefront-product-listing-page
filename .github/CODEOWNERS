@@ -1,6 +1,5 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-# @magento-datalake/ds-widgets-write will be requested for
-# review when someone opens a pull request.
+# @adobe-commerce/ds-lighthouse will be the owners of all releases.
 
-*   @magento-datalake/ds-widgets-write
+*   @adobe-commerce/ds-lighthouse

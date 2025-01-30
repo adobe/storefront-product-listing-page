@@ -1,8 +1,7 @@
-# WORKFLOW: builds, tests, deploys project to QA on merge into the develop branch
+# WORKFLOW: builds, tests, deploys project to PROD in a release directory path when 'release/**' branch is created against the main branch
 
-name: build-and-deploy-pr
+name: build-and-deploy-release-pr
 
-# only run if on develop branch and there are changes in the components folder
 on:
   # This allows the workflow to be manually triggered
   workflow_dispatch: 
@@ -13,9 +12,10 @@ on:
         default: "true"
   pull_request:
     types: [opened, reopened, synchronize]
-    branches-ignore:
+    branches:
       - main
       - 'release/**'
+      - '!develop'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -26,11 +26,13 @@ permissions:
 
 jobs:
 
-  build_and_deploy_pr:
+  build_and_deploy_release_pr:
+    # safeguard, should only be running when the base branch is main and the PR is a release branch pattern
+    if: ${{ github.event.pull_request.base.ref == 'main' && contains(github.event.pull_request.head.ref, 'release/') }}
     runs-on: ubuntu-24.04
-    environment: qa
+    environment: prod
     env:
-      INVALIDATE_CACHE: ${{ inputs.invalidate_cache || 'true' }} # always invalidate cache on PR
+      INVALIDATE_CACHE: ${{ inputs.invalidate_cache || 'true' }} # always invalidate cache on release PR for testing
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -55,13 +57,13 @@ jobs:
       - run: yarn lint
       - run: yarn format
       - run: yarn test
-      - run: yarn build:qa
+      - run: yarn build:prod
 
       # deploy to s3 and invalidate cloudfront cache
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: "arn:aws:iam::${{ secrets.DS_QA_AWS_ACCOUNT_ID }}:role/github-actions-${{ vars.REPO_NAME }}-irsa"
+          role-to-assume: "arn:aws:iam::${{ secrets.DS_PROD_AWS_ACCOUNT_ID }}:role/github-actions-${{ vars.REPO_NAME }}-irsa"
           role-session-name: github-actions-${{ vars.REPO_NAME }}-irsa
           aws-region: ${{ vars.AWS_REGION }}
           

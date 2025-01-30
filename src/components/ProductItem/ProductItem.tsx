@@ -273,11 +273,15 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
           {/* TO BE ADDED LATER */}
           <div className="product-ratings" />
-          <div className="product-add-to-cart">
-            <div className="pb-4 h-[38px] w-96">
-              <AddToCartButton onClick={handleAddToCart} />
+          {productView.inStock ? (
+            <div className="product-add-to-cart">
+              <div className="pb-4 h-[38px] w-96">
+                <AddToCartButton onClick={handleAddToCart} />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="product-add-to-cart" />
+          )}
         </div>
       </>
     );
@@ -367,12 +371,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-      <div className="pb-4 mt-sm">
-        {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-        {isHovering && screenSize.desktop && (
-          <AddToCartButton onClick={handleAddToCart} />
-        )}
-      </div>
+      {productView.inStock ? (
+        <div className="pb-4 mt-sm">
+          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+          {isHovering && screenSize.desktop && (
+            <AddToCartButton onClick={handleAddToCart} />
+          )}
+        </div>
+      ) : (
+        <div className="pb-4 mt-sm" />
+      )}
     </div>
   );
 };
