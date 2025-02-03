@@ -10,7 +10,7 @@ on:
       invalidate_cache:
         description: "Invalidate CloudFront cache (true/false)"
         required: false
-        default: "false"
+        default: "true"
   push:
     branches:
       - main
