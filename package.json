@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@adobe/storefront-product-listing-page",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "license": "MIT",
   "typings": "./dist/@types/index.d.ts",
   "files": [
