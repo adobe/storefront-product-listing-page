@@ -20,6 +20,7 @@ export interface SortDropdownProps {
   sortOptions: SortOption[];
   onChange: (sortBy: string) => void;
   isMobile: boolean;
+  isSortFromUrl?: string;
 }
 
 export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
@@ -27,19 +28,20 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
   sortOptions,
   onChange,
   isMobile,
+  isSortFromUrl,
 }: SortDropdownProps) => {
   const sortOptionButton = useRef<HTMLButtonElement | null>(null);
   const sortOptionMenu = useRef<HTMLDivElement | null>(null);
 
   const selectedOption = sortOptions.find((e) => e.value === value);
-
   const translation = useTranslation();
   const sortOptionTranslation = translation.SortDropdown.option;
   const sortOption = sortOptionTranslation.replace(
     '{selectedOption}',
     `${selectedOption?.label}`
   );
-
+  const Label: string = isSortFromUrl ? (selectedOption ? selectedOption.label.toUpperCase() : translation.SortDropdown.title.toUpperCase())
+      : translation.SortDropdown.title.toUpperCase();
   const {
     isDropdownOpen,
     setIsDropdownOpen,
@@ -92,7 +94,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
           onFocus={() => setIsFocus(false)}
           onBlur={() => setIsFocus(false)}
         >
-          {selectedOption ? sortOption.toUpperCase() : translation.SortDropdown.title.toUpperCase()}
+          {Label}
           <Chevron
             className={`flex-shrink-0 m-auto ml-sm h-md w-md stroke-1 stroke-white ${
               isDropdownOpen ? 'rotate-180' : ''
