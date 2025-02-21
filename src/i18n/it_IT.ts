@@ -42,6 +42,7 @@ export const it_IT = {
     products: '{totalCount} prodotti',
   },
   ProductCard: {
+    addToCart: 'Aggiungi al Carrello',
     asLowAs: 'A partire da {discountPrice}',
     startingAt: 'A partire da {productPrice}',
     bundlePrice: 'Da {fromBundlePrice} a {toBundlePrice}',
