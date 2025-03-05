@@ -13,6 +13,7 @@ export const es_ES = {
     showTitle: 'Mostrar filtros',
     hideTitle: 'Ocultar filtros',
     clearAll: 'Borrar todo',
+    apply: 'Aplicar',
   },
   InputButtonGroup: {
     title: 'Categorías',
@@ -36,6 +37,16 @@ export const es_ES = {
     option: 'Ordenar por',
     relevanceLabel: 'Más relevantes',
     positionLabel: 'Posición',
+    sortAttributeASC: '{label}: De bajo a alto',
+    sortAttributeDESC: '{label}: De mayor a menor',
+    sortASC: 'Price: De bajo a alto',
+    sortDESC: 'Price: De mayor a menor',
+    productName: 'Nombre del producto',
+    productInStock: 'En stock',
+    productLowStock: 'Stock bajo',
+    priceLabelAsc: 'Precio mas bajo',
+    priceLabelDesc:'Precio mas alto',
+    createdAtLabel:'Lo más nuevo primero',
   },
   CategoryFilters: {
     results: 'resultados de {phrase}',
@@ -57,4 +68,19 @@ export const es_ES = {
   SearchBar: {
     placeholder: 'Buscar...',
   },
+  ListView: {
+    viewDetails: 'Ver detalles',
+  },
+  GoButton:{
+    text:"Ir"
+  },
+  ShowMoreButton:{
+    title:"Mostrar mas",
+  },
+  PreviousButton:{
+      title:"Mostrar pagina anterior",
+  },
+  ProductsCounter:{
+      title:"{current} de {total} productos"
+  }
 };
