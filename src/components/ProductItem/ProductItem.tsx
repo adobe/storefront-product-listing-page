@@ -140,13 +140,17 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     }
   };
   const getProductAttribute = (name: string) => {
-    let attribute = item.productView.attributes.find(attribute => {
-      return attribute.name === name
+    if (!item || !item.productView || !item.productView.attributes) {
+      console.log(`No attributes found for product. Item: ${item.product.sku}`);
+      return '';
+    }
+
+    const attribute = item.productView.attributes.find(attribute => {
+      return attribute?.name === name;
     });
-    if ("undefined" !== typeof attribute) {
-      return attribute.value;
-    } else return '';
-  }
+
+    return attribute ? attribute.value : '';
+  };
   if (listview && viewType === 'listview') {
     return (
       <>
