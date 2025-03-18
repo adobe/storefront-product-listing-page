@@ -20,13 +20,18 @@ import {
   SearchProvider,
   StoreContextProvider,
   StoreDetailsProps,
-  WishlistProvider,
 } from './context/';
 import Resize from './context/displayChange';
 import { SentryProvider } from './context/sentry';
 import Translation from './context/translation';
 import { FloodgateProvider } from './utils/Floodgate';
 import { validateStoreDetailsKeys } from './utils/validateStoreDetails';
+
+/*
+Note: Wishlists aren't supported. I've rememoved the WishlistProvider
+from this file as it was causing errors in new relic and filling up logs.
+I've also removed the WidgetConfigProvider, as it was deprioritized. - GMR
+*/
 
 type MountSearchPlpProps = {
   storeDetails: StoreDetailsProps;
@@ -57,23 +62,19 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
         <StoreContextProvider
           {...validateStoreDetailsKeys(updatedStoreDetails)}
         >
-          {/* <WidgetConfigContextProvider> //Deprioritized for now */}
           <AttributeMetadataProvider>
             <SearchProvider>
               <Resize>
                 <Translation>
                   <ProductsContextProvider>
                     <CartProvider>
-                      <WishlistProvider>
-                        <App />
-                      </WishlistProvider>
+                      <App />
                     </CartProvider>
                   </ProductsContextProvider>
                 </Translation>
               </Resize>
             </SearchProvider>
           </AttributeMetadataProvider>
-          {/* </WidgetConfigContextProvider> */}
         </StoreContextProvider>
       </FloodgateProvider>
     </SentryProvider>,
