@@ -374,6 +374,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       {productView.inStock ? (
         <div className="pb-4 mt-sm">
           {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+          {screenSize.tablet && <AddToCartButton onClick={handleAddToCart} />}
           {isHovering && screenSize.desktop && (
             <AddToCartButton onClick={handleAddToCart} />
           )}
