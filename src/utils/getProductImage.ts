@@ -7,7 +7,7 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { ProductViewMedia } from '../types/interface';
+import { AssetSourceAem, Product, ProductViewMedia } from '../types/interface';
 
 const getProductImageURLs = (
   images: ProductViewMedia[],
@@ -96,4 +96,47 @@ const generateOptimizedImages = (
   return imageUrlArray;
 };
 
-export { generateOptimizedImages, getProductImageURLs };
+const resolveAEMImageUrl = (url: string, seoNameString: string, options: AssetSourceAem): string => {
+  const { type: _, seoName, format, ...urlParams } = options
+  const [base] = url.split('?');
+  const params = {
+    ...urlParams,
+    crop: urlParams.crop?.join(','),
+    size: urlParams.size?.join(','),
+  }
+
+  const stringEntries = Object.entries(params).map(([key, val]) => [`${key}`, `${val}`]);
+  const queryParams = new URLSearchParams(stringEntries)
+  return `${base}/as/${seoNameString}.${format}?${queryParams.toString()}`;
+};
+
+const generateOptimizedAEMImages = (
+    imageUrls: string[],
+    product: Product['product'],
+    options: AssetSourceAem
+): { src: string; srcset: any }[] => {
+  const { type: _, seoName, format, ...urlParams } = options
+  const seoNameString = seoName(product);
+
+  const imageUrlArray: Array<{ src: string, srcset: string[] }> = [];
+
+  for (const imageUrl of imageUrls) {
+    const src = resolveAEMImageUrl(imageUrl, seoNameString, {
+      ...options,
+      width: options.width ?? 200
+    })
+    const dpiSet = [1, 2, 3];
+    const srcset = dpiSet.map((dpi) => {
+      return `${resolveAEMImageUrl(imageUrl, seoNameString, {
+        ...options,
+        quality: options.quality ?? 80,
+        width: (options.width ?? 200) * dpi,
+      })} ${dpi}x`;
+    });
+    imageUrlArray.push({ src, srcset });
+  }
+
+  return imageUrlArray
+};
+
+export { generateOptimizedImages, generateOptimizedAEMImages, getProductImageURLs };

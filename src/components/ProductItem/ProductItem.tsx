@@ -23,6 +23,7 @@ import {
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import {
   generateOptimizedImages,
+  generateOptimizedAEMImages,
   getProductImageURLs,
 } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
@@ -69,7 +70,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
+    config: { optimizeImages, assetSource, imageBaseWidth, imageCarousel, listview },
   } = useStore();
 
   const { screenSize } = useSensor();
@@ -105,10 +106,18 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
   if (optimizeImages) {
-    optimizedImageArray = generateOptimizedImages(
-      productImageArray,
-      imageBaseWidth ?? 200
-    );
+    if (assetSource && assetSource.type === 'aem-assets') {
+      optimizedImageArray = generateOptimizedAEMImages(
+          productImageArray,
+          product,
+          assetSource
+      );
+    } else {
+      optimizedImageArray = generateOptimizedImages(
+          productImageArray,
+          imageBaseWidth ?? 200
+      );
+    }
   }
 
   // will have to figure out discount logic for amount_off and percent_off still
@@ -340,7 +349,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </div>
 
-            {/* 
+            {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
