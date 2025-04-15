@@ -23,7 +23,6 @@ import {
 import { SEARCH_UNIT_ID } from '../../utils/constants';
 import {
   generateOptimizedImages,
-  generateOptimizedAEMImages,
   getProductImageURLs,
 } from '../../utils/getProductImage';
 import { htmlStringDecode } from '../../utils/htmlStringDecode';
@@ -70,7 +69,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, assetSource, imageBaseWidth, imageCarousel, listview },
+    config: { optimizeImages, overrideImageProps, imageBaseWidth, imageCarousel, listview },
   } = useStore();
 
   const { screenSize } = useSensor();
@@ -106,18 +105,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   let optimizedImageArray: { src: string; srcset: any }[] = [];
 
   if (optimizeImages) {
-    if (assetSource && assetSource.type === 'aem-assets') {
-      optimizedImageArray = generateOptimizedAEMImages(
-          productImageArray,
-          product,
-          assetSource
-      );
-    } else {
-      optimizedImageArray = generateOptimizedImages(
-          productImageArray,
-          imageBaseWidth ?? 200
-      );
-    }
+    optimizedImageArray = generateOptimizedImages(
+        productImageArray,
+        imageBaseWidth ?? 200,
+        product,
+        overrideImageProps,
+    );
   }
 
   // will have to figure out discount logic for amount_off and percent_off still

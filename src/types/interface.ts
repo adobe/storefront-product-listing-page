@@ -18,6 +18,21 @@ export interface RequestError {
   };
 }
 
+export interface ResolveImageUrlParams {
+  height?: number;
+  quality?: number;
+  auto?: string | null;
+  fit?: string | null;
+  cover?: string | null;
+  crop?: boolean | null;
+  dpi?: number | null;
+}
+
+export interface ImageProps {
+  params?: ResolveImageUrlParams;
+  src: string;
+}
+
 export interface ClientProps {
   apiUrl: string;
   environmentId: string;
@@ -26,25 +41,6 @@ export interface ClientProps {
   storeViewCode: string;
   apiKey: string;
   xRequestId?: string;
-}
-
-export interface AssetSourceDefault {
-  type: 'default';
-}
-
-export interface AssetSourceAem {
-  type: 'aem-assets';
-  seoName: (product: Product['product']) => string;
-  format: "gif" | "jpg" | "jpeg" | "png" | "webp";
-  rotate?: 90 | 180 | 270;
-  crop?: Array<string | number>;
-  flip?: "h" | "v" | "hv";
-  size?: [number, number];
-  width?: number;
-  height?: number;
-  quality?: number;
-  smartCrop?: string;
-  attachment?: "true" | "1" | "false" | "0";
 }
 
 export interface StoreDetailsConfig {
@@ -65,7 +61,7 @@ export interface StoreDetailsConfig {
   imageCarousel?: boolean;
   listview?: boolean;
   optimizeImages?: boolean;
-  assetSource?: AssetSourceDefault | AssetSourceAem;
+  overrideImageProps?: (src: string, product: Product['product']) => ImageProps;
   imageBaseWidth?: number;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
