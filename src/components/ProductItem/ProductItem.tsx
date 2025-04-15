@@ -69,7 +69,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
+    config: { optimizeImages, overrideImageProps, imageBaseWidth, imageCarousel, listview },
   } = useStore();
 
   const { screenSize } = useSensor();
@@ -106,8 +106,10 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   if (optimizeImages) {
     optimizedImageArray = generateOptimizedImages(
-      productImageArray,
-      imageBaseWidth ?? 200
+        productImageArray,
+        imageBaseWidth ?? 200,
+        product,
+        overrideImageProps,
     );
   }
 
@@ -128,10 +130,16 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const isConfigurable = product?.__typename === 'ConfigurableProduct';
 
   const onProductClick = () => {
-    window.magentoStorefrontEvents?.publish.searchProductClick(
-      SEARCH_UNIT_ID,
-      product?.sku
-    );
+    window.adobeDataLayer.push((dl: any) => {
+      dl.push({
+        event: 'search-product-click',
+        eventInfo: {
+          ...dl.getState(),
+          sku: product?.sku,
+          searchUnitId: SEARCH_UNIT_ID,
+        },
+      });
+    });
   };
 
   const productUrl = setRoute
@@ -334,7 +342,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </div>
 
-            {/* 
+            {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278
@@ -367,12 +375,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
         </div>
       )}
-        <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
-          {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
-          )}
-        </div>
+      <div className="pb-4 mt-sm">
+        {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+        {isHovering && screenSize.desktop && (
+          <AddToCartButton onClick={handleAddToCart} />
+        )}
+      </div>
     </div>
   );
 };

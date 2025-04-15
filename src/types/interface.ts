@@ -18,6 +18,21 @@ export interface RequestError {
   };
 }
 
+export interface ResolveImageUrlParams {
+  height?: number;
+  quality?: number;
+  auto?: string | null;
+  fit?: string | null;
+  cover?: string | null;
+  crop?: boolean | null;
+  dpi?: number | null;
+}
+
+export interface ImageProps {
+  params?: ResolveImageUrlParams;
+  src: string;
+}
+
 export interface ClientProps {
   apiUrl: string;
   environmentId: string;
@@ -36,6 +51,7 @@ export interface StoreDetailsConfig {
   currencySymbol?: string;
   currencyRate?: string;
   currentCategoryUrlPath?: string;
+  currentCategoryId?: string;
   categoryName?: string;
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
@@ -45,9 +61,11 @@ export interface StoreDetailsConfig {
   imageCarousel?: boolean;
   listview?: boolean;
   optimizeImages?: boolean;
+  overrideImageProps?: (src: string, product: Product['product']) => ImageProps;
   imageBaseWidth?: number;
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
+  baseUrl?: string; // base URL for store view
   addToCart?: (
     sku: string,
     options: [],
@@ -91,6 +109,8 @@ export interface ProductSearchQuery {
   context?: QueryContextInput;
   data?: QueryData;
   categorySearch?: boolean;
+  categoryId?: string;
+  route?: RedirectRouteFunc;
 }
 
 export interface RefineProductQuery {
@@ -430,3 +450,34 @@ export interface GQLSortInput {
   direction: 'ASC' | 'DESC';
   attribute: string;
 }
+
+export interface WishlistItem {
+  id: string;
+  product: {
+    uid: string;
+    name: string;
+    sku: string;
+  };
+}
+
+export interface Wishlist {
+  id: string;
+  name: string;
+  items_count: number;
+  items_v2: {
+    items: WishlistItem[];
+  };
+}
+
+export interface WishlistResponse {
+  wishlists: Array<Wishlist>;
+}
+
+export interface WishlistAddItemInput {
+  quantity: number;
+  sku: string;
+  parent_sku?: string;
+  selected_options?: string[];
+}
+
+export { WidgetConfigOptions } from './widgetConfig.interface';

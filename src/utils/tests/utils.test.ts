@@ -9,8 +9,8 @@ describe('should sanitize string', () => {
       'hello<script>hello</script><div>hello</div>'
     );
     const unsanitizedStr2 = sanitizeString('<script>hello</script>');
-    const expectedStr1 = 'helloscripthelloscriptdivhellodiv';
-    const expectedStr2 = 'scripthelloscript';
+    const expectedStr1 = 'helloscripthello/scriptdivhello/div';
+    const expectedStr2 = 'scripthello/script';
 
     expect(unsanitizedStr1).toEqual(expectedStr1);
     expect(unsanitizedStr2).toEqual(expectedStr2);

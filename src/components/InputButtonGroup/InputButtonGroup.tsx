@@ -123,6 +123,9 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       <fieldset className="ds-sdk-input__options mt-md">
         <div className="space-y-4">
           {buckets.slice(0, numberOfOptions).map((option) => {
+            if (!option.title) {
+              return null;
+            }
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';
             return (

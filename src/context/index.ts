@@ -8,10 +8,12 @@ it.
 */
 
 export * from './attributeMetadata';
-export * from './cart';
+export * from './store';
+export * from './widgetConfig';
+export * from './search';
+export * from './products';
 export * from './displayChange';
 export * from './events';
-export * from './products';
-export * from './search';
-export * from './store';
 export * from './translation';
+export * from './cart';
+export * from './wishlist';

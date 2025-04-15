@@ -57,15 +57,8 @@ const QUICK_SEARCH_QUERY = `
     ${Product}
 `;
 
-const PRODUCT_SEARCH_QUERY = `
-    query productSearch(
-        $phrase: String!
-        $pageSize: Int
-        $currentPage: Int = 1
-        $filter: [SearchClauseInput!]
-        $sort: [ProductSearchSortInput!]
-        $context: QueryContextInput
-    ) {
+const ProductSearchQueryFragment = `
+    fragment PRODUCT_SEARCH on Query {
         productSearch(
             phrase: $phrase
             page_size: $pageSize
@@ -96,9 +89,46 @@ const PRODUCT_SEARCH_QUERY = `
             }
         }
     }
+`;
+
+const PRODUCT_SEARCH_QUERY = `
+    query productSearch(
+        $phrase: String!
+        $pageSize: Int
+        $currentPage: Int = 1
+        $filter: [SearchClauseInput!]
+        $sort: [ProductSearchSortInput!]
+        $context: QueryContextInput
+    ) {
+        ...PRODUCT_SEARCH
+    }
     ${Product}
     ${ProductView}
     ${Facet}
+    ${ProductSearchQueryFragment}
+`;
+
+const CATEGORY_QUERY = `
+    query categoryQuery(
+        $categoryId: String!
+        $phrase: String!
+        $pageSize: Int
+        $currentPage: Int = 1
+        $filter: [SearchClauseInput!]
+        $sort: [ProductSearchSortInput!]
+        $context: QueryContextInput
+    ) {
+        categories(ids: [$categoryId]) {
+            name
+            urlKey
+            urlPath
+        }
+        ...PRODUCT_SEARCH
+    }
+    ${Product}
+    ${ProductView}
+    ${Facet}
+    ${ProductSearchQueryFragment}
 `;
 
 const REFINE_PRODUCT_QUERY = `
@@ -193,10 +223,34 @@ const GET_CUSTOMER_CART = `
     }
 `;
 
+const GET_CUSTOMER_WISHLISTS = `
+    query customer {
+      customer {
+        wishlists {
+          id
+          name
+          items_count
+          items_v2 {
+            items {
+            id
+              product {
+              uid
+              name
+              sku
+              }
+            }
+          }
+        }
+      }
+    }
+`;
+
 export {
   ATTRIBUTE_METADATA_QUERY,
-  GET_CUSTOMER_CART,
   PRODUCT_SEARCH_QUERY,
   QUICK_SEARCH_QUERY,
   REFINE_PRODUCT_QUERY,
+  CATEGORY_QUERY,
+  GET_CUSTOMER_CART,
+  GET_CUSTOMER_WISHLISTS,
 };

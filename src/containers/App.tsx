@@ -16,11 +16,11 @@ import Shimmer from 'src/components/Shimmer';
 import { CategoryFilters } from '../components/CategoryFilters';
 import { SelectedFilters } from '../components/Facets';
 import {
-    useProducts,
-    useSearch,
-    useSensor,
-    useStore,
-    useTranslation,
+  useProducts,
+  useSearch,
+  useSensor,
+  useStore,
+  useTranslation,
 } from '../context';
 import { ProductsContainer } from './ProductsContainer';
 import { ProductsHeader } from './ProductsHeader';

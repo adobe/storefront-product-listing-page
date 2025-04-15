@@ -7,20 +7,20 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { MagentoStorefrontEvents } from '@adobe/magento-storefront-events-sdk';
-
 export {};
 
 declare global {
   interface Window {
     LiveSearchPLP: typeof import('../index');
-    magentoStorefrontEvents: MagentoStorefrontEvents;
+    adobeDataLayer: any;
   }
   const Sentry: any;
   const API_URL: string;
   const WIDGET_CONFIG_URL: string;
   const LS_API_URL: string;
-  const TEST_URL: string;
   const API_KEY: string;
   const SANDBOX_KEY: string;
+  const TEST_URL: string;
+  const FLOODGATE_CLIENT_ID: string;
+  const FLOODGATE_API_KEY: string;
 }
