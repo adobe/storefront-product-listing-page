@@ -43,7 +43,6 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
             border: !checked && isWhite ? '1px solid #ccc' : undefined,
           }}
           onClick={onClick}
-          checked={checked}
         />
       </div>
     );
@@ -59,7 +58,6 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
           className={className}
           style={style}
           onClick={onClick}
-          checked={checked}
         />
       </div>
     );
@@ -69,12 +67,7 @@ export const SwatchButton: FunctionComponent<SwatchButtonProps> = ({
   const className = `flex items-center bg-white rounded-full p-sm border border-[1.5px]h-[32px] ${outlineColor} outline-transparent`;
   return (
     <div className={`ds-sdk-swatch-button_${value}`}>
-      <button
-        key={id}
-        className={className}
-        onClick={onClick}
-        checked={checked}
-      >
+      <button key={id} className={className} onClick={onClick}>
         {value}
       </button>
     </div>

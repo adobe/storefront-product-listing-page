@@ -55,7 +55,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
     currencyRate: string | undefined
   ) => {
     const bundlePriceTranslationOrder =
-      translation.ProductCard.bundlePrice.split(' ');
+      translation.ProductCard.bundlePrice.split(/\s|&nbsp;/g);
     return bundlePriceTranslationOrder.map((word: string, index: any) =>
       word === '{fromBundlePrice}' ? (
         `${getProductPrice(item, currencySymbol, currencyRate, false, true)} `

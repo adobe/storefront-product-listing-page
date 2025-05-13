@@ -156,7 +156,7 @@ const getSearchParams = () => {
 };
 
 const setWindowHistory = (pathname: string, params: URLSearchParams) => {
-  if(params.toString() === '') {
+  if (params.toString() === '') {
     window.history.pushState({}, '', `${pathname}`);
   } else {
     window.history.pushState({}, '', `${pathname}?${params.toString()}`);
