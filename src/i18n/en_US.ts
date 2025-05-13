@@ -49,6 +49,7 @@ export const en_US = {
     products: '{totalCount} products',
   },
   ProductCard: {
+    addToCart: 'Add to Cart',
     asLowAs: 'As low as {discountPrice}',
     startingAt: 'Starting at {productPrice}',
     bundlePrice: 'From {fromBundlePrice} To {toBundlePrice}',

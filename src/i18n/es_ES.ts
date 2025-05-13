@@ -42,6 +42,7 @@ export const es_ES = {
     products: '{totalCount} productos',
   },
   ProductCard: {
+    addToCart: 'Añadir a la cesta',
     asLowAs: 'Por solo {discountPrice}',
     startingAt: 'A partir de {productPrice}',
     bundlePrice: 'Desde {fromBundlePrice} hasta {toBundlePrice}',
