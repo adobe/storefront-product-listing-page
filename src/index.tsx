@@ -22,9 +22,7 @@ import {
   StoreDetailsProps,
 } from './context/';
 import Resize from './context/displayChange';
-import { SentryProvider } from './context/sentry';
 import Translation from './context/translation';
-import { FloodgateProvider } from './utils/Floodgate';
 import { validateStoreDetailsKeys } from './utils/validateStoreDetails';
 
 /*
@@ -57,8 +55,6 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
   };
 
   render(
-    <SentryProvider>
-      <FloodgateProvider>
         <StoreContextProvider
           {...validateStoreDetailsKeys(updatedStoreDetails)}
         >
@@ -75,9 +71,7 @@ const LiveSearchPLP = ({ storeDetails, root }: MountSearchPlpProps) => {
               </Resize>
             </SearchProvider>
           </AttributeMetadataProvider>
-        </StoreContextProvider>
-      </FloodgateProvider>
-    </SentryProvider>,
+        </StoreContextProvider>,
     root
   );
 };
