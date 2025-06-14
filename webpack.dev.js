@@ -7,6 +7,7 @@ const { commonConfig, publicPaths } = require('./webpack.common.js');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
+  devtool: 'source-map',
   output: {
     publicPath: publicPaths.DEV,
   },
