@@ -12,6 +12,7 @@ const config = {
   },
   moduleDirectories: ['<rootDir>/src', 'node_modules'],
   moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less)$': 'identity-obj-proxy',
     '^components(.*)$': '<rootDir>/src/components$1',
     '^styles(.*)$': '<rootDir>/src/styles$1',
